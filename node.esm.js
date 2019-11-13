@@ -8857,7 +8857,7 @@ var $;
         /**
          *  ```
          *  Roles_org $piterjs_intro_page
-         *  	title \Орг роли
+         *  	title \Роли организаторов
          *  	text \
          *  		\Программный комитет
          *  		\Фандрайзер
@@ -8869,7 +8869,7 @@ var $;
          **/
         Roles_org() {
             return ((obj) => {
-                obj.title = () => "Орг роли";
+                obj.title = () => "Роли организаторов";
                 obj.text = () => "Программный комитет\nФандрайзер\nВидео-мастер 🔥\nДизайнер 🔥\nКомьюнити-менеджер\nМенеджер";
                 return obj;
             })(new this.$.$piterjs_intro_page());

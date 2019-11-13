@@ -3806,7 +3806,7 @@ declare namespace $ {
         /**
          *  ```
          *  Roles_org $piterjs_intro_page
-         *  	title \Орг роли
+         *  	title \Роли организаторов
          *  	text \
          *  		\Программный комитет
          *  		\Фандрайзер
