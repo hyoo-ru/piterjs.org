@@ -3872,7 +3872,7 @@ declare namespace $ {
          *  Place $piterjs_intro_page
          *  	title \Мы в JetBrains
          *  	text \
-         *  		\Вайфая, туалетов - нет
+         *  		\WiFi - JetBrains-Open
          *  		\Курить - на улицу
          *  		\Чай, кофе - за углом
          *  ```

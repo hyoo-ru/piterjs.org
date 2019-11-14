@@ -9039,7 +9039,7 @@ var $;
          *  Place $piterjs_intro_page
          *  	title \Мы в JetBrains
          *  	text \
-         *  		\Вайфая, туалетов - нет
+         *  		\WiFi - JetBrains-Open
          *  		\Курить - на улицу
          *  		\Чай, кофе - за углом
          *  ```
@@ -9047,7 +9047,7 @@ var $;
         Place() {
             return ((obj) => {
                 obj.title = () => "Мы в JetBrains";
-                obj.text = () => "Вайфая, туалетов - нет\nКурить - на улицу\nЧай, кофе - за углом";
+                obj.text = () => "WiFi - JetBrains-Open\nКурить - на улицу\nЧай, кофе - за углом";
                 return obj;
             })(new this.$.$piterjs_intro_page());
         }
