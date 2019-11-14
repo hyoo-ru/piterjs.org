@@ -3936,6 +3936,8 @@ declare namespace $ {
          *  Beer $piterjs_intro_page
          *  	title \Го в бар!
          *  	text \
+         *  		\O'Hooligans
+         *  		\Приморский 137/1
          *  		\t.me/beerjs_spb
          *  ```
          **/

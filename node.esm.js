@@ -9011,13 +9011,15 @@ var $;
          *  Beer $piterjs_intro_page
          *  	title \Го в бар!
          *  	text \
+         *  		\O'Hooligans
+         *  		\Приморский 137/1
          *  		\t.me/beerjs_spb
          *  ```
          **/
         Beer() {
             return ((obj) => {
                 obj.title = () => "Го в бар!";
-                obj.text = () => "t.me/beerjs_spb";
+                obj.text = () => "O'Hooligans\nПриморский 137/1\nt.me/beerjs_spb";
                 return obj;
             })(new this.$.$piterjs_intro_page());
         }
