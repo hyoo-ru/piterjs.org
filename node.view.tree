@@ -189,6 +189,19 @@ $piterjs_screen $mol_view
 			color <= color_close \#FFE515
 	content /$mol_view
 
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
 $mol_list $mol_view
 	sub <= rows /$mol_view
 	Empty null
@@ -221,19 +234,6 @@ $mol_icon $mol_svg_root
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
 $mol_float $mol_view
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
 
 $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
@@ -528,7 +528,7 @@ $piterjs_intro $mol_view
 	meetup $piterjs_meetup
 	page?val \
 	pages *
-		main <= Main $piterjs_intro_main
+		main <= Main $piterjs_intro_main meetup <= meetup
 		about <= About $piterjs_intro_page
 			title \Кто мы?
 			text \
@@ -625,12 +625,6 @@ $piterjs_intro_page $mol_view
 			<= Title $mol_view sub / <= title \PiterJS
 		<= Text $mol_text text <= text \
 
-$piterjs_intro_main $piterjs_intro_page
-	title \PiterJS #42
-	head /
-		<= Logo $piterjs_image link \piterjs/logo/logo.svg
-		<= Title
-
 
 $piterjs_app $mol_view
 	sub /
@@ -647,6 +641,8 @@ $piterjs_app $mol_view
 						place <= place $piterjs_place
 						title \
 						body /
+		<= Toggle_intro $mol_check
+			checked?val <=> toggle_intro?val false
 	Menu $mol_page
 		title \PiterJS
 		minimal_width 200
@@ -666,14 +662,14 @@ $piterjs_app $mol_view
 		minimal_width 600
 		place <= place $piterjs_place
 	Intro $piterjs_intro
-		meetup <= meetup_last $piterjs_meetup
+		meetup <= meetup_current $piterjs_meetup
 		page?val <=> intro?val \
 		minimal_width 9000
 
 $piterjs_link $mol_link
 	target \_blank
 	sub /
-		<= Button $mol_button_minor
+		<= Button $mol_button_major
 			title <= title
 
 $piterjs_now $mol_page
@@ -721,3 +717,11 @@ $piterjs_now $mol_page
 				<= Patreon $piterjs_link
 					uri \https://www.patreon.com/bePatron?u=16938072
 					title \Поддержать PiterJS рублём
+
+$piterjs_intro_main $piterjs_intro_page
+	meetup $piterjs_meetup
+	title \PiterJS {title}
+	head /
+		<= Logo $piterjs_image link \piterjs/logo/logo.svg
+		<= Title
+
