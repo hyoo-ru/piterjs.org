@@ -4009,121 +4009,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_list extends $.$mol_view {
-        /**
-         *  ```
-         *  sub <= rows
-         *  ```
-         **/
-        sub() {
-            return this.rows();
-        }
-        /**
-         *  ```
-         *  rows /$mol_view
-         *  ```
-         **/
-        rows() {
-            return [];
-        }
-        /**
-         *  ```
-         *  Empty null
-         *  ```
-         **/
-        Empty() {
-            return null;
-        }
-    }
-    $.$mol_list = $mol_list;
-})($ || ($ = {}));
-//list.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_list extends $.$mol_list {
-            sub() {
-                const rows = this.rows();
-                return (rows.length === 0) ? [this.Empty()] : rows;
-            }
-            row_offsets() {
-                var sub = this.sub();
-                let heightLimit = this.$.$mol_view_visible_height();
-                var offset = 0;
-                var next = [];
-                for (let child of sub) {
-                    next.push(offset);
-                    if (child instanceof $.$mol_view) {
-                        offset += child.minimal_height();
-                    }
-                    if (offset > heightLimit)
-                        break;
-                }
-                return next;
-            }
-            row_context(index) {
-                return this.$.$mol_ambient({
-                    $mol_view_visible_height: () => this.$.$mol_view_visible_height() - this.row_offsets()[index],
-                });
-            }
-            sub_visible() {
-                var sub = this.sub();
-                if (!sub)
-                    return sub;
-                for (let i = 0; i < sub.length; ++i) {
-                    const child = sub[i];
-                    if (child instanceof $.$mol_view) {
-                        child.$ = this.row_context(i);
-                    }
-                }
-                var limit = this.row_offsets().length;
-                var next = [];
-                for (let i = 0; i < limit; ++i) {
-                    const child = sub[i];
-                    if (child == null)
-                        continue;
-                    next.push(child);
-                }
-                return next;
-            }
-            minimal_height() {
-                var height = 0;
-                var sub = this.sub();
-                if (sub)
-                    sub.forEach((child) => {
-                        if (child instanceof $.$mol_view) {
-                            height += child.minimal_height();
-                        }
-                    });
-                return height;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "sub", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "row_offsets", null);
-        __decorate([
-            $.$mol_mem_key
-        ], $mol_list.prototype, "row_context", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "sub_visible", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "minimal_height", null);
-        $$.$mol_list = $mol_list;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//list.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
     function $mol_diff_path(...paths) {
         const limit = Math.min(...paths.map(path => path.length));
         lookup: for (var i = 0; i < limit; ++i) {
@@ -4790,7 +4675,6 @@ var $;
             return model;
         }
         static list() {
-            this.data();
             return $.$mol_data_array(id => this.item(id));
         }
         static all() {
@@ -4799,13 +4683,11 @@ var $;
         static data() {
             const tree = $.$mol_tree.fromString(this.$.$mol_http.resource(this.uri()).text());
             const json = new $.$mol_tree({ type: '*', sub: tree.sub }).toJSON();
-            for (const id in json) {
-                this.item(id).data(json[id]);
-            }
             return json;
         }
         data(next) {
-            return next;
+            const Model = this.constructor;
+            return Model.data()[this.id()];
         }
     };
     __decorate([
@@ -4829,6 +4711,30 @@ var $;
     $.$piterjs_model = $piterjs_model;
 })($ || ($ = {}));
 //model.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_optional(sub) {
+        return $.$mol_data_setup((val) => {
+            if (val === undefined)
+                return undefined;
+            return sub(val);
+        }, sub);
+    }
+    $.$mol_data_optional = $mol_data_optional;
+})($ || ($ = {}));
+//optional.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_wrapper(pre, Obj) {
+        return $.$mol_data_setup((val) => new Obj(pre(val)), { pre, Obj });
+    }
+    $.$mol_data_wrapper = $mol_data_wrapper;
+})($ || ($ = {}));
+//wrapper.js.map
 ;
 "use strict";
 var $;
@@ -5302,20 +5208,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_data_optional(sub) {
-        return $.$mol_data_setup((val) => {
-            if (val === undefined)
-                return undefined;
-            return sub(val);
-        }, sub);
-    }
-    $.$mol_data_optional = $mol_data_optional;
-})($ || ($ = {}));
-//optional.js.map
-;
-"use strict";
-var $;
-(function ($) {
     let $piterjs_speaker = class $piterjs_speaker extends $.$piterjs_model {
         static uri() {
             return 'piterjs/speaker/speaker.data.tree';
@@ -5378,7 +5270,6 @@ var $;
             return new $.$mol_time_duration($.$mol_data_string(this.data().duration));
         }
         speaker() {
-            this.$.$piterjs_speaker.data();
             return this.$.$piterjs_speaker.item(this.data().speaker);
         }
     };
@@ -5432,6 +5323,12 @@ var $;
         speeches() {
             return this.$.$piterjs_speech.list()(this.data().speeches);
         }
+        place() {
+            return this.$.$piterjs_place.item(this.data().place);
+        }
+        afterparty() {
+            return $.$mol_data_optional($.$mol_data_string)(this.data().afterparty) || '';
+        }
     };
     __decorate([
         $.$mol_mem
@@ -5448,12 +5345,601 @@ var $;
     __decorate([
         $.$mol_mem
     ], $piterjs_meetup.prototype, "speeches", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "place", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "afterparty", null);
     $piterjs_meetup = __decorate([
         $.$mol_class
     ], $piterjs_meetup);
     $.$piterjs_meetup = $piterjs_meetup;
 })($ || ($ = {}));
 //meetup.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $piterjs_place = class $piterjs_place extends $.$piterjs_model {
+        static uri() {
+            return 'piterjs/place/place.data.tree';
+        }
+        title() {
+            return $.$mol_data_string(this.data().title);
+        }
+        description() {
+            return $.$mol_data_string(this.data().description);
+        }
+        notes() {
+            return $.$mol_data_optional($.$mol_data_string)(this.data().notes) || '';
+        }
+        site() {
+            return $.$mol_data_wrapper($.$mol_data_string, URL)(this.data().site);
+        }
+        address() {
+            return $.$mol_data_string(this.data().address);
+        }
+        colors() {
+            return $.$mol_data_array($.$mol_data_string)(this.data().colors);
+        }
+        meetups() {
+            return this.$.$piterjs_meetup.all().filter(speech => speech.place() === this);
+        }
+    };
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "title", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "description", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "notes", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "site", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "address", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "colors", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_place.prototype, "meetups", null);
+    $piterjs_place = __decorate([
+        $.$mol_class
+    ], $piterjs_place);
+    $.$piterjs_place = $piterjs_place;
+})($ || ($ = {}));
+//place.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_time extends $.$mol_object {
+        static now(precision = 0, next) {
+            if (precision > 0) {
+                new $.$mol_after_timeout(precision, $.$mol_atom2.current.fresh);
+            }
+            else {
+                new $.$mol_after_frame($.$mol_atom2.current.fresh);
+            }
+            return Date.now();
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_state_time, "now", null);
+    $.$mol_state_time = $mol_state_time;
+})($ || ($ = {}));
+//time.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let canvas;
+    function $mol_font_canvas(next = canvas) {
+        if (!next)
+            next = $.$mol_dom_context.document.createElement('canvas').getContext('2d');
+        return canvas = next;
+    }
+    $.$mol_font_canvas = $mol_font_canvas;
+})($ || ($ = {}));
+//canvas.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_font_measure(size, face, text) {
+        const canvas = $.$mol_font_canvas();
+        canvas.font = size + 'px ' + face;
+        return canvas.measureText(text).width;
+    }
+    $.$mol_font_measure = $mol_font_measure;
+})($ || ($ = {}));
+//measure.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg extends $.$mol_view {
+        /**
+         *  ```
+         *  dom_name \svg
+         *  ```
+         **/
+        dom_name() {
+            return "svg";
+        }
+        /**
+         *  ```
+         *  dom_name_space \http://www.w3.org/2000/svg
+         *  ```
+         **/
+        dom_name_space() {
+            return "http://www.w3.org/2000/svg";
+        }
+        /**
+         *  ```
+         *  text_width?text 0
+         *  ```
+         **/
+        text_width(text, force) {
+            return (text !== void 0) ? text : 0;
+        }
+        /**
+         *  ```
+         *  font_size 16
+         *  ```
+         **/
+        font_size() {
+            return 16;
+        }
+        /**
+         *  ```
+         *  font_family \
+         *  ```
+         **/
+        font_family() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_svg.prototype, "text_width", null);
+    $.$mol_svg = $mol_svg;
+})($ || ($ = {}));
+//svg.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg extends $.$mol_svg {
+            computed_style() {
+                const win = this.$.$mol_dom_context;
+                const style = win.getComputedStyle(this.dom_node());
+                if (!style['font-size'])
+                    $.$mol_state_time.now();
+                return style;
+            }
+            font_size() {
+                return parseInt(this.computed_style()['font-size']) || 16;
+            }
+            font_family() {
+                return this.computed_style()['font-family'];
+            }
+            text_width(text) {
+                return $.$mol_font_measure(this.font_size(), this.font_family(), text);
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg.prototype, "computed_style", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg.prototype, "font_size", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg.prototype, "font_family", null);
+        $$.$mol_svg = $mol_svg;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//svg.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_root extends $.$mol_svg {
+        /**
+         *  ```
+         *  dom_name \svg
+         *  ```
+         **/
+        dom_name() {
+            return "svg";
+        }
+        /**
+         *  ```
+         *  attr *
+         *  	^
+         *  	viewBox <= view_box
+         *  	preserveAspectRatio <= aspect
+         *  ```
+         **/
+        attr() {
+            return (Object.assign(Object.assign({}, super.attr()), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
+        }
+        /**
+         *  ```
+         *  view_box \0 0 100 100
+         *  ```
+         **/
+        view_box() {
+            return "0 0 100 100";
+        }
+        /**
+         *  ```
+         *  aspect \xMidYMid
+         *  ```
+         **/
+        aspect() {
+            return "xMidYMid";
+        }
+    }
+    $.$mol_svg_root = $mol_svg_root;
+})($ || ($ = {}));
+//root.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_path extends $.$mol_svg {
+        /**
+         *  ```
+         *  dom_name \path
+         *  ```
+         **/
+        dom_name() {
+            return "path";
+        }
+        /**
+         *  ```
+         *  attr *
+         *  	^
+         *  	d <= geometry
+         *  ```
+         **/
+        attr() {
+            return (Object.assign(Object.assign({}, super.attr()), { "d": this.geometry() }));
+        }
+        /**
+         *  ```
+         *  geometry \
+         *  ```
+         **/
+        geometry() {
+            return "";
+        }
+    }
+    $.$mol_svg_path = $mol_svg_path;
+})($ || ($ = {}));
+//path.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $piterjs_screen_lines extends $.$mol_svg_root {
+        /**
+         *  ```
+         *  style * fill <= color
+         *  ```
+         **/
+        style() {
+            return ({
+                "fill": this.color(),
+            });
+        }
+        /**
+         *  ```
+         *  color \#FFE515
+         *  ```
+         **/
+        color() {
+            return "#FFE515";
+        }
+        /**
+         *  ```
+         *  view_box \0 0 310 246
+         *  ```
+         **/
+        view_box() {
+            return "0 0 310 246";
+        }
+        /**
+         *  ```
+         *  sub /
+         *  	<= First
+         *  	<= Second
+         *  	<= Third
+         *  ```
+         **/
+        sub() {
+            return [this.First(), this.Second(), this.Third()];
+        }
+        /**
+         *  ```
+         *  First $mol_svg_path geometry \M56 9.00002L-1.5605e-05 67.5L-1.31571e-05 95.5L56 36.5L56 9.00002Z
+         *  ```
+         **/
+        First() {
+            return ((obj) => {
+                obj.geometry = () => "M56 9.00002L-1.5605e-05 67.5L-1.31571e-05 95.5L56 36.5L56 9.00002Z ";
+                return obj;
+            })(new this.$.$mol_svg_path());
+        }
+        /**
+         *  ```
+         *  Second $mol_svg_path geometry \M148.5 1.40751e-05L-7.6932e-06 158L0 246L238 6.25073e-06L148.5 1.40751e-05Z
+         *  ```
+         **/
+        Second() {
+            return ((obj) => {
+                obj.geometry = () => "M148.5 1.40751e-05L-7.6932e-06 158L0 246L238 6.25073e-06L148.5 1.40751e-05Z";
+                return obj;
+            })(new this.$.$mol_svg_path());
+        }
+        /**
+         *  ```
+         *  Third $mol_svg_path geometry \M167.5 152.5L167.5 108L268 3.62805e-06L309.5 0L167.5 152.5Z
+         *  ```
+         **/
+        Third() {
+            return ((obj) => {
+                obj.geometry = () => "M167.5 152.5L167.5 108L268 3.62805e-06L309.5 0L167.5 152.5Z";
+                return obj;
+            })(new this.$.$mol_svg_path());
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_screen_lines.prototype, "First", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_screen_lines.prototype, "Second", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_screen_lines.prototype, "Third", null);
+    $.$piterjs_screen_lines = $piterjs_screen_lines;
+})($ || ($ = {}));
+//lines.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $piterjs_screen extends $.$mol_view {
+        /**
+         *  ```
+         *  place $piterjs_place
+         *  ```
+         **/
+        place() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_place());
+        }
+        /**
+         *  ```
+         *  sub /
+         *  	<= Open
+         *  	<= Close
+         *  ```
+         **/
+        sub() {
+            return [this.Open(), this.Close()];
+        }
+        /**
+         *  ```
+         *  Open $piterjs_screen_lines color <= color_open
+         *  ```
+         **/
+        Open() {
+            return ((obj) => {
+                obj.color = () => this.color_open();
+                return obj;
+            })(new this.$.$piterjs_screen_lines());
+        }
+        /**
+         *  ```
+         *  color_open \#FFE515
+         *  ```
+         **/
+        color_open() {
+            return "#FFE515";
+        }
+        /**
+         *  ```
+         *  Close $piterjs_screen_lines color <= color_close
+         *  ```
+         **/
+        Close() {
+            return ((obj) => {
+                obj.color = () => this.color_close();
+                return obj;
+            })(new this.$.$piterjs_screen_lines());
+        }
+        /**
+         *  ```
+         *  color_close \#FFE515
+         *  ```
+         **/
+        color_close() {
+            return "#FFE515";
+        }
+        /**
+         *  ```
+         *  content /$mol_view
+         *  ```
+         **/
+        content() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_screen.prototype, "place", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_screen.prototype, "Open", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_screen.prototype, "Close", null);
+    $.$piterjs_screen = $piterjs_screen;
+})($ || ($ = {}));
+//screen.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $piterjs_screen extends $.$piterjs_screen {
+            color_open() {
+                return this.place().colors()[0];
+            }
+            color_close() {
+                return this.place().colors()[1] || this.color_open();
+            }
+            sub() {
+                return [
+                    this.Open(),
+                    this.Close(),
+                    ...this.content(),
+                ];
+            }
+        }
+        $$.$piterjs_screen = $piterjs_screen;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//screen.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_list extends $.$mol_view {
+        /**
+         *  ```
+         *  sub <= rows
+         *  ```
+         **/
+        sub() {
+            return this.rows();
+        }
+        /**
+         *  ```
+         *  rows /$mol_view
+         *  ```
+         **/
+        rows() {
+            return [];
+        }
+        /**
+         *  ```
+         *  Empty null
+         *  ```
+         **/
+        Empty() {
+            return null;
+        }
+    }
+    $.$mol_list = $mol_list;
+})($ || ($ = {}));
+//list.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_list extends $.$mol_list {
+            sub() {
+                const rows = this.rows();
+                return (rows.length === 0) ? [this.Empty()] : rows;
+            }
+            row_offsets() {
+                var sub = this.sub();
+                let heightLimit = this.$.$mol_view_visible_height();
+                var offset = 0;
+                var next = [];
+                for (let child of sub) {
+                    next.push(offset);
+                    if (child instanceof $.$mol_view) {
+                        offset += child.minimal_height();
+                    }
+                    if (offset > heightLimit)
+                        break;
+                }
+                return next;
+            }
+            row_context(index) {
+                return this.$.$mol_ambient({
+                    $mol_view_visible_height: () => this.$.$mol_view_visible_height() - this.row_offsets()[index],
+                });
+            }
+            sub_visible() {
+                var sub = this.sub();
+                if (!sub)
+                    return sub;
+                for (let i = 0; i < sub.length; ++i) {
+                    const child = sub[i];
+                    if (child instanceof $.$mol_view) {
+                        child.$ = this.row_context(i);
+                    }
+                }
+                var limit = this.row_offsets().length;
+                var next = [];
+                for (let i = 0; i < limit; ++i) {
+                    const child = sub[i];
+                    if (child == null)
+                        continue;
+                    next.push(child);
+                }
+                return next;
+            }
+            minimal_height() {
+                var height = 0;
+                var sub = this.sub();
+                if (sub)
+                    sub.forEach((child) => {
+                        if (child instanceof $.$mol_view) {
+                            height += child.minimal_height();
+                        }
+                    });
+                return height;
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "sub", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "row_offsets", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $mol_list.prototype, "row_context", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "sub_visible", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "minimal_height", null);
+        $$.$mol_list = $mol_list;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//list.view.js.map
 ;
 "use strict";
 var $;
@@ -5703,220 +6189,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //link.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_time extends $.$mol_object {
-        static now(precision = 0, next) {
-            if (precision > 0) {
-                new $.$mol_after_timeout(precision, $.$mol_atom2.current.fresh);
-            }
-            else {
-                new $.$mol_after_frame($.$mol_atom2.current.fresh);
-            }
-            return Date.now();
-        }
-    }
-    __decorate([
-        $.$mol_mem_key
-    ], $mol_state_time, "now", null);
-    $.$mol_state_time = $mol_state_time;
-})($ || ($ = {}));
-//time.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    let canvas;
-    function $mol_font_canvas(next = canvas) {
-        if (!next)
-            next = $.$mol_dom_context.document.createElement('canvas').getContext('2d');
-        return canvas = next;
-    }
-    $.$mol_font_canvas = $mol_font_canvas;
-})($ || ($ = {}));
-//canvas.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_font_measure(size, face, text) {
-        const canvas = $.$mol_font_canvas();
-        canvas.font = size + 'px ' + face;
-        return canvas.measureText(text).width;
-    }
-    $.$mol_font_measure = $mol_font_measure;
-})($ || ($ = {}));
-//measure.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg extends $.$mol_view {
-        /**
-         *  ```
-         *  dom_name \svg
-         *  ```
-         **/
-        dom_name() {
-            return "svg";
-        }
-        /**
-         *  ```
-         *  dom_name_space \http://www.w3.org/2000/svg
-         *  ```
-         **/
-        dom_name_space() {
-            return "http://www.w3.org/2000/svg";
-        }
-        /**
-         *  ```
-         *  text_width?text 0
-         *  ```
-         **/
-        text_width(text, force) {
-            return (text !== void 0) ? text : 0;
-        }
-        /**
-         *  ```
-         *  font_size 16
-         *  ```
-         **/
-        font_size() {
-            return 16;
-        }
-        /**
-         *  ```
-         *  font_family \
-         *  ```
-         **/
-        font_family() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_svg.prototype, "text_width", null);
-    $.$mol_svg = $mol_svg;
-})($ || ($ = {}));
-//svg.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_svg extends $.$mol_svg {
-            computed_style() {
-                const win = this.$.$mol_dom_context;
-                const style = win.getComputedStyle(this.dom_node());
-                if (!style['font-size'])
-                    $.$mol_state_time.now();
-                return style;
-            }
-            font_size() {
-                return parseInt(this.computed_style()['font-size']) || 16;
-            }
-            font_family() {
-                return this.computed_style()['font-family'];
-            }
-            text_width(text) {
-                return $.$mol_font_measure(this.font_size(), this.font_family(), text);
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_svg.prototype, "computed_style", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_svg.prototype, "font_size", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_svg.prototype, "font_family", null);
-        $$.$mol_svg = $mol_svg;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//svg.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_root extends $.$mol_svg {
-        /**
-         *  ```
-         *  dom_name \svg
-         *  ```
-         **/
-        dom_name() {
-            return "svg";
-        }
-        /**
-         *  ```
-         *  attr *
-         *  	^
-         *  	viewBox <= view_box
-         *  	preserveAspectRatio <= aspect
-         *  ```
-         **/
-        attr() {
-            return (Object.assign(Object.assign({}, super.attr()), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
-        }
-        /**
-         *  ```
-         *  view_box \0 0 100 100
-         *  ```
-         **/
-        view_box() {
-            return "0 0 100 100";
-        }
-        /**
-         *  ```
-         *  aspect \xMidYMid
-         *  ```
-         **/
-        aspect() {
-            return "xMidYMid";
-        }
-    }
-    $.$mol_svg_root = $mol_svg_root;
-})($ || ($ = {}));
-//root.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_path extends $.$mol_svg {
-        /**
-         *  ```
-         *  dom_name \path
-         *  ```
-         **/
-        dom_name() {
-            return "path";
-        }
-        /**
-         *  ```
-         *  attr *
-         *  	^
-         *  	d <= geometry
-         *  ```
-         **/
-        attr() {
-            return (Object.assign(Object.assign({}, super.attr()), { "d": this.geometry() }));
-        }
-        /**
-         *  ```
-         *  geometry \
-         *  ```
-         **/
-        geometry() {
-            return "";
-        }
-    }
-    $.$mol_svg_path = $mol_svg_path;
-})($ || ($ = {}));
-//path.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -9190,94 +9462,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $piterjs_intro_lines extends $.$mol_svg_root {
-        /**
-         *  ```
-         *  style * fill <= color
-         *  ```
-         **/
-        style() {
-            return ({
-                "fill": this.color(),
-            });
-        }
-        /**
-         *  ```
-         *  color \#FFE515
-         *  ```
-         **/
-        color() {
-            return "#FFE515";
-        }
-        /**
-         *  ```
-         *  view_box \0 0 310 246
-         *  ```
-         **/
-        view_box() {
-            return "0 0 310 246";
-        }
-        /**
-         *  ```
-         *  sub /
-         *  	<= First
-         *  	<= Second
-         *  	<= Third
-         *  ```
-         **/
-        sub() {
-            return [this.First(), this.Second(), this.Third()];
-        }
-        /**
-         *  ```
-         *  First $mol_svg_path geometry \M56 9.00002L-1.5605e-05 67.5L-1.31571e-05 95.5L56 36.5L56 9.00002Z
-         *  ```
-         **/
-        First() {
-            return ((obj) => {
-                obj.geometry = () => "M56 9.00002L-1.5605e-05 67.5L-1.31571e-05 95.5L56 36.5L56 9.00002Z ";
-                return obj;
-            })(new this.$.$mol_svg_path());
-        }
-        /**
-         *  ```
-         *  Second $mol_svg_path geometry \M148.5 1.40751e-05L-7.6932e-06 158L0 246L238 6.25073e-06L148.5 1.40751e-05Z
-         *  ```
-         **/
-        Second() {
-            return ((obj) => {
-                obj.geometry = () => "M148.5 1.40751e-05L-7.6932e-06 158L0 246L238 6.25073e-06L148.5 1.40751e-05Z";
-                return obj;
-            })(new this.$.$mol_svg_path());
-        }
-        /**
-         *  ```
-         *  Third $mol_svg_path geometry \M167.5 152.5L167.5 108L268 3.62805e-06L309.5 0L167.5 152.5Z
-         *  ```
-         **/
-        Third() {
-            return ((obj) => {
-                obj.geometry = () => "M167.5 152.5L167.5 108L268 3.62805e-06L309.5 0L167.5 152.5Z";
-                return obj;
-            })(new this.$.$mol_svg_path());
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $piterjs_intro_lines.prototype, "First", null);
-    __decorate([
-        $.$mol_mem
-    ], $piterjs_intro_lines.prototype, "Second", null);
-    __decorate([
-        $.$mol_mem
-    ], $piterjs_intro_lines.prototype, "Third", null);
-    $.$piterjs_intro_lines = $piterjs_intro_lines;
-})($ || ($ = {}));
-//intro.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_nav extends $.$mol_plugin {
         /**
          *  ```
@@ -9532,11 +9716,13 @@ var $;
         }
         /**
          *  ```
-         *  meetups /
+         *  meetup $piterjs_meetup
          *  ```
          **/
-        meetups() {
-            return [];
+        meetup() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_meetup());
         }
         /**
          *  ```
@@ -9560,7 +9746,7 @@ var $;
          *  	profit <= Proft
          *  	info <= Info
          *  	follow <= Follow
-         *  	beer <= Beer
+         *  	afterparty <= Afterparty
          *  ```
          **/
         pages() {
@@ -9576,7 +9762,7 @@ var $;
                 "profit": this.Proft(),
                 "info": this.Info(),
                 "follow": this.Follow(),
-                "beer": this.Beer(),
+                "afterparty": this.Afterparty(),
             });
         }
         /**
@@ -9686,19 +9872,32 @@ var $;
         /**
          *  ```
          *  Place $piterjs_intro_page
-         *  	title \Мы в JetBrains
-         *  	text \
-         *  		\WiFi - JetBrains-Open
-         *  		\Курить - на улицу
-         *  		\Чай, кофе - за углом
+         *  	title <= place_title
+         *  	text <= place_notes
          *  ```
          **/
         Place() {
             return ((obj) => {
-                obj.title = () => "Мы в JetBrains";
-                obj.text = () => "WiFi - JetBrains-Open\nКурить - на улицу\nЧай, кофе - за углом";
+                obj.title = () => this.place_title();
+                obj.text = () => this.place_notes();
                 return obj;
             })(new this.$.$piterjs_intro_page());
+        }
+        /**
+         *  ```
+         *  place_title \Мы в {place}
+         *  ```
+         **/
+        place_title() {
+            return "Мы в {place}";
+        }
+        /**
+         *  ```
+         *  place_notes \
+         *  ```
+         **/
+        place_notes() {
+            return "";
         }
         /**
          *  ```
@@ -9779,69 +9978,57 @@ var $;
         }
         /**
          *  ```
-         *  Beer $piterjs_intro_page
+         *  Afterparty $piterjs_intro_page
          *  	title \Го в бар!
-         *  	text \
-         *  		\O'Hooligans
-         *  		\Приморский 137/1
-         *  		\t.me/beerjs_spb
+         *  	text <= afterparty
          *  ```
          **/
-        Beer() {
+        Afterparty() {
             return ((obj) => {
                 obj.title = () => "Го в бар!";
-                obj.text = () => "O'Hooligans\nПриморский 137/1\nt.me/beerjs_spb";
+                obj.text = () => this.afterparty();
                 return obj;
             })(new this.$.$piterjs_intro_page());
         }
         /**
          *  ```
-         *  sub /
-         *  	<= Lines_open
-         *  	<= Lines_close
-         *  	<= Page
+         *  afterparty \
+         *  ```
+         **/
+        afterparty() {
+            return "";
+        }
+        /**
+         *  ```
+         *  sub / <= Screen
          *  ```
          **/
         sub() {
-            return [this.Lines_open(), this.Lines_close(), this.Page()];
+            return [this.Screen()];
         }
         /**
          *  ```
-         *  Lines_open $piterjs_intro_lines color <= brand_1
+         *  Screen $piterjs_screen
+         *  	place <= place
+         *  	content / <= Page
          *  ```
          **/
-        Lines_open() {
+        Screen() {
             return ((obj) => {
-                obj.color = () => this.brand_1();
+                obj.place = () => this.place();
+                obj.content = () => [this.Page()];
                 return obj;
-            })(new this.$.$piterjs_intro_lines());
+            })(new this.$.$piterjs_screen());
         }
         /**
          *  ```
-         *  brand_1 \#C14989
+         *  place $piterjs_place
          *  ```
          **/
-        brand_1() {
-            return "#C14989";
-        }
-        /**
-         *  ```
-         *  Lines_close $piterjs_intro_lines color <= brand_2
-         *  ```
-         **/
-        Lines_close() {
+        place() {
             return ((obj) => {
-                obj.color = () => this.brand_2();
                 return obj;
-            })(new this.$.$piterjs_intro_lines());
-        }
-        /**
-         *  ```
-         *  brand_2 \#E8863F
-         *  ```
-         **/
-        brand_2() {
-            return "#E8863F";
+            })(new this.$.$piterjs_place());
         }
         /**
          *  ```
@@ -9890,6 +10077,9 @@ var $;
     }
     __decorate([
         $.$mol_mem
+    ], $piterjs_intro.prototype, "meetup", null);
+    __decorate([
+        $.$mol_mem
     ], $piterjs_intro.prototype, "page", null);
     __decorate([
         $.$mol_mem
@@ -9926,13 +10116,13 @@ var $;
     ], $piterjs_intro.prototype, "Follow", null);
     __decorate([
         $.$mol_mem
-    ], $piterjs_intro.prototype, "Beer", null);
+    ], $piterjs_intro.prototype, "Afterparty", null);
     __decorate([
         $.$mol_mem
-    ], $piterjs_intro.prototype, "Lines_open", null);
+    ], $piterjs_intro.prototype, "Screen", null);
     __decorate([
         $.$mol_mem
-    ], $piterjs_intro.prototype, "Lines_close", null);
+    ], $piterjs_intro.prototype, "place", null);
     __decorate([
         $.$mol_mem
     ], $piterjs_intro.prototype, "Page", null);
@@ -10073,7 +10263,22 @@ var $;
             Page() {
                 return this.pages()[this.page() || 'main'];
             }
+            place() {
+                return this.meetup().place();
+            }
+            place_title() {
+                return super.place_title().replace('{place}', this.place().title());
+            }
+            place_notes() {
+                return this.place().notes();
+            }
+            afterparty() {
+                return this.meetup().afterparty();
+            }
         }
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_intro.prototype, "place_title", null);
         $$.$piterjs_intro = $piterjs_intro;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -10082,7 +10287,87 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $piterjs_app extends $.$mol_book {
+    class $piterjs_app extends $.$mol_view {
+        /**
+         *  ```
+         *  sub / <= Screen
+         *  ```
+         **/
+        sub() {
+            return [this.Screen()];
+        }
+        /**
+         *  ```
+         *  Screen $piterjs_screen
+         *  	place <= place
+         *  	Open null
+         *  	content / <= Book
+         *  ```
+         **/
+        Screen() {
+            return ((obj) => {
+                obj.place = () => this.place();
+                obj.Open = () => null;
+                obj.content = () => [this.Book()];
+                return obj;
+            })(new this.$.$piterjs_screen());
+        }
+        /**
+         *  ```
+         *  place $piterjs_place
+         *  ```
+         **/
+        place() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_place());
+        }
+        event_front_up(val) {
+            return this.Book().event_front_up(val);
+        }
+        /**
+         *  ```
+         *  Book $mol_book
+         *  	pages <= pages
+         *  	event_front_up?val => event_front_up?val
+         *  	Placeholder <= Placeholder
+         *  ```
+         **/
+        Book() {
+            return ((obj) => {
+                obj.pages = () => this.pages();
+                obj.Placeholder = () => this.Placeholder();
+                return obj;
+            })(new this.$.$mol_book());
+        }
+        /**
+         *  ```
+         *  pages /any
+         *  ```
+         **/
+        pages() {
+            return [];
+        }
+        /**
+         *  ```
+         *  Placeholder $piterjs_now
+         *  	event_top?val <=> event_front_up?val
+         *  	minimal_width 400
+         *  	place <= place
+         *  	title \
+         *  	body /
+         *  ```
+         **/
+        Placeholder() {
+            return ((obj) => {
+                obj.event_top = (val) => this.event_front_up(val);
+                obj.minimal_width = () => 400;
+                obj.place = () => this.place();
+                obj.title = () => "";
+                obj.body = () => [];
+                return obj;
+            })(new this.$.$piterjs_now());
+        }
         /**
          *  ```
          *  Menu $mol_page
@@ -10184,28 +10469,42 @@ var $;
          *  Now $piterjs_now
          *  	event_top?val <=> event_front_up?val
          *  	minimal_width 600
+         *  	place <= place
          *  ```
          **/
         Now() {
             return ((obj) => {
                 obj.event_top = (val) => this.event_front_up(val);
                 obj.minimal_width = () => 600;
+                obj.place = () => this.place();
                 return obj;
             })(new this.$.$piterjs_now());
         }
         /**
          *  ```
          *  Intro $piterjs_intro
+         *  	meetup <= meetup_last
          *  	page?val <=> intro?val
          *  	minimal_width 9000
          *  ```
          **/
         Intro() {
             return ((obj) => {
+                obj.meetup = () => this.meetup_last();
                 obj.page = (val) => this.intro(val);
                 obj.minimal_width = () => 9000;
                 return obj;
             })(new this.$.$piterjs_intro());
+        }
+        /**
+         *  ```
+         *  meetup_last $piterjs_meetup
+         *  ```
+         **/
+        meetup_last() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_meetup());
         }
         /**
          *  ```
@@ -10215,25 +10514,19 @@ var $;
         intro(val, force) {
             return (val !== void 0) ? val : "";
         }
-        /**
-         *  ```
-         *  Placeholder $piterjs_now
-         *  	event_top?val <=> event_front_up?val
-         *  	minimal_width 400
-         *  	title \
-         *  	body /
-         *  ```
-         **/
-        Placeholder() {
-            return ((obj) => {
-                obj.event_top = (val) => this.event_front_up(val);
-                obj.minimal_width = () => 400;
-                obj.title = () => "";
-                obj.body = () => [];
-                return obj;
-            })(new this.$.$piterjs_now());
-        }
     }
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_app.prototype, "Screen", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_app.prototype, "place", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_app.prototype, "Book", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_app.prototype, "Placeholder", null);
     __decorate([
         $.$mol_mem
     ], $piterjs_app.prototype, "Menu", null);
@@ -10263,10 +10556,10 @@ var $;
     ], $piterjs_app.prototype, "Intro", null);
     __decorate([
         $.$mol_mem
-    ], $piterjs_app.prototype, "intro", null);
+    ], $piterjs_app.prototype, "meetup_last", null);
     __decorate([
         $.$mol_mem
-    ], $piterjs_app.prototype, "Placeholder", null);
+    ], $piterjs_app.prototype, "intro", null);
     $.$piterjs_app = $piterjs_app;
 })($ || ($ = {}));
 //app.view.tree.js.map
@@ -10299,10 +10592,20 @@ var $;
             Placeholder() {
                 return this.meetup_id() ? super.Placeholder() : null;
             }
-            menu_meetups() {
+            meetups() {
                 return this.$.$piterjs_meetup.all().slice()
-                    .sort((a, b) => b.start().valueOf() - a.start().valueOf())
-                    .map(meetup => this.Menu_meetup(meetup.id()));
+                    .sort((a, b) => b.start().valueOf() - a.start().valueOf());
+            }
+            meetup_last() {
+                return this.meetups()[0];
+            }
+            place() {
+                const id = this.meetup_id();
+                const meetup = id ? this.meetup(id) : this.meetup_last();
+                return meetup.place();
+            }
+            menu_meetups() {
+                return this.meetups().map(meetup => this.Menu_meetup(meetup.id()));
             }
             menu_meetup(id) { return this.meetup(id); }
             menu_meetup_id(id) { return id; }
@@ -10319,6 +10622,12 @@ var $;
         __decorate([
             $.$mol_mem
         ], $piterjs_app.prototype, "pages", null);
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_app.prototype, "meetups", null);
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_app.prototype, "place", null);
         __decorate([
             $.$mol_mem
         ], $piterjs_app.prototype, "menu_meetups", null);
@@ -10565,14 +10874,40 @@ var $;
         }
         /**
          *  ```
-         *  body /
-         *  	<= Logo
-         *  	<= Join
-         *  	<= Patreon
+         *  body / <= Screen
          *  ```
          **/
         body() {
-            return [this.Logo(), this.Join(), this.Patreon()];
+            return [this.Screen()];
+        }
+        /**
+         *  ```
+         *  Screen $piterjs_screen
+         *  	place <= place
+         *  	Close null
+         *  	content /
+         *  		<= Logo
+         *  		<= Join
+         *  		<= Patreon
+         *  ```
+         **/
+        Screen() {
+            return ((obj) => {
+                obj.place = () => this.place();
+                obj.Close = () => null;
+                obj.content = () => [this.Logo(), this.Join(), this.Patreon()];
+                return obj;
+            })(new this.$.$piterjs_screen());
+        }
+        /**
+         *  ```
+         *  place $piterjs_place
+         *  ```
+         **/
+        place() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_place());
         }
         /**
          *  ```
@@ -10647,6 +10982,12 @@ var $;
     __decorate([
         $.$mol_mem
     ], $piterjs_now.prototype, "Medium_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_now.prototype, "Screen", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_now.prototype, "place", null);
     __decorate([
         $.$mol_mem
     ], $piterjs_now.prototype, "Logo", null);
@@ -12708,6 +13049,103 @@ var $;
 var $;
 (function ($) {
     $.$mol_test({
+        'Is not present'() {
+            $.$mol_data_optional($.$mol_data_number)(undefined);
+        },
+        'Is present'() {
+            $.$mol_data_optional($.$mol_data_number)(0);
+        },
+        'Is null'() {
+            $.$mol_assert_fail(() => {
+                const Type = $.$mol_data_optional($.$mol_data_number);
+                Type(null);
+            }, 'object is not a number');
+        },
+    });
+})($ || ($ = {}));
+//optional.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is first'() {
+            $.$mol_data_variant($.$mol_data_number, $.$mol_data_string)(0);
+        },
+        'Is second'() {
+            $.$mol_data_variant($.$mol_data_number, $.$mol_data_string)('');
+        },
+        'Is false'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_variant($.$mol_data_number, $.$mol_data_string)(false);
+            }, 'false is not any of variants\nboolean is not a number\nboolean is not a string');
+        },
+    });
+})($ || ($ = {}));
+//variant.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_variant(...sub) {
+        return $.$mol_data_setup((val) => {
+            const errors = [];
+            for (const type of sub) {
+                let hidden = $.$mol_fail_hidden;
+                try {
+                    $.$mol_fail = $.$mol_fail_hidden;
+                    return type(val);
+                }
+                catch (error) {
+                    $.$mol_fail = hidden;
+                    if (error instanceof $.$mol_data_error) {
+                        errors.push(error);
+                    }
+                    else {
+                        return $.$mol_fail_hidden(error);
+                    }
+                }
+            }
+            return $.$mol_fail(new $.$mol_data_error(`${val} is not any of variants`, ...errors));
+        }, sub);
+    }
+    $.$mol_data_variant = $mol_data_variant;
+})($ || ($ = {}));
+//variant.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is integer'() {
+            $.$mol_data_integer(0);
+        },
+        'Is float'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_integer(1.1);
+            }, '1.1 is not an integer');
+        },
+    });
+})($ || ($ = {}));
+//integer.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_integer(val) {
+        const val2 = $.$mol_data_number(val);
+        if (Math.floor(val2) === val2)
+            return val2;
+        return $.$mol_fail(new $.$mol_data_error(`${val} is not an integer`));
+    }
+    $.$mol_data_integer = $mol_data_integer;
+})($ || ($ = {}));
+//integer.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
         'parse and serial'() {
             $.$mol_assert_equal(new $.$mol_time_duration('P42.1Y').toString(), 'P42.1YT');
             $.$mol_assert_equal(new $.$mol_time_duration('P42.1M').toString(), 'P42.1MT');
@@ -12723,6 +13161,19 @@ var $;
     });
 })($ || ($ = {}));
 //duration.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        '(De)Serialization'() {
+            const Duration = $.$mol_data_wrapper($.$mol_data_variant($.$mol_data_string, $.$mol_data_integer), $.$mol_time_duration);
+            $.$mol_assert_equal(JSON.stringify(Duration('P1D')), '"P1DT"');
+            $.$mol_assert_equal(JSON.stringify(Duration(1000)), '"PT1S"');
+        },
+    });
+})($ || ($ = {}));
+//wrapper.test.js.map
 ;
 "use strict";
 var $;
@@ -12776,26 +13227,6 @@ var $;
     });
 })($ || ($ = {}));
 //moment.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'Is not present'() {
-            $.$mol_data_optional($.$mol_data_number)(undefined);
-        },
-        'Is present'() {
-            $.$mol_data_optional($.$mol_data_number)(0);
-        },
-        'Is null'() {
-            $.$mol_assert_fail(() => {
-                const Type = $.$mol_data_optional($.$mol_data_number);
-                Type(null);
-            }, 'object is not a number');
-        },
-    });
-})($ || ($ = {}));
-//optional.test.js.map
 ;
 "use strict";
 var $;

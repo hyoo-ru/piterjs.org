@@ -2035,6 +2035,103 @@ var $;
 var $;
 (function ($) {
     $.$mol_test({
+        'Is not present'() {
+            $.$mol_data_optional($.$mol_data_number)(undefined);
+        },
+        'Is present'() {
+            $.$mol_data_optional($.$mol_data_number)(0);
+        },
+        'Is null'() {
+            $.$mol_assert_fail(() => {
+                const Type = $.$mol_data_optional($.$mol_data_number);
+                Type(null);
+            }, 'object is not a number');
+        },
+    });
+})($ || ($ = {}));
+//optional.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is first'() {
+            $.$mol_data_variant($.$mol_data_number, $.$mol_data_string)(0);
+        },
+        'Is second'() {
+            $.$mol_data_variant($.$mol_data_number, $.$mol_data_string)('');
+        },
+        'Is false'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_variant($.$mol_data_number, $.$mol_data_string)(false);
+            }, 'false is not any of variants\nboolean is not a number\nboolean is not a string');
+        },
+    });
+})($ || ($ = {}));
+//variant.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_variant(...sub) {
+        return $.$mol_data_setup((val) => {
+            const errors = [];
+            for (const type of sub) {
+                let hidden = $.$mol_fail_hidden;
+                try {
+                    $.$mol_fail = $.$mol_fail_hidden;
+                    return type(val);
+                }
+                catch (error) {
+                    $.$mol_fail = hidden;
+                    if (error instanceof $.$mol_data_error) {
+                        errors.push(error);
+                    }
+                    else {
+                        return $.$mol_fail_hidden(error);
+                    }
+                }
+            }
+            return $.$mol_fail(new $.$mol_data_error(`${val} is not any of variants`, ...errors));
+        }, sub);
+    }
+    $.$mol_data_variant = $mol_data_variant;
+})($ || ($ = {}));
+//variant.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is integer'() {
+            $.$mol_data_integer(0);
+        },
+        'Is float'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_integer(1.1);
+            }, '1.1 is not an integer');
+        },
+    });
+})($ || ($ = {}));
+//integer.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_integer(val) {
+        const val2 = $.$mol_data_number(val);
+        if (Math.floor(val2) === val2)
+            return val2;
+        return $.$mol_fail(new $.$mol_data_error(`${val} is not an integer`));
+    }
+    $.$mol_data_integer = $mol_data_integer;
+})($ || ($ = {}));
+//integer.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
         'parse and serial'() {
             $.$mol_assert_equal(new $.$mol_time_duration('P42.1Y').toString(), 'P42.1YT');
             $.$mol_assert_equal(new $.$mol_time_duration('P42.1M').toString(), 'P42.1MT');
@@ -2050,6 +2147,19 @@ var $;
     });
 })($ || ($ = {}));
 //duration.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        '(De)Serialization'() {
+            const Duration = $.$mol_data_wrapper($.$mol_data_variant($.$mol_data_string, $.$mol_data_integer), $.$mol_time_duration);
+            $.$mol_assert_equal(JSON.stringify(Duration('P1D')), '"P1DT"');
+            $.$mol_assert_equal(JSON.stringify(Duration(1000)), '"PT1S"');
+        },
+    });
+})($ || ($ = {}));
+//wrapper.test.js.map
 ;
 "use strict";
 var $;
@@ -2106,23 +2216,12 @@ var $;
 ;
 "use strict";
 var $;
-(function ($) {
-    $.$mol_test({
-        'Is not present'() {
-            $.$mol_data_optional($.$mol_data_number)(undefined);
-        },
-        'Is present'() {
-            $.$mol_data_optional($.$mol_data_number)(0);
-        },
-        'Is null'() {
-            $.$mol_assert_fail(() => {
-                const Type = $.$mol_data_optional($.$mol_data_number);
-                Type(null);
-            }, 'object is not a number');
-        },
+(function ($_1) {
+    $_1.$mol_test_mocks.push($ => {
+        $.$mol_after_timeout = $_1.$mol_after_mock_timeout;
     });
 })($ || ($ = {}));
-//optional.test.js.map
+//timeout.test.js.map
 ;
 "use strict";
 var $;
@@ -2171,15 +2270,6 @@ var $;
     });
 })($ || ($ = {}));
 //arg.web.test.js.map
-;
-"use strict";
-var $;
-(function ($_1) {
-    $_1.$mol_test_mocks.push($ => {
-        $.$mol_after_timeout = $_1.$mol_after_mock_timeout;
-    });
-})($ || ($ = {}));
-//timeout.test.js.map
 ;
 "use strict";
 var $;

@@ -1438,39 +1438,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_list extends $mol_view {
-        /**
-         *  ```
-         *  sub <= rows
-         *  ```
-         **/
-        sub(): readonly $mol_view[];
-        /**
-         *  ```
-         *  rows /$mol_view
-         *  ```
-         **/
-        rows(): readonly $mol_view[];
-        /**
-         *  ```
-         *  Empty null
-         *  ```
-         **/
-        Empty(): any;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_list extends $.$mol_list {
-        sub(): any[] | readonly $mol_view[];
-        row_offsets(): number[];
-        row_context(index: number): $mol_ambient_context;
-        sub_visible(): any[] | readonly $mol_view[];
-        minimal_height(): number;
-    }
-}
-
-declare namespace $ {
     function $mol_diff_path<Item>(...paths: Item[][]): {
         prefix: Item[];
         suffix: Item[][];
@@ -1639,6 +1606,25 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_data_optional<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0]) => ReturnType<Sub>) & {
+        config: Sub;
+        Value: ReturnType<Sub>;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_wrapper<Pre extends $mol_data_value, Obj extends {
+        new (val: ReturnType<Pre>): any;
+    }>(pre: Pre, Obj: Obj): ((val: Parameters<Pre>[0]) => InstanceType<Obj>) & {
+        config: {
+            pre: Pre;
+            Obj: Obj;
+        };
+        Value: InstanceType<Obj>;
+    };
+}
+
+declare namespace $ {
     class $mol_time_base {
         static patterns: any;
         static formatter(pattern: string): any;
@@ -1747,13 +1733,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_data_optional<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0]) => ReturnType<Sub>) & {
-        config: Sub;
-        Value: ReturnType<Sub>;
-    };
-}
-
-declare namespace $ {
     class $piterjs_speaker extends $piterjs_model {
         static uri(): string;
         title(): string;
@@ -1784,6 +1763,293 @@ declare namespace $ {
         description(): string;
         translation(): string;
         speeches(): readonly $piterjs_speech[];
+        place(): $piterjs_place;
+        afterparty(): string;
+    }
+}
+
+declare namespace $ {
+    class $piterjs_place extends $piterjs_model {
+        static uri(): string;
+        title(): string;
+        description(): string;
+        notes(): string;
+        site(): URL;
+        address(): string;
+        colors(): readonly string[];
+        meetups(): $piterjs_meetup[];
+    }
+}
+
+declare namespace $ {
+    class $mol_after_timeout extends $mol_object2 {
+        delay: number;
+        task: () => void;
+        id: any;
+        constructor(delay: number, task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_time extends $mol_object {
+        static now(precision?: number, next?: number): number;
+    }
+}
+
+declare namespace $ {
+    function $mol_font_canvas(next?: CanvasRenderingContext2D): CanvasRenderingContext2D;
+}
+
+declare namespace $ {
+    function $mol_font_measure(size: number, face: string, text: string): number;
+}
+
+declare namespace $ {
+    class $mol_svg extends $mol_view {
+        /**
+         *  ```
+         *  dom_name \svg
+         *  ```
+         **/
+        dom_name(): string;
+        /**
+         *  ```
+         *  dom_name_space \http://www.w3.org/2000/svg
+         *  ```
+         **/
+        dom_name_space(): string;
+        /**
+         *  ```
+         *  text_width?text 0
+         *  ```
+         **/
+        text_width(text?: any, force?: $mol_mem_force): any;
+        /**
+         *  ```
+         *  font_size 16
+         *  ```
+         **/
+        font_size(): number;
+        /**
+         *  ```
+         *  font_family \
+         *  ```
+         **/
+        font_family(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_svg extends $.$mol_svg {
+        computed_style(): CSSStyleDeclaration;
+        font_size(): number;
+        font_family(): any;
+        text_width(text: string): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        /**
+         *  ```
+         *  dom_name \svg
+         *  ```
+         **/
+        dom_name(): string;
+        /**
+         *  ```
+         *  attr *
+         *  	^
+         *  	viewBox <= view_box
+         *  	preserveAspectRatio <= aspect
+         *  ```
+         **/
+        attr(): {
+            "viewBox": string;
+            "preserveAspectRatio": string;
+        };
+        /**
+         *  ```
+         *  view_box \0 0 100 100
+         *  ```
+         **/
+        view_box(): string;
+        /**
+         *  ```
+         *  aspect \xMidYMid
+         *  ```
+         **/
+        aspect(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        /**
+         *  ```
+         *  dom_name \path
+         *  ```
+         **/
+        dom_name(): string;
+        /**
+         *  ```
+         *  attr *
+         *  	^
+         *  	d <= geometry
+         *  ```
+         **/
+        attr(): {
+            "d": string;
+        };
+        /**
+         *  ```
+         *  geometry \
+         *  ```
+         **/
+        geometry(): string;
+    }
+}
+
+declare namespace $ {
+    class $piterjs_screen_lines extends $mol_svg_root {
+        /**
+         *  ```
+         *  style * fill <= color
+         *  ```
+         **/
+        style(): {
+            "fill": string;
+        };
+        /**
+         *  ```
+         *  color \#FFE515
+         *  ```
+         **/
+        color(): string;
+        /**
+         *  ```
+         *  view_box \0 0 310 246
+         *  ```
+         **/
+        view_box(): string;
+        /**
+         *  ```
+         *  sub /
+         *  	<= First
+         *  	<= Second
+         *  	<= Third
+         *  ```
+         **/
+        sub(): readonly any[];
+        /**
+         *  ```
+         *  First $mol_svg_path geometry \M56 9.00002L-1.5605e-05 67.5L-1.31571e-05 95.5L56 36.5L56 9.00002Z
+         *  ```
+         **/
+        First(): $mol_svg_path;
+        /**
+         *  ```
+         *  Second $mol_svg_path geometry \M148.5 1.40751e-05L-7.6932e-06 158L0 246L238 6.25073e-06L148.5 1.40751e-05Z
+         *  ```
+         **/
+        Second(): $mol_svg_path;
+        /**
+         *  ```
+         *  Third $mol_svg_path geometry \M167.5 152.5L167.5 108L268 3.62805e-06L309.5 0L167.5 152.5Z
+         *  ```
+         **/
+        Third(): $mol_svg_path;
+    }
+}
+
+declare namespace $ {
+    class $piterjs_screen extends $mol_view {
+        /**
+         *  ```
+         *  place $piterjs_place
+         *  ```
+         **/
+        place(): $piterjs_place;
+        /**
+         *  ```
+         *  sub /
+         *  	<= Open
+         *  	<= Close
+         *  ```
+         **/
+        sub(): readonly any[];
+        /**
+         *  ```
+         *  Open $piterjs_screen_lines color <= color_open
+         *  ```
+         **/
+        Open(): $piterjs_screen_lines;
+        /**
+         *  ```
+         *  color_open \#FFE515
+         *  ```
+         **/
+        color_open(): string;
+        /**
+         *  ```
+         *  Close $piterjs_screen_lines color <= color_close
+         *  ```
+         **/
+        Close(): $piterjs_screen_lines;
+        /**
+         *  ```
+         *  color_close \#FFE515
+         *  ```
+         **/
+        color_close(): string;
+        /**
+         *  ```
+         *  content /$mol_view
+         *  ```
+         **/
+        content(): readonly $mol_view[];
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_screen extends $.$piterjs_screen {
+        color_open(): string;
+        color_close(): string;
+        sub(): ($mol_view | $piterjs_screen_lines)[];
+    }
+}
+
+declare namespace $ {
+    class $mol_list extends $mol_view {
+        /**
+         *  ```
+         *  sub <= rows
+         *  ```
+         **/
+        sub(): readonly $mol_view[];
+        /**
+         *  ```
+         *  rows /$mol_view
+         *  ```
+         **/
+        rows(): readonly $mol_view[];
+        /**
+         *  ```
+         *  Empty null
+         *  ```
+         **/
+        Empty(): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_list extends $.$mol_list {
+        sub(): any[] | readonly $mol_view[];
+        row_offsets(): number[];
+        row_context(index: number): $mol_ambient_context;
+        sub_visible(): any[] | readonly $mol_view[];
+        minimal_height(): number;
     }
 }
 
@@ -1925,136 +2191,6 @@ declare namespace $.$$ {
         current(): boolean;
         event_click(event?: Event): void;
         file_name(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_after_timeout extends $mol_object2 {
-        delay: number;
-        task: () => void;
-        id: any;
-        constructor(delay: number, task: () => void);
-        destructor(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_time extends $mol_object {
-        static now(precision?: number, next?: number): number;
-    }
-}
-
-declare namespace $ {
-    function $mol_font_canvas(next?: CanvasRenderingContext2D): CanvasRenderingContext2D;
-}
-
-declare namespace $ {
-    function $mol_font_measure(size: number, face: string, text: string): number;
-}
-
-declare namespace $ {
-    class $mol_svg extends $mol_view {
-        /**
-         *  ```
-         *  dom_name \svg
-         *  ```
-         **/
-        dom_name(): string;
-        /**
-         *  ```
-         *  dom_name_space \http://www.w3.org/2000/svg
-         *  ```
-         **/
-        dom_name_space(): string;
-        /**
-         *  ```
-         *  text_width?text 0
-         *  ```
-         **/
-        text_width(text?: any, force?: $mol_mem_force): any;
-        /**
-         *  ```
-         *  font_size 16
-         *  ```
-         **/
-        font_size(): number;
-        /**
-         *  ```
-         *  font_family \
-         *  ```
-         **/
-        font_family(): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_svg extends $.$mol_svg {
-        computed_style(): CSSStyleDeclaration;
-        font_size(): number;
-        font_family(): any;
-        text_width(text: string): number;
-    }
-}
-
-declare namespace $ {
-    class $mol_svg_root extends $mol_svg {
-        /**
-         *  ```
-         *  dom_name \svg
-         *  ```
-         **/
-        dom_name(): string;
-        /**
-         *  ```
-         *  attr *
-         *  	^
-         *  	viewBox <= view_box
-         *  	preserveAspectRatio <= aspect
-         *  ```
-         **/
-        attr(): {
-            "viewBox": string;
-            "preserveAspectRatio": string;
-        };
-        /**
-         *  ```
-         *  view_box \0 0 100 100
-         *  ```
-         **/
-        view_box(): string;
-        /**
-         *  ```
-         *  aspect \xMidYMid
-         *  ```
-         **/
-        aspect(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_svg_path extends $mol_svg {
-        /**
-         *  ```
-         *  dom_name \path
-         *  ```
-         **/
-        dom_name(): string;
-        /**
-         *  ```
-         *  attr *
-         *  	^
-         *  	d <= geometry
-         *  ```
-         **/
-        attr(): {
-            "d": string;
-        };
-        /**
-         *  ```
-         *  geometry \
-         *  ```
-         **/
-        geometry(): string;
     }
 }
 
@@ -3808,58 +3944,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $piterjs_intro_lines extends $mol_svg_root {
-        /**
-         *  ```
-         *  style * fill <= color
-         *  ```
-         **/
-        style(): {
-            "fill": string;
-        };
-        /**
-         *  ```
-         *  color \#FFE515
-         *  ```
-         **/
-        color(): string;
-        /**
-         *  ```
-         *  view_box \0 0 310 246
-         *  ```
-         **/
-        view_box(): string;
-        /**
-         *  ```
-         *  sub /
-         *  	<= First
-         *  	<= Second
-         *  	<= Third
-         *  ```
-         **/
-        sub(): readonly any[];
-        /**
-         *  ```
-         *  First $mol_svg_path geometry \M56 9.00002L-1.5605e-05 67.5L-1.31571e-05 95.5L56 36.5L56 9.00002Z
-         *  ```
-         **/
-        First(): $mol_svg_path;
-        /**
-         *  ```
-         *  Second $mol_svg_path geometry \M148.5 1.40751e-05L-7.6932e-06 158L0 246L238 6.25073e-06L148.5 1.40751e-05Z
-         *  ```
-         **/
-        Second(): $mol_svg_path;
-        /**
-         *  ```
-         *  Third $mol_svg_path geometry \M167.5 152.5L167.5 108L268 3.62805e-06L309.5 0L167.5 152.5Z
-         *  ```
-         **/
-        Third(): $mol_svg_path;
-    }
-}
-
-declare namespace $ {
     class $mol_nav extends $mol_plugin {
         /**
          *  ```
@@ -3974,10 +4058,10 @@ declare namespace $ {
         title(): string;
         /**
          *  ```
-         *  meetups /
+         *  meetup $piterjs_meetup
          *  ```
          **/
-        meetups(): readonly any[];
+        meetup(): $piterjs_meetup;
         /**
          *  ```
          *  page?val \
@@ -3998,7 +4082,7 @@ declare namespace $ {
          *  	profit <= Proft
          *  	info <= Info
          *  	follow <= Follow
-         *  	beer <= Beer
+         *  	afterparty <= Afterparty
          *  ```
          **/
         pages(): {
@@ -4013,7 +4097,7 @@ declare namespace $ {
             "profit": $piterjs_intro_page;
             "info": $piterjs_intro_page;
             "follow": $piterjs_intro_page;
-            "beer": $piterjs_intro_page;
+            "afterparty": $piterjs_intro_page;
         };
         /**
          *  ```
@@ -4088,14 +4172,23 @@ declare namespace $ {
         /**
          *  ```
          *  Place $piterjs_intro_page
-         *  	title \Мы в JetBrains
-         *  	text \
-         *  		\WiFi - JetBrains-Open
-         *  		\Курить - на улицу
-         *  		\Чай, кофе - за углом
+         *  	title <= place_title
+         *  	text <= place_notes
          *  ```
          **/
         Place(): $piterjs_intro_page;
+        /**
+         *  ```
+         *  place_title \Мы в {place}
+         *  ```
+         **/
+        place_title(): string;
+        /**
+         *  ```
+         *  place_notes \
+         *  ```
+         **/
+        place_notes(): string;
         /**
          *  ```
          *  Schedule $piterjs_intro_page
@@ -4151,48 +4244,38 @@ declare namespace $ {
         Follow(): $piterjs_intro_page;
         /**
          *  ```
-         *  Beer $piterjs_intro_page
+         *  Afterparty $piterjs_intro_page
          *  	title \Го в бар!
-         *  	text \
-         *  		\O'Hooligans
-         *  		\Приморский 137/1
-         *  		\t.me/beerjs_spb
+         *  	text <= afterparty
          *  ```
          **/
-        Beer(): $piterjs_intro_page;
+        Afterparty(): $piterjs_intro_page;
         /**
          *  ```
-         *  sub /
-         *  	<= Lines_open
-         *  	<= Lines_close
-         *  	<= Page
+         *  afterparty \
+         *  ```
+         **/
+        afterparty(): string;
+        /**
+         *  ```
+         *  sub / <= Screen
          *  ```
          **/
         sub(): readonly any[];
         /**
          *  ```
-         *  Lines_open $piterjs_intro_lines color <= brand_1
+         *  Screen $piterjs_screen
+         *  	place <= place
+         *  	content / <= Page
          *  ```
          **/
-        Lines_open(): $piterjs_intro_lines;
+        Screen(): $$.$piterjs_screen;
         /**
          *  ```
-         *  brand_1 \#C14989
+         *  place $piterjs_place
          *  ```
          **/
-        brand_1(): string;
-        /**
-         *  ```
-         *  Lines_close $piterjs_intro_lines color <= brand_2
-         *  ```
-         **/
-        Lines_close(): $piterjs_intro_lines;
-        /**
-         *  ```
-         *  brand_2 \#E8863F
-         *  ```
-         **/
-        brand_2(): string;
+        place(): $piterjs_place;
         /**
          *  ```
          *  Page $mol_view
@@ -4300,11 +4383,63 @@ declare namespace $.$$ {
     class $piterjs_intro extends $.$piterjs_intro {
         page_ids(): string[];
         Page(): any;
+        place(): $piterjs_place;
+        place_title(): string;
+        place_notes(): string;
+        afterparty(): string;
     }
 }
 
 declare namespace $ {
-    class $piterjs_app extends $mol_book {
+    class $piterjs_app extends $mol_view {
+        /**
+         *  ```
+         *  sub / <= Screen
+         *  ```
+         **/
+        sub(): readonly any[];
+        /**
+         *  ```
+         *  Screen $piterjs_screen
+         *  	place <= place
+         *  	Open null
+         *  	content / <= Book
+         *  ```
+         **/
+        Screen(): $$.$piterjs_screen;
+        /**
+         *  ```
+         *  place $piterjs_place
+         *  ```
+         **/
+        place(): $piterjs_place;
+        event_front_up(val?: any): void;
+        /**
+         *  ```
+         *  Book $mol_book
+         *  	pages <= pages
+         *  	event_front_up?val => event_front_up?val
+         *  	Placeholder <= Placeholder
+         *  ```
+         **/
+        Book(): $$.$mol_book;
+        /**
+         *  ```
+         *  pages /any
+         *  ```
+         **/
+        pages(): readonly any[];
+        /**
+         *  ```
+         *  Placeholder $piterjs_now
+         *  	event_top?val <=> event_front_up?val
+         *  	minimal_width 400
+         *  	place <= place
+         *  	title \
+         *  	body /
+         *  ```
+         **/
+        Placeholder(): $$.$piterjs_now;
         /**
          *  ```
          *  Menu $mol_page
@@ -4366,12 +4501,14 @@ declare namespace $ {
          *  Now $piterjs_now
          *  	event_top?val <=> event_front_up?val
          *  	minimal_width 600
+         *  	place <= place
          *  ```
          **/
         Now(): $$.$piterjs_now;
         /**
          *  ```
          *  Intro $piterjs_intro
+         *  	meetup <= meetup_last
          *  	page?val <=> intro?val
          *  	minimal_width 9000
          *  ```
@@ -4379,20 +4516,16 @@ declare namespace $ {
         Intro(): $$.$piterjs_intro;
         /**
          *  ```
+         *  meetup_last $piterjs_meetup
+         *  ```
+         **/
+        meetup_last(): $piterjs_meetup;
+        /**
+         *  ```
          *  intro?val \
          *  ```
          **/
         intro(val?: any, force?: $mol_mem_force): any;
-        /**
-         *  ```
-         *  Placeholder $piterjs_now
-         *  	event_top?val <=> event_front_up?val
-         *  	minimal_width 400
-         *  	title \
-         *  	body /
-         *  ```
-         **/
-        Placeholder(): $$.$piterjs_now;
     }
 }
 
@@ -4408,6 +4541,9 @@ declare namespace $.$$ {
         speaker(id: string): $piterjs_speaker;
         pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_now)[];
         Placeholder(): $piterjs_now;
+        meetups(): $piterjs_meetup[];
+        meetup_last(): $piterjs_meetup;
+        place(): $piterjs_place;
         menu_meetups(): $piterjs_meetup_snippet[];
         menu_meetup(id: string): $piterjs_meetup;
         menu_meetup_id(id: string): string;
@@ -4560,13 +4696,28 @@ declare namespace $ {
         Medium_icon(): $mol_icon;
         /**
          *  ```
-         *  body /
-         *  	<= Logo
-         *  	<= Join
-         *  	<= Patreon
+         *  body / <= Screen
          *  ```
          **/
         body(): readonly any[];
+        /**
+         *  ```
+         *  Screen $piterjs_screen
+         *  	place <= place
+         *  	Close null
+         *  	content /
+         *  		<= Logo
+         *  		<= Join
+         *  		<= Patreon
+         *  ```
+         **/
+        Screen(): $$.$piterjs_screen;
+        /**
+         *  ```
+         *  place $piterjs_place
+         *  ```
+         **/
+        place(): $piterjs_place;
         /**
          *  ```
          *  Logo $piterjs_image link \piterjs/logo/logo.svg
