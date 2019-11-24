@@ -2137,6 +2137,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $piterjs_intro extends $.$piterjs_intro {
+        dom_node(): Element;
         page_ids(): string[];
         Page(): any;
         place(): $piterjs_place;

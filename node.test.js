@@ -7982,6 +7982,10 @@ var $;
     var $$;
     (function ($$) {
         class $piterjs_intro extends $.$piterjs_intro {
+            dom_node() {
+                $.$mol_fiber_defer(() => this.focused(true));
+                return super.dom_node();
+            }
             page_ids() {
                 return Object.keys(this.pages());
             }
@@ -8001,6 +8005,9 @@ var $;
                 return this.meetup().afterparty();
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_intro.prototype, "dom_node", null);
         __decorate([
             $.$mol_mem
         ], $piterjs_intro.prototype, "place_title", null);
