@@ -1,6 +1,14 @@
 require( "source-map-support" ).install()
 ;
 process.on( 'unhandledRejection' , up => { throw up } );
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+;
 "use strict"
 /// Fake namespace for optional overrides
 ///
@@ -8,7 +16,7 @@ process.on( 'unhandledRejection' , up => { throw up } );
 /// 	namespace $.$$ { export var x = 2 } // overrides
 /// 	namespace $.$$ { console.log( x , y ) } // usage
 ///
-var $ = Object.setPrototypeOf( module['export'+'s'] , global )
+var $ = ( typeof module === 'object' ) ? Object.setPrototypeOf( module['export'+'s'] , global ) : global
 $.$$ = $
 
 $.$mol = $  // deprecated
@@ -62,12 +70,26 @@ var $;
 //class.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+var $;
+(function ($) {
+    function $mol_fail(error) {
+        throw error;
+    }
+    $.$mol_fail = $mol_fail;
+})($ || ($ = {}));
+//fail.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_fail_hidden(error) {
+        throw error; /// Use 'Never Pause Here' breakpoint in DevTools or simply blackbox this script
+    }
+    $.$mol_fail_hidden = $mol_fail_hidden;
+})($ || ($ = {}));
+//hidden.js.map
+;
+"use strict";
 var $;
 (function ($) {
     var $mol_object2_1;
@@ -101,12 +123,6 @@ var $;
 //object2.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     let $mol_wrapper = class $mol_wrapper extends $.$mol_object2 {
@@ -336,12 +352,6 @@ var $;
 //log_group.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $mol_log2_1;
@@ -483,26 +493,6 @@ var $;
         $.$mol_log2_legend.info($.$mol_log2_token_empty, 'Use `$mol_log2.excludes : null | RegExp[]` to toggle logs');
 })($ || ($ = {}));
 //log2.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_fail(error) {
-        throw error;
-    }
-    $.$mol_fail = $mol_fail;
-})($ || ($ = {}));
-//fail.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_fail_hidden(error) {
-        throw error; /// Use 'Never Pause Here' breakpoint in DevTools or simply blackbox this script
-    }
-    $.$mol_fail_hidden = $mol_fail_hidden;
-})($ || ($ = {}));
-//hidden.js.map
 ;
 "use strict";
 var $;
@@ -659,12 +649,6 @@ var $;
 //trim.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $mol_fiber_1;
@@ -696,6 +680,19 @@ var $;
         return $mol_fiber.method(obj, name, descr);
     }
     $.$mol_fiber_method = $mol_fiber_method;
+    function $mol_fiber_async(task) {
+        return (...args) => new Promise($mol_fiber_root((done, fail) => {
+            try {
+                done(task(...args));
+            }
+            catch (error) {
+                if ('then' in error)
+                    return $.$mol_fail_hidden(error);
+                fail(error);
+            }
+        }));
+    }
+    $.$mol_fiber_async = $mol_fiber_async;
     function $mol_fiber_sync(request) {
         return function $mol_fiber_sync_wrapper(...args) {
             const slave = $mol_fiber.current;
@@ -1057,12 +1054,6 @@ var $;
 //owning.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $mol_atom2_1;
@@ -1368,12 +1359,6 @@ var $;
 //field.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($_1) {
     let $$;
@@ -1455,12 +1440,6 @@ var $;
 //window.node.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     let $mol_mem_force = class $mol_mem_force extends Object {
@@ -1698,6 +1677,10 @@ var $node = new Proxy({}, { get(target, name, wrapper) {
             return require(name);
         if (!require('fs').existsSync(`./node_modules/${name}`)) {
             $.$mol_exec('.', 'npm', 'install', name);
+            try {
+                $.$mol_exec('.', 'npm', 'install', '@types/' + name);
+            }
+            catch (_a) { }
         }
         return require(name);
     } });
@@ -1770,12 +1753,6 @@ var $;
 //defer.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     let $mol_view_selection = class $mol_view_selection extends $.$mol_object {
@@ -1974,12 +1951,6 @@ var $;
 //deprecated.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     function $mol_view_visible_width() {
@@ -2261,12 +2232,6 @@ var $;
 //view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_plugin extends $.$mol_view {
@@ -2297,12 +2262,6 @@ var $;
 //plugin.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_meter extends $.$mol_plugin {
@@ -2386,12 +2345,6 @@ var $;
 //meter.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -2473,12 +2426,6 @@ var $;
 //meter.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_touch extends $.$mol_plugin {
@@ -2991,12 +2938,6 @@ var $;
 //events.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_ghost extends $.$mol_view {
@@ -3019,12 +2960,6 @@ var $;
 //ghost.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -3056,12 +2991,6 @@ var $;
 //ghost.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_book extends $.$mol_view {
@@ -3265,12 +3194,6 @@ var $;
 //book.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -3461,12 +3384,6 @@ var $;
 //code.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_button extends $.$mol_view {
@@ -3652,12 +3569,6 @@ var $;
 //button_types.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_scroll extends $.$mol_view {
@@ -3777,12 +3688,6 @@ var $;
 //scroll.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -3874,12 +3779,6 @@ var $;
 //scroll.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_state_session extends $.$mol_object {
@@ -3931,12 +3830,6 @@ var $;
 //session.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_page extends $.$mol_view {
@@ -4147,12 +4040,6 @@ var $;
 //list.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -4235,12 +4122,1340 @@ var $;
 //list.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+var $;
+(function ($) {
+    function $mol_diff_path(...paths) {
+        const limit = Math.min(...paths.map(path => path.length));
+        lookup: for (var i = 0; i < limit; ++i) {
+            const first = paths[0][i];
+            for (let j = 1; j < paths.length; ++j) {
+                if (paths[j][i] !== first)
+                    break lookup;
+            }
+        }
+        return {
+            prefix: paths[0].slice(0, i),
+            suffix: paths.map(path => path.slice(i)),
+        };
+    }
+    $.$mol_diff_path = $mol_diff_path;
+})($ || ($ = {}));
+//path.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_error_mix extends Error {
+        constructor(message, ...errors) {
+            super(message);
+            this.errors = errors;
+            if (errors.length) {
+                const stacks = [...errors.map(error => error.stack), this.stack];
+                const diff = $.$mol_diff_path(...stacks.map(stack => {
+                    if (!stack)
+                        return [];
+                    return stack.split('\n').reverse();
+                }));
+                const head = diff.prefix.reverse().join('\n');
+                const tails = diff.suffix.map(path => path.reverse().map(line => line.replace(/^(?!\s+at)/, '\tat (.) ')).join('\n')).join('\n\tat (.) -----\n');
+                this.stack = `Error: ${this.constructor.name}\n\tat (.) /"""\\\n${tails}\n\tat (.) \\___/\n${head}`;
+                this.message += errors.map(error => '\n' + error.message).join('');
+            }
+        }
+    }
+    $.$mol_error_mix = $mol_error_mix;
+})($ || ($ = {}));
+//mix.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_data_error extends $.$mol_error_mix {
+    }
+    $.$mol_data_error = $mol_data_error;
+})($ || ($ = {}));
+//error.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_string(val) {
+        if (typeof val === 'string')
+            return val;
+        return $.$mol_fail(new $.$mol_data_error(`${typeof val} is not a string`));
+    }
+    $.$mol_data_string = $mol_data_string;
+})($ || ($ = {}));
+//string.js.map
+;
+"use strict";
+//value.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_setup(value, config) {
+        return Object.assign(value, {
+            config,
+            Value: null
+        });
+    }
+    $.$mol_data_setup = $mol_data_setup;
+})($ || ($ = {}));
+//setup.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_array(sub) {
+        return $.$mol_data_setup((val) => {
+            if (!Array.isArray(val))
+                return $.$mol_fail(new $.$mol_data_error(`${val} is not an array`));
+            return val.map((item, index) => {
+                try {
+                    return sub(item);
+                }
+                catch (error) {
+                    if ('then' in error)
+                        return $.$mol_fail_hidden(error);
+                    error.message = `[${index}] ${error.message}`;
+                    return $.$mol_fail(error);
+                }
+            });
+        }, sub);
+    }
+    $.$mol_data_array = $mol_data_array;
+})($ || ($ = {}));
+//array.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_typeof(value) {
+        var str = {}.toString.apply(value);
+        var type = str.substring(8, str.length - 1);
+        return type;
+    }
+    $.$mol_typeof = $mol_typeof;
+})($ || ($ = {}));
+//typeof.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_tree {
+        constructor(config = {}) {
+            this.type = config.type || '';
+            if (config.value !== undefined) {
+                var sub = $mol_tree.values(config.value);
+                if (config.type || sub.length > 1) {
+                    this.sub = sub.concat(config.sub || []);
+                    this.data = config.data || '';
+                }
+                else {
+                    this.data = sub[0].data;
+                    this.sub = config.sub || [];
+                }
+            }
+            else {
+                this.data = config.data || '';
+                this.sub = config.sub || [];
+            }
+            this.baseUri = config.baseUri || '';
+            this.row = config.row || 0;
+            this.col = config.col || 0;
+        }
+        static values(str, baseUri) {
+            return str.split('\n').map((data, index) => new $mol_tree({
+                data: data,
+                baseUri: baseUri,
+                row: index + 1
+            }));
+        }
+        clone(config) {
+            return new $mol_tree({
+                type: ('type' in config) ? config.type : this.type,
+                data: ('data' in config) ? config.data : this.data,
+                sub: ('sub' in config) ? config.sub : this.sub,
+                baseUri: ('baseUri' in config) ? config.baseUri : this.baseUri,
+                row: ('row' in config) ? config.row : this.row,
+                col: ('col' in config) ? config.col : this.col,
+                value: config.value
+            });
+        }
+        static fromString(str, baseUri) {
+            var root = new $mol_tree({ baseUri: baseUri });
+            var stack = [root];
+            var row = 0;
+            var prefix = str.replace(/^\n?(\t*)[\s\S]*/, '$1');
+            var lines = str.replace(new RegExp('^\\t{0,' + prefix.length + '}', 'mg'), '').split('\n');
+            lines.forEach(line => {
+                ++row;
+                var chunks = /^(\t*)((?:[^\n\t\\ ]+ *)*)(\\[^\n]*)?(.*?)(?:$|\n)/m.exec(line);
+                if (!chunks || chunks[4])
+                    throw new Error(`Syntax error at ${baseUri}:${row}\n${line}`);
+                var indent = chunks[1];
+                var path = chunks[2];
+                var data = chunks[3];
+                var deep = indent.length;
+                var types = path ? path.replace(/ $/, '').split(/ +/) : [];
+                if (stack.length <= deep)
+                    throw new Error(`Too many tabs at ${baseUri}:${row}\n${line}`);
+                stack.length = deep + 1;
+                var parent = stack[deep];
+                let col = deep;
+                types.forEach(type => {
+                    if (!type)
+                        throw new Error(`Unexpected space symbol ${baseUri}:${row}\n${line}`);
+                    var next = new $mol_tree({ type, baseUri, row, col });
+                    parent.sub.push(next);
+                    parent = next;
+                    col += type.length + 1;
+                });
+                if (data) {
+                    var next = new $mol_tree({ data: data.substring(1), baseUri, row, col });
+                    parent.sub.push(next);
+                    parent = next;
+                }
+                stack.push(parent);
+            });
+            return root;
+        }
+        static fromJSON(json, baseUri = '') {
+            var type = $.$mol_typeof(json);
+            switch (type) {
+                case 'Boolean':
+                case 'Null':
+                case 'Number':
+                    return new $mol_tree({
+                        type: String(json),
+                        baseUri: baseUri
+                    });
+                case 'String':
+                    return new $mol_tree({
+                        value: json,
+                        baseUri: baseUri
+                    });
+                case 'Array':
+                    return new $mol_tree({
+                        type: "/",
+                        sub: json.map(json => $mol_tree.fromJSON(json, baseUri))
+                    });
+                case 'Date':
+                    return new $mol_tree({
+                        type: "",
+                        value: json.toISOString(),
+                        baseUri: baseUri
+                    });
+                case 'Object':
+                    var sub = [];
+                    for (var key in json) {
+                        if (json[key] === undefined)
+                            continue;
+                        if (/^[^\n\t\\ ]+$/.test(key)) {
+                            var child = new $mol_tree({
+                                type: key,
+                                baseUri: baseUri
+                            });
+                        }
+                        else {
+                            var child = new $mol_tree({
+                                value: key,
+                                baseUri: baseUri
+                            });
+                        }
+                        child.sub.push($mol_tree.fromJSON(json[key], baseUri));
+                        sub.push(child);
+                    }
+                    return new $mol_tree({
+                        type: "*",
+                        sub: sub,
+                        baseUri: baseUri
+                    });
+            }
+            throw new Error(`Unsupported type (${type}) at ${baseUri}`);
+        }
+        get uri() {
+            return this.baseUri + '#' + this.row + ':' + this.col;
+        }
+        toString(prefix = '') {
+            var output = '';
+            if (this.type.length) {
+                if (!prefix.length) {
+                    prefix = "\t";
+                }
+                output += this.type;
+                if (this.sub.length == 1) {
+                    return output + ' ' + this.sub[0].toString(prefix);
+                }
+                output += "\n";
+            }
+            else if (this.data.length || prefix.length) {
+                output += "\\" + this.data + "\n";
+            }
+            for (var child of this.sub) {
+                output += prefix;
+                output += child.toString(prefix + "\t");
+            }
+            return output;
+        }
+        toJSON() {
+            if (!this.type)
+                return this.value;
+            if (this.type === 'true')
+                return true;
+            if (this.type === 'false')
+                return false;
+            if (this.type === 'null')
+                return null;
+            if (this.type === '*') {
+                var obj = {};
+                for (var child of this.sub) {
+                    if (child.type === '-')
+                        continue;
+                    var key = child.type || child.clone({ sub: child.sub.slice(0, child.sub.length - 1) }).value;
+                    var val = child.sub[child.sub.length - 1].toJSON();
+                    if (val !== undefined)
+                        obj[key] = val;
+                }
+                return obj;
+            }
+            if (this.type === '/') {
+                var res = [];
+                this.sub.forEach(child => {
+                    if (child.type === '-')
+                        return;
+                    var val = child.toJSON();
+                    if (val !== undefined)
+                        res.push(val);
+                });
+                return res;
+            }
+            if (this.type === 'time') {
+                return new Date(this.value);
+            }
+            if (String(Number(this.type)) == this.type.trim())
+                return Number(this.type);
+            throw new Error(`Unknown type (${this.type}) at ${this.uri}`);
+        }
+        get value() {
+            var values = [];
+            for (var child of this.sub) {
+                if (child.type)
+                    continue;
+                values.push(child.value);
+            }
+            return this.data + values.join("\n");
+        }
+        insert(value, ...path) {
+            if (path.length === 0)
+                return value;
+            const type = path[0];
+            if (typeof type === 'string') {
+                let replaced = false;
+                const sub = this.sub.map((item, index) => {
+                    if (item.type !== type)
+                        return item;
+                    replaced = true;
+                    return item.insert(value, ...path.slice(1));
+                });
+                if (!replaced)
+                    sub.push(new $mol_tree({ type }).insert(value, ...path.slice(1)));
+                return this.clone({ sub });
+            }
+            else if (typeof type === 'number') {
+                const sub = this.sub.slice();
+                sub[type] = (sub[type] || new $mol_tree).insert(value, ...path.slice(1));
+                return this.clone({ sub });
+            }
+            else {
+                return this.clone({ sub: ((this.sub.length === 0) ? [new $mol_tree()] : this.sub).map(item => item.insert(value, ...path.slice(1))) });
+            }
+        }
+        select(...path) {
+            var next = [this];
+            for (var type of path) {
+                if (!next.length)
+                    break;
+                var prev = next;
+                next = [];
+                for (var item of prev) {
+                    switch (typeof (type)) {
+                        case 'string':
+                            for (var child of item.sub) {
+                                if (!type || (child.type == type)) {
+                                    next.push(child);
+                                }
+                            }
+                            break;
+                        case 'number':
+                            if (type < item.sub.length)
+                                next.push(item.sub[type]);
+                            break;
+                        default: next.push(...item.sub);
+                    }
+                }
+            }
+            return new $mol_tree({ sub: next });
+        }
+        filter(path, value) {
+            var sub = this.sub.filter(function (item) {
+                var found = item.select(...path);
+                if (value == null) {
+                    return Boolean(found.sub.length);
+                }
+                else {
+                    return found.sub.some(child => child.value == value);
+                }
+            });
+            return new $mol_tree({ sub: sub });
+        }
+        transform(visit, stack = []) {
+            const sub_stack = [this, ...stack];
+            return visit(sub_stack, () => this.sub.map(node => node.transform(visit, sub_stack)).filter(n => n));
+        }
+        hack(context) {
+            const sub = [].concat(...this.sub.map(child => {
+                const handle = context[child.type] || context[''];
+                if (!handle)
+                    $.$mol_fail(child.error('Handler not defined'));
+                return handle(child, context);
+            }));
+            return this.clone({ sub });
+        }
+        error(message) {
+            return new Error(`${message}:\n${this} ${this.baseUri}:${this.row}:${this.col}`);
+        }
+    }
+    $.$mol_tree = $mol_tree;
+})($ || ($ = {}));
+//tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_dom_parse(text, type = 'application/xhtml+xml') {
+        const parser = new $.$mol_dom_context.DOMParser();
+        const doc = parser.parseFromString(text, type);
+        const error = doc.getElementsByTagName('parsererror')[0];
+        if (error)
+            throw new Error(error.textContent);
+        return doc;
+    }
+    $.$mol_dom_parse = $mol_dom_parse;
+})($ || ($ = {}));
+//parse.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $mol_fetch_response = class $mol_fetch_response extends $.$mol_object2 {
+        constructor(native) {
+            super();
+            this.native = native;
+        }
+        headers() {
+            return this.native.headers;
+        }
+        mime() {
+            return this.headers().get('content-type');
+        }
+        stream() {
+            return this.native.body;
+        }
+        text() {
+            const buffer = this.buffer();
+            const native = this.native;
+            const mime = native.headers.get('content-type') || '';
+            const [, charset] = /charset=(.*)/.exec(mime) || [, 'utf-8'];
+            const decoder = new TextDecoder(charset);
+            return decoder.decode(buffer);
+        }
+        json() {
+            const response = this.native;
+            const parse = $.$mol_fiber_sync(response.json);
+            return parse.call(response);
+        }
+        buffer() {
+            const response = this.native;
+            const parse = $.$mol_fiber_sync(response.arrayBuffer);
+            return parse.call(response);
+        }
+        xml() {
+            return $.$mol_dom_parse(this.text(), 'application/xml');
+        }
+        xhtml() {
+            return $.$mol_dom_parse(this.text(), 'application/xhtml+xml');
+        }
+        html() {
+            return $.$mol_dom_parse(this.text(), 'text/html');
+        }
+    };
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "stream", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "text", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "json", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "buffer", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "xml", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "xhtml", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch_response.prototype, "html", null);
+    $mol_fetch_response = __decorate([
+        $.$mol_class
+    ], $mol_fetch_response);
+    $.$mol_fetch_response = $mol_fetch_response;
+    let $mol_fetch = class $mol_fetch extends $.$mol_object2 {
+        static response(input, init) {
+            const response = this.request(input, init);
+            if (Math.floor(response.status / 100) === 2)
+                return new $mol_fetch_response(response);
+            throw new Error(response.statusText || `HTTP Error ${response.status}`);
+        }
+        static stream(input, init) {
+            return this.response(input, init).stream();
+        }
+        static text(input, init) {
+            return this.response(input, init).text();
+        }
+        static json(input, init) {
+            return this.response(input, init).json();
+        }
+        static buffer(input, init) {
+            this.response(input, init).buffer();
+        }
+        static xml(input, init) {
+            return this.response(input, init).xml();
+        }
+        static xhtml(input, init) {
+            return this.response(input, init).xhtml();
+        }
+        static html(input, init) {
+            return this.response(input, init).html();
+        }
+    };
+    $mol_fetch.request = $.$mol_fiber_sync((input, init = {}) => {
+        if (typeof AbortController === 'function') {
+            var controller = new AbortController();
+            init.signal = controller.signal;
+            const fiber = $.$mol_fiber.current;
+            fiber.abort = () => {
+                if (fiber.cursor === -2 /* actual */)
+                    return true;
+                controller.abort();
+                return true;
+            };
+        }
+        let native = $.$mol_dom_context.fetch;
+        if (!native)
+            native = $node['node-fetch'];
+        return native(input, init);
+    });
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "response", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "stream", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "text", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "json", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "buffer", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "xml", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "xhtml", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $mol_fetch, "html", null);
+    $mol_fetch = __decorate([
+        $.$mol_class
+    ], $mol_fetch);
+    $.$mol_fetch = $mol_fetch;
+})($ || ($ = {}));
+//fetch.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    console.warn('$mol_http is deprecated. Use $mol_fetch instead.');
+    class $mol_http extends $.$mol_object {
+        static resource(uri) {
+            const resolver = $.$mol_dom_context.document.createElement('a');
+            resolver.href = uri;
+            return this.resource_absolute(resolver.href);
+        }
+        static resource_absolute(uri) {
+            return $mol_http.make({
+                uri: $.$mol_const(uri)
+            });
+        }
+        uri() { return ''; }
+        method_get() { return 'Get'; }
+        method_put() { return 'Put'; }
+        credentials() {
+            return null;
+        }
+        headers() {
+            return {};
+        }
+        response_type() {
+            return '';
+        }
+        response(next, force) {
+            const creds = this.credentials();
+            const method = (next === void 0) ? this.method_get() : this.method_put();
+            const uri = this.uri();
+            const headers = this.headers();
+            return $.$mol_fetch.response(uri, {
+                credentials: creds ? 'include' : undefined,
+                method,
+                headers,
+                body: next
+            });
+        }
+        text(next, force) {
+            return this.response(next, force).text();
+        }
+        xml(next, force) {
+            return this.response(next, force).xml();
+        }
+        json(next, force) {
+            const next2 = next && JSON.stringify(next, null, '\t');
+            return this.response(next2, force).json();
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_http.prototype, "json", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_http, "resource_absolute", null);
+    $.$mol_http = $mol_http;
+})($ || ($ = {}));
+//http.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_http_resource extends $.$mol_http {
+        static item(uri) {
+            return $.$mol_http.resource(uri);
+        }
+    }
+    __decorate([
+        $.$mol_deprecated('Use $mol_http.resource insted.')
+    ], $mol_http_resource, "item", null);
+    $.$mol_http_resource = $mol_http_resource;
+    class $mol_http_resource_json {
+        static item(uri) {
+            return $.$mol_http.resource(uri);
+        }
+    }
+    __decorate([
+        $.$mol_deprecated('Use $mol_http.resource insted.')
+    ], $mol_http_resource_json, "item", null);
+    $.$mol_http_resource_json = $mol_http_resource_json;
+})($ || ($ = {}));
+//resource.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $piterjs_model_1;
+    let $piterjs_model = $piterjs_model_1 = class $piterjs_model extends $.$mol_object2 {
+        static uri() { return ''; }
+        id() { return ''; }
+        static item(id) {
+            const model = new this;
+            model.id = $.$mol_const($.$mol_data_string(id));
+            return model;
+        }
+        static list() {
+            this.data();
+            return $.$mol_data_array(id => this.item(id));
+        }
+        static all() {
+            return this.list()(Object.keys(this.data()));
+        }
+        static data() {
+            const tree = $.$mol_tree.fromString(this.$.$mol_http.resource(this.uri()).text());
+            const json = new $.$mol_tree({ type: '*', sub: tree.sub }).toJSON();
+            for (const id in json) {
+                this.item(id).data(json[id]);
+            }
+            return json;
+        }
+        data(next) {
+            return next;
+        }
+    };
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_model.prototype, "data", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $piterjs_model, "item", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_model, "list", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_model, "all", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_model, "data", null);
+    $piterjs_model = $piterjs_model_1 = __decorate([
+        $.$mol_class
+    ], $piterjs_model);
+    $.$piterjs_model = $piterjs_model;
+})($ || ($ = {}));
+//model.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_base {
+        static formatter(pattern) {
+            if (this.patterns[pattern])
+                return this.patterns[pattern];
+            var tokens = Object.keys(this.patterns)
+                .sort()
+                .reverse()
+                .map((token) => token.replace(/([-+*.\[\]()\^])/g, '\\$1'));
+            var lexer = RegExp('(.*?)(' + tokens.join('|') + '|$)', 'g');
+            var funcs = [];
+            pattern.replace(lexer, (str, text, token) => {
+                if (text)
+                    funcs.push(() => text);
+                if (token)
+                    funcs.push(this.patterns[token]);
+                return str;
+            });
+            return this.patterns[pattern] = (arg) => {
+                return funcs.reduce((res, func) => res + func(arg), '');
+            };
+        }
+        toString(pattern) {
+            var Base = this.constructor;
+            var formatter = Base.formatter(pattern);
+            return formatter.call(Base, this);
+        }
+    }
+    $mol_time_base.patterns = {};
+    $.$mol_time_base = $mol_time_base;
+})($ || ($ = {}));
+//base.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_duration extends $.$mol_time_base {
+        constructor(config = 0) {
+            super();
+            this.year = 0;
+            this.month = 0;
+            this.day = 0;
+            this.hour = 0;
+            this.minute = 0;
+            this.second = 0;
+            if (typeof config === 'number') {
+                this.second = config / 1000;
+                return;
+            }
+            if (typeof config === 'string') {
+                if (config === 'Z') {
+                    this.hour = 0;
+                    this.minute = 0;
+                    return;
+                }
+                duration: {
+                    const parser = /^P(?:([+-]?\d+(?:\.\d+)?)Y)?(?:([+-]?\d+(?:\.\d+)?)M)?(?:([+-]?\d+(?:\.\d+)?)D)?(?:T(?:([+-]?\d+(?:\.\d+)?)h)?(?:([+-]?\d+(?:\.\d+)?)m)?(?:([+-]?\d+(?:\.\d+)?)s)?)?$/i;
+                    const found = parser.exec(config);
+                    if (!found)
+                        break duration;
+                    if (found[1])
+                        this.year = Number(found[1]);
+                    if (found[2])
+                        this.month = Number(found[2]);
+                    if (found[3])
+                        this.day = Number(found[3]);
+                    if (found[4])
+                        this.hour = Number(found[4]);
+                    if (found[5])
+                        this.minute = Number(found[5]);
+                    if (found[6])
+                        this.second = Number(found[6]);
+                    return;
+                }
+                offset: {
+                    var parser = /^[+-](\d\d)(?::?(\d\d))?$/i;
+                    var found = parser.exec(config);
+                    if (!found)
+                        break offset;
+                    if (found[1])
+                        this.hour = Number(found[1]);
+                    if (found[2])
+                        this.minute = Number(found[2]);
+                    return;
+                }
+                throw new Error(`Can not parse time duration (${config})`);
+            }
+            this.year = config.year || 0;
+            this.month = config.month || 0;
+            this.day = config.day || 0;
+            this.hour = config.hour || 0;
+            this.minute = config.minute || 0;
+            this.second = config.second || 0;
+        }
+        summ(config) {
+            const duration = new $mol_time_duration(config);
+            return new $mol_time_duration({
+                year: this.year + duration.year,
+                month: this.month + duration.month,
+                day: this.day + duration.day,
+                hour: this.hour + duration.hour,
+                minute: this.minute + duration.minute,
+                second: this.second + duration.second,
+            });
+        }
+        mult(numb) {
+            return new $mol_time_duration({
+                year: this.year && this.year * numb,
+                month: this.month && this.month * numb,
+                day: this.day && this.day * numb,
+                hour: this.hour && this.hour * numb,
+                minute: this.minute && this.minute * numb,
+                second: this.second && this.second * numb,
+            });
+        }
+        count(config) {
+            const duration = new $mol_time_duration(config);
+            return this.valueOf() / duration.valueOf();
+        }
+        valueOf() {
+            var day = this.year * 365 + this.month * 30.4 + this.day;
+            var second = ((day * 24 + this.hour) * 60 + this.minute) * 60 + this.second;
+            return second * 1000;
+        }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'P#Y#M#DT#h#m#s') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_duration.patterns = {
+        '#Y': (duration) => {
+            if (!duration.year)
+                return '';
+            return duration.year + 'Y';
+        },
+        '#M': (duration) => {
+            if (!duration.month)
+                return '';
+            return duration.month + 'M';
+        },
+        '#D': (duration) => {
+            if (!duration.day)
+                return '';
+            return duration.day + 'D';
+        },
+        '#h': (duration) => {
+            if (!duration.hour)
+                return '';
+            return duration.hour + 'H';
+        },
+        '#m': (duration) => {
+            if (!duration.minute)
+                return '';
+            return duration.minute + 'M';
+        },
+        '#s': (duration) => {
+            if (!duration.second)
+                return '';
+            return duration.second + 'S';
+        },
+        '+hh': (duration) => {
+            var hour = duration.hour;
+            var sign = '+';
+            if (hour < 0) {
+                sign = '-';
+                hour = -hour;
+            }
+            return (hour < 10)
+                ? (sign + '0' + hour)
+                : (sign + hour);
+        },
+        'mm': (duration) => {
+            return (duration.minute < 10)
+                ? ('0' + duration.minute)
+                : String(duration.minute);
+        },
+    };
+    $.$mol_time_duration = $mol_time_duration;
+})($ || ($ = {}));
+//duration.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_moment extends $.$mol_time_base {
+        constructor(config = new Date) {
+            super();
+            if (typeof config === 'number')
+                config = new Date(config);
+            if (typeof config === 'string') {
+                var parsed = /^(?:(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d))?)?)?(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d(?:\.\d+)?))?)?(Z|[\+\-]\d\d(?::?(?:\d\d)?)?)?)?$/.exec(config);
+                if (!parsed)
+                    throw new Error(`Can not parse time moment (${config})`);
+                if (parsed[1])
+                    this.year = Number(parsed[1]);
+                if (parsed[2])
+                    this.month = Number(parsed[2]) - 1;
+                if (parsed[3])
+                    this.day = Number(parsed[3]) - 1;
+                if (parsed[4])
+                    this.hour = Number(parsed[4]);
+                if (parsed[5])
+                    this.minute = Number(parsed[5]);
+                if (parsed[6])
+                    this.second = Number(parsed[6]);
+                if (parsed[7])
+                    this.offset = new $.$mol_time_duration(parsed[7]);
+                return;
+            }
+            if (config instanceof Date) {
+                this.year = config.getFullYear();
+                this.month = config.getMonth();
+                this.day = config.getDate() - 1;
+                this.hour = config.getHours();
+                this.minute = config.getMinutes();
+                this.second = config.getSeconds() + config.getMilliseconds() / 1000;
+                var offset = -config.getTimezoneOffset();
+                this.offset = new $.$mol_time_duration({
+                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
+                    minute: offset % 60
+                });
+                return;
+            }
+            this.year = config.year;
+            this.month = config.month;
+            this.day = config.day;
+            this.hour = config.hour;
+            this.minute = config.minute;
+            this.second = config.second;
+            if (config.offset !== undefined) {
+                this.offset = new $.$mol_time_duration(config.offset);
+            }
+        }
+        get weekday() {
+            return (this.native.getDay() + 6) % 7;
+        }
+        get native() {
+            if (this._native)
+                return this._native;
+            var utc = this.toOffset('Z');
+            return this._native = new Date(Date.UTC((utc.year || 0), (utc.month || 0), (utc.day || 0) + 1, (utc.hour || 0), (utc.minute || 0), (utc.second && Math.floor(utc.second) || 0), (utc.second && Math.floor((utc.second - Math.floor(utc.second)) * 1000) || 0)));
+        }
+        get normal() {
+            if (this._normal)
+                return this._normal;
+            const moment = new $mol_time_moment(this.native);
+            return this._normal = new $mol_time_moment({
+                year: (this.year === undefined) ? undefined : moment.year,
+                month: (this.month === undefined) ? undefined : moment.month,
+                day: (this.day === undefined) ? undefined : moment.day,
+                hour: (this.hour === undefined) ? undefined : moment.hour,
+                minute: (this.minute === undefined) ? undefined : moment.minute,
+                second: (this.second === undefined) ? undefined : moment.second,
+                offset: (this.offset === undefined) ? undefined : moment.offset,
+            });
+        }
+        merge(config) {
+            var moment = new $mol_time_moment(config);
+            return new $mol_time_moment({
+                year: (moment.year === undefined) ? this.year : moment.year,
+                month: (moment.month === undefined) ? this.month : moment.month,
+                day: (moment.day === undefined) ? this.day : moment.day,
+                hour: (moment.hour === undefined) ? this.hour : moment.hour,
+                minute: (moment.minute === undefined) ? this.minute : moment.minute,
+                second: (moment.second === undefined) ? this.second : moment.second,
+                offset: (moment.offset === undefined) ? this.offset : moment.offset,
+            });
+        }
+        shift(config) {
+            var duration = new $.$mol_time_duration(config);
+            var moment = new $mol_time_moment().merge(this);
+            var second = (moment.second) + (duration.second || 0);
+            var native = new Date((moment.year) + (duration.year || 0), (moment.month) + (duration.month || 0), (moment.day) + 1 + (duration.day || 0), (moment.hour) + (duration.hour || 0), (moment.minute) + (duration.minute || 0), Math.floor(second), (second - Math.floor(second)) * 1000);
+            if (isNaN(native.valueOf()))
+                throw new Error('Wrong time');
+            return new $mol_time_moment({
+                year: (this.year === undefined) ? undefined : native.getFullYear(),
+                month: (this.month === undefined) ? undefined : native.getMonth(),
+                day: (this.day === undefined) ? undefined : native.getDate() - 1,
+                hour: (this.hour === undefined) ? undefined : native.getHours(),
+                minute: (this.minute === undefined) ? undefined : native.getMinutes(),
+                second: (this.second === undefined) ? undefined : native.getSeconds() + native.getMilliseconds() / 1000,
+                offset: this.offset,
+            });
+        }
+        toOffset(config) {
+            const duration = new $.$mol_time_duration(config);
+            const offset = this.offset || new $mol_time_moment().offset;
+            const moment = this.shift(duration.summ(offset.mult(-1)));
+            return moment.merge({ offset: duration });
+        }
+        valueOf() { return this.native.getTime(); }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
+            return super.toString(pattern);
+        }
+    }
+    /// Mnemonics:
+    ///  * single letter for numbers: M - month number, D - day of month.
+    ///  * uppercase letters for dates, lowercase for times: M - month number , m - minutes number
+    ///  * repeated letters for define register count: YYYY - full year, YY - shot year, MM - padded month number
+    ///  * words for word representation: Month - month name, WeekDay - day of week name
+    ///  * shortcuts: WD - short day of week, Mon - short month name.
+    $mol_time_moment.patterns = {
+        'YYYY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year);
+        },
+        'AD': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(Math.floor(moment.year / 100) + 1);
+        },
+        'YY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year % 100);
+        },
+        'Month': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'long' });
+        },
+        'DD Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'long' });
+        },
+        'D Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'long' });
+        },
+        'Mon': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'short' });
+        },
+        'DD Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'short' });
+        },
+        'D Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'short' });
+        },
+        '-MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['MM'](moment);
+        },
+        'MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            var month = moment.month + 1;
+            return (month < 10)
+                ? ('0' + month)
+                : ('' + month);
+        },
+        'M': (moment) => {
+            if (moment.month == null)
+                return '';
+            return String(moment.month + 1);
+        },
+        'WeekDay': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'long' });
+        },
+        'WD': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'short' });
+        },
+        '-DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['DD'](moment);
+        },
+        'DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            var day = moment.day + 1;
+            return (day < 10)
+                ? ('0' + day)
+                : String(day);
+        },
+        'D': (moment) => {
+            if (moment.day == null)
+                return '';
+            return String(moment.day + 1);
+        },
+        'Thh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return 'T' + $mol_time_moment.patterns['hh'](moment);
+        },
+        'hh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return (moment.hour < 10)
+                ? ('0' + moment.hour)
+                : String(moment.hour);
+        },
+        'h': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return String(moment.hour);
+        },
+        ':mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['mm'](moment);
+        },
+        'mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return (moment.minute < 10)
+                ? ('0' + moment.minute)
+                : String(moment.minute);
+        },
+        'm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return String(moment.minute);
+        },
+        ':ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['ss'](moment);
+        },
+        'ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            var second = Math.floor(moment.second);
+            return (second < 10)
+                ? ('0' + second)
+                : String(second);
+        },
+        's': (moment) => {
+            if (moment.second == null)
+                return '';
+            return String(Math.floor(moment.second));
+        },
+        '.sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            if (moment.second - Math.floor(moment.second) === 0)
+                return '';
+            return '.' + $mol_time_moment.patterns['sss'](moment);
+        },
+        'sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            var millisecond = Math.floor((moment.second - Math.floor(moment.second)) * 1000);
+            return (millisecond < 10)
+                ? ('00' + millisecond)
+                : (millisecond < 100)
+                    ? ('0' + millisecond)
+                    : String(millisecond);
+        },
+        'Z': (moment) => {
+            var offset = moment.offset;
+            if (!offset)
+                return '';
+            return offset.toString('+hh:mm');
+        }
+    };
+    $.$mol_time_moment = $mol_time_moment;
+})($ || ($ = {}));
+//moment.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_optional(sub) {
+        return $.$mol_data_setup((val) => {
+            if (val === undefined)
+                return undefined;
+            return sub(val);
+        }, sub);
+    }
+    $.$mol_data_optional = $mol_data_optional;
+})($ || ($ = {}));
+//optional.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $piterjs_speaker = class $piterjs_speaker extends $.$piterjs_model {
+        static uri() {
+            return 'piterjs/speaker/speaker.data.tree';
+        }
+        title() {
+            return $.$mol_data_string(this.data().title);
+        }
+        description() {
+            return $.$mol_data_string(this.data().description);
+        }
+        photo() {
+            return $.$mol_data_string(this.data().photo);
+        }
+        speeches() {
+            return this.$.$piterjs_speech.all().filter(speech => speech.speaker() === this);
+        }
+    };
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speaker.prototype, "title", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speaker.prototype, "description", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speaker.prototype, "photo", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speaker.prototype, "speeches", null);
+    $piterjs_speaker = __decorate([
+        $.$mol_class
+    ], $piterjs_speaker);
+    $.$piterjs_speaker = $piterjs_speaker;
+})($ || ($ = {}));
+//speaker.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $piterjs_speech = class $piterjs_speech extends $.$piterjs_model {
+        static uri() {
+            return 'piterjs/speech/speech.data.tree';
+        }
+        meetup() {
+            return this.$.$piterjs_meetup.all().find(meetup => meetup.speeches().indexOf(this) !== -1);
+        }
+        title() {
+            return $.$mol_data_string(this.data().title);
+        }
+        description() {
+            return $.$mol_data_string(this.data().description);
+        }
+        slides() {
+            return $.$mol_data_optional($.$mol_data_string)(this.data().slides) || null;
+        }
+        video() {
+            return $.$mol_data_optional($.$mol_data_string)(this.data().video) || null;
+        }
+        duration() {
+            return new $.$mol_time_duration($.$mol_data_string(this.data().duration));
+        }
+        speaker() {
+            this.$.$piterjs_speaker.data();
+            return this.$.$piterjs_speaker.item(this.data().speaker);
+        }
+    };
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "meetup", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "title", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "description", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "slides", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "video", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "duration", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech.prototype, "speaker", null);
+    $piterjs_speech = __decorate([
+        $.$mol_class
+    ], $piterjs_speech);
+    $.$piterjs_speech = $piterjs_speech;
+})($ || ($ = {}));
+//speech.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $piterjs_meetup = class $piterjs_meetup extends $.$piterjs_model {
+        static uri() {
+            return 'piterjs/meetup/meetup.data.tree';
+        }
+        start() {
+            return new $.$mol_time_moment($.$mol_data_string(this.data().start));
+        }
+        title() {
+            return $.$mol_data_string(this.data().title);
+        }
+        description() {
+            return $.$mol_data_string(this.data().description);
+        }
+        translation() {
+            return $.$mol_data_optional($.$mol_data_string)(this.data().translation) || null;
+        }
+        speeches() {
+            return this.$.$piterjs_speech.list()(this.data().speeches);
+        }
+    };
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "start", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "title", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "description", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "translation", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup.prototype, "speeches", null);
+    $piterjs_meetup = __decorate([
+        $.$mol_class
+    ], $piterjs_meetup);
+    $.$piterjs_meetup = $piterjs_meetup;
+})($ || ($ = {}));
+//meetup.js.map
+;
+"use strict";
 var $;
 (function ($) {
     class $mol_state_arg extends $.$mol_object {
@@ -4320,12 +5535,6 @@ var $;
 //arg.node.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_link extends $.$mol_view {
@@ -4453,12 +5662,6 @@ var $;
 //link.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -4502,12 +5705,6 @@ var $;
 //link.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_state_time extends $.$mol_object {
@@ -4554,12 +5751,6 @@ var $;
 //measure.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_svg extends $.$mol_view {
@@ -4612,12 +5803,6 @@ var $;
 //svg.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -4734,12 +5919,6 @@ var $;
 //path.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_icon extends $.$mol_svg_root {
@@ -4906,12 +6085,6 @@ var $;
 //float.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_check extends $.$mol_button_minor {
@@ -5032,12 +6205,6 @@ var $;
 //tick.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_check_box extends $.$mol_check {
@@ -5077,12 +6244,6 @@ var $;
 //chevron.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_check_expand extends $.$mol_check {
@@ -5195,12 +6356,6 @@ var $;
 //expand.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_dimmer extends $.$mol_view {
@@ -5264,12 +6419,6 @@ var $;
 //dimmer.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -5304,12 +6453,6 @@ var $;
 //dimmer.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_grid extends $.$mol_scroll {
@@ -5778,12 +6921,6 @@ var $;
 //grid.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -6005,12 +7142,6 @@ var $;
 //md.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_text extends $.$mol_list {
@@ -6534,12 +7665,6 @@ var $;
 //text.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -6748,12 +7873,6 @@ var $;
 //image.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_link_iconed extends $.$mol_link {
@@ -6817,12 +7936,6 @@ var $;
 //iconed.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -6854,480 +7967,6 @@ var $;
 //iconed.view.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_time_base {
-        static formatter(pattern) {
-            if (this.patterns[pattern])
-                return this.patterns[pattern];
-            var tokens = Object.keys(this.patterns)
-                .sort()
-                .reverse()
-                .map((token) => token.replace(/([-+*.\[\]()\^])/g, '\\$1'));
-            var lexer = RegExp('(.*?)(' + tokens.join('|') + '|$)', 'g');
-            var funcs = [];
-            pattern.replace(lexer, (str, text, token) => {
-                if (text)
-                    funcs.push(() => text);
-                if (token)
-                    funcs.push(this.patterns[token]);
-                return str;
-            });
-            return this.patterns[pattern] = (arg) => {
-                return funcs.reduce((res, func) => res + func(arg), '');
-            };
-        }
-        toString(pattern) {
-            var Base = this.constructor;
-            var formatter = Base.formatter(pattern);
-            return formatter.call(Base, this);
-        }
-    }
-    $mol_time_base.patterns = {};
-    $.$mol_time_base = $mol_time_base;
-})($ || ($ = {}));
-//base.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_time_duration extends $.$mol_time_base {
-        constructor(config = 0) {
-            super();
-            this.year = 0;
-            this.month = 0;
-            this.day = 0;
-            this.hour = 0;
-            this.minute = 0;
-            this.second = 0;
-            if (typeof config === 'number') {
-                this.second = config / 1000;
-                return;
-            }
-            if (typeof config === 'string') {
-                if (config === 'Z') {
-                    this.hour = 0;
-                    this.minute = 0;
-                    return;
-                }
-                duration: {
-                    const parser = /^P(?:([+-]?\d+(?:\.\d+)?)Y)?(?:([+-]?\d+(?:\.\d+)?)M)?(?:([+-]?\d+(?:\.\d+)?)D)?(?:T(?:([+-]?\d+(?:\.\d+)?)h)?(?:([+-]?\d+(?:\.\d+)?)m)?(?:([+-]?\d+(?:\.\d+)?)s)?)?$/i;
-                    const found = parser.exec(config);
-                    if (!found)
-                        break duration;
-                    if (found[1])
-                        this.year = Number(found[1]);
-                    if (found[2])
-                        this.month = Number(found[2]);
-                    if (found[3])
-                        this.day = Number(found[3]);
-                    if (found[4])
-                        this.hour = Number(found[4]);
-                    if (found[5])
-                        this.minute = Number(found[5]);
-                    if (found[6])
-                        this.second = Number(found[6]);
-                    return;
-                }
-                offset: {
-                    var parser = /^[+-](\d\d)(?::?(\d\d))?$/i;
-                    var found = parser.exec(config);
-                    if (!found)
-                        break offset;
-                    if (found[1])
-                        this.hour = Number(found[1]);
-                    if (found[2])
-                        this.minute = Number(found[2]);
-                    return;
-                }
-                throw new Error(`Can not parse time duration (${config})`);
-            }
-            this.year = config.year || 0;
-            this.month = config.month || 0;
-            this.day = config.day || 0;
-            this.hour = config.hour || 0;
-            this.minute = config.minute || 0;
-            this.second = config.second || 0;
-        }
-        summ(config) {
-            const duration = new $mol_time_duration(config);
-            return new $mol_time_duration({
-                year: this.year + duration.year,
-                month: this.month + duration.month,
-                day: this.day + duration.day,
-                hour: this.hour + duration.hour,
-                minute: this.minute + duration.minute,
-                second: this.second + duration.second,
-            });
-        }
-        mult(numb) {
-            return new $mol_time_duration({
-                year: this.year && this.year * numb,
-                month: this.month && this.month * numb,
-                day: this.day && this.day * numb,
-                hour: this.hour && this.hour * numb,
-                minute: this.minute && this.minute * numb,
-                second: this.second && this.second * numb,
-            });
-        }
-        count(config) {
-            const duration = new $mol_time_duration(config);
-            return this.valueOf() / duration.valueOf();
-        }
-        valueOf() {
-            var day = this.year * 365 + this.month * 30.4 + this.day;
-            var second = ((day * 24 + this.hour) * 60 + this.minute) * 60 + this.second;
-            return second * 1000;
-        }
-        toJSON() { return this.toString(); }
-        toString(pattern = 'P#Y#M#DT#h#m#s') {
-            return super.toString(pattern);
-        }
-    }
-    $mol_time_duration.patterns = {
-        '#Y': (duration) => {
-            if (!duration.year)
-                return '';
-            return duration.year + 'Y';
-        },
-        '#M': (duration) => {
-            if (!duration.month)
-                return '';
-            return duration.month + 'M';
-        },
-        '#D': (duration) => {
-            if (!duration.day)
-                return '';
-            return duration.day + 'D';
-        },
-        '#h': (duration) => {
-            if (!duration.hour)
-                return '';
-            return duration.hour + 'H';
-        },
-        '#m': (duration) => {
-            if (!duration.minute)
-                return '';
-            return duration.minute + 'M';
-        },
-        '#s': (duration) => {
-            if (!duration.second)
-                return '';
-            return duration.second + 'S';
-        },
-        '+hh': (duration) => {
-            var hour = duration.hour;
-            var sign = '+';
-            if (hour < 0) {
-                sign = '-';
-                hour = -hour;
-            }
-            return (hour < 10)
-                ? (sign + '0' + hour)
-                : (sign + hour);
-        },
-        'mm': (duration) => {
-            return (duration.minute < 10)
-                ? ('0' + duration.minute)
-                : String(duration.minute);
-        },
-    };
-    $.$mol_time_duration = $mol_time_duration;
-})($ || ($ = {}));
-//duration.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_time_moment extends $.$mol_time_base {
-        constructor(config = new Date) {
-            super();
-            if (typeof config === 'number')
-                config = new Date(config);
-            if (typeof config === 'string') {
-                var parsed = /^(?:(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d))?)?)?(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d(?:\.\d\d\d)?))?)?(Z|[\+\-]\d\d(?::?(?:\d\d)?)?)?)?$/.exec(config);
-                if (!parsed)
-                    throw new Error(`Can not parse time moment (${config})`);
-                if (parsed[1])
-                    this.year = Number(parsed[1]);
-                if (parsed[2])
-                    this.month = Number(parsed[2]) - 1;
-                if (parsed[3])
-                    this.day = Number(parsed[3]) - 1;
-                if (parsed[4])
-                    this.hour = Number(parsed[4]);
-                if (parsed[5])
-                    this.minute = Number(parsed[5]);
-                if (parsed[6])
-                    this.second = Number(parsed[6]);
-                if (parsed[7])
-                    this.offset = new $.$mol_time_duration(parsed[7]);
-                return;
-            }
-            if (config instanceof Date) {
-                this.year = config.getFullYear();
-                this.month = config.getMonth();
-                this.day = config.getDate() - 1;
-                this.hour = config.getHours();
-                this.minute = config.getMinutes();
-                this.second = config.getSeconds() + config.getMilliseconds() / 1000;
-                var offset = -config.getTimezoneOffset();
-                this.offset = new $.$mol_time_duration({
-                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
-                    minute: offset % 60
-                });
-                return;
-            }
-            this.year = config.year;
-            this.month = config.month;
-            this.day = config.day;
-            this.hour = config.hour;
-            this.minute = config.minute;
-            this.second = config.second;
-            if (config.offset !== undefined)
-                this.offset = config.offset && new $.$mol_time_duration(config.offset);
-        }
-        get weekday() {
-            return (this.native.getDay() + 6) % 7;
-        }
-        get native() {
-            if (this._native)
-                return this._native;
-            var utc = this.toOffset('Z');
-            return this._native = new Date(Date.UTC((utc.year || 0), (utc.month || 0), (utc.day || 0) + 1, (utc.hour || 0), (utc.minute || 0), (utc.second && Math.floor(utc.second) || 0), (utc.second && Math.floor((utc.second - Math.floor(utc.second)) * 1000) || 0)));
-        }
-        get normal() {
-            if (this._normal)
-                return this._normal;
-            const moment = new $mol_time_moment(this.native);
-            return this._normal = new $mol_time_moment({
-                year: (this.year === undefined) ? undefined : moment.year,
-                month: (this.month === undefined) ? undefined : moment.month,
-                day: (this.day === undefined) ? undefined : moment.day,
-                hour: (this.hour === undefined) ? undefined : moment.hour,
-                minute: (this.minute === undefined) ? undefined : moment.minute,
-                second: (this.second === undefined) ? undefined : moment.second,
-                offset: (this.offset === undefined) ? undefined : moment.offset,
-            });
-        }
-        merge(config) {
-            var moment = new $mol_time_moment(config);
-            return new $mol_time_moment({
-                year: (moment.year === undefined) ? this.year : moment.year,
-                month: (moment.month === undefined) ? this.month : moment.month,
-                day: (moment.day === undefined) ? this.day : moment.day,
-                hour: (moment.hour === undefined) ? this.hour : moment.hour,
-                minute: (moment.minute === undefined) ? this.minute : moment.minute,
-                second: (moment.second === undefined) ? this.second : moment.second,
-                offset: (moment.offset === undefined) ? this.offset : moment.offset,
-            });
-        }
-        shift(config) {
-            var duration = new $.$mol_time_duration(config);
-            var moment = new $mol_time_moment().merge(this);
-            var second = (moment.second) + (duration.second || 0);
-            var native = new Date((moment.year) + (duration.year || 0), (moment.month) + (duration.month || 0), (moment.day) + 1 + (duration.day || 0), (moment.hour) + (duration.hour || 0), (moment.minute) + (duration.minute || 0), Math.floor(second), (second - Math.floor(second)) * 1000);
-            if (isNaN(native.valueOf()))
-                throw new Error('Wrong time');
-            return new $mol_time_moment({
-                year: (this.year === undefined) ? undefined : native.getFullYear(),
-                month: (this.month === undefined) ? undefined : native.getMonth(),
-                day: (this.day === undefined) ? undefined : native.getDate() - 1,
-                hour: (this.hour === undefined) ? undefined : native.getHours(),
-                minute: (this.minute === undefined) ? undefined : native.getMinutes(),
-                second: (this.second === undefined) ? undefined : native.getSeconds() + native.getMilliseconds() / 1000,
-                offset: this.offset,
-            });
-        }
-        toOffset(config) {
-            const duration = new $.$mol_time_duration(config);
-            const offset = this.offset || new $mol_time_moment().offset;
-            const moment = this.shift(duration.summ(offset.mult(-1)));
-            return moment.merge({ offset: duration });
-        }
-        valueOf() { return this.native.getTime(); }
-        toJSON() { return this.toString(); }
-        toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
-            return super.toString(pattern);
-        }
-    }
-    /// Mnemonics:
-    ///  * single letter for numbers: M - month number, D - day of month.
-    ///  * uppercase letters for dates, lowercase for times: M - month number , m - minutes number
-    ///  * repeated letters for define register count: YYYY - full year, YY - shot year, MM - padded month number
-    ///  * words for word representation: Month - month name, WeekDay - day of week name
-    ///  * shortcuts: WD - short day of week, Mon - short month name.
-    $mol_time_moment.patterns = {
-        'YYYY': (moment) => {
-            if (moment.year == null)
-                return '';
-            return String(moment.year);
-        },
-        'AD': (moment) => {
-            if (moment.year == null)
-                return '';
-            return String(Math.floor(moment.year / 100) + 1);
-        },
-        'YY': (moment) => {
-            if (moment.year == null)
-                return '';
-            return String(moment.year % 100);
-        },
-        'Month': (moment) => {
-            if (moment.month == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { month: 'long' });
-        },
-        'DD Month': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'long' });
-        },
-        'D Month': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'long' });
-        },
-        'Mon': (moment) => {
-            if (moment.month == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { month: 'short' });
-        },
-        'DD Mon': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'short' });
-        },
-        'D Mon': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'short' });
-        },
-        '-MM': (moment) => {
-            if (moment.month == null)
-                return '';
-            return '-' + $mol_time_moment.patterns['MM'](moment);
-        },
-        'MM': (moment) => {
-            if (moment.month == null)
-                return '';
-            var month = moment.month + 1;
-            return (month < 10)
-                ? ('0' + month)
-                : ('' + month);
-        },
-        'M': (moment) => {
-            if (moment.month == null)
-                return '';
-            return String(moment.month + 1);
-        },
-        'WeekDay': (moment) => {
-            if (moment.weekday == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { weekday: 'long' });
-        },
-        'WD': (moment) => {
-            if (moment.weekday == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { weekday: 'short' });
-        },
-        '-DD': (moment) => {
-            if (moment.day == null)
-                return '';
-            return '-' + $mol_time_moment.patterns['DD'](moment);
-        },
-        'DD': (moment) => {
-            if (moment.day == null)
-                return '';
-            var day = moment.day + 1;
-            return (day < 10)
-                ? ('0' + day)
-                : String(day);
-        },
-        'D': (moment) => {
-            if (moment.day == null)
-                return '';
-            return String(moment.day + 1);
-        },
-        'Thh': (moment) => {
-            if (moment.hour == null)
-                return '';
-            return 'T' + $mol_time_moment.patterns['hh'](moment);
-        },
-        'hh': (moment) => {
-            if (moment.hour == null)
-                return '';
-            return (moment.hour < 10)
-                ? ('0' + moment.hour)
-                : String(moment.hour);
-        },
-        'h': (moment) => {
-            if (moment.hour == null)
-                return '';
-            return String(moment.hour);
-        },
-        ':mm': (moment) => {
-            if (moment.minute == null)
-                return '';
-            return ':' + $mol_time_moment.patterns['mm'](moment);
-        },
-        'mm': (moment) => {
-            if (moment.minute == null)
-                return '';
-            return (moment.minute < 10)
-                ? ('0' + moment.minute)
-                : String(moment.minute);
-        },
-        'm': (moment) => {
-            if (moment.minute == null)
-                return '';
-            return String(moment.minute);
-        },
-        ':ss': (moment) => {
-            if (moment.second == null)
-                return '';
-            return ':' + $mol_time_moment.patterns['ss'](moment);
-        },
-        'ss': (moment) => {
-            if (moment.second == null)
-                return '';
-            var second = Math.floor(moment.second);
-            return (second < 10)
-                ? ('0' + second)
-                : String(second);
-        },
-        's': (moment) => {
-            if (moment.second == null)
-                return '';
-            return String(Math.floor(moment.second));
-        },
-        '.sss': (moment) => {
-            if (moment.second == null)
-                return '';
-            if (moment.second - Math.floor(moment.second) === 0)
-                return '';
-            return '.' + $mol_time_moment.patterns['sss'](moment);
-        },
-        'sss': (moment) => {
-            if (moment.second == null)
-                return '';
-            var millisecond = Math.floor((moment.second - Math.floor(moment.second)) * 1000);
-            return (millisecond < 10)
-                ? ('00' + millisecond)
-                : (millisecond < 100)
-                    ? ('0' + millisecond)
-                    : String(millisecond);
-        },
-        'Z': (moment) => {
-            var offset = moment.offset;
-            if (!offset)
-                return '';
-            return offset.toString('+hh:mm');
-        }
-    };
-    $.$mol_time_moment = $mol_time_moment;
-})($ || ($ = {}));
-//moment.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_image2 extends $.$mol_view {
@@ -7396,12 +8035,6 @@ var $;
 //image2.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -7453,12 +8086,6 @@ var $;
 //image.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_speech_snippet extends $.$mol_link {
@@ -7492,29 +8119,13 @@ var $;
         }
         /**
          *  ```
-         *  speech *
-         *  	title \
-         *  	speaker \
+         *  speech $piterjs_speech
          *  ```
          **/
         speech() {
-            return ({
-                "title": "",
-                "speaker": "",
-            });
-        }
-        /**
-         *  ```
-         *  speaker!id *
-         *  	title \
-         *  	photo \
-         *  ```
-         **/
-        speaker(id) {
-            return ({
-                "title": "",
-                "photo": "",
-            });
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_speech());
         }
         /**
          *  ```
@@ -7634,6 +8245,9 @@ var $;
     ], $piterjs_speech_snippet.prototype, "start", null);
     __decorate([
         $.$mol_mem
+    ], $piterjs_speech_snippet.prototype, "speech", null);
+    __decorate([
+        $.$mol_mem
     ], $piterjs_speech_snippet.prototype, "Photo", null);
     __decorate([
         $.$mol_mem
@@ -7660,45 +8274,43 @@ var $;
     var $$;
     (function ($$) {
         class $piterjs_speech_snippet extends $.$piterjs_speech_snippet {
-            photo() { return this.speech_speaker().photo; }
-            speaker_title() { return this.speech_speaker().title; }
-            title() { return this.speech().title; }
-            time() { return this.start().toString('hh:mm'); }
-            speech_speaker() { return this.speaker(this.speech().speaker); }
+            id() {
+                return this.speech().id();
+            }
+            photo() {
+                return this.speech().speaker().photo();
+            }
+            speaker_title() {
+                return this.speech().speaker().title();
+            }
+            title() {
+                return this.speech().title();
+            }
+            time() {
+                return this.start().toString('hh:mm');
+            }
         }
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_speech_snippet.prototype, "time", null);
         $$.$piterjs_speech_snippet = $piterjs_speech_snippet;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //snippet.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_meetup_page extends $.$mol_page {
         /**
          *  ```
-         *  meetup *
-         *  	title \
-         *  	description \
-         *  	start \
-         *  	speeches /
-         *  	translation \
+         *  meetup $piterjs_meetup
          *  ```
          **/
         meetup() {
-            return ({
-                "title": "",
-                "description": "",
-                "start": "",
-                "speeches": [],
-                "translation": "",
-            });
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_meetup());
         }
         /**
          *  ```
@@ -7861,69 +8473,42 @@ var $;
         }
         /**
          *  ```
-         *  Speech!id $piterjs_speech_snippet
-         *  	id <= speech_id!id
-         *  	speech <= speech!id
-         *  	speaker!id <= speaker!id
-         *  	start <= speech_start!id
+         *  Speech!index $piterjs_speech_snippet
+         *  	speech <= speech!index
+         *  	start <= speech_start!index
          *  ```
          **/
-        Speech(id) {
+        Speech(index) {
             return ((obj) => {
-                obj.id = () => this.speech_id(id);
-                obj.speech = () => this.speech(id);
-                obj.speaker = (id) => this.speaker(id);
-                obj.start = () => this.speech_start(id);
+                obj.speech = () => this.speech(index);
+                obj.start = () => this.speech_start(index);
                 return obj;
             })(new this.$.$piterjs_speech_snippet());
         }
         /**
          *  ```
-         *  speech_id!id \
+         *  speech!index $piterjs_speech
          *  ```
          **/
-        speech_id(id) {
-            return "";
+        speech(index) {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_speech());
         }
         /**
          *  ```
-         *  speech!id *
-         *  	title \
-         *  	speaker \
-         *  	duration \
+         *  speech_start!index $mol_time_moment
          *  ```
          **/
-        speech(id) {
-            return ({
-                "title": "",
-                "speaker": "",
-                "duration": "",
-            });
-        }
-        /**
-         *  ```
-         *  speaker!id *
-         *  	title \
-         *  	photo \
-         *  ```
-         **/
-        speaker(id) {
-            return ({
-                "title": "",
-                "photo": "",
-            });
-        }
-        /**
-         *  ```
-         *  speech_start!id $mol_time_moment
-         *  ```
-         **/
-        speech_start(id) {
+        speech_start(index) {
             return ((obj) => {
                 return obj;
             })(new this.$.$mol_time_moment());
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_meetup_page.prototype, "meetup", null);
     __decorate([
         $.$mol_mem
     ], $piterjs_meetup_page.prototype, "Date", null);
@@ -7950,35 +8535,37 @@ var $;
     ], $piterjs_meetup_page.prototype, "Speech", null);
     __decorate([
         $.$mol_mem_key
+    ], $piterjs_meetup_page.prototype, "speech", null);
+    __decorate([
+        $.$mol_mem_key
     ], $piterjs_meetup_page.prototype, "speech_start", null);
     $.$piterjs_meetup_page = $piterjs_meetup_page;
 })($ || ($ = {}));
 //page.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
     (function ($$) {
         class $piterjs_meetup_page extends $.$piterjs_meetup_page {
-            title() { return this.meetup().title; }
-            description() { return this.meetup().description; }
-            start() { return new $.$mol_time_moment(this.meetup().start); }
-            date() { return this.start().toString('DD Month YYYY'); }
-            speeches() { return this.meetup().speeches.map(id => this.Speech(id)); }
-            translation() { return this.meetup().translation; }
-            speech_id(id) { return id; }
-            speech_start(id) {
-                const speech_ids = this.meetup().speeches;
-                const prev_ids = speech_ids.slice(0, speech_ids.indexOf(id));
+            title() {
+                return this.meetup().title();
+            }
+            description() {
+                return this.meetup().description();
+            }
+            date() {
+                return this.meetup().start().toString('DD Month YYYY');
+            }
+            translation() {
+                return this.meetup().translation();
+            }
+            speech_start(index) {
+                const meetup = this.meetup();
+                const speeches = meetup.speeches().slice(0, index + 1);
                 const now = new $.$mol_time_moment;
-                return prev_ids.reduce((start, id) => start.shift(this.speech(id).duration), this.start().toOffset(now.offset));
+                return speeches.reduce((start, speech) => start.shift(speech.duration()), meetup.start().toOffset(now.offset));
             }
             info() {
                 return [
@@ -7992,10 +8579,28 @@ var $;
                     this.Speeches(),
                 ];
             }
+            speeches() {
+                return this.meetup().speeches().map((speech, index) => this.Speech(index));
+            }
+            speech(index) {
+                return this.meetup().speeches()[index];
+            }
         }
         __decorate([
             $.$mol_mem
+        ], $piterjs_meetup_page.prototype, "date", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $piterjs_meetup_page.prototype, "speech_start", null);
+        __decorate([
+            $.$mol_mem
         ], $piterjs_meetup_page.prototype, "info", null);
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_meetup_page.prototype, "body", null);
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_meetup_page.prototype, "speeches", null);
         $$.$piterjs_meetup_page = $piterjs_meetup_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -8016,12 +8621,6 @@ var $;
 //row.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
@@ -8091,29 +8690,18 @@ var $;
 //row.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_speaker_snippet extends $.$mol_view {
         /**
          *  ```
-         *  speaker *
-         *  	title \
-         *  	description \
-         *  	photo \
+         *  speaker $piterjs_speaker
          *  ```
          **/
         speaker() {
-            return ({
-                "title": "",
-                "description": "",
-                "photo": "",
-            });
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_speaker());
         }
         /**
          *  ```
@@ -8198,6 +8786,9 @@ var $;
     }
     __decorate([
         $.$mol_mem
+    ], $piterjs_speaker_snippet.prototype, "speaker", null);
+    __decorate([
+        $.$mol_mem
     ], $piterjs_speaker_snippet.prototype, "Photo", null);
     __decorate([
         $.$mol_mem
@@ -8218,9 +8809,15 @@ var $;
     var $$;
     (function ($$) {
         class $piterjs_speaker_snippet extends $.$piterjs_speaker_snippet {
-            title() { return this.speaker().title; }
-            description() { return this.speaker().description; }
-            photo() { return this.speaker().photo; }
+            title() {
+                return this.speaker().title();
+            }
+            description() {
+                return this.speaker().description();
+            }
+            photo() {
+                return this.speaker().photo();
+            }
         }
         $$.$piterjs_speaker_snippet = $piterjs_speaker_snippet;
     })($$ = $.$$ || ($.$$ = {}));
@@ -8228,48 +8825,18 @@ var $;
 //snippet.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_speech_page extends $.$mol_page {
         /**
          *  ```
-         *  speech *
-         *  	title \
-         *  	description \
-         *  	speaker \
-         *  	slides \
-         *  	video \
+         *  speech $piterjs_speech
          *  ```
          **/
         speech() {
-            return ({
-                "title": "",
-                "description": "",
-                "speaker": "",
-                "slides": "",
-                "video": "",
-            });
-        }
-        /**
-         *  ```
-         *  speaker!id *
-         *  	title \
-         *  	description \
-         *  	photo \
-         *  ```
-         **/
-        speaker(id) {
-            return ({
-                "title": "",
-                "description": "",
-                "photo": "",
-            });
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_speech());
         }
         /**
          *  ```
@@ -8410,31 +8977,29 @@ var $;
         }
         /**
          *  ```
-         *  Speaker $piterjs_speaker_snippet speaker <= speech_speaker
+         *  Speaker $piterjs_speaker_snippet speaker <= speaker
          *  ```
          **/
         Speaker() {
             return ((obj) => {
-                obj.speaker = () => this.speech_speaker();
+                obj.speaker = () => this.speaker();
                 return obj;
             })(new this.$.$piterjs_speaker_snippet());
         }
         /**
          *  ```
-         *  speech_speaker *
-         *  	title \
-         *  	description \
-         *  	photo \
+         *  speaker $piterjs_speaker
          *  ```
          **/
-        speech_speaker() {
-            return ({
-                "title": "",
-                "description": "",
-                "photo": "",
-            });
+        speaker() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_speaker());
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech_page.prototype, "speech", null);
     __decorate([
         $.$mol_mem
     ], $piterjs_speech_page.prototype, "Close", null);
@@ -8456,6 +9021,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $piterjs_speech_page.prototype, "Speaker", null);
+    __decorate([
+        $.$mol_mem
+    ], $piterjs_speech_page.prototype, "speaker", null);
     $.$piterjs_speech_page = $piterjs_speech_page;
 })($ || ($ = {}));
 //page.view.tree.js.map
@@ -8466,11 +9034,21 @@ var $;
     var $$;
     (function ($$) {
         class $piterjs_speech_page extends $.$piterjs_speech_page {
-            title() { return this.speech().title; }
-            description() { return this.speech().description; }
-            speech_speaker() { return this.speaker(this.speech().speaker); }
-            slides() { return this.speech().slides; }
-            video() { return this.speech().video; }
+            title() {
+                return this.speech().title();
+            }
+            description() {
+                return this.speech().description();
+            }
+            speaker() {
+                return this.speech().speaker();
+            }
+            slides() {
+                return this.speech().slides();
+            }
+            video() {
+                return this.speech().video();
+            }
             links() {
                 return [
                     ...this.slides() ? [this.Slides()] : [],
@@ -8478,18 +9056,15 @@ var $;
                 ];
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_speech_page.prototype, "links", null);
         $$.$piterjs_speech_page = $piterjs_speech_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //page.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_meetup_snippet extends $.$mol_link {
@@ -8518,16 +9093,13 @@ var $;
         }
         /**
          *  ```
-         *  meetup *
-         *  	title \
-         *  	start \
+         *  meetup $piterjs_meetup
          *  ```
          **/
         meetup() {
-            return ({
-                "title": "",
-                "start": "",
-            });
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_meetup());
         }
         /**
          *  ```
@@ -8580,6 +9152,9 @@ var $;
     }
     __decorate([
         $.$mol_mem
+    ], $piterjs_meetup_snippet.prototype, "meetup", null);
+    __decorate([
+        $.$mol_mem
     ], $piterjs_meetup_snippet.prototype, "Title", null);
     __decorate([
         $.$mol_mem
@@ -8594,22 +9169,25 @@ var $;
     var $$;
     (function ($$) {
         class $piterjs_meetup_snippet extends $.$piterjs_meetup_snippet {
-            start() { return new $.$mol_time_moment(this.meetup().start); }
-            title() { return this.meetup().title; }
-            date() { return this.start().toString("Month'YY"); }
+            id() {
+                return this.meetup().id();
+            }
+            title() {
+                return this.meetup().title();
+            }
+            date() {
+                return this.meetup().start().toString("Month'YY");
+            }
         }
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_meetup_snippet.prototype, "date", null);
         $$.$piterjs_meetup_snippet = $piterjs_meetup_snippet;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //snippet.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_intro_lines extends $.$mol_svg_root {
@@ -8698,12 +9276,6 @@ var $;
 //intro.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mol_nav extends $.$mol_plugin {
@@ -8947,12 +9519,6 @@ var $;
 //nav.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_intro extends $.$mol_view {
@@ -9516,572 +10082,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_typeof(value) {
-        var str = {}.toString.apply(value);
-        var type = str.substring(8, str.length - 1);
-        return type;
-    }
-    $.$mol_typeof = $mol_typeof;
-})($ || ($ = {}));
-//typeof.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_tree {
-        constructor(config = {}) {
-            this.type = config.type || '';
-            if (config.value !== undefined) {
-                var sub = $mol_tree.values(config.value);
-                if (config.type || sub.length > 1) {
-                    this.sub = sub.concat(config.sub || []);
-                    this.data = config.data || '';
-                }
-                else {
-                    this.data = sub[0].data;
-                    this.sub = config.sub || [];
-                }
-            }
-            else {
-                this.data = config.data || '';
-                this.sub = config.sub || [];
-            }
-            this.baseUri = config.baseUri || '';
-            this.row = config.row || 0;
-            this.col = config.col || 0;
-        }
-        static values(str, baseUri) {
-            return str.split('\n').map((data, index) => new $mol_tree({
-                data: data,
-                baseUri: baseUri,
-                row: index + 1
-            }));
-        }
-        clone(config) {
-            return new $mol_tree({
-                type: ('type' in config) ? config.type : this.type,
-                data: ('data' in config) ? config.data : this.data,
-                sub: ('sub' in config) ? config.sub : this.sub,
-                baseUri: ('baseUri' in config) ? config.baseUri : this.baseUri,
-                row: ('row' in config) ? config.row : this.row,
-                col: ('col' in config) ? config.col : this.col,
-                value: config.value
-            });
-        }
-        static fromString(str, baseUri) {
-            var root = new $mol_tree({ baseUri: baseUri });
-            var stack = [root];
-            var row = 0;
-            var prefix = str.replace(/^\n?(\t*)[\s\S]*/, '$1');
-            var lines = str.replace(new RegExp('^\\t{0,' + prefix.length + '}', 'mg'), '').split('\n');
-            lines.forEach(line => {
-                ++row;
-                var chunks = /^(\t*)((?:[^\n\t\\ ]+ *)*)(\\[^\n]*)?(.*?)(?:$|\n)/m.exec(line);
-                if (!chunks || chunks[4])
-                    throw new Error(`Syntax error at ${baseUri}:${row}\n${line}`);
-                var indent = chunks[1];
-                var path = chunks[2];
-                var data = chunks[3];
-                var deep = indent.length;
-                var types = path ? path.replace(/ $/, '').split(/ +/) : [];
-                if (stack.length <= deep)
-                    throw new Error(`Too many tabs at ${baseUri}:${row}\n${line}`);
-                stack.length = deep + 1;
-                var parent = stack[deep];
-                let col = deep;
-                types.forEach(type => {
-                    if (!type)
-                        throw new Error(`Unexpected space symbol ${baseUri}:${row}\n${line}`);
-                    var next = new $mol_tree({ type, baseUri, row, col });
-                    parent.sub.push(next);
-                    parent = next;
-                    col += type.length + 1;
-                });
-                if (data) {
-                    var next = new $mol_tree({ data: data.substring(1), baseUri, row, col });
-                    parent.sub.push(next);
-                    parent = next;
-                }
-                stack.push(parent);
-            });
-            return root;
-        }
-        static fromJSON(json, baseUri = '') {
-            var type = $.$mol_typeof(json);
-            switch (type) {
-                case 'Boolean':
-                case 'Null':
-                case 'Number':
-                    return new $mol_tree({
-                        type: String(json),
-                        baseUri: baseUri
-                    });
-                case 'String':
-                    return new $mol_tree({
-                        value: json,
-                        baseUri: baseUri
-                    });
-                case 'Array':
-                    return new $mol_tree({
-                        type: "/",
-                        sub: json.map(json => $mol_tree.fromJSON(json, baseUri))
-                    });
-                case 'Date':
-                    return new $mol_tree({
-                        type: "",
-                        value: json.toISOString(),
-                        baseUri: baseUri
-                    });
-                case 'Object':
-                    var sub = [];
-                    for (var key in json) {
-                        if (json[key] === undefined)
-                            continue;
-                        if (/^[^\n\t\\ ]+$/.test(key)) {
-                            var child = new $mol_tree({
-                                type: key,
-                                baseUri: baseUri
-                            });
-                        }
-                        else {
-                            var child = new $mol_tree({
-                                value: key,
-                                baseUri: baseUri
-                            });
-                        }
-                        child.sub.push($mol_tree.fromJSON(json[key], baseUri));
-                        sub.push(child);
-                    }
-                    return new $mol_tree({
-                        type: "*",
-                        sub: sub,
-                        baseUri: baseUri
-                    });
-            }
-            throw new Error(`Unsupported type (${type}) at ${baseUri}`);
-        }
-        get uri() {
-            return this.baseUri + '#' + this.row + ':' + this.col;
-        }
-        toString(prefix = '') {
-            var output = '';
-            if (this.type.length) {
-                if (!prefix.length) {
-                    prefix = "\t";
-                }
-                output += this.type;
-                if (this.sub.length == 1) {
-                    return output + ' ' + this.sub[0].toString(prefix);
-                }
-                output += "\n";
-            }
-            else if (this.data.length || prefix.length) {
-                output += "\\" + this.data + "\n";
-            }
-            for (var child of this.sub) {
-                output += prefix;
-                output += child.toString(prefix + "\t");
-            }
-            return output;
-        }
-        toJSON() {
-            if (!this.type)
-                return this.value;
-            if (this.type === 'true')
-                return true;
-            if (this.type === 'false')
-                return false;
-            if (this.type === 'null')
-                return null;
-            if (this.type === '*') {
-                var obj = {};
-                for (var child of this.sub) {
-                    var key = child.type || child.clone({ sub: child.sub.slice(0, child.sub.length - 1) }).value;
-                    var val = child.sub[child.sub.length - 1].toJSON();
-                    if (val !== undefined)
-                        obj[key] = val;
-                }
-                return obj;
-            }
-            if (this.type === '/') {
-                var res = [];
-                this.sub.forEach(child => {
-                    var val = child.toJSON();
-                    if (val !== undefined)
-                        res.push(val);
-                });
-                return res;
-            }
-            if (this.type === 'time') {
-                return new Date(this.value);
-            }
-            if (String(Number(this.type)) == this.type.trim())
-                return Number(this.type);
-            throw new Error(`Unknown type (${this.type}) at ${this.uri}`);
-        }
-        get value() {
-            var values = [];
-            for (var child of this.sub) {
-                if (child.type)
-                    continue;
-                values.push(child.value);
-            }
-            return this.data + values.join("\n");
-        }
-        insert(value, ...path) {
-            if (path.length === 0)
-                return value;
-            const type = path[0];
-            if (typeof type === 'string') {
-                let replaced = false;
-                const sub = this.sub.map((item, index) => {
-                    if (item.type !== type)
-                        return item;
-                    replaced = true;
-                    return item.insert(value, ...path.slice(1));
-                });
-                if (!replaced)
-                    sub.push(new $mol_tree({ type }).insert(value, ...path.slice(1)));
-                return this.clone({ sub });
-            }
-            else if (typeof type === 'number') {
-                const sub = this.sub.slice();
-                sub[type] = (sub[type] || new $mol_tree).insert(value, ...path.slice(1));
-                return this.clone({ sub });
-            }
-            else {
-                return this.clone({ sub: ((this.sub.length === 0) ? [new $mol_tree()] : this.sub).map(item => item.insert(value, ...path.slice(1))) });
-            }
-        }
-        select(...path) {
-            var next = [this];
-            for (var type of path) {
-                if (!next.length)
-                    break;
-                var prev = next;
-                next = [];
-                for (var item of prev) {
-                    switch (typeof (type)) {
-                        case 'string':
-                            for (var child of item.sub) {
-                                if (!type || (child.type == type)) {
-                                    next.push(child);
-                                }
-                            }
-                            break;
-                        case 'number':
-                            if (type < item.sub.length)
-                                next.push(item.sub[type]);
-                            break;
-                        default: next.push(...item.sub);
-                    }
-                }
-            }
-            return new $mol_tree({ sub: next });
-        }
-        filter(path, value) {
-            var sub = this.sub.filter(function (item) {
-                var found = item.select(...path);
-                if (value == null) {
-                    return Boolean(found.sub.length);
-                }
-                else {
-                    return found.sub.some(child => child.value == value);
-                }
-            });
-            return new $mol_tree({ sub: sub });
-        }
-        transform(visit, stack = []) {
-            const sub_stack = [this, ...stack];
-            return visit(sub_stack, () => this.sub.map(node => node.transform(visit, sub_stack)).filter(n => n));
-        }
-        hack(context) {
-            const sub = [].concat(...this.sub.map(child => {
-                const handle = context[child.type] || context[''];
-                if (!handle)
-                    $.$mol_fail(child.error('Handler not defined'));
-                return handle(child, context);
-            }));
-            return this.clone({ sub });
-        }
-        error(message) {
-            return new Error(`${message}:\n${this} ${this.baseUri}:${this.row}:${this.col}`);
-        }
-    }
-    $.$mol_tree = $mol_tree;
-})($ || ($ = {}));
-//tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_dom_parse(text, type = 'application/xhtml+xml') {
-        const parser = new $.$mol_dom_context.DOMParser();
-        const doc = parser.parseFromString(text, type);
-        const error = doc.getElementsByTagName('parsererror')[0];
-        if (error)
-            throw new Error(error.textContent);
-        return doc;
-    }
-    $.$mol_dom_parse = $mol_dom_parse;
-})($ || ($ = {}));
-//parse.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    let $mol_fetch_response = class $mol_fetch_response extends $.$mol_object2 {
-        constructor(native) {
-            super();
-            this.native = native;
-        }
-        headers() {
-            return this.native.headers;
-        }
-        mime() {
-            return this.headers().get('content-type');
-        }
-        stream() {
-            return this.native.body;
-        }
-        text() {
-            const response = this.native;
-            const parse = $.$mol_fiber_sync(response.text);
-            return parse.call(response);
-        }
-        json() {
-            const response = this.native;
-            const parse = $.$mol_fiber_sync(response.json);
-            return parse.call(response);
-        }
-        buffer() {
-            const response = this.native;
-            const parse = $.$mol_fiber_sync(response.arrayBuffer);
-            return parse.call(response);
-        }
-        xml() {
-            return $.$mol_dom_parse(this.text(), 'application/xml');
-        }
-        xhtml() {
-            return $.$mol_dom_parse(this.text(), 'application/xhtml+xml');
-        }
-        html() {
-            return $.$mol_dom_parse(this.text(), 'text/html');
-        }
-    };
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "stream", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "text", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "json", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "buffer", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "xml", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "xhtml", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch_response.prototype, "html", null);
-    $mol_fetch_response = __decorate([
-        $.$mol_class
-    ], $mol_fetch_response);
-    $.$mol_fetch_response = $mol_fetch_response;
-    let $mol_fetch = class $mol_fetch extends $.$mol_object2 {
-        static response(input, init) {
-            const response = this.request(input, init);
-            if (Math.floor(response.status / 100) === 2)
-                return new $mol_fetch_response(response);
-            throw new Error(response.statusText || `HTTP Error ${response.status}`);
-        }
-        static stream(input, init) {
-            return this.response(input, init).stream();
-        }
-        static text(input, init) {
-            return this.response(input, init).text();
-        }
-        static json(input, init) {
-            return this.response(input, init).json();
-        }
-        static buffer(input, init) {
-            this.response(input, init).buffer();
-        }
-        static xml(input, init) {
-            return this.response(input, init).xml();
-        }
-        static xhtml(input, init) {
-            return this.response(input, init).xhtml();
-        }
-        static html(input, init) {
-            return this.response(input, init).html();
-        }
-    };
-    $mol_fetch.request = $.$mol_fiber_sync((input, init = {}) => {
-        if (typeof AbortController === 'function') {
-            var controller = new AbortController();
-            init.signal = controller.signal;
-            const fiber = $.$mol_fiber.current;
-            fiber.abort = () => {
-                if (fiber.cursor === -2 /* actual */)
-                    return true;
-                controller.abort();
-                return true;
-            };
-        }
-        let native = $.$mol_dom_context.fetch;
-        if (!native)
-            native = $node['node-fetch'];
-        return native(input, init);
-    });
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "response", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "stream", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "text", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "json", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "buffer", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "xml", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "xhtml", null);
-    __decorate([
-        $.$mol_fiber.method
-    ], $mol_fetch, "html", null);
-    $mol_fetch = __decorate([
-        $.$mol_class
-    ], $mol_fetch);
-    $.$mol_fetch = $mol_fetch;
-})($ || ($ = {}));
-//fetch.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    console.warn('$mol_http is deprecated. Use $mol_fetch instead.');
-    class $mol_http extends $.$mol_object {
-        static resource(uri) {
-            const resolver = $.$mol_dom_context.document.createElement('a');
-            resolver.href = uri;
-            return this.resource_absolute(resolver.href);
-        }
-        static resource_absolute(uri) {
-            return $mol_http.make({
-                uri: $.$mol_const(uri)
-            });
-        }
-        uri() { return ''; }
-        method_get() { return 'Get'; }
-        method_put() { return 'Put'; }
-        credentials() {
-            return null;
-        }
-        headers() {
-            return {};
-        }
-        response_type() {
-            return '';
-        }
-        response(next, force) {
-            const creds = this.credentials();
-            const method = (next === void 0) ? this.method_get() : this.method_put();
-            const uri = this.uri();
-            const headers = this.headers();
-            return $.$mol_fetch.response(uri, {
-                credentials: creds ? 'include' : undefined,
-                method,
-                headers,
-                body: next
-            });
-        }
-        text(next, force) {
-            return this.response(next, force).text();
-        }
-        xml(next, force) {
-            return this.response(next, force).xml();
-        }
-        json(next, force) {
-            const next2 = next && JSON.stringify(next, null, '\t');
-            return this.response(next2, force).json();
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_http.prototype, "json", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mol_http, "resource_absolute", null);
-    $.$mol_http = $mol_http;
-})($ || ($ = {}));
-//http.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_http_resource extends $.$mol_http {
-        static item(uri) {
-            return $.$mol_http.resource(uri);
-        }
-    }
-    __decorate([
-        $.$mol_deprecated('Use $mol_http.resource insted.')
-    ], $mol_http_resource, "item", null);
-    $.$mol_http_resource = $mol_http_resource;
-    class $mol_http_resource_json {
-        static item(uri) {
-            return $.$mol_http.resource(uri);
-        }
-    }
-    __decorate([
-        $.$mol_deprecated('Use $mol_http.resource insted.')
-    ], $mol_http_resource_json, "item", null);
-    $.$mol_http_resource_json = $mol_http_resource_json;
-})($ || ($ = {}));
-//resource.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
     class $piterjs_app extends $.$mol_book {
         /**
          *  ```
@@ -10122,114 +10122,62 @@ var $;
         }
         /**
          *  ```
-         *  meetup!id *
-         *  	title \
-         *  	description \
-         *  	start \
-         *  	speeches /
-         *  	translation \
-         *  ```
-         **/
-        meetup(id) {
-            return ({
-                "title": "",
-                "description": "",
-                "start": "",
-                "speeches": [],
-                "translation": "",
-            });
-        }
-        /**
-         *  ```
          *  Meetup!id $piterjs_meetup_page
          *  	event_top?val <=> event_front_up?val
          *  	meetup <= meetup!id
-         *  	speech!id <= speech!id
-         *  	speaker!id <= speaker!id
          *  ```
          **/
         Meetup(id) {
             return ((obj) => {
                 obj.event_top = (val) => this.event_front_up(val);
                 obj.meetup = () => this.meetup(id);
-                obj.speech = (id) => this.speech(id);
-                obj.speaker = (id) => this.speaker(id);
                 return obj;
             })(new this.$.$piterjs_meetup_page());
         }
         /**
          *  ```
-         *  speech!id *
-         *  	title \
-         *  	description \
-         *  	speaker \
-         *  	duration \
-         *  	slides \
-         *  	video \
+         *  meetup!id $piterjs_meetup
          *  ```
          **/
-        speech(id) {
-            return ({
-                "title": "",
-                "description": "",
-                "speaker": "",
-                "duration": "",
-                "slides": "",
-                "video": "",
-            });
+        meetup(id) {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_meetup());
         }
         /**
          *  ```
          *  Speech!id $piterjs_speech_page
          *  	event_top?val <=> event_front_up?val
          *  	speech <= speech!id
-         *  	speaker!id <= speaker!id
          *  ```
          **/
         Speech(id) {
             return ((obj) => {
                 obj.event_top = (val) => this.event_front_up(val);
                 obj.speech = () => this.speech(id);
-                obj.speaker = (id) => this.speaker(id);
                 return obj;
             })(new this.$.$piterjs_speech_page());
         }
         /**
          *  ```
-         *  speaker!id *
-         *  	title \
-         *  	description \
-         *  	photo \
+         *  speech!id $piterjs_speech
          *  ```
          **/
-        speaker(id) {
-            return ({
-                "title": "",
-                "description": "",
-                "photo": "",
-            });
+        speech(id) {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$piterjs_speech());
         }
         /**
          *  ```
-         *  Menu_meetup!id $piterjs_meetup_snippet
-         *  	id <= menu_meetup_id!id
-         *  	meetup <= meetup!id
+         *  Menu_meetup!id $piterjs_meetup_snippet meetup <= meetup!id
          *  ```
          **/
         Menu_meetup(id) {
             return ((obj) => {
-                obj.id = () => this.menu_meetup_id(id);
                 obj.meetup = () => this.meetup(id);
                 return obj;
             })(new this.$.$piterjs_meetup_snippet());
-        }
-        /**
-         *  ```
-         *  menu_meetup_id!id \
-         *  ```
-         **/
-        menu_meetup_id(id) {
-            return "";
         }
         /**
          *  ```
@@ -10297,7 +10245,13 @@ var $;
     ], $piterjs_app.prototype, "Meetup", null);
     __decorate([
         $.$mol_mem_key
+    ], $piterjs_app.prototype, "meetup", null);
+    __decorate([
+        $.$mol_mem_key
     ], $piterjs_app.prototype, "Speech", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $piterjs_app.prototype, "speech", null);
     __decorate([
         $.$mol_mem_key
     ], $piterjs_app.prototype, "Menu_meetup", null);
@@ -10318,93 +10272,41 @@ var $;
 //app.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
     (function ($$) {
         $.$mol_tree;
         class $piterjs_app extends $.$piterjs_app {
-            meetups() {
-                const tree = $.$mol_tree.fromString(this.$.$mol_http.resource('piterjs/meetup/meetup.data.tree').text());
-                return new $.$mol_tree({ type: '*', sub: tree.sub }).toJSON();
-            }
-            speeches() {
-                const tree = $.$mol_tree.fromString(this.$.$mol_http.resource('piterjs/speech/speech.data.tree').text());
-                return new $.$mol_tree({ type: '*', sub: tree.sub }).toJSON();
-            }
-            speakers() {
-                const tree = $.$mol_tree.fromString(this.$.$mol_http.resource('piterjs/speaker/speaker.data.tree').text());
-                return new $.$mol_tree({ type: '*', sub: tree.sub }).toJSON();
-            }
             now(next) { return this.$.$mol_state_arg.value('now', next); }
             intro(next) { return this.$.$mol_state_arg.value('intro', next); }
             meetup_id(next) { return this.$.$mol_state_arg.value('meetup', next); }
-            meetup(id) { return this.meetups()[id]; }
+            meetup(id) { return $.$piterjs_meetup.item(id); }
             speech_id(next) { return this.$.$mol_state_arg.value('speech', next); }
-            speech(id) { return this.speeches()[id]; }
+            speech(id) { return $.$piterjs_speech.item(id); }
             speaker_id(next) { return this.$.$mol_state_arg.value('speaker', next); }
-            speaker(id) { return this.speakers()[id]; }
+            speaker(id) { return $.$piterjs_speaker.item(id); }
             pages() {
                 if (this.intro() != null)
                     return [this.Intro()];
                 return [
                     this.Menu(),
-                    ...!this.meetup(this.meetup_id()) ? [this.Now()] : [],
-                    ...this.meetup(this.meetup_id()) ? [this.Meetup(this.meetup_id())] : [],
-                    ...this.speech(this.speech_id()) ? [this.Speech(this.speech_id())] : [],
+                    ...!this.meetup_id() ? [this.Now()] : [],
+                    ...this.meetup_id() ? [this.Meetup(this.meetup_id())] : [],
+                    ...this.speech_id() ? [this.Speech(this.speech_id())] : [],
                 ];
             }
             Placeholder() {
-                return this.meetup(this.meetup_id()) ? super.Placeholder() : null;
+                return this.meetup_id() ? super.Placeholder() : null;
             }
             menu_meetups() {
-                const warn = $.$mol_fiber_solid.func(console.warn);
-                return Object.keys(this.meetups())
-                    .filter(meetup_id => {
-                    const meetup = this.meetup(meetup_id);
-                    if (!meetup.start) {
-                        warn(`Meetup ${meetup_id} has no "start"`);
-                        return false;
-                    }
-                    if (!meetup.speeches || !meetup.speeches.length) {
-                        warn(`Meetup ${meetup_id} has no "speeches"`);
-                        return false;
-                    }
-                    for (const speech_id of meetup.speeches) {
-                        const speech = this.speech(speech_id);
-                        if (!speech.description) {
-                            warn(`Speech ${speech_id} has no "description"`);
-                            return false;
-                        }
-                        const speaker = this.speaker(speech.speaker);
-                        if (!speaker.photo) {
-                            warn(`Speaker ${speech.speaker} has no "photo"`);
-                            return false;
-                        }
-                    }
-                    return true;
-                })
-                    .sort((a, b) => new $.$mol_time_moment(this.meetup(b).start).valueOf() - new $.$mol_time_moment(this.meetup(a).start).valueOf())
-                    .map(id => this.Menu_meetup(id));
+                return this.$.$piterjs_meetup.all().slice()
+                    .sort((a, b) => b.start().valueOf() - a.start().valueOf())
+                    .map(meetup => this.Menu_meetup(meetup.id()));
             }
             menu_meetup(id) { return this.meetup(id); }
             menu_meetup_id(id) { return id; }
         }
-        __decorate([
-            $.$mol_mem
-        ], $piterjs_app.prototype, "meetups", null);
-        __decorate([
-            $.$mol_mem
-        ], $piterjs_app.prototype, "speeches", null);
-        __decorate([
-            $.$mol_mem
-        ], $piterjs_app.prototype, "speakers", null);
         __decorate([
             $.$mol_mem
         ], $piterjs_app.prototype, "now", null);
@@ -10429,12 +10331,6 @@ var $node = $node || {} ; $node[ "/piterjs/app/app_lines.svg" ] = "data:image/sv
 
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_link extends $.$mol_link {
@@ -10474,12 +10370,6 @@ var $;
 //link.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $piterjs_now extends $.$mol_page {
@@ -11362,12 +11252,6 @@ var $;
 //assert.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -11733,12 +11617,6 @@ var $;
 //fiber.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($_1) {
     $_1.$mol_test({
@@ -12162,12 +12040,6 @@ var $;
 //wait.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -12375,12 +12247,6 @@ var $;
 //dict.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -12443,12 +12309,6 @@ var $;
 //key.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -12489,12 +12349,6 @@ var $;
 //autorun.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -12652,139 +12506,132 @@ var $;
 var $;
 (function ($) {
     $.$mol_test({
-        'search numbers'() {
-            const syntax = new $.$mol_syntax({
-                'number': /[+-]?\d+(?:\.\d+)?/
+        'equal paths'() {
+            const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]);
+            $.$mol_assert_like(diff, {
+                prefix: [1, 2, 3, 4],
+                suffix: [[], [], []],
             });
-            const serial = (tokens) => {
-                return tokens.map(token => `${token.name}=${token.found}`).join('|');
-            };
-            $.$mol_assert_equal(serial(syntax.tokenize('')), '');
-            $.$mol_assert_equal(serial(syntax.tokenize('foo')), '=foo');
-            $.$mol_assert_equal(serial(syntax.tokenize('123')), 'number=123');
-            $.$mol_assert_equal(serial(syntax.tokenize('foo123bar')), '=foo|number=123|=bar');
-            $.$mol_assert_equal(serial(syntax.tokenize('foo123bar456')), '=foo|number=123|=bar|number=456');
-            $.$mol_assert_equal(serial(syntax.tokenize('foo123\n\nbar456\n')), '=foo|number=123|=\n\nbar|number=456|=\n');
-        }
+        },
+        'different suffix'() {
+            const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2, 3, 5], [1, 2, 5, 4]);
+            $.$mol_assert_like(diff, {
+                prefix: [1, 2],
+                suffix: [[3, 4], [3, 5], [5, 4]],
+            });
+        },
+        'one contains other'() {
+            const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2], [1, 2, 3]);
+            $.$mol_assert_like(diff, {
+                prefix: [1, 2],
+                suffix: [[3, 4], [], [3]],
+            });
+        },
+        'fully different'() {
+            const diff = $.$mol_diff_path([1, 2], [3, 4], [5, 6]);
+            $.$mol_assert_like(diff, {
+                prefix: [],
+                suffix: [[1, 2], [3, 4], [5, 6]],
+            });
+        },
     });
 })($ || ($ = {}));
-//syntax.test.js.map
+//path.test.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     $.$mol_test({
-        'only text'() {
-            const tokens = $.$mol_syntax_md_flow.tokenize('Hello,\nWorld..\r\n\r\n\nof Love!');
-            $.$mol_assert_equal(tokens.map(token => token.found).join('|'), 'Hello,\nWorld..\r\n\r\n\n|of Love!');
+        'Is string'() {
+            $.$mol_data_string('');
         },
-        'headers and text'() {
-            const tokens = $.$mol_syntax_md_flow.tokenize('# Header1\n\nHello!\n\n## Header2');
-            $.$mol_assert_equal(tokens.length, 3);
-            $.$mol_assert_equal(tokens[0].name, 'header');
-            $.$mol_assert_equal(tokens[0].chunks.join('|'), '#| |Header1|\n\n');
-            $.$mol_assert_equal(tokens[1].name, 'block');
-            $.$mol_assert_equal(tokens[1].chunks.join('|'), 'Hello!|\n\n');
-            $.$mol_assert_equal(tokens[2].name, 'header');
-            $.$mol_assert_equal(tokens[2].found, '## Header2');
-            $.$mol_assert_equal(tokens[2].chunks.join('|'), '##| |Header2|');
+        'Is not string'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_string(0);
+            }, 'number is not a string');
         },
-        'codes and text'() {
-            const tokens = $.$mol_syntax_md_flow.tokenize('```\nstart()\n```\n\n```js\nrestart()\n```\n\nHello!\n\n```\nstop()\n```');
-            $.$mol_assert_equal(tokens.length, 4);
-            $.$mol_assert_equal(tokens[0].name, 'code');
-            $.$mol_assert_equal(tokens[0].chunks.join('|'), '```||start()\n|```|\n\n');
-            $.$mol_assert_equal(tokens[1].name, 'code');
-            $.$mol_assert_equal(tokens[1].chunks.join('|'), '```|js|restart()\n|```|\n\n');
-            $.$mol_assert_equal(tokens[2].name, 'block');
-            $.$mol_assert_equal(tokens[2].chunks.join('|'), 'Hello!|\n\n');
-            $.$mol_assert_equal(tokens[3].name, 'code');
-            $.$mol_assert_equal(tokens[3].chunks.join('|'), '```||stop()\n|```|');
+        'Is object string'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_string(new String(''));
+            }, 'object is not a string');
         },
-        'table'() {
-            const tokens = $.$mol_syntax_md_flow.tokenize('| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n| Cell11 | Cell12\n| Cell21 | Cell22\n');
-            $.$mol_assert_equal(tokens.length, 2);
-            $.$mol_assert_equal(tokens[0].name, 'table');
-            $.$mol_assert_equal(tokens[0].chunks[0], '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n');
-            $.$mol_assert_equal(tokens[1].name, 'table');
-            $.$mol_assert_equal(tokens[1].chunks[0], '| Cell11 | Cell12\n| Cell21 | Cell22\n');
-        }
     });
 })($ || ($ = {}));
-//md.test.js.map
+//string.test.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     $.$mol_test({
-        'parse and serial'() {
-            $.$mol_assert_equal(new $.$mol_time_duration('P42.1Y').toString(), 'P42.1YT');
-            $.$mol_assert_equal(new $.$mol_time_duration('P42.1M').toString(), 'P42.1MT');
-            $.$mol_assert_equal(new $.$mol_time_duration('P42.1D').toString(), 'P42.1DT');
-            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1h').toString(), 'PT42.1H');
-            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1m').toString(), 'PT42.1M');
-            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1s').toString(), 'PT42.1S');
-            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6.7s').toString(), 'P1Y2M3DT4H5M6.7S');
+        'Is number'() {
+            $.$mol_data_number(0);
         },
-        'format typed'() {
-            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6s').toString('P#Y#M#DT#h#m#s'), 'P1Y2M3DT4H5M6S');
+        'Is not number'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_number('');
+            }, 'string is not a number');
+        },
+        'Is object number'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_number(new Number(''));
+            }, 'object is not a number');
         },
     });
 })($ || ($ = {}));
-//duration.test.js.map
+//number.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_number(val) {
+        if (typeof val === 'number')
+            return val;
+        return $.$mol_fail(new $.$mol_data_error(`${typeof val} is not a number`));
+    }
+    $.$mol_data_number = $mol_data_number;
+})($ || ($ = {}));
+//number.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     $.$mol_test({
-        'parse and serial'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014').toString(), '2014');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').toString(), '2014-01');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').toString(), '2014-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03').toString(), '2014-01-02T03');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04').toString(), '2014-01-02T03:04');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05').toString(), '2014-01-02T03:04:05');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006').toString(), '2014-01-02T03:04:05.006');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006Z').toString(), '2014-01-02T03:04:05.006+00:00');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006+07:00').toString(), '2014-01-02T03:04:05.006+07:00');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05+07:08').toString(), '2014-01-02T03:04:05+07:08');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04+07:08').toString(), '2014-01-02T03:04+07:08');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03:04+07:08').toString(), 'T03:04+07:08');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03:04:05').toString(), 'T03:04:05');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03:04').toString(), 'T03:04');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03').toString(), 'T03');
-        },
-        'format simple'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('AD YY-M-D h:m:s'), '21 14-1-2 1:2:3');
-        },
-        'format padded'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('YYYY-MM-DD hh:mm:ss'), '2014-01-02 01:02:03');
-        },
-        'format time zone'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03+05:00').toString('Z'), '+05:00');
-        },
-        'format names'() {
-            $.$mol_assert_ok(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('Month Mon | WeekDay WD'));
-        },
-        'shifting'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('T15:54:58.243+03:00').shift({}).toString(), 'T15:54:58.243+03:00');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P1Y').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P12M').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P365D').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('PT8760h').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT8760h').toString(), '2015-01');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT-8760h').toString(), '2013-01');
-        },
-        'normalization'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2015-07-35').normal.toString(), '2015-08-04');
-        },
-        'iso week day'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-17').weekday, 6);
-            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-18').weekday, 0);
+        'config by value'() {
+            const N = $.$mol_data_setup((a) => a, 5);
+            $.$mol_assert_equal(N.config, 5);
         },
     });
 })($ || ($ = {}));
-//moment.test.js.map
+//setup.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is empty array'() {
+            $.$mol_data_array($.$mol_data_number)([]);
+        },
+        'Is array'() {
+            $.$mol_data_array($.$mol_data_number)([1, 2]);
+        },
+        'Is not array'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_number)({ [0]: 1, length: 1, map: () => { } });
+            }, '[object Object] is not an array');
+        },
+        'Has wrong item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_number)([1, '1']);
+            }, '[1] string is not a number');
+        },
+        'Has wrong deep item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_array($.$mol_data_number))([[], [0, 0, false]]);
+            }, '[1] [2] boolean is not a number');
+        },
+    });
+})($ || ($ = {}));
+//array.test.js.map
 ;
 "use strict";
 var $;
@@ -12858,6 +12705,164 @@ var $;
 //tree.test.js.map
 ;
 "use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'parse and serial'() {
+            $.$mol_assert_equal(new $.$mol_time_duration('P42.1Y').toString(), 'P42.1YT');
+            $.$mol_assert_equal(new $.$mol_time_duration('P42.1M').toString(), 'P42.1MT');
+            $.$mol_assert_equal(new $.$mol_time_duration('P42.1D').toString(), 'P42.1DT');
+            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1h').toString(), 'PT42.1H');
+            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1m').toString(), 'PT42.1M');
+            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1s').toString(), 'PT42.1S');
+            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6.7s').toString(), 'P1Y2M3DT4H5M6.7S');
+        },
+        'format typed'() {
+            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6s').toString('P#Y#M#DT#h#m#s'), 'P1Y2M3DT4H5M6S');
+        },
+    });
+})($ || ($ = {}));
+//duration.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'parse and serial'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014').toString(), '2014');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').toString(), '2014-01');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').toString(), '2014-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03').toString(), '2014-01-02T03');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04').toString(), '2014-01-02T03:04');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05').toString(), '2014-01-02T03:04:05');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006').toString(), '2014-01-02T03:04:05.006');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006Z').toString(), '2014-01-02T03:04:05.006+00:00');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006+07:00').toString(), '2014-01-02T03:04:05.006+07:00');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05+07:08').toString(), '2014-01-02T03:04:05+07:08');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04+07:08').toString(), '2014-01-02T03:04+07:08');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03:04+07:08').toString(), 'T03:04+07:08');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03:04:05').toString(), 'T03:04:05');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03:04').toString(), 'T03:04');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03').toString(), 'T03');
+        },
+        'format simple'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000000').toString('AD YY-M-D h:m:s'), '21 14-1-2 1:2:3');
+        },
+        'format padded'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('YYYY-MM-DD hh:mm:ss'), '2014-01-02 01:02:03');
+        },
+        'format time zone'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03+05:00').toString('Z'), '+05:00');
+        },
+        'format names'() {
+            $.$mol_assert_ok(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('Month Mon | WeekDay WD'));
+        },
+        'shifting'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('T15:54:58.243+03:00').shift({}).toString(), 'T15:54:58.243+03:00');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P1Y').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P12M').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P365D').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('PT8760h').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT8760h').toString(), '2015-01');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT-8760h').toString(), '2013-01');
+        },
+        'normalization'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2015-07-35').normal.toString(), '2015-08-04');
+        },
+        'iso week day'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-17').weekday, 6);
+            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-18').weekday, 0);
+        },
+    });
+})($ || ($ = {}));
+//moment.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is not present'() {
+            $.$mol_data_optional($.$mol_data_number)(undefined);
+        },
+        'Is present'() {
+            $.$mol_data_optional($.$mol_data_number)(0);
+        },
+        'Is null'() {
+            $.$mol_assert_fail(() => {
+                const Type = $.$mol_data_optional($.$mol_data_number);
+                Type(null);
+            }, 'object is not a number');
+        },
+    });
+})($ || ($ = {}));
+//optional.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'search numbers'() {
+            const syntax = new $.$mol_syntax({
+                'number': /[+-]?\d+(?:\.\d+)?/
+            });
+            const serial = (tokens) => {
+                return tokens.map(token => `${token.name}=${token.found}`).join('|');
+            };
+            $.$mol_assert_equal(serial(syntax.tokenize('')), '');
+            $.$mol_assert_equal(serial(syntax.tokenize('foo')), '=foo');
+            $.$mol_assert_equal(serial(syntax.tokenize('123')), 'number=123');
+            $.$mol_assert_equal(serial(syntax.tokenize('foo123bar')), '=foo|number=123|=bar');
+            $.$mol_assert_equal(serial(syntax.tokenize('foo123bar456')), '=foo|number=123|=bar|number=456');
+            $.$mol_assert_equal(serial(syntax.tokenize('foo123\n\nbar456\n')), '=foo|number=123|=\n\nbar|number=456|=\n');
+        }
+    });
+})($ || ($ = {}));
+//syntax.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'only text'() {
+            const tokens = $.$mol_syntax_md_flow.tokenize('Hello,\nWorld..\r\n\r\n\nof Love!');
+            $.$mol_assert_equal(tokens.map(token => token.found).join('|'), 'Hello,\nWorld..\r\n\r\n\n|of Love!');
+        },
+        'headers and text'() {
+            const tokens = $.$mol_syntax_md_flow.tokenize('# Header1\n\nHello!\n\n## Header2');
+            $.$mol_assert_equal(tokens.length, 3);
+            $.$mol_assert_equal(tokens[0].name, 'header');
+            $.$mol_assert_equal(tokens[0].chunks.join('|'), '#| |Header1|\n\n');
+            $.$mol_assert_equal(tokens[1].name, 'block');
+            $.$mol_assert_equal(tokens[1].chunks.join('|'), 'Hello!|\n\n');
+            $.$mol_assert_equal(tokens[2].name, 'header');
+            $.$mol_assert_equal(tokens[2].found, '## Header2');
+            $.$mol_assert_equal(tokens[2].chunks.join('|'), '##| |Header2|');
+        },
+        'codes and text'() {
+            const tokens = $.$mol_syntax_md_flow.tokenize('```\nstart()\n```\n\n```js\nrestart()\n```\n\nHello!\n\n```\nstop()\n```');
+            $.$mol_assert_equal(tokens.length, 4);
+            $.$mol_assert_equal(tokens[0].name, 'code');
+            $.$mol_assert_equal(tokens[0].chunks.join('|'), '```||start()\n|```|\n\n');
+            $.$mol_assert_equal(tokens[1].name, 'code');
+            $.$mol_assert_equal(tokens[1].chunks.join('|'), '```|js|restart()\n|```|\n\n');
+            $.$mol_assert_equal(tokens[2].name, 'block');
+            $.$mol_assert_equal(tokens[2].chunks.join('|'), 'Hello!|\n\n');
+            $.$mol_assert_equal(tokens[3].name, 'code');
+            $.$mol_assert_equal(tokens[3].chunks.join('|'), '```||stop()\n|```|');
+        },
+        'table'() {
+            const tokens = $.$mol_syntax_md_flow.tokenize('| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n| Cell11 | Cell12\n| Cell21 | Cell22\n');
+            $.$mol_assert_equal(tokens.length, 2);
+            $.$mol_assert_equal(tokens[0].name, 'table');
+            $.$mol_assert_equal(tokens[0].chunks[0], '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n');
+            $.$mol_assert_equal(tokens[1].name, 'table');
+            $.$mol_assert_equal(tokens[1].chunks[0], '| Cell11 | Cell12\n| Cell21 | Cell22\n');
+        }
+    });
+})($ || ($ = {}));
+//md.test.js.map
+;
+"use strict";
 //equals.test.js.map
 ;
 "use strict";
@@ -12895,12 +12900,6 @@ var $;
 //attach.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 /** @jsx $mol_jsx_make */
 var $;
 (function ($) {

@@ -196,6 +196,7 @@ declare namespace $ {
     function $mol_fiber_func<This, Args extends any[], Result>(calculate: (this: This, ...args: Args) => Result): (this: This, ...args: Args) => Result;
     function $mol_fiber_root<Calculate extends (this: This, ...args: any[]) => Result, Result = void, This = void>(calculate: Calculate): Calculate;
     function $mol_fiber_method<Host, Value>(obj: Host, name: keyof Host, descr: TypedPropertyDescriptor<(this: Host, ...args: any[]) => Value>): TypedPropertyDescriptor<(this: Host, ...args: any[]) => Value>;
+    function $mol_fiber_async<Args extends any[], Value>(task: (...args: Args) => Value): (...args: Args) => Promise<Value>;
     function $mol_fiber_sync<Args extends any[], Value = void, This = void>(request: (this: This, ...args: Args) => PromiseLike<Value>): (...args: Args) => Value;
     function $mol_fiber_warp(): Promise<void>;
     function $mol_fiber_fence(func: () => any): any;
@@ -1466,6 +1467,323 @@ declare namespace $.$$ {
         row_context(index: number): $mol_ambient_context;
         sub_visible(): any[] | readonly $mol_view[];
         minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    function $mol_data_string(val: string): string;
+}
+
+declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][]) => readonly ReturnType<Sub>[]) & {
+        config: Sub;
+        Value: readonly ReturnType<Sub>[];
+    };
+}
+
+declare namespace $ {
+    function $mol_typeof(value: any): any;
+}
+
+declare namespace $ {
+    type $mol_tree_path = Array<string | number | null>;
+    type $mol_tree_hack = (input: $mol_tree, context: $mol_tree_context) => $mol_tree[];
+    type $mol_tree_context = Record<string, $mol_tree_hack>;
+    type $mol_tree_library = Record<string, $mol_tree_context>;
+    class $mol_tree {
+        type: string;
+        data: string;
+        sub: $mol_tree[];
+        baseUri: string;
+        row: number;
+        col: number;
+        constructor(config?: {
+            type?: string;
+            value?: string;
+            data?: string;
+            sub?: $mol_tree[];
+            baseUri?: string;
+            row?: number;
+            col?: number;
+        });
+        static values(str: string, baseUri?: string): $mol_tree[];
+        clone(config: {
+            type?: string;
+            value?: string;
+            data?: string;
+            sub?: $mol_tree[];
+            baseUri?: string;
+            row?: number;
+            col?: number;
+        }): $mol_tree;
+        static fromString(str: string, baseUri?: string): $mol_tree;
+        static fromJSON(json: any, baseUri?: string): $mol_tree;
+        get uri(): string;
+        toString(prefix?: string): string;
+        toJSON(): any;
+        get value(): string;
+        insert(value: $mol_tree, ...path: $mol_tree_path): $mol_tree;
+        select(...path: $mol_tree_path): $mol_tree;
+        filter(path: string[], value?: string): $mol_tree;
+        transform(visit: (stack: $mol_tree[], sub: () => $mol_tree[]) => $mol_tree | null, stack?: $mol_tree[]): $mol_tree | null;
+        hack(context: $mol_tree_context): $mol_tree;
+        error(message: string): Error;
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_parse(text: string, type?: SupportedType): Document;
+}
+
+declare var $node: any;
+
+declare namespace $ {
+    class $mol_fetch_response extends $mol_object2 {
+        readonly native: Response;
+        constructor(native: Response);
+        headers(): Headers;
+        mime(): string;
+        stream(): ReadableStream<Uint8Array>;
+        text(): string;
+        json(): any;
+        buffer(): any;
+        xml(): Document;
+        xhtml(): Document;
+        html(): Document;
+    }
+    class $mol_fetch extends $mol_object2 {
+        static request: (input: RequestInfo, init?: RequestInit) => Response;
+        static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
+        static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array>;
+        static text(input: RequestInfo, init?: RequestInit): string;
+        static json(input: RequestInfo, init?: RequestInit): any;
+        static buffer(input: RequestInfo, init?: RequestInit): void;
+        static xml(input: RequestInfo, init?: RequestInit): Document;
+        static xhtml(input: RequestInfo, init?: RequestInit): Document;
+        static html(input: RequestInfo, init?: RequestInit): Document;
+    }
+}
+
+declare namespace $ {
+    class $mol_http extends $mol_object {
+        static resource(uri: string): $mol_http;
+        static resource_absolute(uri: string): $mol_http;
+        uri(): string;
+        method_get(): string;
+        method_put(): string;
+        credentials(): {
+            login?: string;
+            password?: string;
+        };
+        headers(): {};
+        response_type(): '' | 'text' | 'document' | 'json' | 'blob' | 'arraybuffer';
+        response(next?: any, force?: $mol_mem_force): $mol_fetch_response;
+        text(next?: string, force?: $mol_mem_force): string;
+        xml(next?: string, force?: $mol_mem_force): Document;
+        json<Content>(next?: Content, force?: $mol_mem_force): Content;
+    }
+}
+
+declare namespace $ {
+    class $mol_http_resource extends $mol_http {
+        static item(uri: string): $mol_http;
+    }
+    class $mol_http_resource_json {
+        static item(uri: string): $mol_http;
+    }
+}
+
+declare namespace $ {
+    class $piterjs_model extends $mol_object2 {
+        static uri(): string;
+        id(): string;
+        static item<Model extends typeof $piterjs_model>(this: Model, id: string): InstanceType<Model>;
+        static list<Model extends typeof $piterjs_model>(this: Model): ((val: readonly any[]) => readonly InstanceType<Model>[]) & {
+            config: (id: any) => InstanceType<Model>;
+            Value: readonly InstanceType<Model>[];
+        };
+        static all<Model extends typeof $piterjs_model>(this: Model): readonly InstanceType<Model>[];
+        static data(): any;
+        data(next?: any): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_time_base {
+        static patterns: any;
+        static formatter(pattern: string): any;
+        toString(pattern: string): string;
+    }
+}
+
+declare namespace $ {
+    type $mol_time_duration_config = number | string | {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+    };
+    class $mol_time_duration extends $mol_time_base {
+        constructor(config?: $mol_time_duration_config);
+        readonly year: number;
+        readonly month: number;
+        readonly day: number;
+        readonly hour: number;
+        readonly minute: number;
+        readonly second: number;
+        summ(config: $mol_time_duration_config): $mol_time_duration;
+        mult(numb: number): $mol_time_duration;
+        count(config: $mol_time_duration_config): number;
+        valueOf(): number;
+        toJSON(): string;
+        toString(pattern?: string): string;
+        static patterns: {
+            '#Y': (duration: $mol_time_duration) => string;
+            '#M': (duration: $mol_time_duration) => string;
+            '#D': (duration: $mol_time_duration) => string;
+            '#h': (duration: $mol_time_duration) => string;
+            '#m': (duration: $mol_time_duration) => string;
+            '#s': (duration: $mol_time_duration) => string;
+            '+hh': (duration: $mol_time_duration) => string;
+            'mm': (duration: $mol_time_duration) => string;
+        };
+    }
+}
+
+declare namespace $ {
+    type $mol_time_moment_config = number | Date | string | {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+        offset?: $mol_time_duration_config;
+    };
+    class $mol_time_moment extends $mol_time_base {
+        constructor(config?: $mol_time_moment_config);
+        readonly year: number | undefined;
+        readonly month: number | undefined;
+        readonly day: number | undefined;
+        readonly hour: number | undefined;
+        readonly minute: number | undefined;
+        readonly second: number | undefined;
+        readonly offset: $mol_time_duration | undefined;
+        get weekday(): number;
+        private _native;
+        get native(): Date;
+        private _normal;
+        get normal(): $mol_time_moment;
+        merge(config: $mol_time_moment_config): $mol_time_moment;
+        shift(config: $mol_time_duration_config): $mol_time_moment;
+        toOffset(config: $mol_time_duration_config): $mol_time_moment;
+        valueOf(): number;
+        toJSON(): string;
+        toString(pattern?: string): string;
+        static patterns: {
+            'YYYY': (moment: $mol_time_moment) => string;
+            'AD': (moment: $mol_time_moment) => string;
+            'YY': (moment: $mol_time_moment) => string;
+            'Month': (moment: $mol_time_moment) => string;
+            'DD Month': (moment: $mol_time_moment) => string;
+            'D Month': (moment: $mol_time_moment) => string;
+            'Mon': (moment: $mol_time_moment) => string;
+            'DD Mon': (moment: $mol_time_moment) => string;
+            'D Mon': (moment: $mol_time_moment) => string;
+            '-MM': (moment: $mol_time_moment) => string;
+            'MM': (moment: $mol_time_moment) => string;
+            'M': (moment: $mol_time_moment) => string;
+            'WeekDay': (moment: $mol_time_moment) => string;
+            'WD': (moment: $mol_time_moment) => string;
+            '-DD': (moment: $mol_time_moment) => string;
+            'DD': (moment: $mol_time_moment) => string;
+            'D': (moment: $mol_time_moment) => string;
+            'Thh': (moment: $mol_time_moment) => string;
+            'hh': (moment: $mol_time_moment) => string;
+            'h': (moment: $mol_time_moment) => string;
+            ':mm': (moment: $mol_time_moment) => string;
+            'mm': (moment: $mol_time_moment) => string;
+            'm': (moment: $mol_time_moment) => string;
+            ':ss': (moment: $mol_time_moment) => string;
+            'ss': (moment: $mol_time_moment) => string;
+            's': (moment: $mol_time_moment) => string;
+            '.sss': (moment: $mol_time_moment) => string;
+            'sss': (moment: $mol_time_moment) => string;
+            'Z': (moment: $mol_time_moment) => string;
+        };
+    }
+}
+
+declare namespace $ {
+    function $mol_data_optional<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0]) => ReturnType<Sub>) & {
+        config: Sub;
+        Value: ReturnType<Sub>;
+    };
+}
+
+declare namespace $ {
+    class $piterjs_speaker extends $piterjs_model {
+        static uri(): string;
+        title(): string;
+        description(): string;
+        photo(): string;
+        speeches(): $piterjs_speech[];
+    }
+}
+
+declare namespace $ {
+    class $piterjs_speech extends $piterjs_model {
+        static uri(): string;
+        meetup(): $piterjs_meetup;
+        title(): string;
+        description(): string;
+        slides(): string;
+        video(): string;
+        duration(): $mol_time_duration;
+        speaker(): $piterjs_speaker;
+    }
+}
+
+declare namespace $ {
+    class $piterjs_meetup extends $piterjs_model {
+        static uri(): string;
+        start(): $mol_time_moment;
+        title(): string;
+        description(): string;
+        translation(): string;
+        speeches(): readonly $piterjs_speech[];
     }
 }
 
@@ -2879,114 +3197,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_time_base {
-        static patterns: any;
-        static formatter(pattern: string): any;
-        toString(pattern: string): string;
-    }
-}
-
-declare namespace $ {
-    type $mol_time_duration_config = number | string | {
-        year?: number;
-        month?: number;
-        day?: number;
-        hour?: number;
-        minute?: number;
-        second?: number;
-    };
-    class $mol_time_duration extends $mol_time_base {
-        constructor(config?: $mol_time_duration_config);
-        readonly year: number;
-        readonly month: number;
-        readonly day: number;
-        readonly hour: number;
-        readonly minute: number;
-        readonly second: number;
-        summ(config: $mol_time_duration_config): $mol_time_duration;
-        mult(numb: number): $mol_time_duration;
-        count(config: $mol_time_duration_config): number;
-        valueOf(): number;
-        toJSON(): string;
-        toString(pattern?: string): string;
-        static patterns: {
-            '#Y': (duration: $mol_time_duration) => string;
-            '#M': (duration: $mol_time_duration) => string;
-            '#D': (duration: $mol_time_duration) => string;
-            '#h': (duration: $mol_time_duration) => string;
-            '#m': (duration: $mol_time_duration) => string;
-            '#s': (duration: $mol_time_duration) => string;
-            '+hh': (duration: $mol_time_duration) => string;
-            'mm': (duration: $mol_time_duration) => string;
-        };
-    }
-}
-
-declare namespace $ {
-    type $mol_time_moment_config = number | Date | string | {
-        year?: number;
-        month?: number;
-        day?: number;
-        hour?: number;
-        minute?: number;
-        second?: number;
-        offset?: $mol_time_duration_config;
-    };
-    class $mol_time_moment extends $mol_time_base {
-        constructor(config?: $mol_time_moment_config);
-        readonly year: number | undefined;
-        readonly month: number | undefined;
-        readonly day: number | undefined;
-        readonly hour: number | undefined;
-        readonly minute: number | undefined;
-        readonly second: number | undefined;
-        readonly offset: $mol_time_duration | undefined;
-        get weekday(): number;
-        private _native;
-        get native(): Date;
-        private _normal;
-        get normal(): $mol_time_moment;
-        merge(config: $mol_time_moment_config): $mol_time_moment;
-        shift(config: $mol_time_duration_config): $mol_time_moment;
-        toOffset(config: $mol_time_duration_config): $mol_time_moment;
-        valueOf(): number;
-        toJSON(): string;
-        toString(pattern?: string): string;
-        static patterns: {
-            'YYYY': (moment: $mol_time_moment) => string;
-            'AD': (moment: $mol_time_moment) => string;
-            'YY': (moment: $mol_time_moment) => string;
-            'Month': (moment: $mol_time_moment) => string;
-            'DD Month': (moment: $mol_time_moment) => string;
-            'D Month': (moment: $mol_time_moment) => string;
-            'Mon': (moment: $mol_time_moment) => string;
-            'DD Mon': (moment: $mol_time_moment) => string;
-            'D Mon': (moment: $mol_time_moment) => string;
-            '-MM': (moment: $mol_time_moment) => string;
-            'MM': (moment: $mol_time_moment) => string;
-            'M': (moment: $mol_time_moment) => string;
-            'WeekDay': (moment: $mol_time_moment) => string;
-            'WD': (moment: $mol_time_moment) => string;
-            '-DD': (moment: $mol_time_moment) => string;
-            'DD': (moment: $mol_time_moment) => string;
-            'D': (moment: $mol_time_moment) => string;
-            'Thh': (moment: $mol_time_moment) => string;
-            'hh': (moment: $mol_time_moment) => string;
-            'h': (moment: $mol_time_moment) => string;
-            ':mm': (moment: $mol_time_moment) => string;
-            'mm': (moment: $mol_time_moment) => string;
-            'm': (moment: $mol_time_moment) => string;
-            ':ss': (moment: $mol_time_moment) => string;
-            'ss': (moment: $mol_time_moment) => string;
-            's': (moment: $mol_time_moment) => string;
-            '.sss': (moment: $mol_time_moment) => string;
-            'sss': (moment: $mol_time_moment) => string;
-            'Z': (moment: $mol_time_moment) => string;
-        };
-    }
-}
-
-declare namespace $ {
     class $mol_image2 extends $mol_view {
         /**
          *  ```
@@ -3079,26 +3289,10 @@ declare namespace $ {
         start(): $mol_time_moment;
         /**
          *  ```
-         *  speech *
-         *  	title \
-         *  	speaker \
+         *  speech $piterjs_speech
          *  ```
          **/
-        speech(): {
-            "title": string;
-            "speaker": string;
-        };
-        /**
-         *  ```
-         *  speaker!id *
-         *  	title \
-         *  	photo \
-         *  ```
-         **/
-        speaker(id: any): {
-            "title": string;
-            "photo": string;
-        };
+        speech(): $piterjs_speech;
         /**
          *  ```
          *  sub /
@@ -3176,14 +3370,11 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $piterjs_speech_snippet extends $.$piterjs_speech_snippet {
+        id(): string;
         photo(): string;
         speaker_title(): string;
         title(): string;
         time(): string;
-        speech_speaker(): {
-            "title": string;
-            "photo": string;
-        };
     }
 }
 
@@ -3191,21 +3382,10 @@ declare namespace $ {
     class $piterjs_meetup_page extends $mol_page {
         /**
          *  ```
-         *  meetup *
-         *  	title \
-         *  	description \
-         *  	start \
-         *  	speeches /
-         *  	translation \
+         *  meetup $piterjs_meetup
          *  ```
          **/
-        meetup(): {
-            "title": string;
-            "description": string;
-            "start": string;
-            "speeches": readonly any[];
-            "translation": string;
-        };
+        meetup(): $piterjs_meetup;
         /**
          *  ```
          *  minimal_width 400
@@ -3311,50 +3491,24 @@ declare namespace $ {
         speeches(): readonly any[];
         /**
          *  ```
-         *  Speech!id $piterjs_speech_snippet
-         *  	id <= speech_id!id
-         *  	speech <= speech!id
-         *  	speaker!id <= speaker!id
-         *  	start <= speech_start!id
+         *  Speech!index $piterjs_speech_snippet
+         *  	speech <= speech!index
+         *  	start <= speech_start!index
          *  ```
          **/
-        Speech(id: any): $$.$piterjs_speech_snippet;
+        Speech(index: any): $$.$piterjs_speech_snippet;
         /**
          *  ```
-         *  speech_id!id \
+         *  speech!index $piterjs_speech
          *  ```
          **/
-        speech_id(id: any): string;
+        speech(index: any): $piterjs_speech;
         /**
          *  ```
-         *  speech!id *
-         *  	title \
-         *  	speaker \
-         *  	duration \
+         *  speech_start!index $mol_time_moment
          *  ```
          **/
-        speech(id: any): {
-            "title": string;
-            "speaker": string;
-            "duration": string;
-        };
-        /**
-         *  ```
-         *  speaker!id *
-         *  	title \
-         *  	photo \
-         *  ```
-         **/
-        speaker(id: any): {
-            "title": string;
-            "photo": string;
-        };
-        /**
-         *  ```
-         *  speech_start!id $mol_time_moment
-         *  ```
-         **/
-        speech_start(id: any): $mol_time_moment;
+        speech_start(index: any): $mol_time_moment;
     }
 }
 
@@ -3362,14 +3516,13 @@ declare namespace $.$$ {
     class $piterjs_meetup_page extends $.$piterjs_meetup_page {
         title(): string;
         description(): string;
-        start(): $mol_time_moment;
         date(): string;
-        speeches(): $piterjs_speech_snippet[];
         translation(): string;
-        speech_id(id: string): string;
-        speech_start(id: string): any;
+        speech_start(index: number): $mol_time_moment;
         info(): ($mol_text | $mol_link_iconed)[];
         body(): ($mol_view | $mol_list)[];
+        speeches(): $piterjs_speech_snippet[];
+        speech(index: number): $piterjs_speech;
     }
 }
 
@@ -3394,17 +3547,10 @@ declare namespace $ {
     class $piterjs_speaker_snippet extends $mol_view {
         /**
          *  ```
-         *  speaker *
-         *  	title \
-         *  	description \
-         *  	photo \
+         *  speaker $piterjs_speaker
          *  ```
          **/
-        speaker(): {
-            "title": string;
-            "description": string;
-            "photo": string;
-        };
+        speaker(): $piterjs_speaker;
         /**
          *  ```
          *  sub /
@@ -3472,34 +3618,10 @@ declare namespace $ {
     class $piterjs_speech_page extends $mol_page {
         /**
          *  ```
-         *  speech *
-         *  	title \
-         *  	description \
-         *  	speaker \
-         *  	slides \
-         *  	video \
+         *  speech $piterjs_speech
          *  ```
          **/
-        speech(): {
-            "title": string;
-            "description": string;
-            "speaker": string;
-            "slides": string;
-            "video": string;
-        };
-        /**
-         *  ```
-         *  speaker!id *
-         *  	title \
-         *  	description \
-         *  	photo \
-         *  ```
-         **/
-        speaker(id: any): {
-            "title": string;
-            "description": string;
-            "photo": string;
-        };
+        speech(): $piterjs_speech;
         /**
          *  ```
          *  minimal_width 600
@@ -3591,23 +3713,16 @@ declare namespace $ {
         video(): string;
         /**
          *  ```
-         *  Speaker $piterjs_speaker_snippet speaker <= speech_speaker
+         *  Speaker $piterjs_speaker_snippet speaker <= speaker
          *  ```
          **/
         Speaker(): $$.$piterjs_speaker_snippet;
         /**
          *  ```
-         *  speech_speaker *
-         *  	title \
-         *  	description \
-         *  	photo \
+         *  speaker $piterjs_speaker
          *  ```
          **/
-        speech_speaker(): {
-            "title": string;
-            "description": string;
-            "photo": string;
-        };
+        speaker(): $piterjs_speaker;
     }
 }
 
@@ -3615,11 +3730,7 @@ declare namespace $.$$ {
     class $piterjs_speech_page extends $.$piterjs_speech_page {
         title(): string;
         description(): string;
-        speech_speaker(): {
-            "title": string;
-            "description": string;
-            "photo": string;
-        };
+        speaker(): $piterjs_speaker;
         slides(): string;
         video(): string;
         links(): $mol_link[];
@@ -3649,15 +3760,10 @@ declare namespace $ {
         id(): string;
         /**
          *  ```
-         *  meetup *
-         *  	title \
-         *  	start \
+         *  meetup $piterjs_meetup
          *  ```
          **/
-        meetup(): {
-            "title": string;
-            "start": string;
-        };
+        meetup(): $piterjs_meetup;
         /**
          *  ```
          *  sub /
@@ -3695,7 +3801,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $piterjs_meetup_snippet extends $.$piterjs_meetup_snippet {
-        start(): $mol_time_moment;
+        id(): string;
         title(): string;
         date(): string;
     }
@@ -4198,118 +4304,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    function $mol_typeof(value: any): any;
-}
-
-declare namespace $ {
-    type $mol_tree_path = Array<string | number | null>;
-    type $mol_tree_hack = (input: $mol_tree, context: $mol_tree_context) => $mol_tree[];
-    type $mol_tree_context = Record<string, $mol_tree_hack>;
-    type $mol_tree_library = Record<string, $mol_tree_context>;
-    class $mol_tree {
-        type: string;
-        data: string;
-        sub: $mol_tree[];
-        baseUri: string;
-        row: number;
-        col: number;
-        constructor(config?: {
-            type?: string;
-            value?: string;
-            data?: string;
-            sub?: $mol_tree[];
-            baseUri?: string;
-            row?: number;
-            col?: number;
-        });
-        static values(str: string, baseUri?: string): $mol_tree[];
-        clone(config: {
-            type?: string;
-            value?: string;
-            data?: string;
-            sub?: $mol_tree[];
-            baseUri?: string;
-            row?: number;
-            col?: number;
-        }): $mol_tree;
-        static fromString(str: string, baseUri?: string): $mol_tree;
-        static fromJSON(json: any, baseUri?: string): $mol_tree;
-        get uri(): string;
-        toString(prefix?: string): string;
-        toJSON(): any;
-        get value(): string;
-        insert(value: $mol_tree, ...path: $mol_tree_path): $mol_tree;
-        select(...path: $mol_tree_path): $mol_tree;
-        filter(path: string[], value?: string): $mol_tree;
-        transform(visit: (stack: $mol_tree[], sub: () => $mol_tree[]) => $mol_tree | null, stack?: $mol_tree[]): $mol_tree | null;
-        hack(context: $mol_tree_context): $mol_tree;
-        error(message: string): Error;
-    }
-}
-
-declare namespace $ {
-    function $mol_dom_parse(text: string, type?: SupportedType): Document;
-}
-
-declare var $node: any;
-
-declare namespace $ {
-    class $mol_fetch_response extends $mol_object2 {
-        readonly native: Response;
-        constructor(native: Response);
-        headers(): Headers;
-        mime(): string;
-        stream(): ReadableStream<Uint8Array>;
-        text(): string;
-        json(): any;
-        buffer(): any;
-        xml(): Document;
-        xhtml(): Document;
-        html(): Document;
-    }
-    class $mol_fetch extends $mol_object2 {
-        static request: (input: RequestInfo, init?: RequestInit) => Response;
-        static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
-        static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array>;
-        static text(input: RequestInfo, init?: RequestInit): string;
-        static json(input: RequestInfo, init?: RequestInit): any;
-        static buffer(input: RequestInfo, init?: RequestInit): void;
-        static xml(input: RequestInfo, init?: RequestInit): Document;
-        static xhtml(input: RequestInfo, init?: RequestInit): Document;
-        static html(input: RequestInfo, init?: RequestInit): Document;
-    }
-}
-
-declare namespace $ {
-    class $mol_http extends $mol_object {
-        static resource(uri: string): $mol_http;
-        static resource_absolute(uri: string): $mol_http;
-        uri(): string;
-        method_get(): string;
-        method_put(): string;
-        credentials(): {
-            login?: string;
-            password?: string;
-        };
-        headers(): {};
-        response_type(): '' | 'text' | 'document' | 'json' | 'blob' | 'arraybuffer';
-        response(next?: any, force?: $mol_mem_force): $mol_fetch_response;
-        text(next?: string, force?: $mol_mem_force): string;
-        xml(next?: string, force?: $mol_mem_force): Document;
-        json<Content>(next?: Content, force?: $mol_mem_force): Content;
-    }
-}
-
-declare namespace $ {
-    class $mol_http_resource extends $mol_http {
-        static item(uri: string): $mol_http;
-    }
-    class $mol_http_resource_json {
-        static item(uri: string): $mol_http;
-    }
-}
-
-declare namespace $ {
     class $piterjs_app extends $mol_book {
         /**
          *  ```
@@ -4335,86 +4329,38 @@ declare namespace $ {
         menu_meetups(): readonly any[];
         /**
          *  ```
-         *  meetup!id *
-         *  	title \
-         *  	description \
-         *  	start \
-         *  	speeches /
-         *  	translation \
-         *  ```
-         **/
-        meetup(id: any): {
-            "title": string;
-            "description": string;
-            "start": string;
-            "speeches": readonly any[];
-            "translation": string;
-        };
-        /**
-         *  ```
          *  Meetup!id $piterjs_meetup_page
          *  	event_top?val <=> event_front_up?val
          *  	meetup <= meetup!id
-         *  	speech!id <= speech!id
-         *  	speaker!id <= speaker!id
          *  ```
          **/
         Meetup(id: any): $$.$piterjs_meetup_page;
         /**
          *  ```
-         *  speech!id *
-         *  	title \
-         *  	description \
-         *  	speaker \
-         *  	duration \
-         *  	slides \
-         *  	video \
+         *  meetup!id $piterjs_meetup
          *  ```
          **/
-        speech(id: any): {
-            "title": string;
-            "description": string;
-            "speaker": string;
-            "duration": string;
-            "slides": string;
-            "video": string;
-        };
+        meetup(id: any): $piterjs_meetup;
         /**
          *  ```
          *  Speech!id $piterjs_speech_page
          *  	event_top?val <=> event_front_up?val
          *  	speech <= speech!id
-         *  	speaker!id <= speaker!id
          *  ```
          **/
         Speech(id: any): $$.$piterjs_speech_page;
         /**
          *  ```
-         *  speaker!id *
-         *  	title \
-         *  	description \
-         *  	photo \
+         *  speech!id $piterjs_speech
          *  ```
          **/
-        speaker(id: any): {
-            "title": string;
-            "description": string;
-            "photo": string;
-        };
+        speech(id: any): $piterjs_speech;
         /**
          *  ```
-         *  Menu_meetup!id $piterjs_meetup_snippet
-         *  	id <= menu_meetup_id!id
-         *  	meetup <= meetup!id
+         *  Menu_meetup!id $piterjs_meetup_snippet meetup <= meetup!id
          *  ```
          **/
         Menu_meetup(id: any): $$.$piterjs_meetup_snippet;
-        /**
-         *  ```
-         *  menu_meetup_id!id \
-         *  ```
-         **/
-        menu_meetup_id(id: any): string;
         /**
          *  ```
          *  Now $piterjs_now
@@ -4452,61 +4398,18 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $piterjs_app extends $.$piterjs_app {
-        meetups(): Record<string, {
-            start: string;
-            title: string;
-            description: string;
-            speeches: string[];
-            translation: string;
-        }>;
-        speeches(): Record<string, {
-            title: string;
-            description: string;
-            speaker: string;
-            duration: string;
-            slides: string;
-            video: string;
-        }>;
-        speakers(): Record<string, {
-            title: string;
-            description: string;
-            photo: string;
-        }>;
         now(next?: string): string;
         intro(next?: string): string;
         meetup_id(next?: string): string;
-        meetup(id: string): {
-            start: string;
-            title: string;
-            description: string;
-            speeches: string[];
-            translation: string;
-        };
+        meetup(id: string): $piterjs_meetup;
         speech_id(next?: string): string;
-        speech(id: string): {
-            title: string;
-            description: string;
-            speaker: string;
-            duration: string;
-            slides: string;
-            video: string;
-        };
+        speech(id: string): $piterjs_speech;
         speaker_id(next?: string): string;
-        speaker(id: string): {
-            title: string;
-            description: string;
-            photo: string;
-        };
+        speaker(id: string): $piterjs_speaker;
         pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_now)[];
         Placeholder(): $piterjs_now;
         menu_meetups(): $piterjs_meetup_snippet[];
-        menu_meetup(id: string): {
-            start: string;
-            title: string;
-            description: string;
-            speeches: string[];
-            translation: string;
-        };
+        menu_meetup(id: string): $piterjs_meetup;
         menu_meetup_id(id: string): string;
     }
 }

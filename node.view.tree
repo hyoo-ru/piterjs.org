@@ -400,12 +400,7 @@ $piterjs_speech_snippet $mol_link
 	arg *
 		speech <= id \
 	start $mol_time_moment
-	speech *
-		title \
-		speaker \
-	speaker!id *
-		title \
-		photo \
+	speech $piterjs_speech
 	sub /
 		<= Photo $piterjs_image link <= photo \
 		<= Info $mol_list sub /
@@ -417,12 +412,7 @@ $piterjs_speech_snippet $mol_link
 				sub / <= title \
 
 $piterjs_meetup_page $mol_page
-	meetup *
-		title \
-		description \
-		start \
-		speeches /
-		translation \
+	meetup $piterjs_meetup
 	minimal_width 400
 	tools /
 		<= Date $mol_view
@@ -442,16 +432,9 @@ $piterjs_meetup_page $mol_page
 				target \_blank
 				title \Трансляция
 		<= Speeches $mol_list rows <= speeches /
-	Speech!id $piterjs_speech_snippet
-		id <= speech_id!id \
-		speech <= speech!id *
-			title \
-			speaker \
-			duration \
-		speaker!id <= speaker!id *
-			title \
-			photo \
-		start <= speech_start!id $mol_time_moment
+	Speech!index $piterjs_speech_snippet
+		speech <= speech!index $piterjs_speech
+		start <= speech_start!index $mol_time_moment
 
 
 $mol_row $mol_view
@@ -459,12 +442,10 @@ $mol_row $mol_view
 $mol_row_sub $mol_view
 
 $piterjs_speaker_snippet $mol_view
-	speaker *
-		title \
-		description \
-		photo \
+	speaker $piterjs_speaker
 	sub /
-		<= Photo $piterjs_image link <= photo \
+		<= Photo $piterjs_image
+			link <= photo \
 		<= Info $mol_list sub /
 			<= Title $mol_view
 				sub / <= title \
@@ -472,16 +453,7 @@ $piterjs_speaker_snippet $mol_view
 				text <= description \
 
 $piterjs_speech_page $mol_page
-	speech *
-		title \
-		description \
-		speaker \
-		slides \
-		video \
-	speaker!id *
-		title \
-		description \
-		photo \
+	speech $piterjs_speech
 	minimal_width 600
 	tools /
 		<= Close $mol_link
@@ -499,22 +471,19 @@ $piterjs_speech_page $mol_page
 				uri <= video \
 				title \Видео
 		<= Speaker $piterjs_speaker_snippet
-			speaker <= speech_speaker *
-				title \
-				description \
-				photo \
+			speaker <= speaker $piterjs_speaker
 
 $piterjs_meetup_snippet $mol_link
 	arg *
 		meetup <= id \
 		speech null
 		now null
-	meetup *
-		title \
-		start \
+	meetup $piterjs_meetup
 	sub /
-		<= Title $mol_view sub / <= title \
-		<= Date $mol_view sub / <= date \
+		<= Title $mol_view
+			sub / <= title \
+		<= Date $mol_view
+			sub / <= date \
 
 $piterjs_intro_lines $mol_svg_root
 	style * fill <= color \#FFE515
@@ -667,35 +636,14 @@ $piterjs_app $mol_book
 		event_top?val <=> event_front_up?val
 		body /
 			<= Meetups $mol_list rows <= menu_meetups /
-	meetup!id *
-		title \
-		description \
-		start \
-		speeches /
-		translation \
 	Meetup!id $piterjs_meetup_page
 		event_top?val <=> event_front_up?val
-		meetup <= meetup!id
-		speech!id <= speech!id
-		speaker!id <= speaker!id
-	speech!id *
-		title \
-		description \
-		speaker \
-		duration \
-		slides \
-		video \
+		meetup <= meetup!id $piterjs_meetup
 	Speech!id $piterjs_speech_page
 		event_top?val <=> event_front_up?val
-		speech <= speech!id
-		speaker!id <= speaker!id
-	speaker!id *
-		title \
-		description \
-		photo \
+		speech <= speech!id $piterjs_speech
 	Menu_meetup!id $piterjs_meetup_snippet
-		id <= menu_meetup_id!id \
-		meetup <= meetup!id
+		meetup <= meetup!id $piterjs_meetup
 	Now $piterjs_now
 		event_top?val <=> event_front_up?val
 		minimal_width 600

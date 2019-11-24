@@ -579,12 +579,6 @@ var $;
 //assert.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -941,12 +935,6 @@ var $;
 //fiber.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($_1) {
     $_1.$mol_test({
@@ -1370,12 +1358,6 @@ var $;
 //wait.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -1583,12 +1565,6 @@ var $;
 //dict.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -1651,12 +1627,6 @@ var $;
 //key.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -1706,12 +1676,6 @@ var $;
 //tick.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     $.$mol_test({
@@ -1866,12 +1830,301 @@ var $;
 //session.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+var $;
+(function ($) {
+    $.$mol_test({
+        'equal paths'() {
+            const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]);
+            $.$mol_assert_like(diff, {
+                prefix: [1, 2, 3, 4],
+                suffix: [[], [], []],
+            });
+        },
+        'different suffix'() {
+            const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2, 3, 5], [1, 2, 5, 4]);
+            $.$mol_assert_like(diff, {
+                prefix: [1, 2],
+                suffix: [[3, 4], [3, 5], [5, 4]],
+            });
+        },
+        'one contains other'() {
+            const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2], [1, 2, 3]);
+            $.$mol_assert_like(diff, {
+                prefix: [1, 2],
+                suffix: [[3, 4], [], [3]],
+            });
+        },
+        'fully different'() {
+            const diff = $.$mol_diff_path([1, 2], [3, 4], [5, 6]);
+            $.$mol_assert_like(diff, {
+                prefix: [],
+                suffix: [[1, 2], [3, 4], [5, 6]],
+            });
+        },
+    });
+})($ || ($ = {}));
+//path.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is string'() {
+            $.$mol_data_string('');
+        },
+        'Is not string'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_string(0);
+            }, 'number is not a string');
+        },
+        'Is object string'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_string(new String(''));
+            }, 'object is not a string');
+        },
+    });
+})($ || ($ = {}));
+//string.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is number'() {
+            $.$mol_data_number(0);
+        },
+        'Is not number'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_number('');
+            }, 'string is not a number');
+        },
+        'Is object number'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_number(new Number(''));
+            }, 'object is not a number');
+        },
+    });
+})($ || ($ = {}));
+//number.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_number(val) {
+        if (typeof val === 'number')
+            return val;
+        return $.$mol_fail(new $.$mol_data_error(`${typeof val} is not a number`));
+    }
+    $.$mol_data_number = $mol_data_number;
+})($ || ($ = {}));
+//number.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'config by value'() {
+            const N = $.$mol_data_setup((a) => a, 5);
+            $.$mol_assert_equal(N.config, 5);
+        },
+    });
+})($ || ($ = {}));
+//setup.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is empty array'() {
+            $.$mol_data_array($.$mol_data_number)([]);
+        },
+        'Is array'() {
+            $.$mol_data_array($.$mol_data_number)([1, 2]);
+        },
+        'Is not array'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_number)({ [0]: 1, length: 1, map: () => { } });
+            }, '[object Object] is not an array');
+        },
+        'Has wrong item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_number)([1, '1']);
+            }, '[1] string is not a number');
+        },
+        'Has wrong deep item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_array($.$mol_data_number))([[], [0, 0, false]]);
+            }, '[1] [2] boolean is not a number');
+        },
+    });
+})($ || ($ = {}));
+//array.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'scalars'() {
+            $.$mol_assert_equal($.$mol_typeof(void 0), 'Undefined');
+            $.$mol_assert_equal($.$mol_typeof(null), 'Null');
+            $.$mol_assert_equal($.$mol_typeof(0), 'Number');
+            $.$mol_assert_equal($.$mol_typeof(''), 'String');
+            $.$mol_assert_equal($.$mol_typeof(false), 'Boolean');
+        },
+        'common objects'() {
+            $.$mol_assert_equal($.$mol_typeof({}), 'Object');
+            $.$mol_assert_equal($.$mol_typeof([]), 'Array');
+            $.$mol_assert_equal($.$mol_typeof(arguments), 'Arguments');
+        },
+        'special classes'() {
+            $.$mol_assert_equal($.$mol_typeof(new Date), 'Date');
+            $.$mol_assert_equal($.$mol_typeof(new RegExp('')), 'RegExp');
+        },
+    });
+})($ || ($ = {}));
+//typeof.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'tree parsing'() {
+            $.$mol_assert_equal($.$mol_tree.fromString("foo\nbar\n").sub.length, 2);
+            $.$mol_assert_equal($.$mol_tree.fromString("foo\nbar\n").sub[1].type, "bar");
+            $.$mol_assert_equal($.$mol_tree.fromString("foo\n\n\n").sub.length, 1);
+            $.$mol_assert_equal($.$mol_tree.fromString("=foo\n\\bar\n").sub.length, 2);
+            $.$mol_assert_equal($.$mol_tree.fromString("=foo\n\\bar\n").sub[1].data, "bar");
+            $.$mol_assert_equal($.$mol_tree.fromString("foo bar \\pol").sub[0].sub[0].sub[0].data, "pol");
+            $.$mol_assert_equal($.$mol_tree.fromString("foo bar\n\t\\pol\n\t\\men").sub[0].sub[0].sub[1].data, "men");
+            $.$mol_assert_equal($.$mol_tree.fromString('foo bar \\text\n').toString(), 'foo bar \\text\n');
+        },
+        'inserting'() {
+            $.$mol_assert_equal($.$mol_tree.fromString('a b c d').insert(new $.$mol_tree, 'a', 'b', 'c').toString(), 'a b \\\n');
+            $.$mol_assert_equal($.$mol_tree.fromString('a b').insert(new $.$mol_tree, 'a', 'b', 'c', 'd').toString(), 'a b c \\\n');
+            $.$mol_assert_equal($.$mol_tree.fromString('a b c d').insert(new $.$mol_tree, 0, 0, 0).toString(), 'a b \\\n');
+            $.$mol_assert_equal($.$mol_tree.fromString('a b').insert(new $.$mol_tree, 0, 0, 0, 0).toString(), 'a b \\\n\t\\\n');
+            $.$mol_assert_equal($.$mol_tree.fromString('a b c d').insert(new $.$mol_tree, null, null, null).toString(), 'a b \\\n');
+            $.$mol_assert_equal($.$mol_tree.fromString('a b').insert(new $.$mol_tree, null, null, null, null).toString(), 'a b \\\n\t\\\n');
+        },
+        'fromJSON'() {
+            $.$mol_assert_equal($.$mol_tree.fromJSON([]).toString(), '/\n');
+            $.$mol_assert_equal($.$mol_tree.fromJSON([false, true]).toString(), '/\n\tfalse\n\ttrue\n');
+            $.$mol_assert_equal($.$mol_tree.fromJSON([0, 1, 2.3]).toString(), '/\n\t0\n\t1\n\t2.3\n');
+            $.$mol_assert_equal($.$mol_tree.fromJSON(['', 'foo', 'bar\nbaz']).toString(), '/\n\t\\\n\t\\foo\n\t\\\n\t\t\\bar\n\t\t\\baz\n');
+            $.$mol_assert_equal($.$mol_tree.fromJSON({ 'foo': false, 'bar\nbaz': 'lol' }).toString(), '*\n\tfoo false\n\t\\\n\t\t\\bar\n\t\t\\baz\n\t\t\\lol\n');
+        },
+        'toJSON'() {
+            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n').sub[0]), '[]');
+            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n\tfalse\n\ttrue\n').sub[0]), '[false,true]');
+            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n\t0\n\t1\n\t2.3\n').sub[0]), '[0,1,2.3]');
+            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n\t\\\n\t\\foo\n\t\\\n\t\t\\bar\n\t\t\\baz\n').sub[0]), '["","foo","bar\\nbaz"]');
+            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('*\n\tfoo false\n\t\\\n\t\t\\bar\n\t\t\\baz\n\t\t\\lol\n').sub[0]), '{"foo":false,"bar\\nbaz":"lol"}');
+        },
+        'hack'() {
+            const res = $.$mol_tree.fromString(`foo bar xxx`).hack({
+                '': (tree, context) => [tree.hack(context)],
+                'bar': (tree, context) => [tree.hack(context).clone({ type: '777' })],
+            });
+            $.$mol_assert_equal(res.toString(), new $.$mol_tree({ type: 'foo 777 xxx' }).toString());
+        },
+    });
+})($ || ($ = {}));
+//tree.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'parse and serial'() {
+            $.$mol_assert_equal(new $.$mol_time_duration('P42.1Y').toString(), 'P42.1YT');
+            $.$mol_assert_equal(new $.$mol_time_duration('P42.1M').toString(), 'P42.1MT');
+            $.$mol_assert_equal(new $.$mol_time_duration('P42.1D').toString(), 'P42.1DT');
+            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1h').toString(), 'PT42.1H');
+            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1m').toString(), 'PT42.1M');
+            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1s').toString(), 'PT42.1S');
+            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6.7s').toString(), 'P1Y2M3DT4H5M6.7S');
+        },
+        'format typed'() {
+            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6s').toString('P#Y#M#DT#h#m#s'), 'P1Y2M3DT4H5M6S');
+        },
+    });
+})($ || ($ = {}));
+//duration.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'parse and serial'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014').toString(), '2014');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').toString(), '2014-01');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').toString(), '2014-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03').toString(), '2014-01-02T03');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04').toString(), '2014-01-02T03:04');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05').toString(), '2014-01-02T03:04:05');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006').toString(), '2014-01-02T03:04:05.006');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006Z').toString(), '2014-01-02T03:04:05.006+00:00');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006+07:00').toString(), '2014-01-02T03:04:05.006+07:00');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05+07:08').toString(), '2014-01-02T03:04:05+07:08');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04+07:08').toString(), '2014-01-02T03:04+07:08');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03:04+07:08').toString(), 'T03:04+07:08');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03:04:05').toString(), 'T03:04:05');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03:04').toString(), 'T03:04');
+            $.$mol_assert_equal(new $.$mol_time_moment('T03').toString(), 'T03');
+        },
+        'format simple'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000000').toString('AD YY-M-D h:m:s'), '21 14-1-2 1:2:3');
+        },
+        'format padded'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('YYYY-MM-DD hh:mm:ss'), '2014-01-02 01:02:03');
+        },
+        'format time zone'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03+05:00').toString('Z'), '+05:00');
+        },
+        'format names'() {
+            $.$mol_assert_ok(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('Month Mon | WeekDay WD'));
+        },
+        'shifting'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('T15:54:58.243+03:00').shift({}).toString(), 'T15:54:58.243+03:00');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P1Y').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P12M').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P365D').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('PT8760h').toString(), '2015-01-02');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT8760h').toString(), '2015-01');
+            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT-8760h').toString(), '2013-01');
+        },
+        'normalization'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2015-07-35').normal.toString(), '2015-08-04');
+        },
+        'iso week day'() {
+            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-17').weekday, 6);
+            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-18').weekday, 0);
+        },
+    });
+})($ || ($ = {}));
+//moment.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is not present'() {
+            $.$mol_data_optional($.$mol_data_number)(undefined);
+        },
+        'Is present'() {
+            $.$mol_data_optional($.$mol_data_number)(0);
+        },
+        'Is null'() {
+            $.$mol_assert_fail(() => {
+                const Type = $.$mol_data_optional($.$mol_data_number);
+                Type(null);
+            }, 'object is not a number');
+        },
+    });
+})($ || ($ = {}));
+//optional.test.js.map
+;
+"use strict";
 var $;
 (function ($_1) {
     $_1.$mol_test_mocks.push(context => {
@@ -1994,150 +2247,6 @@ var $;
 //md.test.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'parse and serial'() {
-            $.$mol_assert_equal(new $.$mol_time_duration('P42.1Y').toString(), 'P42.1YT');
-            $.$mol_assert_equal(new $.$mol_time_duration('P42.1M').toString(), 'P42.1MT');
-            $.$mol_assert_equal(new $.$mol_time_duration('P42.1D').toString(), 'P42.1DT');
-            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1h').toString(), 'PT42.1H');
-            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1m').toString(), 'PT42.1M');
-            $.$mol_assert_equal(new $.$mol_time_duration('PT42.1s').toString(), 'PT42.1S');
-            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6.7s').toString(), 'P1Y2M3DT4H5M6.7S');
-        },
-        'format typed'() {
-            $.$mol_assert_equal(new $.$mol_time_duration('P1Y2M3DT4h5m6s').toString('P#Y#M#DT#h#m#s'), 'P1Y2M3DT4H5M6S');
-        },
-    });
-})($ || ($ = {}));
-//duration.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'parse and serial'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014').toString(), '2014');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').toString(), '2014-01');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').toString(), '2014-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03').toString(), '2014-01-02T03');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04').toString(), '2014-01-02T03:04');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05').toString(), '2014-01-02T03:04:05');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006').toString(), '2014-01-02T03:04:05.006');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006Z').toString(), '2014-01-02T03:04:05.006+00:00');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05.006+07:00').toString(), '2014-01-02T03:04:05.006+07:00');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04:05+07:08').toString(), '2014-01-02T03:04:05+07:08');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T03:04+07:08').toString(), '2014-01-02T03:04+07:08');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03:04+07:08').toString(), 'T03:04+07:08');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03:04:05').toString(), 'T03:04:05');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03:04').toString(), 'T03:04');
-            $.$mol_assert_equal(new $.$mol_time_moment('T03').toString(), 'T03');
-        },
-        'format simple'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('AD YY-M-D h:m:s'), '21 14-1-2 1:2:3');
-        },
-        'format padded'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('YYYY-MM-DD hh:mm:ss'), '2014-01-02 01:02:03');
-        },
-        'format time zone'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02T01:02:03+05:00').toString('Z'), '+05:00');
-        },
-        'format names'() {
-            $.$mol_assert_ok(new $.$mol_time_moment('2014-01-02T01:02:03.000').toString('Month Mon | WeekDay WD'));
-        },
-        'shifting'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('T15:54:58.243+03:00').shift({}).toString(), 'T15:54:58.243+03:00');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P1Y').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P12M').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('P365D').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01-02').shift('PT8760h').toString(), '2015-01-02');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT8760h').toString(), '2015-01');
-            $.$mol_assert_equal(new $.$mol_time_moment('2014-01').shift('PT-8760h').toString(), '2013-01');
-        },
-        'normalization'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2015-07-35').normal.toString(), '2015-08-04');
-        },
-        'iso week day'() {
-            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-17').weekday, 6);
-            $.$mol_assert_equal(new $.$mol_time_moment('2017-09-18').weekday, 0);
-        },
-    });
-})($ || ($ = {}));
-//moment.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'scalars'() {
-            $.$mol_assert_equal($.$mol_typeof(void 0), 'Undefined');
-            $.$mol_assert_equal($.$mol_typeof(null), 'Null');
-            $.$mol_assert_equal($.$mol_typeof(0), 'Number');
-            $.$mol_assert_equal($.$mol_typeof(''), 'String');
-            $.$mol_assert_equal($.$mol_typeof(false), 'Boolean');
-        },
-        'common objects'() {
-            $.$mol_assert_equal($.$mol_typeof({}), 'Object');
-            $.$mol_assert_equal($.$mol_typeof([]), 'Array');
-            $.$mol_assert_equal($.$mol_typeof(arguments), 'Arguments');
-        },
-        'special classes'() {
-            $.$mol_assert_equal($.$mol_typeof(new Date), 'Date');
-            $.$mol_assert_equal($.$mol_typeof(new RegExp('')), 'RegExp');
-        },
-    });
-})($ || ($ = {}));
-//typeof.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'tree parsing'() {
-            $.$mol_assert_equal($.$mol_tree.fromString("foo\nbar\n").sub.length, 2);
-            $.$mol_assert_equal($.$mol_tree.fromString("foo\nbar\n").sub[1].type, "bar");
-            $.$mol_assert_equal($.$mol_tree.fromString("foo\n\n\n").sub.length, 1);
-            $.$mol_assert_equal($.$mol_tree.fromString("=foo\n\\bar\n").sub.length, 2);
-            $.$mol_assert_equal($.$mol_tree.fromString("=foo\n\\bar\n").sub[1].data, "bar");
-            $.$mol_assert_equal($.$mol_tree.fromString("foo bar \\pol").sub[0].sub[0].sub[0].data, "pol");
-            $.$mol_assert_equal($.$mol_tree.fromString("foo bar\n\t\\pol\n\t\\men").sub[0].sub[0].sub[1].data, "men");
-            $.$mol_assert_equal($.$mol_tree.fromString('foo bar \\text\n').toString(), 'foo bar \\text\n');
-        },
-        'inserting'() {
-            $.$mol_assert_equal($.$mol_tree.fromString('a b c d').insert(new $.$mol_tree, 'a', 'b', 'c').toString(), 'a b \\\n');
-            $.$mol_assert_equal($.$mol_tree.fromString('a b').insert(new $.$mol_tree, 'a', 'b', 'c', 'd').toString(), 'a b c \\\n');
-            $.$mol_assert_equal($.$mol_tree.fromString('a b c d').insert(new $.$mol_tree, 0, 0, 0).toString(), 'a b \\\n');
-            $.$mol_assert_equal($.$mol_tree.fromString('a b').insert(new $.$mol_tree, 0, 0, 0, 0).toString(), 'a b \\\n\t\\\n');
-            $.$mol_assert_equal($.$mol_tree.fromString('a b c d').insert(new $.$mol_tree, null, null, null).toString(), 'a b \\\n');
-            $.$mol_assert_equal($.$mol_tree.fromString('a b').insert(new $.$mol_tree, null, null, null, null).toString(), 'a b \\\n\t\\\n');
-        },
-        'fromJSON'() {
-            $.$mol_assert_equal($.$mol_tree.fromJSON([]).toString(), '/\n');
-            $.$mol_assert_equal($.$mol_tree.fromJSON([false, true]).toString(), '/\n\tfalse\n\ttrue\n');
-            $.$mol_assert_equal($.$mol_tree.fromJSON([0, 1, 2.3]).toString(), '/\n\t0\n\t1\n\t2.3\n');
-            $.$mol_assert_equal($.$mol_tree.fromJSON(['', 'foo', 'bar\nbaz']).toString(), '/\n\t\\\n\t\\foo\n\t\\\n\t\t\\bar\n\t\t\\baz\n');
-            $.$mol_assert_equal($.$mol_tree.fromJSON({ 'foo': false, 'bar\nbaz': 'lol' }).toString(), '*\n\tfoo false\n\t\\\n\t\t\\bar\n\t\t\\baz\n\t\t\\lol\n');
-        },
-        'toJSON'() {
-            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n').sub[0]), '[]');
-            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n\tfalse\n\ttrue\n').sub[0]), '[false,true]');
-            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n\t0\n\t1\n\t2.3\n').sub[0]), '[0,1,2.3]');
-            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('/\n\t\\\n\t\\foo\n\t\\\n\t\t\\bar\n\t\t\\baz\n').sub[0]), '["","foo","bar\\nbaz"]');
-            $.$mol_assert_equal(JSON.stringify($.$mol_tree.fromString('*\n\tfoo false\n\t\\\n\t\t\\bar\n\t\t\\baz\n\t\t\\lol\n').sub[0]), '{"foo":false,"bar\\nbaz":"lol"}');
-        },
-        'hack'() {
-            const res = $.$mol_tree.fromString(`foo bar xxx`).hack({
-                '': (tree, context) => [tree.hack(context)],
-                'bar': (tree, context) => [tree.hack(context).clone({ type: '777' })],
-            });
-            $.$mol_assert_equal(res.toString(), new $.$mol_tree({ type: 'foo 777 xxx' }).toString());
-        },
-    });
-})($ || ($ = {}));
-//tree.test.js.map
-;
-"use strict";
 //equals.test.js.map
 ;
 "use strict";
@@ -2175,12 +2284,6 @@ var $;
 //attach.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 /** @jsx $mol_jsx_make */
 var $;
 (function ($) {
