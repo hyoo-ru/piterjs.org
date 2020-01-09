@@ -7494,7 +7494,40 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("piterjs/speech/snippet/snippet.view.css", "[piterjs_speech_snippet] {\n\tdisplay: flex;\n\tpadding: .5rem;\n\talign-items: flex-start;\n}\n\n[piterjs_speech_snippet_photo] {\n\twidth: 6rem;\n\tmargin: .25rem;\n}\n\n[piterjs_speech_snippet_info] {\n\tflex: 16rem 1 1 ;\n\tpadding: .25rem;\n}\n\n[piterjs_speech_snippet_title] {\n\tdisplay: block;\n\tpadding: .25rem;\n\tfont-weight: 600;\n}\n\n[piterjs_speech_snippet_addon] {\n\tdisplay: flex;\n}\n\n[piterjs_speech_snippet_speaker_title] {\n\tpadding: .25rem;\n\t/* color: var(--mol_theme_shade); */\n\tcolor: var(--mol_theme_text);\n\tflex: 1 1 auto;\n}\n\n[piterjs_speech_snippet_time] {\n\tpadding: .25rem;\n\tcolor: var(--mol_theme_text);\n\twhite-space: nowrap;\n}\n");
+    var $$;
+    (function ($$) {
+        $.$mol_style_define($$.$piterjs_speech_snippet, {
+            display: 'flex',
+            padding: '.5rem',
+            alignItems: 'flex-start',
+            Photo: {
+                width: '6rem',
+                margin: '.25rem',
+            },
+            Info: {
+                flex: '16rem 1 1',
+                padding: '.25rem',
+            },
+            Title: {
+                display: 'block',
+                padding: '.25rem',
+                fontWeight: '600',
+            },
+            Addon: {
+                display: 'flex',
+            },
+            Speaker_title: {
+                padding: '.25rem',
+                color: "var(--mol_theme_text)",
+                flex: '1 1 auto',
+            },
+            Time: {
+                padding: '.25rem',
+                color: "var(--mol_theme_text)",
+                whiteSpace: 'nowrap',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //snippet.view.css.js.map
 ;
@@ -7864,7 +7897,67 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("piterjs/speaker/snippet/snippet.view.css", "[piterjs_speaker_snippet] {\n\tdisplay: flex;\n\talign-items: flex-start;\n\tflex-wrap: wrap;\n\tpadding: .5rem;\n}\n\n[piterjs_speaker_snippet_photo] {\n\twidth: 10rem;\n\tflex: 0 1 auto;\n\tpadding: 0;\n\tmargin: .25rem;\n\tposition: relative;\n\toverflow: visible;\n\tz-index: 0;\n\tbox-shadow: none;\n\tborder-radius: 0;\n}\n\n[piterjs_speaker_snippet_photo]:after {\n\tcontent: '';\n\tposition: absolute;\n\tz-index: -1;\n\tright: -.25rem;\n\ttop: -.25rem;\n\twidth: 1rem;\n\theight: 1rem;\n\tbackground: var(--mol_theme_current);\n}\n\n[piterjs_speaker_snippet_photo]:before {\n\tcontent: '';\n\tposition: absolute;\n\tz-index: -1;\n\tleft: -.25rem;\n\tbottom: -.25rem;\n\twidth: 1rem;\n\theight: 1rem;\n\tbackground: var(--mol_theme_current);\n}\n\n[piterjs_speaker_snippet_photo_content] {\n\tborder: .25rem solid var(--mol_theme_back);\n}\n\n[piterjs_speaker_snippet_info] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 2 1 20rem;\n\tpadding: .25rem;\n}\n\n[piterjs_speaker_snippet_title] {\n\tpadding: .25rem;\n\tfont-size: 1.25em;\n}\n\n[piterjs_speaker_snippet_description] {\n\tmargin: 0;\n\tpadding: 0;\n\tbox-shadow: none;\n}\n\n[piterjs_speaker_snippet_description_row] {\n\tmargin: .25rem;\n}\n");
+    var $$;
+    (function ($$) {
+        $.$mol_style_define($$.$piterjs_speaker_snippet, {
+            display: 'flex',
+            alignItems: 'flex-start',
+            flexWrap: 'wrap',
+            padding: '.5rem',
+            Photo: {
+                width: '10rem',
+                flex: '0 1 auto',
+                padding: '0',
+                margin: '.25rem',
+                position: 'relative',
+                overflow: 'visible',
+                zIndex: '0',
+                boxShadow: 'none',
+                borderRadius: '0',
+                '::after': {
+                    content: '',
+                    position: 'absolute',
+                    zIndex: '-1',
+                    right: '-.25rem',
+                    top: '-.25rem',
+                    width: '1rem',
+                    height: '1rem',
+                    background: "var(--mol_theme_current)",
+                },
+                '::before': {
+                    content: '',
+                    position: 'absolute',
+                    zIndex: '-1',
+                    left: '-.25rem',
+                    bottom: '-.25rem',
+                    width: '1rem',
+                    height: '1rem',
+                    background: "var(--mol_theme_current)",
+                },
+                Content: {
+                    border: `.25rem solid ${"var(--mol_theme_back)"}`,
+                },
+            },
+            Info: {
+                display: 'flex',
+                flexDirection: 'column',
+                flex: '2 1 20rem',
+                padding: '.25rem',
+            },
+            Title: {
+                padding: '.25rem',
+                fontSize: '1.25em',
+            },
+            Description: {
+                margin: '0',
+                padding: '0',
+                boxShadow: 'none',
+                Row: {
+                    margin: '.25rem',
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //snippet.view.css.js.map
 ;
@@ -8020,7 +8113,27 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("piterjs/speech/page/page.view.css", "[piterjs_speech_page] {\n\tflex: 1000 1000 400px;\n}\n\n[piterjs_speech_page_body] {\n\tpadding: .5rem;\n}\n\n[piterjs_speech_page_description] {\n\tbox-shadow: none;\n}\n\n[piterjs_speech_page_links] {\n\tmargin: -1rem 0 0;\n\tfont-weight: 600;\n}\n\n[piterjs_speech_page_links] > * {\n\tmargin: 0;\n}\n");
+    var $$;
+    (function ($$) {
+        $.$mol_style_define($$.$piterjs_speech_page, {
+            flex: '1000 1000 400px',
+            Body: {
+                padding: '.5rem',
+            },
+            Description: {
+                boxShadow: 'none',
+            },
+            Links: {
+                margin: '-1rem 0 0',
+                fontWeight: '600',
+                '>': {
+                    $mol_view: {
+                        margin: '0',
+                    }
+                }
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //page.view.css.js.map
 ;
@@ -8368,7 +8481,39 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("piterjs/schedule/schedule.view.css", "[piterjs_schedule] {\n\tflex: auto;\n\tflex-wrap: wrap;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tfont-size: 4vmin;\n}\n\n[piterjs_schedule_speeches] {\n\tmargin: auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .5em 5vw;\n\talign-content: center;\n\talign-items: flex-start;\n}\n\n[piterjs_schedule_speech] {\n\tmargin: .5em;\n}\n\n[piterjs_schedule_speech_interval] {\n\tfont-weight: bolder;\n}\n\n[piterjs_schedule_speech_title] {\n\tpadding: 0 .5em;\n\tmargin-left: 10vmin;\n}\n\n[piterjs_schedule_speech_speaker] {\n\tpadding: 0 .5em;\n\tmargin-left: 10vmin;\n\tcolor: var(--mol_theme_shade);\n}\n");
+    var $$;
+    (function ($$) {
+        $.$mol_style_define($$.$piterjs_schedule, {
+            flex: 'auto',
+            flexWrap: 'wrap',
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontSize: '4vmin',
+            Speeches: {
+                margin: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '.5em 5vw',
+                alignContent: 'center',
+                alignItems: 'flex-start',
+            },
+            Speech: {
+                margin: '.5em',
+            },
+            Speech_interval: {
+                fontWeight: 'bolder',
+            },
+            Speech_title: {
+                padding: '0 .5em',
+                marginLeft: '10vmin',
+            },
+            Speech_speaker: {
+                padding: '0 .5em',
+                marginLeft: '10vmin',
+                color: "var(--mol_theme_shade)",
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //schedule.view.css.js.map
 ;
@@ -10840,7 +10985,7 @@ var $;
             ], Test.prototype, "target", null);
             const t = new Test;
             $.$mol_assert_fail(() => t.target().valueOf(), Promise);
-            $.$mol_defer.run();
+            await $.$mol_fiber_warp();
             $.$mol_assert_equal(t.target(), 'Jin');
         },
     });
