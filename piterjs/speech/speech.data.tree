@@ -223,28 +223,33 @@ slides *
 	description \Расскажу сколько всего умеет, как работает, и как сделать своё за один беспокойный вечер.
 	speaker \rec1qqsT1cczrE6dH
 	duration \PT40m
+	video \https://www.youtube.com/watch?v=o13NncAQXWk
 webgl-planet *
 	title \Планета на WebGL
 	description \Доклад для уставших от “формочек и кнопочек”. Расскажу немного основ по компьютерной графике и о том, как написать простой 3d рендер на WebGL без использования фреймворков и библиотек.
 	speaker \vola
 	duration \PT40m
+	video \https://www.youtube.com/watch?v=4jS3RtzasS0
 css-types *
 	title \Типы данных в CSS
 	description \Расскажу про типы данных в CSS3 и язык их описания. Будет много формального синтаксиса и интересных деталей.
 	speaker \vals
 	duration \PT40m
+	video \https://www.youtube.com/watch?v=o3oFkckaJGo
 react-ssr-wat *
 	title \React + SSR там, где их уже не ждали
 	description \Клиентский портал крупного европейского телекома. Разметка рендерится на Java бэкенде, а фронтенд - набор jQuery плагинов. Разработчики хотят изменений, но бизнес не заинтересован в радикальных изменениях. Как начать использовать React, чтобы никого не спугнуть? Как добавить к нему SSR, если большая часть портала все еще не на React?
 	speaker \zona
 	duration \PT40m
 	slides \https://github.com/piterjs/slides/blob/master/meetup=41/speech=react-ssr-wat.pdf
+	video \https://www.youtube.com/watch?v=27IMf0bG_78
 bdd-e2e *
 	title \BDD e2e тестирование
 	description \Рассмотрим, что такое BDD тестирование, и как оно помогает писать e2e тесты дешевле и быстрее. Рассмотрим, как сделать тесты понятными не только для разработчиков, но и для тестировщиков с менеджерами, используя Gherkin синтаксис в связке с Cypress. Определим место acceptance тестов в CI/CD пайплайне. Обсудим, когда стоит писать такие тесты, и кто может это делать.
 	speaker \iosa
 	duration \PT40m
 	slides \https://github.com/piterjs/slides/blob/master/meetup=41/speech=bdd-e2e.pdf
+	video \https://www.youtube.com/watch?v=Ho_7LALqCi0
 event-loop-details *
 	title \Event-Driven Architecture: детали реализаций Event Loop
 	description \
@@ -255,6 +260,7 @@ event-loop-details *
 		\Также рассмотрим детали реализации event loop и microtasks. Заглянем в libuv, tokio.rs и chromuim. И разберем, как браузер держит TCP-соединение с сервером и как это контролировать.
 	speaker \recN6GhIZP9QQ7Fo9
 	duration \PT40m
+	video \https://www.youtube.com/watch?v=ctKseRpZcKQ
 js-logging *
 	title \Логирование на JS
 	description \
@@ -262,6 +268,7 @@ js-logging *
 	speaker \recNuTExXo6paisad
 	duration \PT55m
 	slides \https://github.com/piterjs/slides/blob/master/meetup=42/speech=js-logging.pdf
+	video \https://www.youtube.com/watch?v=HpQfpLaIK2E
 api-documenting *
 	title \Документация к API — делай это понятно
 	description \
@@ -269,6 +276,7 @@ api-documenting *
 	speaker \recHfk5ryFmvkmfoG
 	duration \PT45m
 	slides \https://github.com/piterjs/slides/blob/master/meetup=42/speech=api-documenting.pdf
+	video \https://www.youtube.com/watch?v=v-VXIYO5Lbs
 ibeacon-with-react-native *
 	title \Взаимодействие с iBeacons в React Native
 	description \
@@ -276,11 +284,13 @@ ibeacon-with-react-native *
 	speaker \recSJkANJgoAHmRu9
 	duration \PT40m
 	slides \https://github.com/piterjs/slides/blob/master/meetup=42/speech=ibeacon-with-react-native.pdf
+	video \https://www.youtube.com/watch?v=5X5UOCtYB20
 programming-is-a-lava *
 	title \Программирование — это лава!
 	description \В нас сидит очень требовательный и обидчивый идеалист, который хочет сделать самые универсальные решения, самую расширяемую архитектуру и самый красивый код. В докладе попробуем разобраться, почему быть таким идеалистом плохо, и как с ним договариваться.
 	speaker \rec8HARMrfaU3kvEX
 	duration \PT40m
+	slides \https://github.com/piterjs/slides/blob/master/meetup=43/speech=programming-is-a-lava.pdf
 new-view-on-architecture *
 	title \Архитектура. Другой взгляд
 	description \Если спросить десять человек о том, что они понимают под архитектурой, то можно получить 10 разных ответов. Я не хочу снимать противоречий или искать единственно правильное определение. Цель доклада — рассказать о своем представлении.
@@ -291,9 +301,10 @@ write-this-tests *
 	description \Весь современный зоопарк технологий во фронтенде можно свести, на самом деле, к одному. Все подчиняется принципу декомпозиции. Даже если мы сами этого не замечаем, все мы работаем с компонентами. В докладе хочу привести соображения по поводу того, как стоит разрабатывать интерфейсы и API к компонентам, на что стоит обратить внимание и причем же тут тесты.
 	speaker \carv
 	duration \PT40m
+	slides \https://github.com/piterjs/slides/blob/master/meetup=43/speech=write-this-tests.pdf
 own-project-development *
 	title \Разработка собственного проекта
 	description \Как быть человеком оркестром, совместить в себе backend/frontend/mobile и дизайнера и сделать свой первый проект. Покажу, что и как сделано и расскажу, как делал.
 	speaker \recX0NdhNVdZ2s18p
 	duration \PT40m
-
+	slides \https://github.com/piterjs/slides/blob/master/meetup=43/speech=own-project-development.pdf
