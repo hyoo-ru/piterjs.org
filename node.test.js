@@ -9690,7 +9690,9 @@ var $;
                 }
                 theme(next) {
                     var _a;
-                    return (_a = this.$.$mol_state_local.value('lights', next)) !== null && _a !== void 0 ? _a : '$mol_theme_auto';
+                    return (_a = this.$.$mol_state_local.value('lights', next)) !== null && _a !== void 0 ? _a : ($.$mol_dom_context.matchMedia('(prefers-color-scheme: dark)').matches ? '$mol_theme_dark'
+                        : $.$mol_dom_context.matchMedia('(prefers-color-scheme: light)').matches ? '$mol_theme_light'
+                            : '$mol_theme_auto');
                 }
                 lights(next) {
                     let theme = this.theme();
