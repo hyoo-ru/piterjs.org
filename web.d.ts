@@ -2745,6 +2745,42 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_github_circle extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_medium extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_telegram extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_vk extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_twitter extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_youtube extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_check_icon extends $mol_check {
     }
 }
@@ -2793,12 +2829,18 @@ declare namespace $ {
         };
         tools(): readonly any[];
         Links(): $mol_view;
-        Github(): $$.$mol_link_iconed;
-        Medium(): $$.$mol_link_iconed;
-        Telegram(): $$.$mol_link_iconed;
-        Vkontakte(): $$.$mol_link_iconed;
-        Twitter(): $$.$mol_link_iconed;
-        Youtube(): $$.$mol_link_iconed;
+        Github(): $$.$mol_link;
+        Github_icon(): $mol_icon_github_circle;
+        Medium(): $$.$mol_link;
+        Medium_icon(): $mol_icon_medium;
+        Telegram(): $$.$mol_link;
+        Telegram_icon(): $mol_icon_telegram;
+        Vkontakte(): $$.$mol_link;
+        Vkontakte_icon(): $mol_icon_vk;
+        Twitter(): $$.$mol_link;
+        Twitter_icon(): $mol_icon_twitter;
+        Youtube(): $$.$mol_link;
+        Youtube_icon(): $mol_icon_youtube;
         body(): readonly any[];
         Screen(): $$.$piterjs_screen;
         place(): $piterjs_place;
