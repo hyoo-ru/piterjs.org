@@ -1258,6 +1258,9 @@ declare namespace $ {
             anchor?: 'auto' | 'none' | Common;
         };
         webkitOverflowScrolling?: 'auto' | 'touch';
+        scrollbar: {
+            color: [Color, Color] | 'dark' | 'light' | 'auto' | Common;
+        };
         width?: Size;
         minWidth?: Size;
         maxWidth?: Size;
@@ -2494,8 +2497,9 @@ declare namespace $.$$ {
 declare namespace $ {
     class $piterjs_app extends $mol_view {
         attr(): {
-            mol_theme: string;
+            mol_theme: any;
         };
+        theme(val?: any, force?: $mol_mem_force): any;
         sub(): readonly any[];
         Screen(): $$.$piterjs_screen;
         place(): $piterjs_place;
@@ -2515,6 +2519,7 @@ declare namespace $ {
         speech(id: any): $piterjs_speech;
         Menu_meetup(id: any): $$.$piterjs_meetup_snippet;
         Now(): $$.$piterjs_now;
+        lights(val?: any, force?: $mol_mem_force): any;
         Intro(): $$.$piterjs_intro;
         meetup_current(): $piterjs_meetup;
         intro(val?: any, force?: $mol_mem_force): any;
@@ -2696,6 +2701,23 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_state_local<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value, force?: $mol_mem_force): Value | null;
+        prefix(): string;
+        value(key: string, next?: Value): Value | null;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
 }
 
 declare namespace $.$$ {
@@ -2717,6 +2739,22 @@ declare namespace $.$$ {
         menu_meetup(id: string): $piterjs_meetup;
         menu_meetup_id(id: string): string;
         toggle_intro(next?: boolean): boolean;
+        theme(next?: '$mol_theme_light' | '$mol_theme_dark' | '$mol_theme_auto'): "$mol_theme_auto" | "$mol_theme_light" | "$mol_theme_dark";
+        lights(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+    class $mol_check_icon extends $mol_check {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_brightness_6 extends $mol_icon {
+        path(): string;
     }
 }
 
@@ -2757,13 +2795,16 @@ declare namespace $ {
         Links(): $mol_view;
         Github(): $$.$mol_link_iconed;
         Medium(): $$.$mol_link_iconed;
-        Vkontakte(): $$.$mol_link_iconed;
         Telegram(): $$.$mol_link_iconed;
+        Vkontakte(): $$.$mol_link_iconed;
         Twitter(): $$.$mol_link_iconed;
         Youtube(): $$.$mol_link_iconed;
         body(): readonly any[];
         Screen(): $$.$piterjs_screen;
         place(): $piterjs_place;
+        Lights(): $mol_check_icon;
+        Lights_icon(): $mol_icon_brightness_6;
+        lights(val?: any, force?: $mol_mem_force): any;
         Logo(): $mol_svg_root;
         Logo_angles(): $mol_svg_path;
         Logo_image(): $mol_svg_path;

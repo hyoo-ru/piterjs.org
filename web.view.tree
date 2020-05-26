@@ -532,7 +532,7 @@ $piterjs_intro $mol_view
 
 $piterjs_app $mol_view
 	attr *
-		mol_theme \$mol_theme_auto
+		mol_theme <= theme?val \$mol_theme_auto
 	sub /
 		<= Screen $piterjs_screen
 			place <= place $piterjs_place
@@ -562,6 +562,7 @@ $piterjs_app $mol_view
 		meetup <= meetup!id $piterjs_meetup
 	Now $piterjs_now
 		place <= place $piterjs_place
+		lights?val <=> lights?val false
 	Intro $piterjs_intro
 		meetup <= meetup_current $piterjs_meetup
 		page?val <=> intro?val \
@@ -661,6 +662,10 @@ $mol_book_page $mol_ghost
 		mol_book_page_focused <= focused
 		mol_book_page_visible <= visible true
 
+$mol_check_icon $mol_check
+
+$mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z
+
 $mol_button_major $mol_button_typed
 	attr *
 		^
@@ -686,11 +691,11 @@ $piterjs_now $mol_page
 			<= Medium $mol_link_iconed
 				uri \https://medium.com/piterjs
 				title \
-			<= Vkontakte $mol_link_iconed
-				uri \https://vk.com/piterjs
-				title \
 			<= Telegram $mol_link_iconed
 				uri \https://t.me/piterjs
+				title \
+			<= Vkontakte $mol_link_iconed
+				uri \https://vk.com/piterjs
 				title \
 			<= Twitter $mol_link_iconed
 				uri \https://twitter.com/@gopiterjs
@@ -702,6 +707,10 @@ $piterjs_now $mol_page
 		<= Screen $piterjs_screen
 			place <= place $piterjs_place
 			content /
+				<= Lights $mol_check_icon
+					Icon <= Lights_icon $mol_icon_brightness_6
+					hint \Переключатель света
+					checked?val <=> lights?val false
 				<= Logo $mol_svg_root
 					view_box \0 0 270 270
 					sub /
