@@ -70,23 +70,6 @@ $mol_button $mol_view
 	sub /$mol_view_content
 		<= title
 
-$mol_button_typed $mol_button
-
-$mol_button_minor $mol_button_typed
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
-
 $mol_page $mol_view
 	sub /
 		<= Head $mol_view
@@ -142,6 +125,23 @@ $mol_icon $mol_svg_root
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
 $mol_float $mol_view
+
+$mol_button_typed $mol_button
+
+$mol_button_minor $mol_button_typed
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
 
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
@@ -563,8 +563,9 @@ $piterjs_app $mol_view
 			content /
 				<= Book $mol_book2
 					pages <= pages /any
-		<= Toggle_intro $mol_check
-			checked?val <=> toggle_intro?val false
+		- <= Toggle_intro $mol_check
+			checked?val <=> 
+	toggle_intro?val false
 	Menu $mol_page
 		title \Митапы
 		body /
