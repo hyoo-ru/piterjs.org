@@ -7622,6 +7622,7 @@ var $;
                     "meetup": this.id(),
                     "speech": null,
                     "now": null,
+                    "video": null,
                 });
             }
             id() {

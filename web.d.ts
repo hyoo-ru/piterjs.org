@@ -2295,6 +2295,7 @@ declare namespace $ {
             meetup: string;
             speech: any;
             now: any;
+            video: any;
         };
         id(): string;
         meetup(): $piterjs_meetup;
