@@ -2187,7 +2187,6 @@ declare namespace $.$$ {
 declare namespace $ {
     class $piterjs_meetup_page extends $mol_page {
         meetup(): $piterjs_meetup;
-        minimal_width(): number;
         tools(): readonly any[];
         Date(): $mol_view;
         date(): string;
@@ -2198,8 +2197,7 @@ declare namespace $ {
         info(): readonly any[];
         Description(): $$.$mol_text;
         description(): string;
-        Translation(): $$.$mol_link_iconed;
-        translation(): string;
+        Translation(): $$.$mol_link;
         Speeches(): $$.$mol_list;
         speeches(): readonly any[];
         Speech(index: any): $$.$piterjs_speech_snippet;
@@ -2216,7 +2214,7 @@ declare namespace $.$$ {
         description(): string;
         date(): string;
         translation(): string;
-        info(): ($mol_link_iconed | $mol_text)[];
+        info(): $mol_text[];
         body(): $mol_view[];
         speeches(): $piterjs_speech_snippet[];
         speech(index: number): $piterjs_speech;
@@ -2495,6 +2493,49 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_frame extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            src: string;
+        };
+        uri(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_frame extends $.$mol_frame {
+        dom_node: (next?: HTMLIFrameElement) => HTMLIFrameElement;
+        window(): unknown;
+        render(): void;
+    }
+}
+
+declare namespace $ {
+    class $piterjs_video_page extends $mol_page {
+        title(): string;
+        tools(): readonly any[];
+        Close(): $$.$mol_link;
+        Close_icon(): $mol_icon_cross;
+        body(): readonly any[];
+        Frame(): $$.$mol_frame;
+        uri(): string;
+        source(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $piterjs_video_page extends $.$piterjs_video_page {
+        uri(): string;
+    }
+}
+
+declare namespace $ {
     class $piterjs_app extends $mol_view {
         attr(): {
             mol_theme: any;
@@ -2523,6 +2564,8 @@ declare namespace $ {
         Intro(): $$.$piterjs_intro;
         meetup_current(): $piterjs_meetup;
         intro(val?: any, force?: $mol_mem_force): any;
+        Video(uri: any): $$.$piterjs_video_page;
+        video_uri(): string;
     }
 }
 
@@ -2730,7 +2773,7 @@ declare namespace $.$$ {
         speech(id: string): $piterjs_speech;
         speaker_id(next?: string): string | null;
         speaker(id: string): $piterjs_speaker;
-        pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_now)[];
+        pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_video_page)[];
         title(): string;
         meetups(): $piterjs_meetup[];
         meetup_current(): $piterjs_meetup;
@@ -2741,6 +2784,8 @@ declare namespace $.$$ {
         toggle_intro(next?: boolean): boolean;
         theme(next?: '$mol_theme_light' | '$mol_theme_dark' | '$mol_theme_auto'): "$mol_theme_auto" | "$mol_theme_light" | "$mol_theme_dark";
         lights(next?: boolean): boolean;
+        video(): boolean;
+        video_uri(): string;
     }
 }
 

@@ -7261,9 +7261,6 @@ var $;
                     return obj;
                 })(new this.$.$piterjs_meetup());
             }
-            minimal_width() {
-                return 400;
-            }
             tools() {
                 return [this.Date(), this.Close()];
             }
@@ -7292,7 +7289,7 @@ var $;
                 })(new this.$.$mol_icon_cross());
             }
             body() {
-                return [this.Info(), this.Speeches()];
+                return [this.Info(), this.Translation(), this.Speeches()];
             }
             Info() {
                 return ((obj) => {
@@ -7301,7 +7298,7 @@ var $;
                 })(new this.$.$mol_view());
             }
             info() {
-                return [this.Description(), this.Translation()];
+                return [this.Description()];
             }
             Description() {
                 return ((obj) => {
@@ -7314,14 +7311,12 @@ var $;
             }
             Translation() {
                 return ((obj) => {
-                    obj.uri = () => this.translation();
-                    obj.target = () => "_blank";
+                    obj.arg = () => ({
+                        "video": "",
+                    });
                     obj.title = () => "Трансляция";
                     return obj;
-                })(new this.$.$mol_link_iconed());
-            }
-            translation() {
-                return "";
+                })(new this.$.$mol_link());
             }
             Speeches() {
                 return ((obj) => {
@@ -7383,7 +7378,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("piterjs/meetup/page/page.view.css", "[piterjs_meetup_page] {\n\tflex: 0 0 30rem;\n}\n\n[piterjs_meetup_page_info] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tpadding: 0;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1 auto;\n}\n\n[piterjs_meetup_page_date] {\n\tpadding: .5rem .75rem;\n\tfont-weight: normal;\n}\n\n[piterjs_meetup_page_speeches] {\n\tpadding: .75rem;\n}\n");
+    $.$mol_style_attach("piterjs/meetup/page/page.view.css", "[piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_info] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_translation] {\n\tmargin: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tpadding: 0;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1 auto;\n}\n\n[piterjs_meetup_page_date] {\n\tpadding: .5rem .75rem;\n\tfont-weight: normal;\n}\n\n[piterjs_meetup_page_speeches] {\n\tpadding: .75rem;\n}\n");
 })($ || ($ = {}));
 //page.view.css.js.map
 ;
@@ -7404,17 +7399,18 @@ var $;
                     return this.meetup().start().toString('DD Month YYYY');
                 }
                 translation() {
-                    return this.meetup().translation();
+                    var _a;
+                    return (_a = this.meetup().translation()) !== null && _a !== void 0 ? _a : '';
                 }
                 info() {
                     return [
                         ...this.description() ? [this.Description()] : [],
-                        ...this.translation() ? [this.Translation()] : [],
                     ];
                 }
                 body() {
                     return [
                         ...this.info().length ? [this.Info()] : [],
+                        ...this.translation() ? [this.Translation()] : [],
                         this.Speeches(),
                     ];
                 }
@@ -8713,6 +8709,147 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_frame extends $.$mol_view {
+        dom_name() {
+            return "iframe";
+        }
+        attr() {
+            return ({
+                "src": this.uri(),
+            });
+        }
+        uri() {
+            return "";
+        }
+    }
+    $.$mol_frame = $mol_frame;
+})($ || ($ = {}));
+//frame.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_define($.$mol_frame, {
+        border: 'none',
+        flex: 'auto',
+    });
+})($ || ($ = {}));
+//frame.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        let $mol_frame = (() => {
+            class $mol_frame extends $.$mol_frame {
+                window() {
+                    const node = this.dom_node();
+                    this.uri();
+                    return $.$mol_fiber_sync(() => new Promise((done, fail) => {
+                        node.onload = () => done(node.contentWindow);
+                        node.onerror = (event) => {
+                            fail(typeof event === 'string' ? new Error(event) : event.error || event);
+                        };
+                    }))();
+                }
+                render() {
+                    this.window();
+                    return super.render();
+                }
+            }
+            __decorate([
+                $.$mol_mem
+            ], $mol_frame.prototype, "window", null);
+            return $mol_frame;
+        })();
+        $$.$mol_frame = $mol_frame;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//frame.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $piterjs_video_page = (() => {
+        class $piterjs_video_page extends $.$mol_page {
+            title() {
+                return "Видеотрансляция";
+            }
+            tools() {
+                return [this.Close()];
+            }
+            Close() {
+                return ((obj) => {
+                    obj.arg = () => ({
+                        "video": null,
+                    });
+                    obj.sub = () => [this.Close_icon()];
+                    return obj;
+                })(new this.$.$mol_link());
+            }
+            Close_icon() {
+                return ((obj) => {
+                    return obj;
+                })(new this.$.$mol_icon_cross());
+            }
+            body() {
+                return [this.Frame()];
+            }
+            Frame() {
+                return ((obj) => {
+                    obj.uri = () => this.uri();
+                    return obj;
+                })(new this.$.$mol_frame());
+            }
+            uri() {
+                return this.source();
+            }
+            source() {
+                return "";
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_video_page.prototype, "Close", null);
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_video_page.prototype, "Close_icon", null);
+        __decorate([
+            $.$mol_mem
+        ], $piterjs_video_page.prototype, "Frame", null);
+        return $piterjs_video_page;
+    })();
+    $.$piterjs_video_page = $piterjs_video_page;
+})($ || ($ = {}));
+//page.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("piterjs/video/page/page.view.css", "[piterjs_video_page] {\n\tflex: 1000 0 80rem;\n}\n");
+})($ || ($ = {}));
+//page.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $piterjs_video_page extends $.$piterjs_video_page {
+            uri() {
+                var _a;
+                return (_a = this.source().replace('/watch?v=', '/embed/')) !== null && _a !== void 0 ? _a : '';
+            }
+        }
+        $$.$piterjs_video_page = $piterjs_video_page;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//page.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     let $piterjs_app = (() => {
         class $piterjs_app extends $.$mol_view {
             attr() {
@@ -8846,6 +8983,15 @@ var $;
             intro(val, force) {
                 return (val !== void 0) ? val : "";
             }
+            Video(uri) {
+                return ((obj) => {
+                    obj.source = () => this.video_uri();
+                    return obj;
+                })(new this.$.$piterjs_video_page());
+            }
+            video_uri() {
+                return "";
+            }
         }
         __decorate([
             $.$mol_mem
@@ -8910,6 +9056,9 @@ var $;
         __decorate([
             $.$mol_mem
         ], $piterjs_app.prototype, "intro", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $piterjs_app.prototype, "Video", null);
         return $piterjs_app;
     })();
     $.$piterjs_app = $piterjs_app;
@@ -9774,12 +9923,15 @@ var $;
                 pages() {
                     if (this.intro() != null)
                         return [this.Intro()];
-                    return [
+                    const pages = [
                         this.Menu(),
-                        ...!this.meetup_id() ? [this.Now()] : [],
                         ...this.meetup_id() ? [this.Meetup(this.meetup_id())] : [],
                         ...this.speech_id() ? [this.Speech(this.speech_id())] : [],
+                        ...this.video_uri() ? [this.Video(this.video())] : [],
                     ];
+                    if (pages.length === 1)
+                        pages.push(this.Now());
+                    return pages;
                 }
                 title() {
                     if (this.intro() != null)
@@ -9826,6 +9978,18 @@ var $;
                         return theme === '$mol_theme_light';
                     this.theme(next ? '$mol_theme_light' : '$mol_theme_dark');
                     return next;
+                }
+                video() {
+                    return this.$.$mol_state_arg.value('video') !== null;
+                }
+                video_uri() {
+                    var _a;
+                    if (!this.video())
+                        return '';
+                    const id = this.meetup_id();
+                    if (!id)
+                        return '';
+                    return (_a = this.meetup(id).translation()) !== null && _a !== void 0 ? _a : '';
                 }
             }
             __decorate([
