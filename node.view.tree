@@ -336,6 +336,8 @@ $piterjs_meetup_page $mol_page
 			arg *
 				meetup null
 				speech null
+				place null
+				video null
 			sub /
 				<= Close_icon $mol_icon_cross
 	body /

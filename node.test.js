@@ -7206,6 +7206,8 @@ var $;
                 obj.arg = () => ({
                     "meetup": null,
                     "speech": null,
+                    "place": null,
+                    "video": null,
                 });
                 obj.sub = () => [this.Close_icon()];
                 return obj;
