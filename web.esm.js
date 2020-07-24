@@ -9876,10 +9876,7 @@ var $;
         }
         Others_link() {
             return ((obj) => {
-                obj.arg = () => ({
-                    "meetup": null,
-                    "others": "",
-                });
+                obj.uri = () => "#others";
                 obj.title = () => "Другие события";
                 return obj;
             })(new this.$.$mol_link());
