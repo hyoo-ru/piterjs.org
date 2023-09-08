@@ -5207,6 +5207,7 @@ declare namespace $.$$ {
         toggle_intro(next?: boolean): boolean;
         video(): boolean;
         video_uri(): string;
+        Meetup_add(): $mol_button_minor;
         Editing(): $mol_check_icon;
     }
 }
