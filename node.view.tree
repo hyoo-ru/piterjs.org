@@ -558,6 +558,7 @@ $piterjs_meetup_page $mol_page
 			Icon <= Public_icon $mol_icon_eye
 		<= Start $mol_date
 			value_moment? <=> start?
+			enabled <= editing false
 			align \bottom_left
 		<= Close $mol_link
 			arg *
@@ -695,6 +696,7 @@ $piterjs_speech_page $mol_page
 	tools /
 		<= Start $mol_pick_time
 			value_moment? <=> start?
+			enabled <= editing false
 		<= Close $mol_link
 			arg * speech null
 			sub /

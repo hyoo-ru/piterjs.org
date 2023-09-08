@@ -11164,6 +11164,7 @@ var $;
         Start() {
             const obj = new this.$.$mol_date();
             obj.value_moment = (next) => this.start(next);
+            obj.enabled = () => this.editing();
             obj.align = () => "bottom_left";
             return obj;
         }
@@ -12195,7 +12196,7 @@ var $;
                     shrink: 1,
                     basis: 'auto',
                 },
-                margin: rem(.5),
+                margin: rem(.75),
             },
             Info: {
                 display: 'flex',
@@ -12274,6 +12275,7 @@ var $;
         Start() {
             const obj = new this.$.$mol_pick_time();
             obj.value_moment = (next) => this.start(next);
+            obj.enabled = () => this.editing();
             return obj;
         }
         Close_icon() {
