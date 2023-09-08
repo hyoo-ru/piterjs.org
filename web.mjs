@@ -20188,6 +20188,8 @@ var $;
                 return this.meetup(id).video() ?? '';
             }
             Editing() {
+                if (!this.Domain().editable())
+                    return null;
                 return super.Editing();
             }
         }
