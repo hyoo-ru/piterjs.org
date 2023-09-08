@@ -12534,6 +12534,11 @@ var $;
 var $;
 (function ($) {
     class $piterjs_speaker_snippet extends $mol_view {
+        event() {
+            return {
+                paste: (next) => this.paste(next)
+            };
+        }
         title(next) {
             return this.speaker().title(next);
         }
@@ -12549,6 +12554,11 @@ var $;
                 this.Photo_block(),
                 this.Info()
             ];
+        }
+        paste(next) {
+            if (next !== undefined)
+                return next;
+            return null;
         }
         photo() {
             return "";
@@ -12609,6 +12619,9 @@ var $;
     ], $piterjs_speaker_snippet.prototype, "speaker", null);
     __decorate([
         $mol_mem
+    ], $piterjs_speaker_snippet.prototype, "paste", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_speaker_snippet.prototype, "Photo", null);
     __decorate([
         $mol_mem
@@ -12635,7 +12648,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_picture extends Object {
+    class $mol_picture extends $mol_object2 {
         canvas;
         constructor(canvas) {
             super();
@@ -12723,10 +12736,21 @@ var $;
                 this.speaker().photo_blob(blob);
                 return [];
             }
+            take_files(files) {
+                return [...files];
+            }
+            paste(event) {
+                const files = event?.clipboardData?.files;
+                if (files)
+                    this.upload(this.take_files(files));
+            }
         }
         __decorate([
             $mol_action
         ], $piterjs_speaker_snippet.prototype, "upload", null);
+        __decorate([
+            $mol_action
+        ], $piterjs_speaker_snippet.prototype, "take_files", null);
         $$.$piterjs_speaker_snippet = $piterjs_speaker_snippet;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

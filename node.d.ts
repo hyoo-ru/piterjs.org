@@ -3476,10 +3476,12 @@ declare namespace $ {
 
 declare namespace $ {
     class $piterjs_speaker_snippet extends $mol_view {
+        event(): Record<string, any>;
         title(next?: any): string;
         description(next?: any): string;
         speaker(): $piterjs_speaker;
         sub(): readonly any[];
+        paste(next?: any): any;
         photo(): string;
         Photo(): $piterjs_image;
         upload(next?: any): readonly File[];
@@ -3493,7 +3495,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_picture extends Object {
+    class $mol_picture extends $mol_object2 {
         readonly canvas: HTMLCanvasElement;
         constructor(canvas: HTMLCanvasElement);
         get context(): CanvasRenderingContext2D | null;
@@ -3509,6 +3511,8 @@ declare namespace $.$$ {
     class $piterjs_speaker_snippet extends $.$piterjs_speaker_snippet {
         photo(): string;
         upload(next: File[]): never[];
+        take_files(files: FileList): File[];
+        paste(event?: ClipboardEvent): void;
     }
 }
 
