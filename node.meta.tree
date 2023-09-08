@@ -78,6 +78,9 @@
 	deploy \/piterjs/speaker/speaker.data.tree
 \/piterjs/speech
 	deploy \/piterjs/speech/speech.data.tree
+\/hyoo/map
+	include \/mol/offline/install
+	deploy \/hyoo/map/logo/logo.svg
 \/hyoo/sync
 	build $hyoo_sync_revision \git rev-parse --short HEAD
 \/piterjs/app
