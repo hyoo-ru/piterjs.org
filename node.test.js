@@ -7973,6 +7973,7 @@ var $;
             alignItems: 'flex-start',
             Photo: {
                 width: rem(7),
+                aspectRatio: 1,
             },
             Info: {
                 flex: {
