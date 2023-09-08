@@ -543,10 +543,44 @@ $mol_textarea_edit $mol_string
 
 $mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 
+$mol_labeler $mol_list
+	rows /
+		<= Label $mol_view
+			minimal_height 32
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
+$mol_form_field $mol_labeler
+	bids /string
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	content / <= control null
+
+$mol_row $mol_view
+
+$mol_form $mol_list
+	submit_allowed true
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
+	rows /
+		<= Body $mol_list
+			sub <= body <= form_fields /$mol_form_field
+		<= Foot $mol_row
+			sub <= foot <= buttons /$mol_view
+
 $piterjs_meetup_page $mol_page
 	meetup $piterjs_meetup
 		title? => title?
 		description? => description?
+		afterparty? => afterparty?
 		start? => start?
 	Title $mol_string_button
 		value? <=> title?
@@ -592,6 +626,12 @@ $piterjs_meetup_page $mol_page
 			sub /
 				<= Speech_add_icon $mol_icon_plus
 				\Добавить доклад
+		<= Afterparty_field $mol_form_field
+			name \Афтерпати
+			Content <= Afterparty $mol_textarea
+				hint \Адрес, ориентиры, чат
+				value? <=> afterparty?
+				enabled <= editing false
 	Speech!index $piterjs_speech_snippet
 		speech <= speech!index $piterjs_speech
 
@@ -614,8 +654,6 @@ $mol_check_list $mol_view
 
 $mol_switch $mol_check_list
 	value? \
-
-$mol_row $mol_view
 
 $mol_pick_time $mol_pick
 	Icon $mol_icon_clock_outline
@@ -694,6 +732,9 @@ $piterjs_speech_page $mol_page
 		enabled <= editing false
 		hint \Название
 	tools /
+		<= Public $mol_check_icon
+			checked? <=> speech_public? false
+			Icon <= Public_icon $mol_icon_eye
 		<= Start $mol_pick_time
 			value_moment? <=> start?
 			enabled <= editing false
@@ -999,13 +1040,17 @@ $piterjs_intro_main $piterjs_intro_page
 $piterjs_schedule $mol_view
 	meetup $piterjs_meetup
 	sub /
-		<= Speeches $mol_list rows <= speeches /
-	Speech!index $mol_list sub /
-		<= Speech_interval!index $mol_view sub / <= speech_interval!index \19:20 - 23:50
-		<= Speech_title!index $mol_view
-			attr * mol_theme \$mol_theme_accent
-			sub / <= speech_title!index \
-		<= Speech_speaker!index $mol_view sub / <= speech_speaker!index \
+		<= Speeches $mol_list
+			rows <= speeches /
+				<= Speech*0 $mol_list sub /
+					<= Speech_main* $mol_view sub /
+						<= Speech_start* $mol_view
+							sub / <= speech_start* \19:20
+						<= Speech_title* $mol_view
+							attr * mol_theme \$mol_theme_accent
+							sub / <= speech_title* \
+					<= Speech_speaker* $mol_view
+						sub / <= speech_speaker* \
 
 $piterjs_screen_lines $mol_svg_root
 	style * fill <= color \#FFE515
@@ -1058,7 +1103,7 @@ $piterjs_intro $mol_view
 				\JS и всё, что рядом
 				\Каждый месяц с 2015
 				\Спячка с 2020
-				\Просыпаемся и пашем!
+				\С 2023 снова с вами!
 		- projects <= Projects $piterjs_intro_page
 			title \Наши проекты
 			text \
@@ -1105,7 +1150,7 @@ $piterjs_intro $mol_view
 			title \Твой вклад
 			text \
 				\github.com/piterjs
-				\t.me/nin_jin
+				\hi@piterjs.org
 				\piterjs.org
 		place <= Place $piterjs_intro_page
 			title <= place_title \Мы в {place}
@@ -1684,11 +1729,12 @@ $piterjs_app $mol_view
 						title \Другие события
 	Meetup* $piterjs_meetup_page
 		meetup <= meetup*
-		meetup_public? <=> meetup_public*?
 		editing <= editing? false
+		meetup_public? <=> meetup_public*?
 	Speech!id $piterjs_speech_page
 		speech <= speech!id $piterjs_speech
 		editing <= editing? false
+		speech_public? <=> speech_public*? false
 	Menu_meetup* $piterjs_meetup_snippet
 		meetup <= meetup*
 	Now $piterjs_now

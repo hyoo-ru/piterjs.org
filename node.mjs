@@ -5904,18 +5904,22 @@ var $;
         speeches() {
             const ids = this.speeches_node().list();
             const fund = this.world().Fund($piterjs_speech);
-            return ids.map(id => fund.Item($mol_int62_string_ensure(id)));
+            return ids.map(id => fund.Item($mol_int62_string_ensure(id)))
+                .sort((a, b) => a.start().valueOf() - b.start().valueOf());
         }
         speech_make() {
             const speech = this.world().Fund($piterjs_speech).make();
             this.speeches_node().add(speech.id());
             return speech;
         }
+        speech_public(id, next) {
+            return this.speeches_node().has(id, next);
+        }
         place() {
             return this.sub('place', $piterjs_place);
         }
-        afterparty() {
-            return this.sub('afterparty', $hyoo_crowd_reg).str();
+        afterparty(next) {
+            return this.sub('afterparty', $hyoo_crowd_reg).str(next);
         }
     }
     __decorate([
@@ -5933,6 +5937,9 @@ var $;
     __decorate([
         $mol_action
     ], $piterjs_meetup.prototype, "speech_make", null);
+    __decorate([
+        $mol_mem_key
+    ], $piterjs_meetup.prototype, "speech_public", null);
     __decorate([
         $mol_mem
     ], $piterjs_meetup.prototype, "place", null);
@@ -11714,12 +11721,256 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_labeler extends $mol_list {
+        rows() {
+            return [
+                this.Label(),
+                this.Content()
+            ];
+        }
+        label() {
+            return [
+                this.title()
+            ];
+        }
+        Label() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 32;
+            obj.sub = () => this.label();
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 24;
+            obj.sub = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_labeler.prototype, "Label", null);
+    __decorate([
+        $mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//mol/labeler/-view.tree/labeler.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem 0;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
+})($ || ($ = {}));
+//mol/labeler/-css/labeler.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_form_field extends $mol_labeler {
+        bids() {
+            return [];
+        }
+        label() {
+            return [
+                this.name(),
+                this.Bid()
+            ];
+        }
+        content() {
+            return [
+                this.control()
+            ];
+        }
+        name() {
+            return "";
+        }
+        bid() {
+            return "";
+        }
+        Bid() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.bid()
+            ];
+            return obj;
+        }
+        control() {
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_form_field.prototype, "Bid", null);
+    $.$mol_form_field = $mol_form_field;
+})($ || ($ = {}));
+//mol/form/field/-view.tree/field.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_form_field extends $.$mol_form_field {
+            bid() {
+                return this.bids().filter(Boolean)[0] ?? '';
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_form_field.prototype, "bid", null);
+        $$.$mol_form_field = $mol_form_field;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/form/field/field.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/form/field/field.view.css", "[mol_form_field] {\n\talign-items: stretch;\n}\n\n[mol_form_field_bid] {\n\tcolor: var(--mol_theme_focus);\n\tdisplay: inline-block;\n\ttext-shadow: 0 0;\n}\n\n[mol_form_field_content] {\n\tborder-radius: var(--mol_gap_round);\n}\n");
+})($ || ($ = {}));
+//mol/form/field/-css/field.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_row extends $mol_view {
+    }
+    $.$mol_row = $mol_row;
+})($ || ($ = {}));
+//mol/row/-view.tree/row.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n\tflex: 0 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//mol/row/-css/row.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_form extends $mol_list {
+        submit_allowed() {
+            return true;
+        }
+        submit_blocked() {
+            return false;
+        }
+        event() {
+            return {
+                ...super.event(),
+                keydown: (event) => this.keydown(event)
+            };
+        }
+        submit(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        rows() {
+            return [
+                this.Body(),
+                this.Foot()
+            ];
+        }
+        keydown(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        form_fields() {
+            return [];
+        }
+        body() {
+            return this.form_fields();
+        }
+        Body() {
+            const obj = new this.$.$mol_list();
+            obj.sub = () => this.body();
+            return obj;
+        }
+        buttons() {
+            return [];
+        }
+        foot() {
+            return this.buttons();
+        }
+        Foot() {
+            const obj = new this.$.$mol_row();
+            obj.sub = () => this.foot();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_form.prototype, "submit", null);
+    __decorate([
+        $mol_mem
+    ], $mol_form.prototype, "keydown", null);
+    __decorate([
+        $mol_mem
+    ], $mol_form.prototype, "Body", null);
+    __decorate([
+        $mol_mem
+    ], $mol_form.prototype, "Foot", null);
+    $.$mol_form = $mol_form;
+})($ || ($ = {}));
+//mol/form/-view.tree/form.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_form extends $.$mol_form {
+            form_fields() {
+                return [...this.view_find(view => view instanceof $mol_form_field)]
+                    .map(path => path[path.length - 1]);
+            }
+            submit_allowed() {
+                return this.form_fields().every(field => !field.bid());
+            }
+            submit_blocked() {
+                return !this.submit_allowed();
+            }
+            keydown(next) {
+                if (next.ctrlKey && next.keyCode === $mol_keyboard_code.enter && !this.submit_blocked())
+                    this.submit(event);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_form.prototype, "form_fields", null);
+        __decorate([
+            $mol_mem
+        ], $mol_form.prototype, "submit_allowed", null);
+        $$.$mol_form = $mol_form;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/form/form.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/form/form.view.css", "[mol_form] {\r\n\tgap: var(--mol_gap_block);\r\n}\r\n\r\n[mol_form_body] {\r\n\tgap: var(--mol_gap_block);\r\n}");
+})($ || ($ = {}));
+//mol/form/-css/form.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $piterjs_meetup_page extends $mol_page {
         title(next) {
             return this.meetup().title(next);
         }
         description(next) {
             return this.meetup().description(next);
+        }
+        afterparty(next) {
+            return this.meetup().afterparty(next);
         }
         start(next) {
             return this.meetup().start(next);
@@ -11747,7 +11998,8 @@ var $;
                 this.Description(),
                 this.Links(),
                 this.Speeches(),
-                this.Speech_add()
+                this.Speech_add(),
+                this.Afterparty_field()
             ];
         }
         Speech(id) {
@@ -11861,6 +12113,19 @@ var $;
             ];
             return obj;
         }
+        Afterparty() {
+            const obj = new this.$.$mol_textarea();
+            obj.hint = () => "Адрес, ориентиры, чат";
+            obj.value = (next) => this.afterparty(next);
+            obj.enabled = () => this.editing();
+            return obj;
+        }
+        Afterparty_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => "Афтерпати";
+            obj.Content = () => this.Afterparty();
+            return obj;
+        }
         speech(id) {
             const obj = new this.$.$piterjs_speech();
             return obj;
@@ -11918,6 +12183,12 @@ var $;
         $mol_mem
     ], $piterjs_meetup_page.prototype, "Speech_add", null);
     __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Afterparty", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Afterparty_field", null);
+    __decorate([
         $mol_mem_key
     ], $piterjs_meetup_page.prototype, "speech", null);
     $.$piterjs_meetup_page = $piterjs_meetup_page;
@@ -11939,11 +12210,13 @@ var $;
             coords() {
                 return this.meetup().place().coords();
             }
-            bosy() {
+            body() {
                 return [
-                    ...this.description() ? [this.Description()] : [],
+                    ...(this.editing() || this.description()) ? [this.Description()] : [],
                     this.Links(),
                     this.Speeches(),
+                    ...this.editing() ? [this.Speech_add()] : [],
+                    ...this.editing() ? [this.Afterparty_field()] : [],
                 ];
             }
             links() {
@@ -11967,15 +12240,10 @@ var $;
                     return null;
                 return super.Public();
             }
-            Speech_add() {
-                if (!this.editing())
-                    return null;
-                return super.Speech_add();
-            }
         }
         __decorate([
             $mol_mem
-        ], $piterjs_meetup_page.prototype, "bosy", null);
+        ], $piterjs_meetup_page.prototype, "body", null);
         __decorate([
             $mol_mem
         ], $piterjs_meetup_page.prototype, "links", null);
@@ -11990,7 +12258,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_head] {\n\tflex-wrap: nowrap;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tpadding: 0;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 auto;\n}\n");
+    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_head] {\n\tflex-wrap: nowrap;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 auto;\n}\n");
 })($ || ($ = {}));
 //piterjs/meetup/page/-css/page.view.css.ts
 ;
@@ -12202,22 +12470,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/switch/switch.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_row extends $mol_view {
-    }
-    $.$mol_row = $mol_row;
-})($ || ($ = {}));
-//mol/row/-view.tree/row.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n\tflex: 0 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmax-width: 100%;\n}\n");
-})($ || ($ = {}));
-//mol/row/-css/row.view.css.ts
 ;
 "use strict";
 var $;
@@ -12870,6 +13122,7 @@ var $;
         }
         tools() {
             return [
+                this.Public(),
                 this.Start(),
                 this.Close()
             ];
@@ -12883,6 +13136,21 @@ var $;
         }
         editing() {
             return false;
+        }
+        speech_public(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        Public_icon() {
+            const obj = new this.$.$mol_icon_eye();
+            return obj;
+        }
+        Public() {
+            const obj = new this.$.$mol_check_icon();
+            obj.checked = (next) => this.speech_public(next);
+            obj.Icon = () => this.Public_icon();
+            return obj;
         }
         Start() {
             const obj = new this.$.$mol_pick_time();
@@ -12961,6 +13229,15 @@ var $;
     ], $piterjs_speech_page.prototype, "Title", null);
     __decorate([
         $mol_mem
+    ], $piterjs_speech_page.prototype, "speech_public", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_speech_page.prototype, "Public_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_speech_page.prototype, "Public", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_speech_page.prototype, "Start", null);
     __decorate([
         $mol_mem
@@ -13010,6 +13287,11 @@ var $;
                     ...this.slides() ? [this.Slides()] : [],
                     ...this.video() ? [this.Video()] : [],
                 ];
+            }
+            Public() {
+                if (!this.editing())
+                    return null;
+                return super.Public();
             }
         }
         __decorate([
@@ -14990,30 +15272,13 @@ var $;
                 this.Speeches()
             ];
         }
-        Speech(id) {
-            const obj = new this.$.$mol_list();
-            obj.sub = () => [
-                this.Speech_interval(id),
-                this.Speech_title(id),
-                this.Speech_speaker(id)
-            ];
-            return obj;
+        speech_start(id) {
+            return "19:20";
         }
-        speeches() {
-            return [];
-        }
-        Speeches() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.speeches();
-            return obj;
-        }
-        speech_interval(id) {
-            return "19:20 - 23:50";
-        }
-        Speech_interval(id) {
+        Speech_start(id) {
             const obj = new this.$.$mol_view();
             obj.sub = () => [
-                this.speech_interval(id)
+                this.speech_start(id)
             ];
             return obj;
         }
@@ -15030,6 +15295,14 @@ var $;
             ];
             return obj;
         }
+        Speech_main(id) {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Speech_start(id),
+                this.Speech_title(id)
+            ];
+            return obj;
+        }
         speech_speaker(id) {
             return "";
         }
@@ -15040,25 +15313,46 @@ var $;
             ];
             return obj;
         }
+        Speech(id) {
+            const obj = new this.$.$mol_list();
+            obj.sub = () => [
+                this.Speech_main(id),
+                this.Speech_speaker(id)
+            ];
+            return obj;
+        }
+        speeches() {
+            return [
+                this.Speech("0")
+            ];
+        }
+        Speeches() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.speeches();
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
     ], $piterjs_schedule.prototype, "meetup", null);
     __decorate([
         $mol_mem_key
-    ], $piterjs_schedule.prototype, "Speech", null);
-    __decorate([
-        $mol_mem
-    ], $piterjs_schedule.prototype, "Speeches", null);
-    __decorate([
-        $mol_mem_key
-    ], $piterjs_schedule.prototype, "Speech_interval", null);
+    ], $piterjs_schedule.prototype, "Speech_start", null);
     __decorate([
         $mol_mem_key
     ], $piterjs_schedule.prototype, "Speech_title", null);
     __decorate([
         $mol_mem_key
+    ], $piterjs_schedule.prototype, "Speech_main", null);
+    __decorate([
+        $mol_mem_key
     ], $piterjs_schedule.prototype, "Speech_speaker", null);
+    __decorate([
+        $mol_mem_key
+    ], $piterjs_schedule.prototype, "Speech", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_schedule.prototype, "Speeches", null);
     $.$piterjs_schedule = $piterjs_schedule;
 })($ || ($ = {}));
 //piterjs/schedule/-view.tree/schedule.view.tree.ts
@@ -15072,9 +15366,9 @@ var $;
             speeches() {
                 return this.meetup().speeches().map((_, index) => this.Speech(index));
             }
-            speech_interval(index) {
+            speech_start(index) {
                 const interval = this.meetup().speeches()[index].interval();
-                return `${interval.start.toString('hh:mm')} - ${interval.end.shift({ minute: -10 }).toString('hh:mm')}`;
+                return interval.start.toString('hh:mm');
             }
             speech_title(index) {
                 return this.meetup().speeches()[index].title();
@@ -15115,20 +15409,17 @@ var $;
             Speech: {
                 margin: em(.5),
             },
-            Speech_interval: {
+            Speech_start: {
                 fontWeight: 'bolder',
                 padding: `.5em`,
             },
             Speech_title: {
                 padding: `.5em`,
-                margin: {
-                    left: vmin(10),
-                },
             },
             Speech_speaker: {
                 padding: `.5em`,
                 margin: {
-                    left: vmin(10),
+                    left: vmin(9.5),
                 },
                 color: $mol_theme.shade,
             },
@@ -15525,7 +15816,7 @@ var $;
         About() {
             const obj = new this.$.$piterjs_intro_page();
             obj.title = () => "Кто мы?";
-            obj.text = () => "Митапы в Питере\nJS и всё, что рядом\nКаждый месяц с 2015\nСпячка с 2020\nПросыпаемся и пашем!";
+            obj.text = () => "Митапы в Питере\nJS и всё, что рядом\nКаждый месяц с 2015\nСпячка с 2020\nС 2023 снова с вами!";
             return obj;
         }
         Roles_org() {
@@ -15549,7 +15840,7 @@ var $;
         Info() {
             const obj = new this.$.$piterjs_intro_page();
             obj.title = () => "Твой вклад";
-            obj.text = () => "github.com/piterjs\nt.me/nin_jin\npiterjs.org";
+            obj.text = () => "github.com/piterjs\nhi@piterjs.org\npiterjs.org";
             return obj;
         }
         place_title() {
@@ -19944,14 +20235,15 @@ var $;
         Meetup(id) {
             const obj = new this.$.$piterjs_meetup_page();
             obj.meetup = () => this.meetup(id);
-            obj.meetup_public = (next) => this.meetup_public(id, next);
             obj.editing = () => this.editing();
+            obj.meetup_public = (next) => this.meetup_public(id, next);
             return obj;
         }
         Speech(id) {
             const obj = new this.$.$piterjs_speech_page();
             obj.speech = () => this.speech(id);
             obj.editing = () => this.editing();
+            obj.speech_public = (next) => this.speech_public(id, next);
             return obj;
         }
         Menu_meetup(id) {
@@ -20124,6 +20416,11 @@ var $;
             const obj = new this.$.$piterjs_speech();
             return obj;
         }
+        speech_public(id, next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
         meetup_current() {
             const obj = new this.$.$piterjs_meetup();
             return obj;
@@ -20233,6 +20530,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $piterjs_app.prototype, "speech", null);
+    __decorate([
+        $mol_mem_key
+    ], $piterjs_app.prototype, "speech_public", null);
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "meetup_current", null);
@@ -20674,6 +20974,9 @@ var $;
                 if (!this.Domain().editable())
                     return null;
                 return super.Editing();
+            }
+            speech_public(id, next) {
+                return this.meetup_current().speech_public(id, next);
             }
         }
         __decorate([

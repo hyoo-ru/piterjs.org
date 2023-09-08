@@ -1507,8 +1507,9 @@ declare namespace $ {
         speeches_node(): $hyoo_crowd_list;
         speeches(): $piterjs_speech[];
         speech_make(): $piterjs_speech;
+        speech_public(id: $mol_int62_string, next?: boolean): boolean;
         place(): $piterjs_place;
-        afterparty(): string;
+        afterparty(next?: string): string;
     }
 }
 
@@ -3122,9 +3123,81 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_labeler extends $mol_list {
+        rows(): readonly any[];
+        label(): readonly $mol_view_content[];
+        Label(): $mol_view;
+        content(): readonly any[];
+        Content(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_form_field extends $mol_labeler {
+        bids(): readonly string[];
+        label(): readonly any[];
+        content(): readonly any[];
+        name(): string;
+        bid(): string;
+        Bid(): $mol_view;
+        control(): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_form_field extends $.$mol_form_field {
+        bid(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_form extends $mol_list {
+        submit_allowed(): boolean;
+        submit_blocked(): boolean;
+        event(): Record<string, any>;
+        submit(event?: any): any;
+        rows(): readonly any[];
+        keydown(event?: any): any;
+        form_fields(): readonly $mol_form_field[];
+        body(): readonly $mol_form_field[];
+        Body(): $$.$mol_list;
+        buttons(): readonly $mol_view[];
+        foot(): readonly $mol_view[];
+        Foot(): $mol_row;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_form extends $.$mol_form {
+        form_fields(): readonly $mol_form_field[];
+        submit_allowed(): boolean;
+        submit_blocked(): boolean;
+        keydown(next: KeyboardEvent): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $piterjs_meetup_page extends $mol_page {
         title(next?: any): string;
         description(next?: any): string;
+        afterparty(next?: any): string;
         start(next?: any): $mol_time_moment;
         meetup(): $piterjs_meetup;
         Title(): $mol_string_button;
@@ -3148,6 +3221,8 @@ declare namespace $ {
         speech_add(next?: any): any;
         Speech_add_icon(): $mol_icon_plus;
         Speech_add(): $mol_button_minor;
+        Afterparty(): $$.$mol_textarea;
+        Afterparty_field(): $$.$mol_form_field;
         speech(id: any): $piterjs_speech;
     }
 }
@@ -3157,13 +3232,12 @@ declare namespace $.$$ {
         video(): string;
         address(): string;
         coords(): $mol_vector_2d<number>;
-        bosy(): ($mol_view | $mol_textarea)[];
+        body(): ($mol_view | $mol_button_minor | $mol_textarea)[];
         links(): $mol_link[];
         speeches(): $piterjs_speech_snippet[];
         speech(index: number): $piterjs_speech;
         speech_add(): void;
         Public(): $mol_check_icon;
-        Speech_add(): $mol_button_minor;
     }
 }
 
@@ -3237,14 +3311,6 @@ declare namespace $.$$ {
         value(next?: any): any;
         option_checked(key: string, next?: boolean): boolean;
     }
-}
-
-declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -3411,6 +3477,9 @@ declare namespace $ {
         tools(): readonly any[];
         body(): readonly any[];
         editing(): boolean;
+        speech_public(next?: any): boolean;
+        Public_icon(): $mol_icon_eye;
+        Public(): $mol_check_icon;
         Start(): $$.$mol_pick_time;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
@@ -3432,6 +3501,7 @@ declare namespace $.$$ {
         slides(): string;
         video(): string;
         links(): $mol_link[];
+        Public(): $mol_check_icon;
     }
 }
 
@@ -3957,22 +4027,23 @@ declare namespace $ {
     class $piterjs_schedule extends $mol_view {
         meetup(): $piterjs_meetup;
         sub(): readonly any[];
+        speech_start(id: any): string;
+        Speech_start(id: any): $mol_view;
+        speech_title(id: any): string;
+        Speech_title(id: any): $mol_view;
+        Speech_main(id: any): $mol_view;
+        speech_speaker(id: any): string;
+        Speech_speaker(id: any): $mol_view;
         Speech(id: any): $$.$mol_list;
         speeches(): readonly any[];
         Speeches(): $$.$mol_list;
-        speech_interval(id: any): string;
-        Speech_interval(id: any): $mol_view;
-        speech_title(id: any): string;
-        Speech_title(id: any): $mol_view;
-        speech_speaker(id: any): string;
-        Speech_speaker(id: any): $mol_view;
     }
 }
 
 declare namespace $.$$ {
     class $piterjs_schedule extends $.$piterjs_schedule {
         speeches(): $mol_list[];
-        speech_interval(index: number): string;
+        speech_start(index: number): string;
         speech_title(index: number): string;
         speech_speaker(index: number): string;
     }
@@ -5172,6 +5243,7 @@ declare namespace $ {
         Links(): $$.$mol_list;
         Menu_content(): $mol_view;
         speech(id: any): $piterjs_speech;
+        speech_public(id: any, next?: any): boolean;
         meetup_current(): $piterjs_meetup;
         intro(val?: any): string;
         video_uri(): string;
@@ -5237,6 +5309,7 @@ declare namespace $.$$ {
         video_uri(): string;
         Meetup_add(): $mol_button_minor;
         Editing(): $mol_check_icon;
+        speech_public(id: $mol_int62_string, next?: boolean): boolean;
     }
 }
 
