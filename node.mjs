@@ -9674,14 +9674,26 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_cross extends $mol_icon {
+    class $mol_icon_trash_can extends $mol_icon {
         path() {
-            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+            return "M9,3V4H4V6H5V19C5,20.1 5.9,21 7,21H17C18.1,21 19,20.1 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z";
         }
     }
-    $.$mol_icon_cross = $mol_icon_cross;
+    $.$mol_icon_trash_can = $mol_icon_trash_can;
 })($ || ($ = {}));
-//mol/icon/cross/-view.tree/cross.view.tree.ts
+//mol/icon/trash/can/-view.tree/can.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_trash_can_outline extends $mol_icon {
+        path() {
+            return "M9,3V4H4V6H5V19C5,20.1 5.9,21 7,21H17C18.1,21 19,20.1 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z";
+        }
+    }
+    $.$mol_icon_trash_can_outline = $mol_icon_trash_can_outline;
+})($ || ($ = {}));
+//mol/icon/trash/can/outline/-view.tree/outline.view.tree.ts
 ;
 "use strict";
 var $;
@@ -10077,7 +10089,7 @@ var $;
             const obj = new this.$.$mol_time_moment();
             return obj;
         }
-        today_enabled() {
+        enabled() {
             return true;
         }
         today_click(event) {
@@ -10092,7 +10104,7 @@ var $;
         Today() {
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$mol_date_Today_hint');
-            obj.enabled = () => this.today_enabled();
+            obj.enabled = () => this.enabled();
             obj.click = (event) => this.today_click(event);
             obj.sub = () => [
                 this.Today_icon()
@@ -10107,9 +10119,6 @@ var $;
         input_mask(id) {
             return "";
         }
-        enabled() {
-            return true;
-        }
         Input() {
             const obj = new this.$.$mol_format();
             obj.value = (next) => this.value(next);
@@ -10123,12 +10132,13 @@ var $;
             return null;
         }
         Clear_icon() {
-            const obj = new this.$.$mol_icon_cross();
+            const obj = new this.$.$mol_icon_trash_can_outline();
             return obj;
         }
         Clear() {
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$mol_date_Clear_hint');
+            obj.enabled = () => this.enabled();
             obj.click = (event) => this.clear(event);
             obj.sub = () => [
                 this.Clear_icon()
@@ -10214,6 +10224,7 @@ var $;
         }
         Calendar() {
             const obj = new this.$.$mol_date_calendar();
+            obj.enabled = () => this.enabled();
             obj.month_moment = () => this.month_moment();
             obj.day_selected = (id) => this.day_selected(id);
             obj.day_click = (id, event) => this.day_click(id, event);
@@ -10298,11 +10309,15 @@ var $;
                 return event;
             return null;
         }
+        enabled() {
+            return true;
+        }
         Day_button(id) {
             const obj = new this.$.$mol_button_minor();
             obj.title = () => this.day_text(id);
             obj.event_click = (event) => this.day_click(id, event);
             obj.minimal_height = () => 24;
+            obj.enabled = () => this.enabled();
             return obj;
         }
     }
@@ -10417,10 +10432,6 @@ var $;
             next() {
                 this.month_moment(this.month_moment().shift({ month: +1 }));
             }
-            today_enabled() {
-                const val = this.value_moment();
-                return !val || val.valueOf() !== this.value_moment_today().valueOf();
-            }
             today_click() {
                 this.value_moment(this.value_moment_today());
             }
@@ -10440,9 +10451,6 @@ var $;
         __decorate([
             $mol_mem
         ], $mol_date.prototype, "month_moment", null);
-        __decorate([
-            $mol_mem
-        ], $mol_date.prototype, "today_enabled", null);
         $$.$mol_date = $mol_date;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -10454,6 +10462,18 @@ var $;
     $mol_style_attach("mol/date/date.view.css", "/* [mol_date_bubble] {\n\tpadding: .5rem;\n} */\n\n[mol_date_input] {\n\tflex-shrink: 0;\n}\n\n[mol_date_prev] ,\n[mol_date_next] {\n\tflex-grow: 1;\n}\n[mol_date_prev] {\n\tjustify-content: flex-end;\n}\n\n[mol_date_calendar_title] {\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_date_calendar_day] {\n\tpadding: 0;\n}\n\n[mol_date_calendar_day_button] {\n\twidth: 100%;\n\t/* padding: .25rem .5rem; */\n\tjustify-content: center;\n\tcursor: pointer;\n\tcolor: inherit;\n}\n");
 })($ || ($ = {}));
 //mol/date/-css/date.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_cross extends $mol_icon {
+        path() {
+            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+        }
+    }
+    $.$mol_icon_cross = $mol_icon_cross;
+})($ || ($ = {}));
+//mol/icon/cross/-view.tree/cross.view.tree.ts
 ;
 "use strict";
 var $;
@@ -12206,6 +12226,9 @@ var $;
             const obj = new this.$.$mol_icon_clock_outline();
             return obj;
         }
+        trigger_enabled() {
+            return this.enabled();
+        }
         bubble_content() {
             return [
                 this.Input(),
@@ -12218,13 +12241,13 @@ var $;
             const obj = new this.$.$mol_time_moment();
             return obj;
         }
+        enabled() {
+            return true;
+        }
         value(next) {
             if (next !== undefined)
                 return next;
             return "";
-        }
-        enabled() {
-            return true;
         }
         Input() {
             const obj = new this.$.$mol_format();
