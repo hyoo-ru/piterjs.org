@@ -1,6 +1,12 @@
 {
 	"$hyoo_map_Draw_hint": "Draw on map",
 	"$hyoo_map_Photo_hint": "Real Photos",
+	"$hyoo_meta_link_all_title": "All",
+	"$hyoo_meta_rights_Editor_add_id_hint": "Id or Profile Link",
+	"$hyoo_meta_rights_Editor_add_name": "Add new",
+	"$hyoo_meta_rights_Editor_fill_all_title": "Allow anyone",
+	"$hyoo_meta_rights_editor_add_bid": "Irrevocable!",
+	"$hyoo_meta_rights_title": "Rights",
 	"$mol_date_Clear_hint": "Clear",
 	"$mol_date_Today_hint": "Today",
 	"$mol_date_next_hint": "Next month",

@@ -4822,6 +4822,123 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $hyoo_meta_person extends $hyoo_meta_model {
+    }
+}
+
+declare namespace $ {
+    class $mol_avatar extends $mol_icon {
+        view_box(): string;
+        id(): string;
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    function $mol_hash_string(str: string, seed?: number): number;
+}
+
+declare namespace $.$$ {
+    class $mol_avatar extends $.$mol_avatar {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_meta_link extends $mol_link {
+        minimal_height(): number;
+        id(): `${string}_${string}`;
+        title(): string;
+        meta(): $hyoo_meta_model;
+        param(): string;
+        all_title(): string;
+        sub(): readonly any[];
+        Avatar(): $$.$mol_avatar;
+        highlight(): string;
+        Title(): $$.$mol_dimmer;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_meta_link extends $.$hyoo_meta_link {
+        title(): string;
+        uri(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): Record<string, any>;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_bar extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_meta_rights extends $mol_page {
+        title(): string;
+        editors(): readonly `${string}_${string}`[];
+        meta(): $hyoo_meta_model;
+        body(): readonly any[];
+        peer(id: any): $hyoo_meta_person;
+        Editor_link(id: any): $$.$hyoo_meta_link;
+        editor_list(): readonly any[];
+        Editor_list(): $$.$mol_list;
+        editor_add_bid(): string;
+        editor_add_id(next?: any): string;
+        editable(): boolean;
+        Editor_add_id(): $$.$mol_string;
+        editor_add_allowed(): boolean;
+        editor_add_submit(next?: any): any;
+        Editor_add_icon(): $mol_icon_plus;
+        Editor_add_submit(): $mol_button_major;
+        Editor_add_bar(): $mol_bar;
+        editor_add_preview(): $hyoo_meta_model;
+        Editor_add_preview(): $$.$hyoo_meta_link;
+        editor_fill_all(next?: any): any;
+        Editor_fill_all(): $mol_button_minor;
+        editor_add_rows(): readonly any[];
+        Editor_add_form(): $$.$mol_list;
+        Editor_add(): $$.$mol_form_field;
+        blocks(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_meta_rights extends $.$hyoo_meta_rights {
+        editable(): boolean;
+        blocks(): ($mol_list | $mol_form_field)[];
+        editor_list(): $hyoo_meta_link[];
+        editor_add_rows(): ($mol_button_minor | $hyoo_meta_link | $mol_bar)[];
+        editor_add_id(next?: string): `${string}_${string}`;
+        editor_add_allowed(): boolean;
+        editor_add_bid(): string;
+        editor_fill_all(): void;
+        editor_add_submit(): void;
+        editor_add_preview(): $hyoo_meta_person;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_theme_auto extends $mol_plugin {
         attr(): Record<string, any>;
         theme(): string;
@@ -4859,6 +4976,18 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_shield extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_shield_account extends $mol_icon {
+        path(): string;
+    }
 }
 
 declare let $hyoo_sync_revision: string;
@@ -5113,27 +5242,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_avatar extends $mol_icon {
-        view_box(): string;
-        id(): string;
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    function $mol_hash_string(str: string, seed?: number): number;
-}
-
-declare namespace $.$$ {
-    class $mol_avatar extends $.$mol_avatar {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_icon_sync extends $mol_icon {
         path(): string;
     }
@@ -5224,6 +5332,7 @@ declare namespace $ {
         Video(): $$.$piterjs_video_page;
         Place(): $$.$piterjs_place_page;
         Others(): $$.$piterjs_others;
+        Rights(): $$.$hyoo_meta_rights;
         Theme(): $$.$mol_theme_auto;
         place(): $piterjs_place;
         pages(): readonly any[];
@@ -5234,6 +5343,10 @@ declare namespace $ {
         metup_add(next?: any): any;
         Meetup_add_icon(): $mol_icon_plus;
         Meetup_add(): $mol_button_minor;
+        rights(next?: any): boolean;
+        Rights_toggle_icon(): $mol_icon_shield_account;
+        Rights_toggle(): $mol_check_icon;
+        tools(): readonly any[];
         Yard(): $hyoo_sync_client;
         Online(): $$.$hyoo_sync_online;
         Editing_icon(): $mol_icon_settings_outline;
@@ -5305,7 +5418,7 @@ declare namespace $.$$ {
         speech_id(next?: string): string | null;
         speech(id: $mol_int62_string): $piterjs_speech;
         speaker_id(next?: string): string | null;
-        pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_video_page | $piterjs_place_page | $piterjs_others)[];
+        pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_video_page | $piterjs_place_page | $piterjs_others | $hyoo_meta_rights)[];
         title(): string;
         meetup_current(): $piterjs_meetup;
         place(): $piterjs_place;
@@ -5315,7 +5428,7 @@ declare namespace $.$$ {
         toggle_intro(next?: boolean): boolean;
         video(): boolean;
         video_uri(): string;
-        Meetup_add(): $mol_button_minor;
+        tools(): $mol_button_minor[];
         foot(): ($mol_view | $mol_check_icon | $hyoo_sync_online)[];
         user_id(): `${string}_${string}`;
         speech_public(id: $mol_int62_string, next?: boolean): boolean;
@@ -5335,15 +5448,6 @@ declare namespace $ {
     class $mol_icon_vk extends $mol_icon {
         path(): string;
     }
-}
-
-declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): Record<string, any>;
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {

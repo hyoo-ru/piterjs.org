@@ -18968,6 +18968,502 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_meta_person extends $hyoo_meta_model {
+    }
+    $.$hyoo_meta_person = $hyoo_meta_person;
+})($ || ($ = {}));
+//hyoo/meta/person/person.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_avatar extends $mol_icon {
+        view_box() {
+            return "0 0 24 24";
+        }
+        id() {
+            return "";
+        }
+        path() {
+            return "M 12 12 l 0 0 M 0 0 l 0 0 M 24 24 l 0 0 M 0 24 l 0 0 M 24 0 l 0 0";
+        }
+    }
+    $.$mol_avatar = $mol_avatar;
+})($ || ($ = {}));
+//mol/avatar/-view.tree/avatar.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_hash_string(str, seed = 0) {
+        let h1 = 0xdeadbeef ^ seed;
+        let h2 = 0x41c6ce57 ^ seed;
+        for (let i = 0; i < str.length; i++) {
+            const ch = str.charCodeAt(i);
+            h1 = Math.imul(h1 ^ ch, 2654435761);
+            h2 = Math.imul(h2 ^ ch, 1597334677);
+        }
+        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+        return 4294967296 * (((1 << 16) - 1) & h2) + (h1 >>> 0);
+    }
+    $.$mol_hash_string = $mol_hash_string;
+})($ || ($ = {}));
+//mol/hash/string/string.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_avatar extends $.$mol_avatar {
+            path() {
+                const id = $mol_hash_string(this.id());
+                const p = 2.1;
+                const m = 2.7;
+                let path = '';
+                for (let x = 0; x < 4; ++x) {
+                    for (let y = 0; y < 8; ++y) {
+                        if ((id >> (x + y * 7)) & 1) {
+                            const mxp = Math.ceil(m * x + p);
+                            const myp = Math.ceil(m * y + p);
+                            path += `M ${mxp} ${myp} l 0 0 ` + `M ${24 - mxp} ${myp} l 0 0 `;
+                        }
+                    }
+                }
+                return path;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_avatar.prototype, "path", null);
+        $$.$mol_avatar = $mol_avatar;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/avatar/avatar.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/avatar/avatar.view.css", "[mol_avatar] {\n\tstroke-linecap: round;\n\tstroke-width: 3.5px;\n\tfill: none;\n\tstroke: currentColor;\n\t/* width: 1.5rem;\n\theight: 1.5rem;\n\tmargin: 0 -.25rem; */\n\t/* box-shadow: 0 0 0 1px var(--mol_theme_line); */\n}\n");
+})($ || ($ = {}));
+//mol/avatar/-css/avatar.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_meta_link extends $mol_link {
+        minimal_height() {
+            return 40;
+        }
+        id() {
+            return this.meta().id();
+        }
+        title() {
+            return this.meta().title();
+        }
+        meta() {
+            const obj = new this.$.$hyoo_meta_model();
+            return obj;
+        }
+        param() {
+            return "";
+        }
+        all_title() {
+            return this.$.$mol_locale.text('$hyoo_meta_link_all_title');
+        }
+        sub() {
+            return [
+                this.Avatar(),
+                this.Title()
+            ];
+        }
+        Avatar() {
+            const obj = new this.$.$mol_avatar();
+            obj.id = () => this.id();
+            return obj;
+        }
+        highlight() {
+            return "";
+        }
+        Title() {
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.title();
+            obj.needle = () => this.highlight();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_link.prototype, "meta", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_link.prototype, "Avatar", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_link.prototype, "Title", null);
+    $.$hyoo_meta_link = $hyoo_meta_link;
+})($ || ($ = {}));
+//hyoo/meta/link/-view.tree/link.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_meta_link extends $.$hyoo_meta_link {
+            title() {
+                return (this.id() === '0_0' ? this.all_title() : super.title()) || (this.Avatar() ? '' : '...');
+            }
+            uri() {
+                return this.$.$mol_state_arg.link({
+                    [this.param()]: this.id(),
+                });
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_meta_link.prototype, "title", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_meta_link.prototype, "uri", null);
+        $$.$hyoo_meta_link = $hyoo_meta_link;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/meta/link/link.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_define($hyoo_meta_link, {
+        Title: {
+            flex: {
+                shrink: 1,
+            },
+        },
+    });
+})($ || ($ = {}));
+//hyoo/meta/link/link.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_button_major extends $mol_button_typed {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_theme: "$mol_theme_accent"
+            };
+        }
+    }
+    $.$mol_button_major = $mol_button_major;
+})($ || ($ = {}));
+//mol/button/major/-view.tree/major.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
+})($ || ($ = {}));
+//mol/button/major/-css/major.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_bar extends $mol_view {
+    }
+    $.$mol_bar = $mol_bar;
+})($ || ($ = {}));
+//mol/bar/-view.tree/bar.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/bar/bar.view.css", "[mol_bar] {\n\tdisplay: flex;\n\t/* box-shadow: inset 0 0 0 1px var(--mol_theme_line); */\n\tborder-radius: var(--mol_gap_round);\n}\n");
+})($ || ($ = {}));
+//mol/bar/-css/bar.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_meta_rights extends $mol_page {
+        title() {
+            return this.$.$mol_locale.text('$hyoo_meta_rights_title');
+        }
+        editors() {
+            return this.meta().editors();
+        }
+        meta() {
+            const obj = new this.$.$hyoo_meta_model();
+            return obj;
+        }
+        body() {
+            return [
+                this.Content()
+            ];
+        }
+        peer(id) {
+            const obj = new this.$.$hyoo_meta_person();
+            return obj;
+        }
+        Editor_link(id) {
+            const obj = new this.$.$hyoo_meta_link();
+            obj.meta = () => this.peer(id);
+            return obj;
+        }
+        editor_list() {
+            return [
+                this.Editor_link("0_0")
+            ];
+        }
+        Editor_list() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.editor_list();
+            return obj;
+        }
+        editor_add_bid() {
+            return this.$.$mol_locale.text('$hyoo_meta_rights_editor_add_bid');
+        }
+        editor_add_id(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        editable() {
+            return false;
+        }
+        Editor_add_id() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_meta_rights_Editor_add_id_hint');
+            obj.value = (next) => this.editor_add_id(next);
+            obj.enabled = () => this.editable();
+            return obj;
+        }
+        editor_add_allowed() {
+            return false;
+        }
+        editor_add_submit(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Editor_add_icon() {
+            const obj = new this.$.$mol_icon_plus();
+            return obj;
+        }
+        Editor_add_submit() {
+            const obj = new this.$.$mol_button_major();
+            obj.enabled = () => this.editor_add_allowed();
+            obj.click = (next) => this.editor_add_submit(next);
+            obj.sub = () => [
+                this.Editor_add_icon()
+            ];
+            return obj;
+        }
+        Editor_add_bar() {
+            const obj = new this.$.$mol_bar();
+            obj.sub = () => [
+                this.Editor_add_id(),
+                this.Editor_add_submit()
+            ];
+            return obj;
+        }
+        editor_add_preview() {
+            const obj = new this.$.$hyoo_meta_model();
+            return obj;
+        }
+        Editor_add_preview() {
+            const obj = new this.$.$hyoo_meta_link();
+            obj.meta = () => this.editor_add_preview();
+            return obj;
+        }
+        editor_fill_all(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Editor_fill_all() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_meta_rights_Editor_fill_all_title');
+            obj.click = (next) => this.editor_fill_all(next);
+            return obj;
+        }
+        editor_add_rows() {
+            return [
+                this.Editor_add_bar(),
+                this.Editor_add_preview(),
+                this.Editor_fill_all()
+            ];
+        }
+        Editor_add_form() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.editor_add_rows();
+            return obj;
+        }
+        Editor_add() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_meta_rights_Editor_add_name');
+            obj.bid = () => this.editor_add_bid();
+            obj.Content = () => this.Editor_add_form();
+            return obj;
+        }
+        blocks() {
+            return [
+                this.Editor_list(),
+                this.Editor_add()
+            ];
+        }
+        Content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.blocks();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "meta", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_meta_rights.prototype, "peer", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_meta_rights.prototype, "Editor_link", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_list", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "editor_add_id", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add_id", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "editor_add_submit", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add_submit", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add_bar", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "editor_add_preview", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add_preview", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "editor_fill_all", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_fill_all", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add_form", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Editor_add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_meta_rights.prototype, "Content", null);
+    $.$hyoo_meta_rights = $hyoo_meta_rights;
+})($ || ($ = {}));
+//hyoo/meta/rights/-view.tree/rights.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_meta_rights extends $.$hyoo_meta_rights {
+            editable() {
+                return this.meta().land.allowed_law();
+            }
+            blocks() {
+                return [
+                    this.Editor_list(),
+                    ...this.editable() ? [this.Editor_add()] : [],
+                ];
+            }
+            editor_list() {
+                const meta = this.meta().id();
+                return this.editors()
+                    .filter(peer => peer !== meta)
+                    .map(peer => this.Editor_link(peer));
+            }
+            editor_add_rows() {
+                return [
+                    this.Editor_add_bar(),
+                    this.editor_add_id() ? this.Editor_add_preview() : this.Editor_fill_all(),
+                ];
+            }
+            editor_add_id(next = '') {
+                return (next.trim().match(/^(?:.*=)?([0-9a-z]+_[0-9a-z]+)/)?.[1] ?? '');
+            }
+            editor_add_allowed() {
+                if (!this.editable())
+                    return false;
+                return Boolean(this.editor_add_id());
+            }
+            editor_add_bid() {
+                return Boolean(this.editor_add_id()) ? super.editor_add_bid() : '';
+            }
+            editor_fill_all() {
+                this.editor_add_id('0_0');
+            }
+            editor_add_submit() {
+                const peer = this.editor_add_id();
+                this.meta().land.level(peer, $hyoo_crowd_peer_level.mod);
+                this.editor_add_id('');
+            }
+            editor_add_preview() {
+                return this.peer(this.editor_add_id());
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_meta_rights.prototype, "blocks", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_meta_rights.prototype, "editor_list", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_meta_rights.prototype, "editor_add_rows", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_meta_rights.prototype, "editor_add_id", null);
+        $$.$hyoo_meta_rights = $hyoo_meta_rights;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/meta/rights/rights.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const { rem } = $mol_style_unit;
+    $mol_style_define($hyoo_meta_rights, {
+        flex: {
+            basis: rem(20),
+            grow: 0,
+        },
+        Editor_add: {
+            Content: {
+                flex: {
+                    wrap: 'wrap',
+                },
+            },
+        },
+    });
+})($ || ($ = {}));
+//hyoo/meta/rights/rights.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_theme_auto extends $mol_plugin {
         attr() {
             return {
@@ -19119,6 +19615,30 @@ var $;
     $mol_style_attach("mol/book2/book2.view.css", "[mol_book2] {\n\tdisplay: flex;\n\tflex-flow: row nowrap;\n\talign-items: stretch;\n\tflex: 1 1 auto;\n\talign-self: stretch;\n\tmargin: 0;\n\t/* box-shadow: 0 0 0 1px var(--mol_theme_line); */\n\t/* transform: translateZ(0); */\n\ttransition: none;\n\toverflow: overlay;\n\tscroll-snap-type: x mandatory;\n\tpadding: 0 1px;\n\tscroll-padding: 0 1px;\n\tgap: 1px;\n}\n\n[mol_book2] > * {\n/* \tflex: none; */\n\tscroll-snap-stop: always;\n\tscroll-snap-align: end;\n\tposition: relative;\n\tmin-height: 100%;\n\tmax-height: 100%;\n\tmax-width: 100%;\n\tflex-shrink: 0;\n}\n\n[mol_book2] > *:not(:first-of-type):before,\n[mol_book2] > *:not(:last-of-type)::after {\n\tcontent: '';\n\tposition: absolute;\n\ttop: 1.5rem;\n\twidth: 1px;\n\theight: 1rem;\n\tbackground: var(--mol_theme_special);\n\tborder-radius: var(--mol_gap_round);\n\topacity: .5;\n}\n[mol_book2] > *:not(:first-of-type):before {\n\tleft: -1px;\n}\n[mol_book2] > *:not(:last-of-type)::after {\n\tright: -1px;\n}\n\n:where([mol_book2]) > * {\n\tbackground-color: var(--mol_theme_card);\n\t/* box-shadow: 0 0 0 1px var(--mol_theme_back); */\n}\n\n[mol_book2] > [mol_book2] {\n\tdisplay: contents;\n}\n\n[mol_book2] > *:first-child {\n\tscroll-snap-align: start;\n}\n\n[mol_book2] > [mol_view] {\n\ttransform: none; /* prevent content clipping */\n}\n\n[mol_book2_placeholder] {\n\tflex: 1 1 0;\n\tbackground: none;\n}\n\n[mol_book2_gap] {\n\tbackground: none;\n\tflex-grow: 1;\n\tscroll-snap-align: none;\n\tmargin-right: -1px;\n\tbox-shadow: none;\n}\n\n[mol_book2_gap]::before,\n[mol_book2_gap]::after {\n\tdisplay: none;\n}\n");
 })($ || ($ = {}));
 //mol/book2/-css/book2.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_shield extends $mol_icon {
+        path() {
+            return "M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z";
+        }
+    }
+    $.$mol_icon_shield = $mol_icon_shield;
+})($ || ($ = {}));
+//mol/icon/shield/-view.tree/shield.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_shield_account extends $mol_icon {
+        path() {
+            return "M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5C13.66,5 15,6.34 15,8C15,9.66 13.66,11 12,11C10.34,11 9,9.66 9,8C9,6.34 10.34,5 12,5M17.13,17C15.92,18.85 14.11,20.24 12,20.92C9.89,20.24 8.08,18.85 6.87,17C6.53,16.5 6.24,16 6,15.47C6,13.82 8.71,12.47 12,12.47C15.29,12.47 18,13.79 18,15.47C17.76,16 17.47,16.5 17.13,17Z";
+        }
+    }
+    $.$mol_icon_shield_account = $mol_icon_shield_account;
+})($ || ($ = {}));
+//mol/icon/shield/account/-view.tree/account.view.tree.ts
 ;
 "use strict";
 let $hyoo_sync_revision = "6efc2c3";
@@ -19894,81 +20414,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_avatar extends $mol_icon {
-        view_box() {
-            return "0 0 24 24";
-        }
-        id() {
-            return "";
-        }
-        path() {
-            return "M 12 12 l 0 0 M 0 0 l 0 0 M 24 24 l 0 0 M 0 24 l 0 0 M 24 0 l 0 0";
-        }
-    }
-    $.$mol_avatar = $mol_avatar;
-})($ || ($ = {}));
-//mol/avatar/-view.tree/avatar.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_hash_string(str, seed = 0) {
-        let h1 = 0xdeadbeef ^ seed;
-        let h2 = 0x41c6ce57 ^ seed;
-        for (let i = 0; i < str.length; i++) {
-            const ch = str.charCodeAt(i);
-            h1 = Math.imul(h1 ^ ch, 2654435761);
-            h2 = Math.imul(h2 ^ ch, 1597334677);
-        }
-        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-        return 4294967296 * (((1 << 16) - 1) & h2) + (h1 >>> 0);
-    }
-    $.$mol_hash_string = $mol_hash_string;
-})($ || ($ = {}));
-//mol/hash/string/string.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_avatar extends $.$mol_avatar {
-            path() {
-                const id = $mol_hash_string(this.id());
-                const p = 2.1;
-                const m = 2.7;
-                let path = '';
-                for (let x = 0; x < 4; ++x) {
-                    for (let y = 0; y < 8; ++y) {
-                        if ((id >> (x + y * 7)) & 1) {
-                            const mxp = Math.ceil(m * x + p);
-                            const myp = Math.ceil(m * y + p);
-                            path += `M ${mxp} ${myp} l 0 0 ` + `M ${24 - mxp} ${myp} l 0 0 `;
-                        }
-                    }
-                }
-                return path;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_avatar.prototype, "path", null);
-        $$.$mol_avatar = $mol_avatar;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/avatar/avatar.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/avatar/avatar.view.css", "[mol_avatar] {\n\tstroke-linecap: round;\n\tstroke-width: 3.5px;\n\tfill: none;\n\tstroke: currentColor;\n\t/* width: 1.5rem;\n\theight: 1.5rem;\n\tmargin: 0 -.25rem; */\n\t/* box-shadow: 0 0 0 1px var(--mol_theme_line); */\n}\n");
-})($ || ($ = {}));
-//mol/avatar/-css/avatar.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_icon_sync extends $mol_icon {
         path() {
             return "M12,18C8.69,18 6,15.31 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12C4,16.42 7.58,20 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6C15.31,6 18,8.69 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12C20,7.58 16.42,4 12,4Z";
@@ -20227,9 +20672,7 @@ var $;
         Menu() {
             const obj = new this.$.$mol_page();
             obj.title = () => "Митапы";
-            obj.tools = () => [
-                this.Meetup_add()
-            ];
+            obj.tools = () => this.tools();
             obj.foot = () => this.foot();
             obj.body = () => [
                 this.Menu_content()
@@ -20279,6 +20722,11 @@ var $;
         }
         Others() {
             const obj = new this.$.$piterjs_others();
+            return obj;
+        }
+        Rights() {
+            const obj = new this.$.$hyoo_meta_rights();
+            obj.meta = () => this.Domain();
             return obj;
         }
         Theme() {
@@ -20334,6 +20782,27 @@ var $;
                 this.Meetup_add_icon()
             ];
             return obj;
+        }
+        rights(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        Rights_toggle_icon() {
+            const obj = new this.$.$mol_icon_shield_account();
+            return obj;
+        }
+        Rights_toggle() {
+            const obj = new this.$.$mol_check_icon();
+            obj.checked = (next) => this.rights(next);
+            obj.Icon = () => this.Rights_toggle_icon();
+            return obj;
+        }
+        tools() {
+            return [
+                this.Meetup_add(),
+                this.Rights_toggle()
+            ];
         }
         Yard() {
             const obj = new this.$.$hyoo_sync_client();
@@ -20481,6 +20950,9 @@ var $;
     ], $piterjs_app.prototype, "Others", null);
     __decorate([
         $mol_mem
+    ], $piterjs_app.prototype, "Rights", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_app.prototype, "Theme", null);
     __decorate([
         $mol_mem
@@ -20506,6 +20978,15 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Meetup_add", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "rights", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Rights_toggle_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Rights_toggle", null);
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Yard", null);
@@ -20937,6 +21418,7 @@ var $;
                     ...this.place_show() ? [this.Place()] : [],
                     ...this.video_uri() ? [this.Video()] : [],
                     ...this.others() ? [this.Others()] : [],
+                    ...this.rights() ? [this.Rights()] : [],
                 ];
                 if (pages.length === 1)
                     pages.push(this.Now());
@@ -20983,10 +21465,11 @@ var $;
                     return '';
                 return this.meetup(id).video() ?? '';
             }
-            Meetup_add() {
-                if (!this.editing())
-                    return null;
-                return super.Meetup_add();
+            tools() {
+                return [
+                    ...this.editing() ? [this.Meetup_add()] : [],
+                    ...this.editing() ? [this.Rights_toggle()] : [],
+                ];
             }
             foot() {
                 return [
@@ -21037,6 +21520,9 @@ var $;
         ], $piterjs_app.prototype, "video_uri", null);
         __decorate([
             $mol_mem
+        ], $piterjs_app.prototype, "tools", null);
+        __decorate([
+            $mol_mem
         ], $piterjs_app.prototype, "foot", null);
         __decorate([
             $mol_mem
@@ -21082,28 +21568,6 @@ var $;
     $.$mol_icon_vk = $mol_icon_vk;
 })($ || ($ = {}));
 //mol/icon/vk/-view.tree/vk.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_major extends $mol_button_typed {
-        attr() {
-            return {
-                ...super.attr(),
-                mol_theme: "$mol_theme_accent"
-            };
-        }
-    }
-    $.$mol_button_major = $mol_button_major;
-})($ || ($ = {}));
-//mol/button/major/-view.tree/major.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
-})($ || ($ = {}));
-//mol/button/major/-css/major.view.css.ts
 ;
 "use strict";
 var $;
