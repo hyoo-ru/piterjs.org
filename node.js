@@ -11968,7 +11968,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_head] {\n\tflex-wrap: nowrap;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tpadding: 0;\n\tflex-grow: 0;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 auto;\n}\n");
+    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_head] {\n\tflex-wrap: nowrap;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tpadding: 0;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 auto;\n}\n");
 })($ || ($ = {}));
 //piterjs/meetup/page/-css/page.view.css.ts
 ;
