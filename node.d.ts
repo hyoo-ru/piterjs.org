@@ -5241,7 +5241,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_pencil extends $mol_icon {
+    class $mol_icon_settings extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_settings_outline extends $mol_icon {
         path(): string;
     }
 }
@@ -5297,9 +5303,11 @@ declare namespace $ {
         Meetup_add(): $mol_button_minor;
         Yard(): $hyoo_sync_client;
         Online(): $$.$hyoo_sync_online;
-        Editing_icon(): $mol_icon_pencil;
+        Editing_icon(): $mol_icon_settings_outline;
         editing(next?: any): boolean;
         Editing(): $mol_check_icon;
+        user_id(): string;
+        User(): $mol_view;
         Lights(): $$.$mol_lights_toggle;
         foot(): readonly any[];
         menu_meetups(): readonly any[];
@@ -5375,7 +5383,8 @@ declare namespace $.$$ {
         video(): boolean;
         video_uri(): string;
         Meetup_add(): $mol_button_minor;
-        Editing(): $mol_check_icon;
+        foot(): ($mol_view | $mol_check_icon | $hyoo_sync_online)[];
+        user_id(): `${string}_${string}`;
         speech_public(id: $mol_int62_string, next?: boolean): boolean;
     }
 }
