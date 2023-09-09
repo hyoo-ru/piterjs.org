@@ -1190,15 +1190,19 @@ $piterjs_intro $mol_view
 			current_y?val <=> page?val
 
 $piterjs_video_page $mol_page
-	title \Видеотрансляция
+	title \Трансляция
 	tools /
+		<= Link $mol_string
+			hint \Ссылка
+			value? <=> source? \
+			enabled <= editing false
 		<= Close $mol_link
 			arg * video null
 			sub /
 				<= Close_icon $mol_icon_cross
 	body /
 		<= Frame $mol_frame
-			uri <= uri <= source \
+			uri <= uri <= source
 
 $mol_search $mol_pop
 	query? \
@@ -1589,6 +1593,7 @@ $piterjs_place_page $mol_page
 	Title $mol_string
 		value? <=> title?
 		enabled <= editing false
+		hint \Название
 	tools /
 		<= Close $mol_link
 			arg * place null
@@ -1806,7 +1811,8 @@ $piterjs_app $mol_view
 		meetup <= meetup_current $piterjs_meetup
 		page?val <=> intro?val \
 	Video $piterjs_video_page
-		source <= video_uri \
+		source? <=> video_uri? \
+		editing <= editing? false
 	Place $piterjs_place_page
 		place <= place $piterjs_place
 		editing <= editing? false

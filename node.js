@@ -5895,8 +5895,8 @@ var $;
             const str = this.sub('start', $hyoo_crowd_reg).str(next?.toString());
             return str ? new $mol_time_moment(str) : null;
         }
-        video() {
-            return this.sub('video', $hyoo_crowd_reg).str();
+        video(next) {
+            return this.sub('video', $hyoo_crowd_reg).str(next);
         }
         speeches_node() {
             return this.sub('speeches', $hyoo_crowd_list);
@@ -16048,10 +16048,11 @@ var $;
 (function ($) {
     class $piterjs_video_page extends $mol_page {
         title() {
-            return "Видеотрансляция";
+            return "Трансляция";
         }
         tools() {
             return [
+                this.Link(),
                 this.Close()
             ];
         }
@@ -16059,6 +16060,21 @@ var $;
             return [
                 this.Frame()
             ];
+        }
+        source(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        editing() {
+            return false;
+        }
+        Link() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Ссылка";
+            obj.value = (next) => this.source(next);
+            obj.enabled = () => this.editing();
+            return obj;
         }
         Close_icon() {
             const obj = new this.$.$mol_icon_cross();
@@ -16074,9 +16090,6 @@ var $;
             ];
             return obj;
         }
-        source() {
-            return "";
-        }
         uri() {
             return this.source();
         }
@@ -16086,6 +16099,12 @@ var $;
             return obj;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $piterjs_video_page.prototype, "source", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_video_page.prototype, "Link", null);
     __decorate([
         $mol_mem
     ], $piterjs_video_page.prototype, "Close_icon", null);
@@ -16106,7 +16125,9 @@ var $;
     (function ($$) {
         class $piterjs_video_page extends $.$piterjs_video_page {
             uri() {
-                return this.source().replace('/watch?v=', '/embed/') ?? '';
+                return this.source()
+                    .replace('/watch?v=', '/embed/')
+                    .replace('https://youtu.be/', 'https://youtube.com/embed/');
             }
         }
         $$.$piterjs_video_page = $piterjs_video_page;
@@ -16117,7 +16138,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/video/page/page.view.css", "[piterjs_video_page] {\n\tflex: 1000 0 60rem;\n}\n");
+    $mol_style_attach("piterjs/video/page/page.view.css", "[piterjs_video_page] {\n\tflex: 1000 0 60rem;\n}\n\n[piterjs_video_page_body] {\n\tpadding: 0;\n}\n");
 })($ || ($ = {}));
 //piterjs/video/page/-css/page.view.css.ts
 ;
@@ -18550,6 +18571,7 @@ var $;
             const obj = new this.$.$mol_string();
             obj.value = (next) => this.title(next);
             obj.enabled = () => this.editing();
+            obj.hint = () => "Название";
             return obj;
         }
         tools() {
@@ -20719,7 +20741,8 @@ var $;
         }
         Video() {
             const obj = new this.$.$piterjs_video_page();
-            obj.source = () => this.video_uri();
+            obj.source = (next) => this.video_uri(next);
+            obj.editing = () => this.editing();
             return obj;
         }
         Place() {
@@ -20922,7 +20945,9 @@ var $;
                 return val;
             return "";
         }
-        video_uri() {
+        video_uri(next) {
+            if (next !== undefined)
+                return next;
             return "";
         }
     }
@@ -21046,6 +21071,9 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "intro", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "video_uri", null);
     $.$piterjs_app = $piterjs_app;
 })($ || ($ = {}));
 //piterjs/app/-view.tree/app.view.tree.ts
@@ -21424,7 +21452,7 @@ var $;
                     ...this.meetup_id() ? [this.Meetup(this.meetup_id())] : [],
                     ...this.speech_id() ? [this.Speech(this.speech_id())] : [],
                     ...this.place_show() ? [this.Place()] : [],
-                    ...this.video_uri() ? [this.Video()] : [],
+                    ...this.video() ? [this.Video()] : [],
                     ...this.others() ? [this.Others()] : [],
                     ...this.rights() ? [this.Rights()] : [],
                 ];
@@ -21465,13 +21493,11 @@ var $;
             video() {
                 return this.$.$mol_state_arg.value('video') !== null;
             }
-            video_uri() {
-                if (!this.video())
-                    return '';
+            video_uri(next) {
                 const id = this.meetup_id();
                 if (!id)
                     return '';
-                return this.meetup(id).video() ?? '';
+                return this.meetup(id).video(next) ?? '';
             }
             tools() {
                 return [

@@ -1503,7 +1503,7 @@ declare namespace $ {
 declare namespace $ {
     class $piterjs_meetup extends $piterjs_model {
         start(next?: $mol_time_moment): $mol_time_moment;
-        video(): string;
+        video(next?: string): string;
         speeches_node(): $hyoo_crowd_list;
         speeches(): $piterjs_speech[];
         speech_make(): $piterjs_speech;
@@ -4182,9 +4182,11 @@ declare namespace $ {
         title(): string;
         tools(): readonly any[];
         body(): readonly any[];
+        source(next?: any): string;
+        editing(): boolean;
+        Link(): $$.$mol_string;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
-        source(): string;
         uri(): string;
         Frame(): $$.$mol_frame;
     }
@@ -5367,7 +5369,7 @@ declare namespace $ {
         speech_public(id: any, next?: any): boolean;
         meetup_current(): $piterjs_meetup;
         intro(val?: any): string;
-        video_uri(): string;
+        video_uri(next?: any): string;
     }
 }
 
@@ -5427,7 +5429,7 @@ declare namespace $.$$ {
         menu_meetup_id(id: string): string;
         toggle_intro(next?: boolean): boolean;
         video(): boolean;
-        video_uri(): string;
+        video_uri(next?: string): string;
         tools(): $mol_button_minor[];
         foot(): ($mol_view | $mol_check_icon | $hyoo_sync_online)[];
         user_id(): `${string}_${string}`;
