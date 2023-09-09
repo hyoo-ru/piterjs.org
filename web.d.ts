@@ -4941,23 +4941,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_theme_auto extends $mol_plugin {
-        attr(): Record<string, any>;
-        theme(): string;
-    }
-}
-
-declare namespace $ {
-    function $mol_lights(this: $, next?: boolean): boolean;
-}
-
-declare namespace $.$$ {
-    class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
-    }
-}
-
-declare namespace $ {
     class $mol_book2 extends $mol_scroll {
         menu_title(): string;
         sub(): readonly $mol_view[];
@@ -4978,18 +4961,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_icon_shield extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_shield_account extends $mol_icon {
-        path(): string;
-    }
 }
 
 declare let $hyoo_sync_revision: string;
@@ -5244,6 +5215,1044 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $hyoo_crowd_dict extends $hyoo_crowd_node {
+        keys(next?: string[]): string[];
+        sub<Node extends typeof $hyoo_crowd_node>(key: string, Node: Node): InstanceType<Node>;
+        has(key: string): boolean;
+        add(key: string): void;
+        drop(key: string): void;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_side extends $hyoo_meta_model {
+        referrers_node(): $hyoo_crowd_dict | null;
+        referrers_list(): string[];
+        referrers_stat(uri: string): number;
+        referrers_track(uri: string): void | undefined;
+        details_node(): $hyoo_crowd_text | null;
+        details(next?: string): string;
+        details_selection(next?: number[]): number[];
+        release_node(): $hyoo_crowd_blob | null;
+        release(next?: string): string;
+        released(): boolean;
+        publish(): void;
+        content(): string;
+        changed_moment(): $mol_time_moment;
+        book(next?: $hyoo_page_side | null): $hyoo_page_side | null;
+        books(): readonly $hyoo_page_side[];
+        bookmarks_node(next?: readonly $hyoo_page_side[]): $hyoo_crowd_list;
+        bookmarks(next?: readonly $hyoo_page_side[]): $hyoo_page_side[];
+        pages_node(): $hyoo_crowd_list;
+        pages(next?: readonly $hyoo_page_side[]): $hyoo_page_side[];
+        bookmarked(id: $mol_int62_string, next?: boolean): boolean;
+        authors(): `${string}_${string}`[];
+        aura(next?: string): string;
+        aura_effective(): string;
+        history_node(): $hyoo_crowd_list | null;
+        history(): Set<`${string}_${string}`>;
+        history_add(id: $mol_int62_string): void;
+        news(): $hyoo_page_side[];
+    }
+}
+
+declare namespace $ {
+    class $mol_theme_auto extends $mol_plugin {
+        attr(): Record<string, any>;
+        theme(): string;
+    }
+}
+
+declare namespace $ {
+    function $mol_lights(this: $, next?: boolean): boolean;
+}
+
+declare namespace $.$$ {
+    class $mol_theme_auto extends $.$mol_theme_auto {
+        theme(): "$mol_theme_light" | "$mol_theme_dark";
+    }
+}
+
+declare namespace $ {
+    class $hyoo_page_side_news extends $mol_page {
+        news(): $$.$hyoo_page_side[];
+        side(): $$.$hyoo_page_side;
+        title(): string;
+        attr(): Record<string, any>;
+        body(): readonly any[];
+        item(id: any): $$.$hyoo_page_side;
+        item_title(id: any): string;
+        Item(id: any): $$.$hyoo_meta_link;
+        items(): readonly any[];
+        Section_list(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_side_news extends $.$hyoo_page_side_news {
+        items(): $hyoo_meta_link[];
+        item(side: $hyoo_page_side): $hyoo_page_side;
+        item_title(side: $hyoo_page_side): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_magnify extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_pencil extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_pencil_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_ghost extends $mol_view {
+        Sub(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_ghost extends $.$mol_ghost {
+        dom_node(next?: Element): Element;
+        dom_node_actual(): Element;
+        dom_tree(): Element;
+        title(): string;
+        minimal_width(): number;
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_drag extends $mol_ghost {
+        event(): Record<string, any>;
+        attr(): Record<string, any>;
+        transfer(): Record<string, any>;
+        allow_copy(): boolean;
+        allow_link(): boolean;
+        allow_move(): boolean;
+        image(): Element;
+        start(event?: any): any;
+        drag_start(event?: any): any;
+        move(event?: any): any;
+        drag_move(event?: any): any;
+        end(event?: any): any;
+        drag_end(event?: any): any;
+        status(next?: any): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_drag extends $.$mol_drag {
+        status(next?: "drag" | "ready"): "drag" | "ready";
+        drag_start(event: DragEvent): void;
+        drag_end(event: DragEvent): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_drop extends $mol_ghost {
+        enabled(next?: any): boolean;
+        event(): Record<string, any>;
+        attr(): Record<string, any>;
+        adopt(transfer?: any): Record<string, any>;
+        receive(transfer?: any): any;
+        allow(): readonly any[];
+        enter(event?: any): any;
+        move(event?: any): any;
+        leave(event?: any): any;
+        drop(event?: any): any;
+        status(next?: any): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_drop extends $.$mol_drop {
+        status(next?: "drag" | "ready"): "drag" | "ready";
+        protected _target: EventTarget | null;
+        enter(event: DragEvent): void;
+        move(event: DragEvent): void;
+        decide_action(event: DragEvent): any;
+        leave(event: DragEvent): void;
+        receive(transfer: unknown): unknown;
+        drop(event: DragEvent): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_pin extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_pin_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_meta_menu_items extends $mol_list {
+        id(): string;
+        editing(): boolean;
+        drop_allow(): readonly any[];
+        ids(): readonly unknown[];
+        list(): $hyoo_crowd_list;
+        item_title(id: any): string;
+        item(id: any): $hyoo_meta_model;
+        item_list(id: any): $hyoo_crowd_list;
+        item_moved(id: any, next?: any): any;
+        rows(): readonly any[];
+        item_expandable(id: any): boolean;
+        item_expanded(id: any, next?: any): boolean;
+        Item_expand(id: any): $$.$mol_check_expand;
+        editable(): boolean;
+        transfer_adopt(next?: any): any;
+        receive_after(id: any, next?: any): any;
+        item_drag_end(id: any, next?: any): any;
+        item_text(id: any): string;
+        item_html(id: any): string;
+        item_uri(id: any): string;
+        param(): string;
+        highlight(): string;
+        Item_link(id: any): $$.$hyoo_meta_link;
+        Item_drag(id: any): $$.$mol_drag;
+        Item_drop_after(id: any): $$.$mol_drop;
+        item_remove(id: any, next?: any): any;
+        Item_remove_icon(id: any): $mol_icon_cross;
+        Item_remove(id: any): $mol_button_minor;
+        item_pin(id: any, next?: any): any;
+        Item_pin_icon(id: any): $mol_icon_pin_outline;
+        Item_pin(id: any): $mol_button_minor;
+        receive_inside(id: any, next?: any): any;
+        item_add(id: any, next?: any): any;
+        Item_add_icon(id: any): $mol_icon_plus;
+        Item_add(id: any): $mol_button_minor;
+        Item_drop_inside(id: any): $$.$mol_drop;
+        item_row(id: any): readonly any[];
+        Item_row(id: any): $mol_view;
+        Item_items(id: any): $$.$hyoo_meta_menu_items;
+        item_content(id: any): readonly any[];
+        Item(id: any): $$.$mol_list;
+        items(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_meta_menu_items extends $.$hyoo_meta_menu_items {
+        id(): `${string}_${string}`;
+        editable(): boolean;
+        item_editable(id: $mol_int62_string): boolean;
+        ids(): readonly `${string}_${string}`[];
+        items(): $mol_list[];
+        item(id: $mol_int62_string): $hyoo_meta_model;
+        item_expandable(id: $mol_int62_string): boolean;
+        item_content(id: $mol_int62_string): $mol_view[];
+        item_row(id: $mol_int62_string): ($mol_button_minor | $mol_check_expand | $mol_drop)[];
+        item_remove(id: $mol_int62_string): void;
+        item_pin(id: $mol_int62_string): void;
+        add(): any;
+        item_html(id: $mol_int62_string): string;
+        item_text(id: $mol_int62_string): string;
+        transfer_adopt(transfer: DataTransfer): `${string}_${string}` | null | undefined;
+        receive_after(anchor: $mol_int62_string, dropped: $mol_int62_string): void;
+        receive_inside(anchor: $mol_int62_string, dropped: $mol_int62_string): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_meta_menu extends $mol_page {
+        editable(): boolean;
+        item_moved(id: any, next?: any): any;
+        yard(): $hyoo_sync_yard<unknown>;
+        item_title(id: any): string;
+        item(id: any): $hyoo_meta_model;
+        ids(): readonly unknown[];
+        world(): $hyoo_crowd_world | null;
+        list(): $hyoo_crowd_list;
+        item_list(id: any): $hyoo_crowd_list;
+        drop_allow(): readonly any[];
+        Logo(): $$.$mol_avatar;
+        tools_ext(): readonly any[];
+        head(): readonly any[];
+        tools(): readonly any[];
+        body(): readonly any[];
+        id(): string;
+        search(next?: any): string;
+        Search(): $$.$mol_search;
+        search_show(next?: any): boolean;
+        Search_icon(): $mol_icon_magnify;
+        Search_toggle(): $mol_check_icon;
+        editing(next?: any): boolean;
+        Editing_icon(): $mol_icon_pencil_outline;
+        Editing(): $mol_check_icon;
+        add(next?: any): any;
+        Add_icon(): $mol_icon_plus;
+        Add(): $mol_button_minor;
+        found(): readonly `${string}_${string}`[];
+        item_uri(id: any): string;
+        item_add(id: any, next?: any): any;
+        Found(): $$.$hyoo_meta_menu_items;
+        item_expanded(id: any, next?: any): boolean;
+        Content(): $$.$hyoo_meta_menu_items;
+        transfer_adopt(next?: any): any;
+        receive_end(next?: any): any;
+        Drop_zone(): $mol_view;
+        Drop_end(): $$.$mol_drop;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_meta_menu extends $.$hyoo_meta_menu {
+        id(): `${string}_${string}`;
+        head(): ($mol_view | $mol_search)[];
+        editable(): boolean;
+        item_editable(id: $mol_int62_string): boolean;
+        tools(): readonly any[];
+        body(): ($mol_drop | $hyoo_meta_menu_items)[];
+        search_show(next?: boolean): boolean;
+        item(id: $mol_int62_string): $hyoo_meta_model;
+        found(): `${string}_${string}`[];
+        add(): any;
+        transfer_adopt(transfer: DataTransfer): `${string}_${string}` | null | undefined;
+        receive_end(dropped: $mol_int62_string): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_page_side_menu extends $hyoo_meta_menu {
+        side_current(): $$.$hyoo_page_side;
+        Title(): $$.$hyoo_meta_link;
+        title(): string;
+        side(): $$.$hyoo_page_side;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_side_menu extends $.$hyoo_page_side_menu {
+        item_expanded(id: $mol_int62_string, next?: boolean): boolean;
+        item_moved(what: $mol_int62_string, where: $mol_int62_string | null): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_paginator extends $mol_bar {
+        sub(): readonly any[];
+        backward_hint(): string;
+        backward(event?: any): any;
+        Backward_icon(): $mol_icon_chevron_left;
+        Backward(): $mol_button_minor;
+        value(next?: any): number;
+        Value(): $mol_view;
+        forward_hint(): string;
+        forward(event?: any): any;
+        Forward_icon(): $mol_icon_chevron_right;
+        Forward(): $mol_button_minor;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_paginator extends $.$mol_paginator {
+        backward(event: Event): void;
+        forward(event: Event): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_search_jumper extends $mol_search {
+        Root(): $mol_view;
+        forward(event?: any): void;
+        backward(event?: any): void;
+        Index(): $$.$mol_paginator;
+        plugins(): readonly any[];
+        index(next?: any): number;
+        Backward(): $$.$mol_hotkey;
+        escape(next?: any): any;
+        Forward(): $$.$mol_hotkey;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_search_jumper extends $.$mol_search_jumper {
+        results(): $mol_view[][];
+        index(next?: number): number;
+        anchor_content(): ($mol_string | $mol_button_minor | $mol_paginator)[];
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_information extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_information_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_bookmark extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_bookmark_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_page_side_view extends $mol_page {
+        profile(): $$.$hyoo_page_side;
+        peer(id: any): $$.$hyoo_page_side;
+        book(): $$.$hyoo_page_side;
+        highlight(): string;
+        id(): `${string}_${string}`;
+        editable(): boolean;
+        title(next?: any): string;
+        side_details(next?: any): string;
+        released(): boolean;
+        side_release(): string;
+        changed_moment(): $mol_time_moment;
+        authors(): `${string}_${string}`[];
+        side(): $$.$hyoo_page_side;
+        plugins(): readonly any[];
+        auto(): readonly any[];
+        Logo(): $$.$mol_check;
+        head(): readonly any[];
+        tools(): readonly any[];
+        slides_content(): string;
+        body(): readonly any[];
+        search_start(next?: any): any;
+        Search_start(): $$.$mol_hotkey;
+        slides_send(): any;
+        history_mark(): any;
+        menu_showed(next?: any): boolean;
+        Avatar(): $$.$mol_avatar;
+        Menu_toggle(): $$.$mol_check;
+        search_query(val?: any): string;
+        search_stop(next?: any): any;
+        Search(): $$.$mol_search_jumper;
+        editing(next?: any): boolean;
+        Edit_icon(): $mol_icon_pencil_outline;
+        Unreleased(): $mol_speck;
+        edit_toggle_label(): readonly any[];
+        Edit_toggle(): $mol_check_icon;
+        search_show(next?: any): boolean;
+        Search_icon(): $mol_icon_magnify;
+        Search_toggle(): $mol_check_icon;
+        info(next?: any): boolean;
+        Info_icon(): $mol_icon_information_outline;
+        Info_toggle(): $mol_check_icon;
+        bookmark(next?: any): boolean;
+        Bookmark_icon(): $mol_icon_bookmark_outline;
+        Bookmark_toggle(): $mol_check_icon;
+        details(): string;
+        Details(): $$.$mol_text;
+        Changed(): $$.$mol_date;
+        Author_link(id: any): $$.$hyoo_meta_link;
+        author_list(): readonly any[];
+        Author_list(): $mol_view;
+        Signature(): $mol_view;
+    }
+}
+
+declare namespace $ {
+    let $mol_mem_persist: typeof $mol_wire_solid;
+}
+
+declare namespace $ {
+    class $mol_storage extends $mol_object2 {
+        static native(): {
+            estimate: () => StorageEstimate;
+            getDirectory: () => FileSystemDirectoryHandle;
+            persist: () => boolean;
+            persisted: () => boolean;
+        };
+        static persisted(next?: boolean): boolean;
+        static estimate(): StorageEstimate;
+        static dir(): FileSystemDirectoryHandle;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_side_view extends $.$hyoo_page_side_view {
+        head(): ($mol_view | $mol_search_jumper)[];
+        bookmark(next?: boolean): boolean;
+        public(next?: boolean): boolean | undefined;
+        Edit_toggle(): any;
+        edit_toggle_label(): $mol_speck[];
+        search_show(next?: boolean): boolean;
+        search_start(event?: KeyboardEvent): void;
+        search_stop(event?: KeyboardEvent): void;
+        details(): string;
+        author_list(): $hyoo_meta_link[];
+        slides_content(): string;
+        slides_send(): void;
+        history_mark(): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_publish extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_export extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_download extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_button_download extends $mol_button_minor {
+        blob(): any;
+        uri(): string;
+        file_name(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_download;
+        title(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_button_download extends $.$mol_button_download {
+        uri(): string;
+        click(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_shield extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_shield_account extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_page_side_edit extends $mol_page {
+        title(next?: any): string;
+        details(next?: any): string;
+        details_selection(next?: any): number[];
+        aura(next?: any): string;
+        editable(): boolean;
+        released(): boolean;
+        side(): $$.$hyoo_page_side;
+        Title(): $mol_string_button;
+        export_sign(): string;
+        tools(): readonly any[];
+        body(): readonly any[];
+        Syntax(): $$.$mol_link_iconed;
+        publish(next?: any): any;
+        Publish_icon(): $mol_icon_publish;
+        Publish(): $mol_button_minor;
+        Export_icon(): $mol_icon_export;
+        download_name(): string;
+        download_blob(): Blob;
+        Download(): $$.$mol_button_download;
+        copy_text(): string;
+        copy_html(): string;
+        Copy_html(): $$.$mol_button_copy;
+        Export(): $$.$mol_pick;
+        rights(next?: any): boolean;
+        Rights_icon(): $mol_icon_shield_account;
+        Rights_toggle(): $mol_check_icon;
+        close(next?: any): any;
+        Close_icon(): $mol_icon_cross;
+        Close(): $mol_button_minor;
+        Details_edit(): $$.$mol_textarea;
+        Aura(): $mol_string_button;
+        Aura_field(): $$.$mol_form_field;
+    }
+}
+
+declare namespace $ {
+    let $hyoo_marked_cut: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_line_content: $mol_regexp<{}>;
+    let $hyoo_marked_line: $mol_regexp<{
+        [x: string]: string;
+        readonly inline: string;
+        readonly code: string;
+        readonly embed: string;
+        readonly strong: string;
+        readonly emphasis: string;
+        readonly insertion: string;
+        readonly deletion: string;
+        readonly link: string;
+        readonly marker: string;
+        readonly uri: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_header: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_list_line: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly indent: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+    let $hyoo_marked_list_item: $mol_regexp<{
+        [x: string]: string;
+        readonly kids: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly indent: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+    let $hyoo_marked_list: $mol_regexp<{
+        [key: string]: string;
+    } & {
+        [x: string]: string;
+        readonly kids: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly indent: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_quote_line: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+    let $hyoo_marked_quote: $mol_regexp<{
+        [key: string]: string;
+    } & {
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_table_line: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly indent: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+    let $hyoo_marked_table_row: $mol_regexp<{
+        [x: string]: string;
+        readonly content: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly indent: string;
+        readonly marker: string;
+    }>;
+    let $hyoo_marked_table: $mol_regexp<{
+        [key: string]: string;
+    } & {
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly indent: string;
+        readonly marker: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_script_line: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly content: string;
+    }>;
+    let $hyoo_marked_script: $mol_regexp<{
+        [key: string]: string;
+    } & {
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_paragraph: $mol_regexp<{
+        [x: string]: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly content: string;
+    }>;
+}
+
+declare namespace $ {
+    let $hyoo_marked_flow: $mol_regexp<{
+        [x: string]: string;
+        readonly header: string;
+        readonly table: string;
+        readonly list: string;
+        readonly cut: string;
+        readonly quote: string;
+        readonly paragraph: string;
+        readonly script: string;
+        readonly win_end: string;
+        readonly mac_end: string;
+        readonly content: string;
+        readonly marker: string;
+        readonly indent: string;
+        readonly kids: string;
+    }>;
+}
+
+declare namespace $ {
+    function $hyoo_marked_to_dom(this: $, marked: string): $mol_jsx.JSX.Element;
+}
+
+declare namespace $ {
+    function $hyoo_marked_to_html(this: $, marked: string): string;
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_side_edit extends $.$hyoo_page_side_edit {
+        publish(): void;
+        permalink(): string;
+        export_sign(): string;
+        download_name(): string;
+        copy_text(): string;
+        download_blob(): Blob;
+        copy_html(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_expander extends $mol_list {
+        rows(): readonly any[];
+        expanded(next?: any): boolean;
+        expandable(): boolean;
+        label(): readonly any[];
+        Trigger(): $$.$mol_check_expand;
+        Tools(): any;
+        Label(): $mol_view;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_expander extends $.$mol_expander {
+        rows(): $mol_view[];
+        expandable(): boolean;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_page_side_info extends $mol_page {
+        text_tokens(): readonly {
+            name: string;
+            found: string;
+            chunks: string[];
+        }[];
+        text_header_title(id: any): string;
+        section_arg(id: any): {
+            [x: string]: string;
+        };
+        section_level(id: any): number;
+        Text(): $$.$mol_text;
+        details(): string;
+        details_node(): $hyoo_crowd_text | null;
+        referrers_list(): string[];
+        referrers_stat(id: any): number;
+        side(): $$.$hyoo_page_side;
+        title(): string;
+        tools(): readonly any[];
+        body(): readonly any[];
+        slides_uri(): string;
+        Slides(): $$.$mol_link_iconed;
+        close(next?: any): any;
+        Close_icon(): $mol_icon_cross;
+        Close(): $mol_button_minor;
+        size(): string;
+        Size(): $mol_labeler;
+        chars(): string;
+        Chars(): $mol_labeler;
+        words(): string;
+        Words(): $mol_labeler;
+        weight(): string;
+        Weight(): $mol_labeler;
+        Stat(): $mol_view;
+        section_expanded(next?: any): boolean;
+        section_title(id: any): string;
+        Section_link(id: any): $$.$mol_link;
+        section_list(): readonly any[];
+        Section_list(): $$.$mol_expander;
+        ref_expanded(next?: any): boolean;
+        ref_uri(id: any): string;
+        Ref_item_link(id: any): $$.$mol_link_iconed;
+        ref_stat(id: any): number;
+        Ref_item_stat(id: any): $mol_view;
+        Ref_item(id: any): $mol_view;
+        ref_list(): readonly any[];
+        Ref_list(): $$.$mol_expander;
+        word_item_text(id: any): string;
+        Word_item_text(id: any): $mol_view;
+        word_item_stat(id: any): number;
+        Word_item_stat(id: any): $mol_speck;
+        Word_item(id: any): $mol_view;
+        word_list_items(): readonly any[];
+        Word_list_items(): $mol_row;
+        Word_list(): $$.$mol_expander;
+    }
+}
+
+declare namespace $ {
+    enum $mol_si_prefix {
+        y = -8,
+        z = -7,
+        a = -6,
+        f = -5,
+        p = -4,
+        n = -3,
+        µ = -2,
+        m = -1,
+        '' = 0,
+        k = 1,
+        M = 2,
+        G = 3,
+        T = 4,
+        P = 5,
+        E = 6,
+        Z = 7,
+        Y = 8
+    }
+}
+
+declare namespace $ {
+    function $mol_si_short(numb: number, unit?: string): string;
+}
+
+declare namespace $ {
+    function $mol_text_profile(text: string): Map<string, number>;
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_side_info extends $.$hyoo_page_side_info {
+        slides_uri(): string;
+        section_indexes(): number[];
+        section_list(): $mol_link[];
+        section_title(index: number): string;
+        ref_list(): $mol_view[];
+        ref_uri(uri: string): string;
+        ref_stat(uri: string): number;
+        weight(): string;
+        word_stat(): Map<string, number>;
+        word_list_items(): $mol_view[];
+        word_item_text(word: string): string;
+        word_item_stat(word: string): number;
+        size(): string;
+        chars(): string;
+        words(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_password extends $mol_view {
+        type(next?: any): string;
+        sub(): readonly any[];
+        hint(): string;
+        value(next?: any): string;
+        submit(event?: any): any;
+        enabled(): boolean;
+        Pass(): $$.$mol_string;
+        checked(next?: any): boolean;
+        Show_icon(): $mol_icon_eye;
+        Show(): $mol_check_icon;
+        content(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_password extends $.$mol_password {
+        checked(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_meta_safe extends $mol_page {
+        title(): string;
+        yard(): $hyoo_sync_yard<unknown>;
+        bid_pass_long(): string;
+        key_size(): number;
+        attr(): Record<string, any>;
+        body(): readonly any[];
+        Expot_bid(): $$.$mol_text;
+        password_bid(): string;
+        password(next?: any): string;
+        Password(): $$.$mol_password;
+        Password_field(): $$.$mol_form_field;
+        recall_enabled(): boolean;
+        recall(next?: any): string;
+        Recall(): $$.$mol_string;
+        Recall_field(): $$.$mol_form_field;
+        Export_pass(): $$.$mol_list;
+        export_link(): string;
+        Export_link(): $$.$mol_link;
+        export_rows(): readonly any[];
+        Export_block(): $$.$mol_list;
+        Iport_descr(): $$.$mol_text;
+        Import_pass(): $$.$mol_list;
+        import_switch(next?: any): any;
+        peer_new(): string;
+        Peer_new(): $$.$mol_avatar;
+        impot_switch_title(): string;
+        Import_switch(): $mol_button_minor;
+        import_rows(): readonly any[];
+        Import_block(): $$.$mol_list;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $ {
+    function $mol_base64_decode(base64: string): Uint8Array;
+}
+
+declare namespace $ {
+    function $mol_base64_decode_web(base64Str: string): Uint8Array;
+}
+
+declare namespace $ {
+    class $mol_crypto_secret extends Object {
+        readonly native: CryptoKey & {
+            type: 'secret';
+        };
+        static size: number;
+        static extra: number;
+        constructor(native: CryptoKey & {
+            type: 'secret';
+        });
+        static generate(): Promise<$mol_crypto_secret>;
+        static from(serial: BufferSource | string): Promise<$mol_crypto_secret>;
+        static derive(private_serial: string, public_serial: string): Promise<$mol_crypto_secret>;
+        serial(): Promise<ArrayBuffer>;
+        encrypt(open: BufferSource, salt: BufferSource): Promise<ArrayBuffer>;
+        decrypt(closed: BufferSource, salt: BufferSource): Promise<ArrayBuffer>;
+    }
+}
+
+declare namespace $ {
+    class $mol_after_work extends $mol_object2 {
+        delay: number;
+        task: () => void;
+        id: any;
+        constructor(delay: number, task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    function $mol_wait_rest_async(this: $): Promise<unknown>;
+    function $mol_wait_rest(this: $): unknown;
+}
+
+declare namespace $ {
+    function $mol_base64_encode(src: string | Uint8Array): string;
+}
+
+declare namespace $ {
+    function $mol_base64_encode_web(str: string | Uint8Array): string;
+}
+
+declare namespace $.$$ {
+    class $hyoo_meta_safe extends $.$hyoo_meta_safe {
+        password_bid(): string;
+        content(): $mol_list[];
+        recall(next?: string): string;
+        recall_enabled(): boolean;
+        peer_current(): `${string}_${string}`;
+        peer_new(): `${string}_${string}`;
+        key_import(next?: string | null): string | null;
+        key_new(): string | null;
+        import_switch(): void;
+        key_export(): string;
+        export_rows(): ($mol_link | $mol_list | $mol_text)[];
+        import_rows(): ($mol_list | $mol_button_minor | $mol_text)[];
+        export_link(): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
     class $mol_icon_sync extends $mol_icon {
         path(): string;
     }
@@ -5284,13 +6293,19 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_settings extends $mol_icon {
+    class $mol_icon_key extends $mol_icon {
         path(): string;
     }
 }
 
 declare namespace $ {
-    class $mol_icon_settings_outline extends $mol_icon {
+    class $mol_icon_key_variant extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_image extends $mol_icon {
         path(): string;
     }
 }
@@ -5318,6 +6333,132 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_page_menu extends $hyoo_meta_menu {
+        title(): string;
+        attr(): Record<string, any>;
+        head(): readonly any[];
+        Logo(): any;
+        foot(): readonly any[];
+        side(): $$.$hyoo_page_side;
+        Profile(): $$.$hyoo_meta_link;
+        Online(): $$.$hyoo_sync_online;
+        Safe_icon(): $mol_icon_key_variant;
+        safe_showing(next?: any): boolean;
+        Safe_showing(): $mol_check_icon;
+        About(): $$.$mol_link_iconed;
+        Aura_icon(): $mol_icon_image;
+        aura_showing(next?: any): boolean;
+        Aura_showing(): $mol_check_icon;
+        Lights(): $$.$mol_lights_toggle;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_page_menu extends $.$hyoo_page_menu {
+    }
+}
+
+declare namespace $ {
+    class $hyoo_page extends $mol_book2 {
+        side_main_id(): string;
+        yard(): $hyoo_sync_client;
+        side_title(id: any): string;
+        pages_node(id: any): $hyoo_crowd_list;
+        side(id: any): $$.$hyoo_page_side;
+        side_current(): $$.$hyoo_page_side;
+        bookmarks_node(): $hyoo_crowd_list;
+        profile(): $$.$hyoo_page_side;
+        style(): Record<string, any>;
+        plugins(): readonly any[];
+        auto(): readonly any[];
+        pages(): readonly any[];
+        Placeholder(): $$.$hyoo_page_menu;
+        aura_image(): string;
+        Theme(): $$.$mol_theme_auto;
+        ref_track(): any;
+        News(): $$.$hyoo_page_side_news;
+        book_side(): $$.$hyoo_page_side;
+        book_pages_node(): any;
+        side_uri(id: any): string;
+        side_add(id: any, next?: any): any;
+        tools_ext(): readonly any[];
+        Side_menu(): $$.$hyoo_page_side_menu;
+        side_menu_showed(next?: any): boolean;
+        editing(next?: any): boolean;
+        info(next?: any): boolean;
+        View_details(id: any): $$.$mol_text;
+        View(id: any): $$.$hyoo_page_side_view;
+        rights(next?: any): boolean;
+        edit_close(id: any, next?: any): any;
+        Edit(id: any): $$.$hyoo_page_side_edit;
+        info_close(id: any, next?: any): any;
+        Info(id: any): $$.$hyoo_page_side_info;
+        rights_close(next?: any): any;
+        Сlose_icon(): $mol_icon_cross;
+        Rights_close(): $mol_button_minor;
+        Rights(id: any): $$.$hyoo_meta_rights;
+        safe_close(next?: any): any;
+        Safe_icon(): $mol_icon_cross;
+        Safe_close(): $mol_button_minor;
+        Safe(): $$.$hyoo_meta_safe;
+        page_add(next?: any): any;
+        aura_showing(next?: any): boolean;
+        safe(next?: any): boolean;
+        search(): string;
+        Menu(): $$.$hyoo_page_menu;
+    }
+}
+
+declare namespace $ {
+    function $mol_wire_stale<Res>(task: () => Res): Res | undefined;
+}
+
+declare namespace $.$$ {
+    class $hyoo_page extends $.$hyoo_page {
+        profile(): $hyoo_page_side;
+        title(): string;
+        aura_showing(next?: boolean): boolean;
+        aura_image(): string;
+        editing(next?: boolean): boolean;
+        rights(next?: boolean): boolean;
+        info(next?: boolean): boolean;
+        safe(next?: boolean): boolean;
+        edit_close(): void;
+        rights_close(): void;
+        info_close(): void;
+        safe_close(): void;
+        side(id: $mol_int62_string): $hyoo_page_side;
+        side_uri(id: $mol_int62_string): string;
+        side_current_id(): `${string}_${string}`;
+        side_current(): $hyoo_page_side;
+        side_current_book(): $hyoo_page_side;
+        book_id(): "" | `${string}_${string}`;
+        book_side(): $hyoo_page_side;
+        book_pages_node(): $hyoo_crowd_list;
+        side_menu_showed(next?: boolean): boolean;
+        pages(): ($mol_view | $hyoo_meta_rights | $hyoo_page_side_menu | $hyoo_page_side_view | $hyoo_page_side_edit | $hyoo_page_side_info | $hyoo_meta_safe)[];
+        page_add(): void;
+        side_add(id: $mol_int62_string): void;
+        ref_track(): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_settings extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_settings_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $piterjs_app extends $mol_view {
         meetups_ids(): `${string}_${string}`[];
         meetup(id: any): $piterjs_meetup;
@@ -5335,6 +6476,7 @@ declare namespace $ {
         Place(): $$.$piterjs_place_page;
         Others(): $$.$piterjs_others;
         Rights(): $$.$hyoo_meta_rights;
+        Wiki(): $$.$hyoo_page;
         Theme(): $$.$mol_theme_auto;
         place(): $piterjs_place;
         pages(): readonly any[];
@@ -5363,6 +6505,7 @@ declare namespace $ {
         Conf_title(): $mol_view;
         Conf_date(): $mol_view;
         Conf(): $$.$mol_link;
+        Wiki_link(): $$.$mol_link;
         Links(): $$.$mol_list;
         Menu_content(): $mol_view;
         speech(id: any): $piterjs_speech;
@@ -5415,12 +6558,13 @@ declare namespace $.$$ {
         intro(next?: string | null): string;
         place_show(): boolean;
         others(): boolean;
+        wiki(): boolean;
         meetup_id(next?: string | null): string | null;
         metup_add(): void;
         speech_id(next?: string): string | null;
         speech(id: $mol_int62_string): $piterjs_speech;
         speaker_id(next?: string): string | null;
-        pages(): $piterjs_intro[] | ($mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_video_page | $piterjs_place_page | $piterjs_others | $hyoo_meta_rights)[];
+        pages(): $piterjs_intro[] | ($mol_view | $mol_page | $piterjs_meetup_page | $piterjs_speech_page | $piterjs_video_page | $piterjs_place_page | $piterjs_others | $hyoo_meta_rights | $hyoo_page_side_menu | $hyoo_page_side_view | $hyoo_page_side_edit | $hyoo_page_side_info | $hyoo_meta_safe)[];
         title(): string;
         meetup_current(): $piterjs_meetup;
         place(): $piterjs_place;
@@ -5441,18 +6585,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_telegram extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_vk extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
     class $piterjs_link extends $mol_link {
         target(): string;
         sub(): readonly any[];
@@ -5470,14 +6602,11 @@ declare namespace $ {
         attr(): Record<string, any>;
         tools(): readonly any[];
         body(): readonly any[];
-        Github_icon(): $mol_icon_github_circle;
-        Github(): $$.$mol_link;
-        Telegram_icon(): $mol_icon_telegram;
-        Telegram(): $$.$mol_link;
-        Vkontakte_icon(): $mol_icon_vk;
-        Vkontakte(): $$.$mol_link;
-        Youtube_icon(): $mol_icon_youtube;
-        Youtube(): $$.$mol_link;
+        Youtube(): $$.$mol_link_iconed;
+        Vkontakte(): $$.$mol_link_iconed;
+        Habr(): $$.$mol_link_iconed;
+        Telegram(): $$.$mol_link_iconed;
+        Github(): $$.$mol_link_iconed;
         Links(): $mol_view;
         place(): $piterjs_place;
         Logo_angles(): $mol_svg_path;

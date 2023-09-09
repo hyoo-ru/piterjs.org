@@ -4533,6 +4533,317 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_test({
+        'strong'() {
+            const res = [...'**text**'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.strong, '**text**');
+            $mol_assert_equal(res.marker, '**');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'emphasis'() {
+            const res = [...'//text//'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.emphasis, '//text//');
+            $mol_assert_equal(res.marker, '//');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'insertion'() {
+            const res = [...'++text++'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.insertion, '++text++');
+            $mol_assert_equal(res.marker, '++');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'deletion'() {
+            const res = [...'--text--'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.deletion, '--text--');
+            $mol_assert_equal(res.marker, '--');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'code'() {
+            const res = [...';;text;;'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.code, ';;text;;');
+            $mol_assert_equal(res.marker, ';;');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'nested simple'() {
+            const res = [...'**//foo//bar**'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.strong, '**//foo//bar**');
+            $mol_assert_equal(res.marker, '**');
+            $mol_assert_equal(res.content, '//foo//bar');
+        },
+        'nested simple overlap'() {
+            const res = [...'**//foo**bar//'.matchAll($hyoo_marked_line)];
+            $mol_assert_equal(res[0].groups.strong, '**//foo**');
+            $mol_assert_equal(res[0].groups.marker, '**');
+            $mol_assert_equal(res[0].groups.content, '//foo');
+            $mol_assert_equal(res[1][0], 'bar//');
+        },
+        'link'() {
+            const res = [...'\\\\text\\url\\\\'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.link, '\\\\text\\url\\\\');
+            $mol_assert_equal(res.marker, '\\\\');
+            $mol_assert_equal(res.content, 'text');
+            $mol_assert_equal(res.uri, 'url');
+        },
+        'embed'() {
+            const res = [...'""text\\url""'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.embed, '""text\\url""');
+            $mol_assert_equal(res.marker, '""');
+            $mol_assert_equal(res.content, 'text');
+            $mol_assert_equal(res.uri, 'url');
+        },
+        'link with embed'() {
+            const res = [...'\\\\""text\\url1""\\url2\\\\'.matchAll($hyoo_marked_line)][0].groups;
+            $mol_assert_equal(res.link, '\\\\""text\\url1""\\url2\\\\');
+            $mol_assert_equal(res.marker, '\\\\');
+            $mol_assert_equal(res.content, '""text\\url1""');
+            $mol_assert_equal(res.uri, 'url2');
+        },
+    });
+})($ || ($ = {}));
+//hyoo/marked/line/line.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'header level 1'() {
+            const res = [...`= text\n`.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.header, '= text\n');
+            $mol_assert_equal(res.marker, '=');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'header level 6'() {
+            const res = [...`====== text\n`.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.header, '====== text\n');
+            $mol_assert_equal(res.marker, '======');
+            $mol_assert_equal(res.content, 'text');
+        },
+        'header level too many'() {
+            const res = [...`======= text\n`.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.paragraph, '======= text\n');
+            $mol_assert_equal(res.content, '======= text');
+        },
+        'different blocks'() {
+            const text = `
+				= header
+				paragraph
+				= header
+			`.replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)];
+            $mol_assert_equal(res[0].groups.paragraph, '\n');
+            $mol_assert_equal(res[0].groups.content, '');
+            $mol_assert_equal(res[1].groups.header, '= header\n');
+            $mol_assert_equal(res[1].groups.marker, '=');
+            $mol_assert_equal(res[1].groups.content, 'header');
+            $mol_assert_equal(res[2].groups.paragraph, 'paragraph\n');
+            $mol_assert_equal(res[2].groups.content, 'paragraph');
+            $mol_assert_equal(res[3].groups.header, '= header\n');
+            $mol_assert_equal(res[3].groups.marker, '=');
+            $mol_assert_equal(res[3].groups.content, 'header');
+        },
+        'plain list'() {
+            const text = `
+				- foo
+				- bar
+			`.slice(1).replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.list, '- foo\n- bar\n');
+        },
+        'nested lists'() {
+            const text = `
+				- foo
+				  + bar
+				- lol
+			`.slice(1).replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.list, '- foo\n  + bar\n- lol\n');
+        },
+        'quote'() {
+            const text = `
+				" foo
+				" bar
+			`.slice(1).replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.quote, '" foo\n" bar\n');
+        },
+        'quote in list'() {
+            const text = `
+				- foo
+				  " bar
+				- lol
+			`.slice(1).replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.list, '- foo\n  " bar\n- lol\n');
+        },
+        'table'() {
+            const text = `
+				! foo
+				  ! bar
+				! lol
+				  ! 777
+			`.slice(1).replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.table, '! foo\n  ! bar\n! lol\n  ! 777\n');
+        },
+        'script'() {
+            const text = `
+			    foo
+			  ++bar
+			  --lol
+			  **777
+			`.slice(1).replace(/^\t+/gm, '');
+            const res = [...text.matchAll($hyoo_marked_flow)][0].groups;
+            $mol_assert_equal(res.script, '    foo\n  ++bar\n  --lol\n  **777\n');
+        },
+    });
+})($ || ($ = {}));
+//hyoo/marked/flow/flow.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'Special'() {
+            $mol_assert_equal($mol_si_short(0), '0');
+            $mol_assert_equal($mol_si_short(1 / 0), '∞');
+            $mol_assert_equal($mol_si_short(-1 / 0), '-∞');
+            $mol_assert_equal($mol_si_short(0 / 0), '∅');
+        },
+        'M'() {
+            $mol_assert_equal($mol_si_short(0), '0');
+            $mol_assert_equal($mol_si_short(0.999500), '1.00');
+            $mol_assert_equal($mol_si_short(-0.999600), '-1.00');
+            $mol_assert_equal($mol_si_short(999.4), '999');
+            $mol_assert_equal($mol_si_short(-999.4), '-999');
+        },
+        'L'() {
+            $mol_assert_equal($mol_si_short(999.5), '1.00k');
+            $mol_assert_equal($mol_si_short(-999.5), '-1.00k');
+            $mol_assert_equal($mol_si_short(999_400), '999k');
+            $mol_assert_equal($mol_si_short(-999_400), '-999k');
+        },
+        'XL'() {
+            $mol_assert_equal($mol_si_short(999_500), '1.00M');
+            $mol_assert_equal($mol_si_short(-999_600), '-1.00M');
+            $mol_assert_equal($mol_si_short(999_400_000), '999M');
+            $mol_assert_equal($mol_si_short(-999_400_000), '-999M');
+        },
+        'S'() {
+            $mol_assert_equal($mol_si_short(0.999400), '999m');
+            $mol_assert_equal($mol_si_short(-0.999400), '-999m');
+            $mol_assert_equal($mol_si_short(0.000_999_500), '1.00m');
+            $mol_assert_equal($mol_si_short(-0.000_999_500), '-1.00m');
+        },
+        'XS'() {
+            $mol_assert_equal($mol_si_short(0.000_999_400), '999µ');
+            $mol_assert_equal($mol_si_short(-0.000_999_400), '-999µ');
+            $mol_assert_equal($mol_si_short(0.000_000_999_600), '1.00µ');
+            $mol_assert_equal($mol_si_short(-0.000_000_999_600), '-1.00µ');
+        },
+        'With unit'() {
+            $mol_assert_equal($mol_si_short(0, 's'), '0 s');
+            $mol_assert_equal($mol_si_short(1 / 0, 's'), '∞ s');
+            $mol_assert_equal($mol_si_short(0 / 0, 's'), '∅ s');
+            $mol_assert_equal($mol_si_short(123, 'Hz'), '123 Hz');
+            $mol_assert_equal($mol_si_short(1234, 'g'), '1.23 kg');
+        },
+    });
+})($ || ($ = {}));
+//mol/si/short/short.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const png = new Uint8Array([0x1a, 0x0a, 0x00, 0x49, 0x48, 0x78, 0xda]);
+    $mol_test({
+        'base64 decode string'() {
+            $mol_assert_like($mol_base64_decode('SGVsbG8sIM6nzqjOqdCr'), new TextEncoder().encode('Hello, ΧΨΩЫ'));
+        },
+        'base64 decode binary'() {
+            $mol_assert_like($mol_base64_decode('GgoASUh42g=='), png);
+        },
+    });
+})($ || ($ = {}));
+//mol/base64/decode/decode.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_crypto_salt() {
+        return $mol_crypto_native.getRandomValues(new Uint8Array(12));
+    }
+    $.$mol_crypto_salt = $mol_crypto_salt;
+})($ || ($ = {}));
+//mol/crypto/salt/salt.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        async 'sizes'() {
+            const cipher = await $mol_crypto_secret.generate();
+            const key = await cipher.serial();
+            $mol_assert_equal(key.byteLength, $mol_crypto_secret.size);
+            const data = new Uint8Array([1, 2, 3]);
+            const salt = $mol_crypto_salt();
+            const closed = await cipher.encrypt(data, salt);
+            $mol_assert_equal(closed.byteLength, data.byteLength + $mol_crypto_secret.extra);
+        },
+        async 'decrypt self encrypted with auto generated key'() {
+            const cipher = await $mol_crypto_secret.generate();
+            const data = new Uint8Array([1, 2, 3]);
+            const salt = $mol_crypto_salt();
+            const closed = await cipher.encrypt(data, salt);
+            const opened = await cipher.decrypt(closed, salt);
+            $mol_assert_like(data, new Uint8Array(opened));
+        },
+        async 'decrypt encrypted with exported auto generated key'() {
+            const data = new Uint8Array([1, 2, 3]);
+            const salt = $mol_crypto_salt();
+            const Alice = await $mol_crypto_secret.generate();
+            const closed = await Alice.encrypt(data, salt);
+            const Bob = await $mol_crypto_secret.from(await Alice.serial());
+            const opened = await Bob.decrypt(closed, salt);
+            $mol_assert_like(data, new Uint8Array(opened));
+        },
+        async 'derivation from public & private keys'() {
+            const A = await $$.$mol_crypto_auditor_pair();
+            const B = await $$.$mol_crypto_auditor_pair();
+            const AK = await $mol_crypto_secret.derive(await A.private.serial(), await B.public.serial());
+            const BK = await $mol_crypto_secret.derive(await B.private.serial(), await A.public.serial());
+            $mol_assert_like(new Uint8Array(await AK.serial()), new Uint8Array(await BK.serial()));
+        },
+    });
+})($ || ($ = {}));
+//mol/crypto/secret/secret.test.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        $.$mol_after_work = $mol_after_mock_timeout;
+    });
+})($ || ($ = {}));
+//mol/after/work/work.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const png = new Uint8Array([0x1a, 0x0a, 0x00, 0x49, 0x48, 0x78, 0xda]);
+    $mol_test({
+        'base64 encode string'() {
+            $mol_assert_equal($mol_base64_encode('Hello, ΧΨΩЫ'), 'SGVsbG8sIM6nzqjOqdCr');
+        },
+        'base64 encode binary'() {
+            $mol_assert_equal($mol_base64_encode(png), 'GgoASUh42g==');
+        },
+    });
+})($ || ($ = {}));
+//mol/base64/encode/encode.test.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_view_tree_test_simple extends $mol_view {
         some() {
             return 1;
