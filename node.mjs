@@ -13361,7 +13361,8 @@ var $;
                 now: null,
                 video: null,
                 place: null,
-                others: null
+                others: null,
+                wiki: null
             };
         }
         meetup() {
@@ -26191,6 +26192,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_share extends $mol_icon {
+        path() {
+            return "M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z";
+        }
+    }
+    $.$mol_icon_share = $mol_icon_share;
+})($ || ($ = {}));
+//mol/icon/share/-view.tree/share.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_share_outline extends $mol_icon {
+        path() {
+            return "M14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12L14,5M16,9.83L18.17,12L16,14.17V12.9H14C11.93,12.9 10.07,13.28 8.34,13.85C9.74,12.46 11.54,11.37 14.28,11L16,10.73V9.83Z";
+        }
+    }
+    $.$mol_icon_share_outline = $mol_icon_share_outline;
+})($ || ($ = {}));
+//mol/icon/share/outline/-view.tree/outline.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $piterjs_app extends $mol_view {
         meetups_ids() {
             return this.Domain().meetups_ids();
@@ -26412,10 +26437,15 @@ var $;
             obj.rows = () => this.menu_meetups();
             return obj;
         }
+        Conf_ext() {
+            const obj = new this.$.$mol_icon_share_outline();
+            return obj;
+        }
         Conf_title() {
             const obj = new this.$.$mol_view();
             obj.sub = () => [
-                "Conf"
+                "Conf ",
+                this.Conf_ext()
             ];
             return obj;
         }
@@ -26438,7 +26468,8 @@ var $;
         Wiki_link() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
-                wiki: ""
+                wiki: "",
+                meetup: null
             });
             obj.title = () => "База знаний";
             return obj;
@@ -26579,6 +26610,9 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Meetups", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Conf_ext", null);
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Conf_title", null);
@@ -27109,7 +27143,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/app/app.view.css", "[piterjs_app] {\n\tdisplay: flex;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_shade: rgba( 0 , 0 , 0 , .5 );\n\t--mol_theme_control: black;\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_hover: hsl(53, 93%, 44%);\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_page] ,\n[piterjs_app] [mol_page_body] {\n\tbox-shadow: none;\n\tbackground: none;\n}\n\n[piterjs_app_menu] {\n\tflex: 0 0 12rem;\n}\n\n[piterjs_app_menu_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n[piterjs_app_links] {\n\tflex: none;\n}\n\n[piterjs_app_conf] {\n\twhite-space: nowrap;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding: 0;\n}\n\n[piterjs_app_speech_body] {\n\tpadding: 0;\n}\n\n[piterjs_app_conf_title] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_conf_date] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_others_link] {\n\tpadding: .5rem .75rem;\n}\n\n[piterjs_app_toggle_intro] {\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\twidth: 2rem;\n\theight: 2rem;\n}\n\n[piterjs_app_user] {\n\tfont-size: .75rem;\n\tpadding: .5rem 0;\n\tcolor: var(--mol_theme_shade);\n}\n");
+    $mol_style_attach("piterjs/app/app.view.css", "[piterjs_app] {\n\tdisplay: flex;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_shade: rgba( 0 , 0 , 0 , .5 );\n\t--mol_theme_control: black;\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_hover: hsl(53, 93%, 44%);\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_page] ,\n[piterjs_app] [mol_page_body] {\n\tbox-shadow: none;\n\tbackground: none;\n}\n\n[piterjs_app_menu] {\n\tflex: 0 0 14rem;\n}\n\n[piterjs_app_menu_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n[piterjs_app_links] {\n\tflex: none;\n}\n\n[piterjs_app_conf] {\n\twhite-space: nowrap;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding: 0;\n}\n\n[piterjs_app_speech_body] {\n\tpadding: 0;\n}\n\n[piterjs_app_conf_title] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_conf_date] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_others_link] {\n\tpadding: .5rem .75rem;\n}\n\n[piterjs_app_toggle_intro] {\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\twidth: 2rem;\n\theight: 2rem;\n}\n\n[piterjs_app_user] {\n\tfont-size: .75rem;\n\tpadding: .5rem 0;\n\tcolor: var(--mol_theme_shade);\n}\n");
 })($ || ($ = {}));
 //piterjs/app/-css/app.view.css.ts
 ;

@@ -6459,6 +6459,18 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_icon_share extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_share_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $piterjs_app extends $mol_view {
         meetups_ids(): `${string}_${string}`[];
         meetup(id: any): $piterjs_meetup;
@@ -6502,6 +6514,7 @@ declare namespace $ {
         foot(): readonly any[];
         menu_meetups(): readonly any[];
         Meetups(): $$.$mol_list;
+        Conf_ext(): $mol_icon_share_outline;
         Conf_title(): $mol_view;
         Conf_date(): $mol_view;
         Conf(): $$.$mol_link;

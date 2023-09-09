@@ -421,6 +421,8 @@
     "$mol_wire_stale",
     "$mol_icon_settings_outline",
     "$mol_icon_settings",
+    "$mol_icon_share_outline",
+    "$mol_icon_share",
     "$mol_tree"
   ],
   "dependencies": {
