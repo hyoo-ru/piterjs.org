@@ -6599,7 +6599,6 @@ declare namespace $ {
 
 declare namespace $ {
     class $piterjs_link extends $mol_link {
-        target(): string;
         sub(): readonly any[];
         Button(): $mol_button_major;
     }

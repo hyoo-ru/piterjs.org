@@ -26665,9 +26665,6 @@ var $node = $node || {} ; $node[ "/piterjs/app/n6cy9h_41olxb!n6cy9h_41olxb.bin" 
 var $;
 (function ($) {
     class $piterjs_link extends $mol_link {
-        target() {
-            return "_blank";
-        }
         sub() {
             return [
                 this.Button()
@@ -26785,13 +26782,13 @@ var $;
         }
         Join() {
             const obj = new this.$.$piterjs_link();
-            obj.uri = () => "https://docs.google.com/forms/d/e/1FAIpQLSe7lb5LFc0LaaJu9POvlIAw8Te0g46xSmYZr7FwuCWg2saYmA/viewform";
+            obj.uri = () => "#!wiki/=uxgccs_dqplnq";
             obj.title = () => "Подать заявку на доклад";
             return obj;
         }
         Donate() {
             const obj = new this.$.$piterjs_link();
-            obj.uri = () => "https://www.tinkoff.ru/cf/7qAXpE2HV07";
+            obj.uri = () => "#!wiki/=wu07hq_io8xyr";
             obj.title = () => "Поддержать PiterJS рублём";
             return obj;
         }
