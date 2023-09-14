@@ -5605,11 +5605,11 @@ var $;
             const id = $mol_int62_string_ensure(this.sub('meetup', $hyoo_crowd_reg).str(next?.id()));
             return id ? this.world().Fund($piterjs_place).Item(id) : null;
         }
-        slides() {
-            return this.sub('slides', $hyoo_crowd_reg).str();
+        slides(next) {
+            return this.sub('slides', $hyoo_crowd_reg).str(next);
         }
-        video() {
-            return this.sub('video', $hyoo_crowd_reg).str();
+        video(next) {
+            return this.sub('video', $hyoo_crowd_reg).str(next);
         }
         start(next) {
             return new $mol_time_moment(this.sub('start', $hyoo_crowd_reg).str(next?.toString()));
@@ -12090,6 +12090,91 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_string_link extends $mol_view {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_string_link_editing: this.editing()
+            };
+        }
+        sub() {
+            return [
+                this.View(),
+                this.Edit()
+            ];
+        }
+        enabled() {
+            return true;
+        }
+        editing() {
+            return this.enabled();
+        }
+        hint_view() {
+            return "";
+        }
+        View() {
+            const obj = new this.$.$mol_link();
+            obj.title = () => this.title();
+            obj.hint = () => this.hint_view();
+            obj.uri = () => this.value();
+            return obj;
+        }
+        value(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        title() {
+            return "";
+        }
+        hint() {
+            return this.title();
+        }
+        hint_edit() {
+            return this.hint();
+        }
+        Edit() {
+            const obj = new this.$.$mol_string();
+            obj.enabled = () => this.enabled();
+            obj.value = (next) => this.value(next);
+            obj.hint = () => this.hint_edit();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_string_link.prototype, "View", null);
+    __decorate([
+        $mol_mem
+    ], $mol_string_link.prototype, "value", null);
+    __decorate([
+        $mol_mem
+    ], $mol_string_link.prototype, "Edit", null);
+    $.$mol_string_link = $mol_string_link;
+})($ || ($ = {}));
+//mol/string/link/-view.tree/link.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_string_link extends $.$mol_string_link {
+            sub() {
+                return this.editing() ? [this.Edit()] : [this.View()];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_string_link.prototype, "sub", null);
+        $$.$mol_string_link = $mol_string_link;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/string/link/link.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_upload extends $mol_icon {
         path() {
             return "M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z";
@@ -12505,6 +12590,12 @@ var $;
         start(next) {
             return this.speech().start(next);
         }
+        slides(next) {
+            return this.speech().slides(next);
+        }
+        video(next) {
+            return this.speech().video(next);
+        }
         speech() {
             const obj = new this.$.$piterjs_speech();
             return obj;
@@ -12575,24 +12666,18 @@ var $;
             obj.enabled = () => this.editing();
             return obj;
         }
-        slides() {
-            return "";
-        }
         Slides() {
-            const obj = new this.$.$mol_link();
-            obj.uri = () => this.slides();
+            const obj = new this.$.$mol_string_link();
+            obj.value = (next) => this.slides(next);
+            obj.enabled = () => this.editing();
             obj.title = () => "Слайды";
-            obj.target = () => "_blank";
             return obj;
         }
-        video() {
-            return "";
-        }
         Video() {
-            const obj = new this.$.$mol_link();
-            obj.uri = () => this.video();
+            const obj = new this.$.$mol_string_link();
+            obj.value = (next) => this.video(next);
+            obj.enabled = () => this.editing();
             obj.title = () => "Видео";
-            obj.target = () => "_blank";
             return obj;
         }
         links() {
@@ -12602,7 +12687,7 @@ var $;
             ];
         }
         Links() {
-            const obj = new this.$.$mol_row();
+            const obj = new this.$.$mol_view();
             obj.sub = () => this.links();
             return obj;
         }
@@ -12672,16 +12757,10 @@ var $;
             speaker() {
                 return this.speech().speaker();
             }
-            slides() {
-                return this.speech().slides();
-            }
-            video() {
-                return this.speech().video();
-            }
             links() {
                 return [
-                    ...this.slides() ? [this.Slides()] : [],
-                    ...this.video() ? [this.Video()] : [],
+                    ...(this.editing() || this.slides()) ? [this.Slides()] : [],
+                    ...(this.editing() || this.video()) ? [this.Video()] : [],
                 ];
             }
             Public() {
@@ -12725,17 +12804,14 @@ var $;
                 },
             },
             Links: {
-                margin: {
-                    top: rem(-1),
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
+                flex: {
+                    wrap: 'wrap',
                 },
-                fontWeight: '600',
-                flex: 'none',
                 '>': {
                     $mol_view: {
-                        margin: 0,
+                        flex: {
+                            grow: 1,
+                        },
                     }
                 }
             },

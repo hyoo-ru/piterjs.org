@@ -1709,8 +1709,8 @@ declare namespace $ {
 declare namespace $ {
     class $piterjs_speech extends $piterjs_model {
         meetup(next?: $piterjs_meetup): $piterjs_place | null;
-        slides(): string;
-        video(): string;
+        slides(next?: string): string;
+        video(next?: string): string;
         start(next?: $mol_time_moment): $mol_time_moment;
         interval(): $mol_time_interval;
         duration(): $mol_time_duration;
@@ -3519,6 +3519,28 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_string_link extends $mol_view {
+        attr(): Record<string, any>;
+        sub(): readonly any[];
+        enabled(): boolean;
+        editing(): boolean;
+        hint_view(): string;
+        View(): $$.$mol_link;
+        value(next?: any): string;
+        title(): string;
+        hint(): string;
+        hint_edit(): string;
+        Edit(): $$.$mol_string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_string_link extends $.$mol_string_link {
+        sub(): $mol_link[] | $mol_string[];
+    }
+}
+
+declare namespace $ {
     class $mol_icon_upload extends $mol_icon {
         path(): string;
     }
@@ -3604,6 +3626,8 @@ declare namespace $ {
         title(next?: any): string;
         description(next?: any): string;
         start(next?: any): $mol_time_moment;
+        slides(next?: any): string;
+        video(next?: any): string;
         speech(): $piterjs_speech;
         Title(): $mol_string_button;
         tools(): readonly any[];
@@ -3616,12 +3640,10 @@ declare namespace $ {
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
         Description(): $$.$mol_textarea;
-        slides(): string;
-        Slides(): $$.$mol_link;
-        video(): string;
-        Video(): $$.$mol_link;
+        Slides(): $$.$mol_string_link;
+        Video(): $$.$mol_string_link;
         links(): readonly any[];
-        Links(): $mol_row;
+        Links(): $mol_view;
         speaker(): $piterjs_speaker;
         Speaker(): $$.$piterjs_speaker_snippet;
     }
@@ -3630,9 +3652,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $piterjs_speech_page extends $.$piterjs_speech_page {
         speaker(): $piterjs_speaker;
-        slides(): string;
-        video(): string;
-        links(): $mol_link[];
+        links(): $mol_string_link[];
         Public(): $mol_check_icon;
     }
 }

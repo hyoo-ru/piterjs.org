@@ -678,6 +678,20 @@ $mol_pick_time $mol_pick
 	-
 	value_moment? $mol_time_moment
 
+$mol_string_link $mol_view
+	attr *
+		^
+		mol_string_link_editing <= editing <= enabled true
+	sub /
+		<= View $mol_link
+			title <= title
+			hint <= hint_view \
+			uri <= value
+		<= Edit $mol_string
+			enabled <= enabled
+			value? <=> value? \
+			hint <= hint_edit <= hint <= title \
+
 $mol_icon_upload $mol_icon path \M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z
 
 $mol_button_open $mol_button_minor
@@ -727,6 +741,8 @@ $piterjs_speech_page $mol_page
 		title? => title?
 		description? => description?
 		start? => start?
+		slides? => slides?
+		video? => video?
 	Title $mol_string_button
 		value? <=> title?
 		enabled <= editing false
@@ -747,15 +763,15 @@ $piterjs_speech_page $mol_page
 			hint \О чём
 			value? <=> description?
 			enabled <= editing false
-		<= Links $mol_row sub <= links /
-			<= Slides $mol_link
-				uri <= slides \
+		<= Links $mol_view sub <= links /
+			<= Slides $mol_string_link
+				value? <=> slides?
+				enabled <= editing
 				title \Слайды
-				target \_blank
-			<= Video $mol_link
-				uri <= video \
+			<= Video $mol_string_link
+				value? <=> video?
+				enabled <= editing
 				title \Видео
-				target \_blank
 		<= Speaker $piterjs_speaker_snippet
 			speaker <= speaker $piterjs_speaker
 			editing <= editing false

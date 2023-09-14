@@ -255,6 +255,7 @@
     "$mol_switch",
     "$mol_check_list",
     "$mol_state_session",
+    "$mol_string_link",
     "$piterjs_speaker_snippet",
     "$mol_button_open",
     "$mol_icon_upload",
