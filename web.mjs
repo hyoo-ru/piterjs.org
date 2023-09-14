@@ -1581,6 +1581,19 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_const(value) {
+        const getter = (() => value);
+        getter['()'] = value;
+        getter[Symbol.toStringTag] = value;
+        return getter;
+    }
+    $.$mol_const = $mol_const;
+})($ || ($ = {}));
+//mol/const/const.ts
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_wire_solid() {
         const current = $mol_wire_auto();
         if (current.reap !== nothing) {
@@ -1593,19 +1606,6 @@ var $;
     const sub = new $mol_wire_pub_sub;
 })($ || ($ = {}));
 //mol/wire/solid/solid.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_const(value) {
-        const getter = (() => value);
-        getter['()'] = value;
-        getter[Symbol.toStringTag] = value;
-        return getter;
-    }
-    $.$mol_const = $mol_const;
-})($ || ($ = {}));
-//mol/const/const.ts
 ;
 "use strict";
 var $;
@@ -1629,36 +1629,6 @@ var $;
     $.$mol_dom_render_attributes = $mol_dom_render_attributes;
 })($ || ($ = {}));
 //mol/dom/render/attributes/attributes.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_wire_async(obj) {
-        let fiber;
-        const temp = $mol_wire_task.getter(obj);
-        return new Proxy(obj, {
-            get(obj, field) {
-                const val = obj[field];
-                if (typeof val !== 'function')
-                    return val;
-                let fiber;
-                const temp = $mol_wire_task.getter(val);
-                return function $mol_wire_async(...args) {
-                    fiber?.destructor();
-                    fiber = temp(obj, args);
-                    return fiber.async();
-                };
-            },
-            apply(obj, self, args) {
-                fiber?.destructor();
-                fiber = temp(self, args);
-                return fiber.async();
-            },
-        });
-    }
-    $.$mol_wire_async = $mol_wire_async;
-})($ || ($ = {}));
-//mol/wire/async/async.ts
 ;
 "use strict";
 var $;
@@ -1761,6 +1731,36 @@ var $;
     $.$mol_dom_render_fields = $mol_dom_render_fields;
 })($ || ($ = {}));
 //mol/dom/render/fields/fields.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_wire_async(obj) {
+        let fiber;
+        const temp = $mol_wire_task.getter(obj);
+        return new Proxy(obj, {
+            get(obj, field) {
+                const val = obj[field];
+                if (typeof val !== 'function')
+                    return val;
+                let fiber;
+                const temp = $mol_wire_task.getter(val);
+                return function $mol_wire_async(...args) {
+                    fiber?.destructor();
+                    fiber = temp(obj, args);
+                    return fiber.async();
+                };
+            },
+            apply(obj, self, args) {
+                fiber?.destructor();
+                fiber = temp(self, args);
+                return fiber.async();
+            },
+        });
+    }
+    $.$mol_wire_async = $mol_wire_async;
+})($ || ($ = {}));
+//mol/wire/async/async.ts
 ;
 "use strict";
 //mol/type/keys/extract/extract.ts
@@ -2128,14 +2128,18 @@ var $;
         dom_id() {
             return this.toString();
         }
-        dom_node(next) {
-            $mol_wire_solid();
-            const node = next || $mol_dom_context.document.createElementNS(this.dom_name_space(), this.dom_name());
+        dom_node_external(next) {
+            const node = next ?? $mol_dom_context.document.createElementNS(this.dom_name_space(), this.dom_name());
             const id = this.dom_id();
             node.setAttribute('id', id);
             node.toString = $mol_const('<#' + id + '>');
+            return node;
+        }
+        dom_node(next) {
+            $mol_wire_solid();
+            const node = this.dom_node_external(next);
             $mol_dom_render_attributes(node, this.attr_static());
-            const events = $mol_wire_async(this.event());
+            const events = this.event_async();
             $mol_dom_render_events(node, events);
             return node;
         }
@@ -2308,6 +2312,9 @@ var $;
         event() {
             return {};
         }
+        event_async() {
+            return { ...$mol_wire_async(this.event()) };
+        }
         plugins() {
             return [];
         }
@@ -2364,6 +2371,17 @@ var $;
                 this.focused(true);
             });
         }
+        destructor() {
+            const node = $mol_wire_probe(() => this.dom_node());
+            if (!node)
+                return;
+            const events = $mol_wire_probe(() => this.event_async());
+            if (!events)
+                return;
+            for (let event_name in events) {
+                node.removeEventListener(event_name, events[event_name]);
+            }
+        }
     }
     __decorate([
         $mol_mem
@@ -2410,6 +2428,9 @@ var $;
     __decorate([
         $mol_mem
     ], $mol_view.prototype, "theme", null);
+    __decorate([
+        $mol_mem
+    ], $mol_view.prototype, "event_async", null);
     __decorate([
         $mol_mem_key
     ], $mol_view, "Root", null);
@@ -6186,28 +6207,17 @@ var $;
 var $;
 (function ($) {
     class $mol_plugin extends $mol_view {
-        dom_node(next) {
-            const node = next || $mol_owning_get(this).host.dom_node();
-            $mol_dom_render_attributes(node, this.attr_static());
-            const events = $mol_wire_async(this.event());
-            for (let event_name in events) {
-                node.addEventListener(event_name, events[event_name], { passive: false });
-            }
-            return node;
+        dom_node_external(next) {
+            const host = $mol_owning_get(this).host;
+            return next ?? host.dom_node();
         }
         attr_static() {
-            return {};
-        }
-        event() {
             return {};
         }
         render() {
             this.dom_node_actual();
         }
     }
-    __decorate([
-        $mol_mem
-    ], $mol_plugin.prototype, "dom_node", null);
     $.$mol_plugin = $mol_plugin;
 })($ || ($ = {}));
 //mol/plugin/plugin.ts
@@ -7472,8 +7482,8 @@ var $;
             padding: $mol_gap.block,
             alignItems: 'flex-start',
             Photo: {
-                width: rem(7),
-                aspectRatio: 1,
+                width: rem(5),
+                height: `100%`,
             },
             Info: {
                 flex: {
@@ -12439,10 +12449,7 @@ var $;
             display: 'flex',
             alignItems: 'flex-start',
             flexWrap: 'wrap',
-            padding: rem(.75),
             Photo: {
-                width: rem(16),
-                height: rem(16),
                 flex: {
                     grow: 0,
                     shrink: 1,
@@ -12453,6 +12460,7 @@ var $;
             Info: {
                 display: 'flex',
                 flexDirection: 'column',
+                margin: [rem(.75), 0],
                 flex: {
                     grow: 2,
                     shrink: 1,
@@ -12709,7 +12717,6 @@ var $;
             },
             Description: {
                 boxShadow: 'none',
-                margin: rem(.75),
                 flex: {
                     grow: 0,
                 },
@@ -12724,7 +12731,6 @@ var $;
                     bottom: 0,
                     left: 0,
                 },
-                padding: rem(.75),
                 fontWeight: '600',
                 flex: 'none',
                 '>': {
@@ -20519,11 +20525,8 @@ var $;
     var $$;
     (function ($$) {
         class $mol_ghost extends $.$mol_ghost {
-            dom_node(next) {
-                const node = this.Sub().dom_node(next);
-                $mol_dom_render_attributes(node, this.attr_static());
-                $mol_dom_render_events(node, this.event());
-                return node;
+            dom_node_external(next) {
+                return this.Sub().dom_node(next);
             }
             dom_node_actual() {
                 this.dom_node();
@@ -20558,9 +20561,6 @@ var $;
                 return this.Sub().minimal_height();
             }
         }
-        __decorate([
-            $mol_mem
-        ], $mol_ghost.prototype, "dom_node", null);
         __decorate([
             $mol_mem
         ], $mol_ghost.prototype, "dom_node_actual", null);
@@ -25853,7 +25853,7 @@ var $;
             obj.checked = (val) => this.toggle_intro(val);
             return obj;
         }
-        metup_add(next) {
+        meetup_add(next) {
             if (next !== undefined)
                 return next;
             return null;
@@ -25864,7 +25864,7 @@ var $;
         }
         Meetup_add() {
             const obj = new this.$.$mol_button_minor();
-            obj.click = (next) => this.metup_add(next);
+            obj.click = (next) => this.meetup_add(next);
             obj.sub = () => [
                 this.Meetup_add_icon()
             ];
@@ -26078,7 +26078,7 @@ var $;
     ], $piterjs_app.prototype, "Toggle_intro", null);
     __decorate([
         $mol_mem
-    ], $piterjs_app.prototype, "metup_add", null);
+    ], $piterjs_app.prototype, "meetup_add", null);
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Meetup_add_icon", null);
@@ -26518,7 +26518,7 @@ var $;
                     return ids2;
                 return null;
             }
-            metup_add() {
+            meetup_add() {
                 const meetup = this.Domain().meetup_make();
                 this.meetup_id(meetup.id());
             }
@@ -26615,7 +26615,7 @@ var $;
         ], $piterjs_app.prototype, "meetup_id", null);
         __decorate([
             $mol_action
-        ], $piterjs_app.prototype, "metup_add", null);
+        ], $piterjs_app.prototype, "meetup_add", null);
         __decorate([
             $mol_mem
         ], $piterjs_app.prototype, "pages", null);
@@ -26651,7 +26651,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/app/app.view.css", "[piterjs_app] {\n\tdisplay: flex;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_shade: rgba( 0 , 0 , 0 , .5 );\n\t--mol_theme_control: black;\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_hover: hsl(53, 93%, 44%);\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_page] ,\n[piterjs_app] [mol_page_body] {\n\tbox-shadow: none;\n\tbackground: none;\n}\n\n[piterjs_app_menu] {\n\tflex: 0 0 14rem;\n}\n\n[piterjs_app_menu_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n[piterjs_app_links] {\n\tflex: none;\n}\n\n[piterjs_app_conf] {\n\twhite-space: nowrap;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding: 0;\n}\n\n[piterjs_app_speech_body] {\n\tpadding: 0;\n}\n\n[piterjs_app_conf_title] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_conf_date] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_others_link] {\n\tpadding: .5rem .75rem;\n}\n\n[piterjs_app_toggle_intro] {\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\twidth: 2rem;\n\theight: 2rem;\n}\n\n[piterjs_app_user] {\n\tfont-size: .75rem;\n\tpadding: .5rem 0;\n\tcolor: var(--mol_theme_shade);\n}\n");
+    $mol_style_attach("piterjs/app/app.view.css", "[piterjs_app] {\n\tdisplay: flex;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_focus: #f7df1e;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_shade: rgba( 0 , 0 , 0 , .5 );\n\t--mol_theme_control: black;\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #f7df1e;\n\t--mol_theme_text: black;\n\t--mol_theme_hover: hsl(53, 93%, 44%);\n\tstroke: currentColor;\n}\n\n[piterjs_app] [mol_page] ,\n[piterjs_app] [mol_page_body] {\n\tbox-shadow: none;\n\tbackground: none;\n}\n\n[piterjs_app_menu] {\n\tflex: 0 0 14rem;\n}\n\n[piterjs_app_menu_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n[piterjs_app_links] {\n\tflex: none;\n}\n\n[piterjs_app_conf] {\n\twhite-space: nowrap;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding: 0;\n}\n\n[piterjs_app_conf_title] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_conf_date] {\n\tmargin: .5rem .75rem;\n}\n\n[piterjs_app_others_link] {\n\tpadding: .5rem .75rem;\n}\n\n[piterjs_app_toggle_intro] {\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\twidth: 2rem;\n\theight: 2rem;\n}\n\n[piterjs_app_user] {\n\tfont-size: .75rem;\n\tpadding: .5rem 0;\n\tcolor: var(--mol_theme_shade);\n}\n");
 })($ || ($ = {}));
 //piterjs/app/-css/app.view.css.ts
 ;
