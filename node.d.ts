@@ -1723,6 +1723,7 @@ declare namespace $ {
         meetups_node(): $hyoo_crowd_list;
         meetups_ids(): `${string}_${string}`[];
         meetup(id: $mol_int62_string): $piterjs_meetup;
+        meetups(): $piterjs_meetup[];
         meetup_public(id: $mol_int62_string, next?: boolean): boolean;
         meetup_make(): $piterjs_meetup;
     }
@@ -3221,6 +3222,7 @@ declare namespace $ {
         length_max(): number;
         selection(next?: any): readonly number[];
         submit(next?: any): any;
+        submit_with_ctrl(): boolean;
         bring(): void;
         Edit(): $mol_textarea_edit;
         row_numb(id: any): number;
@@ -6602,7 +6604,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $piterjs_app extends $mol_view {
-        meetups_ids(): `${string}_${string}`[];
+        meetups(): $piterjs_meetup[];
         meetup(id: any): $piterjs_meetup;
         meetup_public(id: any, next?: any): boolean;
         Domain(): $piterjs_domain;

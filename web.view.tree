@@ -488,7 +488,7 @@ $mol_textarea $mol_stack
 			selection? <=> selection? /number
 			bring => bring
 			submit? <=> submit? null
-			submit_with_ctrl true
+			submit_with_ctrl <= submit_with_ctrl true
 		<= View $mol_text_code
 			text <= value
 			render_visible_only false
@@ -1783,9 +1783,9 @@ $mol_drop $mol_ghost
 	adopt?transfer *
 	receive?transfer null
 	allow /
-		\link
 		\copy
 		\move
+		\link
 
 $mol_icon_pin $mol_icon path \M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z
 
@@ -2387,7 +2387,7 @@ $mol_icon_share_outline $mol_icon path \M14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 1
 
 $piterjs_app $mol_view
 	Domain $piterjs_domain
-		meetups_ids => meetups_ids
+		meetups => meetups
 		meetup* => meetup*
 		meetup_public*? => meetup_public*?
 	plugins /
