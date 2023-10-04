@@ -229,6 +229,10 @@ $mol_icon_account_group $mol_icon path \M12,5.5C13.93,5.5 15.5,7.07 15.5,9C15.5,
 
 $mol_icon_account_group_outline $mol_icon path \M12,5C10.07,5 8.5,6.57 8.5,8.5C8.5,10.43 10.07,12 12,12C13.93,12 15.5,10.43 15.5,8.5C15.5,6.57 13.93,5 12,5M12,7C12.83,7 13.5,7.67 13.5,8.5C13.5,9.33 12.83,10 12,10C11.17,10 10.5,9.33 10.5,8.5C10.5,7.67 11.17,7 12,7M5.5,8C4.12,8 3,9.12 3,10.5C3,11.44 3.53,12.25 4.29,12.68C4.65,12.88 5.06,13 5.5,13C5.94,13 6.35,12.88 6.71,12.68C7.08,12.47 7.39,12.17 7.62,11.81C6.89,10.86 6.5,9.7 6.5,8.5C6.5,8.41 6.5,8.31 6.5,8.22C6.2,8.08 5.86,8 5.5,8M18.5,8C18.14,8 17.8,8.08 17.5,8.22C17.5,8.31 17.5,8.41 17.5,8.5C17.5,9.7 17.11,10.86 16.38,11.81C16.5,12 16.63,12.15 16.78,12.3C16.94,12.45 17.1,12.58 17.29,12.68C17.65,12.88 18.06,13 18.5,13C18.94,13 19.35,12.88 19.71,12.68C20.47,12.25 21,11.44 21,10.5C21,9.12 19.88,8 18.5,8M12,14C9.66,14 5,15.17 5,17.5V19H19V17.5C19,15.17 14.34,14 12,14M4.71,14.55C2.78,14.78 0,15.76 0,17.5V19H3V17.07C3,16.06 3.69,15.22 4.71,14.55M19.29,14.55C20.31,15.22 21,16.06 21,17.07V19H24V17.5C24,15.76 21.22,14.78 19.29,14.55M12,16C13.53,16 15.24,16.5 16.23,17H7.77C8.76,16.5 10.47,16 12,16Z
 
+$mol_icon_chart_bar $mol_icon path \M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z
+
+$mol_icon_chart_bar_stacked $mol_icon path \M22,21H2V3H4V19H6V17H10V19H12V16H16V19H18V17H22V21M18,14H22V16H18V14M12,6H16V9H12V6M16,15H12V10H16V15M6,10H10V12H6V10M10,16H6V13H10V16Z
+
 $mol_pop $mol_view
 	showed? false
 	align_vert \
@@ -909,6 +913,11 @@ $piterjs_meetup_page $mol_page
 			hint \Список гостей
 			sub /
 				<= Guests_link_icon $mol_icon_account_group_outline
+		<= Stats_link $mol_link
+			arg * stats \
+			hint \Статистика
+			sub /
+				<= Stats_link_icon $mol_icon_chart_bar_stacked
 		<= Start $mol_date
 			value_moment? <=> start?
 			enabled <= editing false
@@ -1060,6 +1069,377 @@ $piterjs_meetup_guests $mol_page
 					<= Person*0_0 $piterjs_person_snippet
 						person <= person* $piterjs_person
 						needle <= filter
+
+$mol_svg_group $mol_svg
+	dom_name \g
+
+$mol_svg_title $mol_svg
+	dom_name \title
+	sub /
+		<= title
+
+$mol_plot_graph $mol_svg_group
+	series_x /number
+	series_y /number
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	viewport $mol_vector_2d /
+		<= viewport_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= viewport_y $mol_vector_range /
+			Infinity
+			-Infinity
+	shift /number
+		0
+		0
+	scale /number
+		1
+		1
+	cursor_position $mol_vector_2d /
+		NaN
+		NaN
+	dimensions_pane $mol_vector_2d /
+		<= dimensions_pane_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_pane_y $mol_vector_range /
+			Infinity
+			-Infinity
+	dimensions $mol_vector_2d /
+		<= dimensions_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_y $mol_vector_range /
+			Infinity
+			-Infinity
+	size_real $mol_vector_2d /
+		0
+		0
+	gap $mol_vector_2d /
+		<= gap_x $mol_vector_range /
+			0
+			0
+		<= gap_y $mol_vector_range /
+			0
+			0
+	repos_x* 0
+	repos_y* 0
+	indexes /number
+	points /readonly(number)[]
+	front /$mol_svg
+	back /$mol_svg
+	Hint $mol_svg_title
+		title <= hint <= title \
+	hue +NaN
+	Sample null
+
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
+
+$mol_svg_text $mol_svg
+	dom_name \text
+	pos /
+	attr *
+		^
+		x <= pos_x \
+		y <= pos_y \
+		text-anchor <= align \middle
+	sub /
+		<= text \
+
+$mol_svg_rect $mol_svg
+	dom_name \rect
+	pos /
+	attr *
+		^
+		width <= width \0
+		height <= height \0
+		x <= pos_x \
+		y <= pos_y \
+
+$mol_plot_ruler $mol_plot_graph
+	step 0
+	scale_axis 1
+	scale_step 1
+	shift_axis 1
+	dimensions_axis $mol_vector_range /
+		Infinity
+		-Infinity
+	viewport_axis $mol_vector_range /
+		Infinity
+		-Infinity
+	axis_points /number
+	normalize? 0
+	precision 1
+	sub /
+		<= Background $mol_svg_rect
+			pos_x <= background_x \0
+			pos_y <= background_y \0
+			width <= background_width \100%
+			height <= background_height \14
+		<= Curve $mol_svg_path
+			geometry <= curve \
+		<= labels_formatted /
+		<= Title $mol_svg_text
+			pos_x <= title_pos_x \0
+			pos_y <= title_pos_y \100%
+			align <= title_align \start
+			text <= title
+	Label* $mol_svg_text
+		pos <= label_pos* /
+			<= label_pos_x* \
+			<= label_pos_y* \
+		text <= label_text* \
+		align <= label_align \
+
+$mol_plot_ruler_hor $mol_plot_ruler
+	title_align \start
+	label_align \middle
+	title_pos_x \0
+	title_pos_y \100%
+	label_pos_y* <= title_pos_y
+	background_width \100%
+
+$mol_plot_mark_hor $mol_plot_ruler_hor
+	labels /string
+
+$mol_plot_ruler_vert $mol_plot_ruler
+	title_align \end
+	label_align \end
+	title_pos_y \14
+	label_pos_x* <= title_pos_x
+	background_height \100%
+	background_width <= title_pos_x
+
+$mol_plot_bar $mol_plot_graph
+	style *
+		^
+		stroke-width <= stroke_width \1rem
+	sub /
+		<= Hint
+		<= Curve $mol_svg_path
+			geometry <= curve \
+	Sample $mol_plot_graph_sample
+		color <= color
+
+$mol_chart_legend $mol_scroll
+	graphs /$mol_plot_graph
+	graphs_front /$mol_plot_graph
+	sub <= graph_legends /$mol_view
+	-
+	Graph_legend* $mol_view
+		sub /
+			<= Graph_sample_box* $mol_view
+				sub /
+					<= Graph_sample* null
+			<= Graph_title* $mol_view
+				sub /
+					<= graph_title* \
+
+$mol_touch $mol_plugin
+	start_zoom? 0
+	start_distance? 0
+	zoom? 1
+	allow_draw true
+	allow_pan true
+	allow_zoom true
+	action_type? \
+	action_point? $mol_vector_2d /
+		NaN
+		NaN
+	-
+	start_pan? /
+		0
+		0
+	pan? $mol_vector_2d /
+		0
+		0
+	pointer_center $mol_vector_2d /
+		NaN
+		NaN
+	-
+	start_pos? null
+	swipe_precision 16
+	-
+	swipe_right? null
+	swipe_bottom? null
+	swipe_left? null
+	swipe_top? null
+	-
+	swipe_from_right? null
+	swipe_from_bottom? null
+	swipe_from_left? null
+	swipe_from_top? null
+	-
+	swipe_to_right? null
+	swipe_to_bottom? null
+	swipe_to_left? null
+	swipe_to_top? null
+	-
+	draw_start?event null
+	draw?event null
+	draw_end?event null
+	-
+	style *
+		^
+		touch-action \none
+		overscroll-behavior \none
+	-
+	event *
+		^
+		pointerdown?event <=> event_start?event null
+		pointermove?event <=> event_move?event null
+		pointerup?event <=> event_end?event null
+		pointerleave?event <=> event_leave?event null
+		wheel?event <=> event_wheel?event null
+
+$mol_plot_pane $mol_svg_root
+	aspect \none
+	-
+	hue_base? +NaN
+	hue_shift? 111
+	-
+	gap_hor 48
+	gap_vert 24
+	gap_left <= gap_hor
+	gap_right <= gap_hor
+	gap_top <= gap_vert
+	gap_bottom <= gap_vert
+	gap $mol_vector_2d /
+		<= gap_x $mol_vector_range /
+			<= gap_left
+			<= gap_right
+		<= gap_y $mol_vector_range /
+			<= gap_bottom
+			<= gap_top
+	-
+	shift_limit $mol_vector_2d /
+		<= shift_limit_x $mol_vector_range /
+			0
+			0
+		<= shift_limit_y $mol_vector_range /
+			0
+			0
+	shift_default $mol_vector_2d /
+		0
+		0
+	shift? $mol_vector_2d /
+		0
+		0
+	scale_limit $mol_vector_2d /
+		<= scale_limit_x $mol_vector_range /
+			0
+			Infinity
+		<= scale_limit_y $mol_vector_range /
+			0
+			-Infinity
+	scale_default $mol_vector_2d /
+		0
+		0
+	scale? $mol_vector_2d /
+		1
+		-1
+	scale_x? 1
+	scale_y? -1
+	size $mol_vector_2d /
+		0
+		0
+	size_real $mol_vector_2d /
+		1
+		1
+	dimensions $mol_vector_2d /
+		<= dimensions_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_y $mol_vector_range /
+			Infinity
+			-Infinity
+	dimensions_viewport $mol_vector_2d /
+		<= dimensions_viewport_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_viewport_y $mol_vector_range /
+			Infinity
+			-Infinity
+	-
+	sub <= graphs_sorted /$mol_svg
+	graphs_colored <= graphs_visible <= graphs_positioned <= graphs /$mol_plot_graph
+	-
+	plugins /
+		^
+		<= Touch $mol_touch
+			zoom? <=> zoom? 1
+			pan? <=> shift?
+			pointer_center => cursor_position
+			allow_draw <= allow_draw true
+			allow_pan <= allow_pan true
+			allow_zoom <= allow_zoom true
+			action_type => action_type
+			action_point => action_point
+			draw_start?event <=> draw_start?event null
+			draw?event <=> draw?event null
+			draw_end?event <=> draw_end?event null
+	- event *
+		^
+		dblclick?event <=> reset?event null
+
+$mol_chart $mol_view
+	gap_hor 48
+	gap_vert 24
+	gap_left <= gap_hor
+	gap_right <= gap_hor
+	gap_bottom <= gap_vert
+	gap_top <= gap_vert
+	graphs /$mol_plot_graph
+	sub /
+		<= Legend $mol_chart_legend
+			graphs <= graphs_colored
+		<= Plot $mol_plot_pane
+			scale_x? => zoom?
+			zoom? <=> zoom?
+			gap_left <= gap_left
+			gap_right <= gap_right
+			gap_bottom <= gap_bottom
+			gap_top <= gap_top
+			graphs <= graphs
+			graphs_colored => graphs_colored
+			hue_base <= hue_base 140
+			hue_shift <= hue_shift 111
+
+$piterjs_meetup_stats $mol_page
+	meetup $piterjs_meetup
+		joined_moments => joined_moments
+	title \Статистика
+	tools /
+		<= Close $mol_link
+			arg * stats null
+			sub /
+				<= Close_icon $mol_icon_cross
+	body /
+		<= Chart $mol_chart
+			graphs /
+				<= Days $mol_plot_mark_hor
+					title \Дни
+					labels <= days /
+				<= Counts $mol_plot_ruler_vert
+					title \Число
+					series_y <= joins_per_days /
+				<= Joins $mol_plot_bar
+					title \Регистрации
+					series_y <= joins_per_days /
 
 $mol_icon_clock $mol_icon path \M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z
 
@@ -1392,85 +1772,6 @@ $mol_link_source $mol_link
 	sub /
 		<= Icon $mol_icon_github_circle
 
-$mol_svg_group $mol_svg
-	dom_name \g
-
-$mol_svg_title $mol_svg
-	dom_name \title
-	sub /
-		<= title
-
-$mol_plot_graph $mol_svg_group
-	series_x /number
-	series_y /number
-	-
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	-
-	style *
-		^
-		color <= color \
-	-
-	viewport $mol_vector_2d /
-		<= viewport_x $mol_vector_range /
-			Infinity
-			-Infinity
-		<= viewport_y $mol_vector_range /
-			Infinity
-			-Infinity
-	shift /number
-		0
-		0
-	scale /number
-		1
-		1
-	cursor_position $mol_vector_2d /
-		NaN
-		NaN
-	dimensions_pane $mol_vector_2d /
-		<= dimensions_pane_x $mol_vector_range /
-			Infinity
-			-Infinity
-		<= dimensions_pane_y $mol_vector_range /
-			Infinity
-			-Infinity
-	dimensions $mol_vector_2d /
-		<= dimensions_x $mol_vector_range /
-			Infinity
-			-Infinity
-		<= dimensions_y $mol_vector_range /
-			Infinity
-			-Infinity
-	size_real $mol_vector_2d /
-		0
-		0
-	gap $mol_vector_2d /
-		<= gap_x $mol_vector_range /
-			0
-			0
-		<= gap_y $mol_vector_range /
-			0
-			0
-	repos_x* 0
-	repos_y* 0
-	indexes /number
-	points /readonly(number)[]
-	front /$mol_svg
-	back /$mol_svg
-	Hint $mol_svg_title
-		title <= hint <= title \
-	hue +NaN
-	Sample null
-
-$mol_plot_graph_sample $mol_view
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	style *
-		^
-		color <= color \black
-
 $mol_svg_image $mol_svg
 	dom_name \image
 	pos /
@@ -1505,153 +1806,6 @@ $mol_plot_map_tiles $mol_plot_graph
 		size /
 			<= tile_size_real
 			<= tile_size_real
-
-$mol_touch $mol_plugin
-	start_zoom? 0
-	start_distance? 0
-	zoom? 1
-	allow_draw true
-	allow_pan true
-	allow_zoom true
-	action_type? \
-	action_point? $mol_vector_2d /
-		NaN
-		NaN
-	-
-	start_pan? /
-		0
-		0
-	pan? $mol_vector_2d /
-		0
-		0
-	pointer_center $mol_vector_2d /
-		NaN
-		NaN
-	-
-	start_pos? null
-	swipe_precision 16
-	-
-	swipe_right? null
-	swipe_bottom? null
-	swipe_left? null
-	swipe_top? null
-	-
-	swipe_from_right? null
-	swipe_from_bottom? null
-	swipe_from_left? null
-	swipe_from_top? null
-	-
-	swipe_to_right? null
-	swipe_to_bottom? null
-	swipe_to_left? null
-	swipe_to_top? null
-	-
-	draw_start?event null
-	draw?event null
-	draw_end?event null
-	-
-	style *
-		^
-		touch-action \none
-		overscroll-behavior \none
-	-
-	event *
-		^
-		pointerdown?event <=> event_start?event null
-		pointermove?event <=> event_move?event null
-		pointerup?event <=> event_end?event null
-		pointerleave?event <=> event_leave?event null
-		wheel?event <=> event_wheel?event null
-
-$mol_plot_pane $mol_svg_root
-	aspect \none
-	-
-	hue_base? +NaN
-	hue_shift? 111
-	-
-	gap_hor 48
-	gap_vert 24
-	gap_left <= gap_hor
-	gap_right <= gap_hor
-	gap_top <= gap_vert
-	gap_bottom <= gap_vert
-	gap $mol_vector_2d /
-		<= gap_x $mol_vector_range /
-			<= gap_left
-			<= gap_right
-		<= gap_y $mol_vector_range /
-			<= gap_bottom
-			<= gap_top
-	-
-	shift_limit $mol_vector_2d /
-		<= shift_limit_x $mol_vector_range /
-			0
-			0
-		<= shift_limit_y $mol_vector_range /
-			0
-			0
-	shift_default $mol_vector_2d /
-		0
-		0
-	shift? $mol_vector_2d /
-		0
-		0
-	scale_limit $mol_vector_2d /
-		<= scale_limit_x $mol_vector_range /
-			0
-			Infinity
-		<= scale_limit_y $mol_vector_range /
-			0
-			-Infinity
-	scale_default $mol_vector_2d /
-		0
-		0
-	scale? $mol_vector_2d /
-		1
-		-1
-	scale_x? 1
-	scale_y? -1
-	size $mol_vector_2d /
-		0
-		0
-	size_real $mol_vector_2d /
-		1
-		1
-	dimensions $mol_vector_2d /
-		<= dimensions_x $mol_vector_range /
-			Infinity
-			-Infinity
-		<= dimensions_y $mol_vector_range /
-			Infinity
-			-Infinity
-	dimensions_viewport $mol_vector_2d /
-		<= dimensions_viewport_x $mol_vector_range /
-			Infinity
-			-Infinity
-		<= dimensions_viewport_y $mol_vector_range /
-			Infinity
-			-Infinity
-	-
-	sub <= graphs_sorted /$mol_svg
-	graphs_colored <= graphs_visible <= graphs_positioned <= graphs /$mol_plot_graph
-	-
-	plugins /
-		^
-		<= Touch $mol_touch
-			zoom? <=> zoom? 1
-			pan? <=> shift?
-			pointer_center => cursor_position
-			allow_draw <= allow_draw true
-			allow_pan <= allow_pan true
-			allow_zoom <= allow_zoom true
-			action_type => action_type
-			action_point => action_point
-			draw_start?event <=> draw_start?event null
-			draw?event <=> draw?event null
-			draw_end?event <=> draw_end?event null
-	- event *
-		^
-		dblclick?event <=> reset?event null
 
 $hyoo_map_pane $mol_plot_pane
 	gap_hor 0
@@ -2620,6 +2774,8 @@ $piterjs_app $mol_view
 		editing <= editing? false
 		meetup_public? <=> meetup_public*?
 	Meetup_guests* $piterjs_meetup_guests
+		meetup <= meetup*
+	Meetup_stats* $piterjs_meetup_stats
 		meetup <= meetup*
 	Speech!id $piterjs_speech_page
 		speech <= speech!id $piterjs_speech

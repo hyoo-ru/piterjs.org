@@ -1686,6 +1686,7 @@ declare namespace $ {
         joined_node(): $hyoo_crowd_counter;
         joined(next?: boolean): boolean;
         joined_list(): $piterjs_person[];
+        joined_moments(): $mol_time_moment[];
         joined_count(): number;
     }
 }
@@ -2527,6 +2528,18 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_icon_account_group_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_chart_bar extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_chart_bar_stacked extends $mol_icon {
         path(): string;
     }
 }
@@ -3962,6 +3975,8 @@ declare namespace $ {
         Public(): $mol_check_icon;
         Guests_link_icon(): $mol_icon_account_group_outline;
         Guests_link(): $$.$mol_link;
+        Stats_link_icon(): $mol_icon_chart_bar_stacked;
+        Stats_link(): $$.$mol_link;
         Start(): $$.$mol_date;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
@@ -4148,6 +4163,510 @@ declare namespace $.$$ {
     class $piterjs_meetup_guests extends $.$piterjs_meetup_guests {
         person_list(): $piterjs_person_snippet[];
         person(person: $piterjs_person): $piterjs_person;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $mol_svg_group extends $mol_svg {
+        dom_name(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_svg_title extends $mol_svg {
+        dom_name(): string;
+        sub(): readonly any[];
+    }
+}
+
+declare namespace $ {
+    class $mol_plot_graph extends $mol_svg_group {
+        series_x(): readonly number[];
+        series_y(): readonly number[];
+        attr(): Record<string, any>;
+        style(): Record<string, any>;
+        viewport(): $mol_vector_2d<$mol_vector_range<number>>;
+        shift(): readonly number[];
+        scale(): readonly number[];
+        cursor_position(): $mol_vector_2d<number>;
+        dimensions_pane(): $mol_vector_2d<$mol_vector_range<number>>;
+        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
+        size_real(): $mol_vector_2d<number>;
+        gap(): $mol_vector_2d<$mol_vector_range<number>>;
+        repos_x(id: any): number;
+        repos_y(id: any): number;
+        indexes(): readonly number[];
+        points(): readonly (readonly number[])[];
+        front(): readonly $mol_svg[];
+        back(): readonly $mol_svg[];
+        Hint(): $mol_svg_title;
+        hue(): number;
+        Sample(): any;
+        type(): string;
+        color(): string;
+        viewport_x(): $mol_vector_range<number>;
+        viewport_y(): $mol_vector_range<number>;
+        dimensions_pane_x(): $mol_vector_range<number>;
+        dimensions_pane_y(): $mol_vector_range<number>;
+        dimensions_x(): $mol_vector_range<number>;
+        dimensions_y(): $mol_vector_range<number>;
+        gap_x(): $mol_vector_range<number>;
+        gap_y(): $mol_vector_range<number>;
+        title(): string;
+        hint(): string;
+    }
+    class $mol_plot_graph_sample extends $mol_view {
+        attr(): Record<string, any>;
+        style(): Record<string, any>;
+        type(): string;
+        color(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_graph extends $.$mol_plot_graph {
+        viewport(): $mol_vector_2d<$mol_vector_range<number>>;
+        indexes(): readonly number[];
+        repos_x(val: number): number;
+        repos_y(val: number): number;
+        points(): readonly (readonly number[])[];
+        series_x(): readonly number[];
+        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
+        color(): string;
+        front(): readonly $.$mol_svg[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_svg_text extends $mol_svg {
+        dom_name(): string;
+        pos(): readonly any[];
+        attr(): Record<string, any>;
+        sub(): readonly any[];
+        pos_x(): string;
+        pos_y(): string;
+        align(): string;
+        text(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_svg_text extends $.$mol_svg_text {
+        pos_x(): any;
+        pos_y(): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_svg_rect extends $mol_svg {
+        dom_name(): string;
+        pos(): readonly any[];
+        attr(): Record<string, any>;
+        width(): string;
+        height(): string;
+        pos_x(): string;
+        pos_y(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_svg_rect extends $.$mol_svg_rect {
+        pos_x(): any;
+        pos_y(): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_plot_ruler extends $mol_plot_graph {
+        step(): number;
+        scale_axis(): number;
+        scale_step(): number;
+        shift_axis(): number;
+        dimensions_axis(): $mol_vector_range<number>;
+        viewport_axis(): $mol_vector_range<number>;
+        axis_points(): readonly number[];
+        normalize(next?: any): number;
+        precision(): number;
+        sub(): readonly any[];
+        Label(id: any): $$.$mol_svg_text;
+        background_x(): string;
+        background_y(): string;
+        background_width(): string;
+        background_height(): string;
+        Background(): $$.$mol_svg_rect;
+        curve(): string;
+        Curve(): $mol_svg_path;
+        labels_formatted(): readonly any[];
+        title_pos_x(): string;
+        title_pos_y(): string;
+        title_align(): string;
+        Title(): $$.$mol_svg_text;
+        label_pos_x(id: any): string;
+        label_pos_y(id: any): string;
+        label_pos(id: any): readonly any[];
+        label_text(id: any): string;
+        label_align(): string;
+    }
+}
+
+declare namespace $ {
+    function $mol_math_round_expand(val: number, gap?: number): number;
+}
+
+declare namespace $.$$ {
+    class $mol_plot_ruler extends $.$mol_plot_ruler {
+        labels_formatted(): $mol_svg_text[];
+        step(): number;
+        snap_to_grid(coord: number): number;
+        axis_points(): number[];
+        precision(): number;
+        label_text(index: number): string;
+        font_size(): number;
+        back(): $mol_svg_path[];
+        front(): readonly $.$mol_svg[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_plot_ruler_hor extends $mol_plot_ruler {
+        title_align(): string;
+        label_align(): string;
+        title_pos_x(): string;
+        title_pos_y(): string;
+        label_pos_y(id: any): string;
+        background_width(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
+        dimensions_axis(): $mol_vector_range<number>;
+        viewport_axis(): $mol_vector_range<number>;
+        scale_axis(): number;
+        scale_step(): number;
+        shift_axis(): number;
+        curve(): string;
+        label_pos_x(index: number): string;
+        background_y(): string;
+        title_pos_y(): string;
+        background_height(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_plot_mark_hor extends $mol_plot_ruler_hor {
+        labels(): readonly string[];
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_mark_hor extends $.$mol_plot_mark_hor {
+        series_x(): readonly number[];
+        labels(): readonly string[];
+        visible_indexes(): number[];
+        curve(): string;
+        label_text(index: number): string;
+        labels_formatted(): $mol_svg_text[];
+        label_pos_x(index: number): string;
+        label_pos_y(index: number): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_plot_ruler_vert extends $mol_plot_ruler {
+        title_align(): string;
+        label_align(): string;
+        title_pos_y(): string;
+        label_pos_x(id: any): string;
+        background_height(): string;
+        background_width(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
+        dimensions_axis(): $mol_vector_range<number>;
+        viewport_axis(): $mol_vector_range<number>;
+        scale_axis(): number;
+        scale_step(): number;
+        shift_axis(): number;
+        curve(): string;
+        title_pos_x(): string;
+        label_pos_y(index: number): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_plot_bar extends $mol_plot_graph {
+        style(): Record<string, any>;
+        sub(): readonly any[];
+        Sample(): $mol_plot_graph_sample;
+        stroke_width(): string;
+        curve(): string;
+        Curve(): $mol_svg_path;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_bar extends $.$mol_plot_bar {
+        indexes(): number[];
+        curve(): string;
+        stroke_width(): string;
+        color(): string;
+        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_chart_legend extends $mol_scroll {
+        graphs(): readonly $mol_plot_graph[];
+        graphs_front(): readonly $mol_plot_graph[];
+        sub(): readonly $mol_view[];
+        Graph_legend(id: any): $mol_view;
+        graph_legends(): readonly $mol_view[];
+        Graph_sample(id: any): any;
+        Graph_sample_box(id: any): $mol_view;
+        graph_title(id: any): string;
+        Graph_title(id: any): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_chart_legend extends $.$mol_chart_legend {
+        graphs_front(): readonly $mol_plot_graph[];
+        graph_legends(): readonly $mol_view[];
+        graph_title(index: number): string;
+        Graph_sample(index: number): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_touch extends $mol_plugin {
+        start_zoom(next?: any): number;
+        start_distance(next?: any): number;
+        zoom(next?: any): number;
+        allow_draw(): boolean;
+        allow_pan(): boolean;
+        allow_zoom(): boolean;
+        action_type(next?: any): string;
+        action_point(next?: any): $mol_vector_2d<number>;
+        start_pan(next?: any): readonly any[];
+        pan(next?: any): $mol_vector_2d<number>;
+        pointer_center(): $mol_vector_2d<number>;
+        start_pos(next?: any): any;
+        swipe_precision(): number;
+        swipe_right(next?: any): any;
+        swipe_bottom(next?: any): any;
+        swipe_left(next?: any): any;
+        swipe_top(next?: any): any;
+        swipe_from_right(next?: any): any;
+        swipe_from_bottom(next?: any): any;
+        swipe_from_left(next?: any): any;
+        swipe_from_top(next?: any): any;
+        swipe_to_right(next?: any): any;
+        swipe_to_bottom(next?: any): any;
+        swipe_to_left(next?: any): any;
+        swipe_to_top(next?: any): any;
+        draw_start(event?: any): any;
+        draw(event?: any): any;
+        draw_end(event?: any): any;
+        style(): Record<string, any>;
+        event(): Record<string, any>;
+        event_start(event?: any): any;
+        event_move(event?: any): any;
+        event_end(event?: any): any;
+        event_leave(event?: any): any;
+        event_wheel(event?: any): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_touch extends $.$mol_touch {
+        auto(): void;
+        pointer_events(next?: readonly PointerEvent[]): readonly PointerEvent[];
+        pointer_coords(): $mol_vector<$mol_vector_2d<number>, number>;
+        pointer_center(): $mol_vector_2d<number>;
+        event_coords(event: PointerEvent | WheelEvent): $mol_vector_2d<number>;
+        action_point(): $mol_vector_2d<number>;
+        event_eat(event: PointerEvent | WheelEvent): string;
+        event_start(event: PointerEvent): void;
+        event_move(event: PointerEvent): void;
+        event_end(event: PointerEvent): void;
+        event_leave(event: PointerEvent): void;
+        swipe_left(event: PointerEvent): void;
+        swipe_right(event: PointerEvent): void;
+        swipe_top(event: PointerEvent): void;
+        swipe_bottom(event: PointerEvent): void;
+        event_wheel(event: WheelEvent): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_plot_pane extends $mol_svg_root {
+        aspect(): string;
+        hue_base(next?: any): number;
+        hue_shift(next?: any): number;
+        gap_hor(): number;
+        gap_vert(): number;
+        gap_left(): number;
+        gap_right(): number;
+        gap_top(): number;
+        gap_bottom(): number;
+        gap(): $mol_vector_2d<$mol_vector_range<number>>;
+        shift_limit(): $mol_vector_2d<$mol_vector_range<number>>;
+        shift_default(): $mol_vector_2d<number>;
+        shift(next?: any): $mol_vector_2d<number>;
+        scale_limit(): $mol_vector_2d<$mol_vector_range<number>>;
+        scale_default(): $mol_vector_2d<number>;
+        scale(next?: any): $mol_vector_2d<number>;
+        scale_x(next?: any): number;
+        scale_y(next?: any): number;
+        size(): $mol_vector_2d<number>;
+        size_real(): $mol_vector_2d<number>;
+        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
+        dimensions_viewport(): $mol_vector_2d<$mol_vector_range<number>>;
+        sub(): readonly $mol_svg[];
+        graphs_colored(): readonly $mol_plot_graph[];
+        plugins(): readonly any[];
+        gap_x(): $mol_vector_range<number>;
+        gap_y(): $mol_vector_range<number>;
+        shift_limit_x(): $mol_vector_range<number>;
+        shift_limit_y(): $mol_vector_range<number>;
+        scale_limit_x(): $mol_vector_range<number>;
+        scale_limit_y(): $mol_vector_range<number>;
+        dimensions_x(): $mol_vector_range<number>;
+        dimensions_y(): $mol_vector_range<number>;
+        dimensions_viewport_x(): $mol_vector_range<number>;
+        dimensions_viewport_y(): $mol_vector_range<number>;
+        graphs_sorted(): readonly $mol_svg[];
+        graphs(): readonly $mol_plot_graph[];
+        graphs_positioned(): readonly $mol_plot_graph[];
+        graphs_visible(): readonly $mol_plot_graph[];
+        zoom(next?: any): number;
+        allow_draw(): boolean;
+        allow_pan(): boolean;
+        allow_zoom(): boolean;
+        draw_start(event?: any): any;
+        draw(event?: any): any;
+        draw_end(event?: any): any;
+        cursor_position(): $mol_vector_2d<number>;
+        action_type(): string;
+        action_point(): $mol_vector_2d<number>;
+        Touch(): $$.$mol_touch;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_pane extends $.$mol_plot_pane {
+        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
+        size(): $mol_vector_2d<number>;
+        graph_hue(index: number): number;
+        graphs_colored(): $.$mol_plot_graph[];
+        size_real(): $mol_vector_2d<number>;
+        view_box(): string;
+        scale_limit(): $mol_vector_2d<$mol_vector_range<number>>;
+        scale_default(): $mol_vector_2d<number>;
+        scale(next?: $mol_vector_2d<number>): $mol_vector_2d<number>;
+        scale_x(next?: number): number;
+        scale_y(next?: number): number;
+        shift_limit(): $mol_vector_2d<$mol_vector_range<number>>;
+        shift_default(): $mol_vector_2d<number>;
+        graph_touched: boolean;
+        shift(next?: $mol_vector_2d<number>): $mol_vector_2d<number>;
+        reset(event?: Event): void;
+        graphs_visible(): $.$mol_plot_graph[];
+        graphs_positioned(): readonly $.$mol_plot_graph[];
+        dimensions_viewport(): $mol_vector<$mol_vector_range<number>, 2>;
+        viewport(): $mol_vector_2d<$mol_vector_range<number>>;
+        graphs_sorted(): $.$mol_svg[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_chart extends $mol_view {
+        gap_hor(): number;
+        gap_vert(): number;
+        gap_left(): number;
+        gap_right(): number;
+        gap_bottom(): number;
+        gap_top(): number;
+        graphs(): readonly $mol_plot_graph[];
+        sub(): readonly any[];
+        Legend(): $$.$mol_chart_legend;
+        hue_base(): number;
+        hue_shift(): number;
+        zoom(next?: any): number;
+        graphs_colored(): $mol_plot_graph[];
+        Plot(): $$.$mol_plot_pane;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $piterjs_meetup_stats extends $mol_page {
+        joined_moments(): $mol_time_moment[];
+        meetup(): $piterjs_meetup;
+        title(): string;
+        tools(): readonly any[];
+        body(): readonly any[];
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
+        days(): readonly any[];
+        Days(): $$.$mol_plot_mark_hor;
+        joins_per_days(): readonly any[];
+        Counts(): $$.$mol_plot_ruler_vert;
+        Joins(): $$.$mol_plot_bar;
+        Chart(): $mol_chart;
+    }
+}
+
+declare namespace $ {
+    type $mol_type_immutable_deep<Val> = {
+        readonly [field in keyof Val]: $mol_type_immutable_deep<Val[field]>;
+    };
+}
+
+declare namespace $ {
+    function $mol_array_groups<Item, Groups extends string>(all: readonly Item[], group: (item: Item) => Groups): $mol_type_immutable_deep<Record<Groups, Item[] | undefined>>;
+}
+
+declare namespace $.$$ {
+    class $piterjs_meetup_stats extends $.$piterjs_meetup_stats {
+        joins_stat(): $mol_type_immutable_deep<Record<string, $mol_time_moment[] | undefined>>;
+        days(): string[];
+        joins_per_days(): number[];
     }
 }
 
@@ -4667,80 +5186,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_svg_group extends $mol_svg {
-        dom_name(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_svg_title extends $mol_svg {
-        dom_name(): string;
-        sub(): readonly any[];
-    }
-}
-
-declare namespace $ {
-    class $mol_plot_graph extends $mol_svg_group {
-        series_x(): readonly number[];
-        series_y(): readonly number[];
-        attr(): Record<string, any>;
-        style(): Record<string, any>;
-        viewport(): $mol_vector_2d<$mol_vector_range<number>>;
-        shift(): readonly number[];
-        scale(): readonly number[];
-        cursor_position(): $mol_vector_2d<number>;
-        dimensions_pane(): $mol_vector_2d<$mol_vector_range<number>>;
-        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
-        size_real(): $mol_vector_2d<number>;
-        gap(): $mol_vector_2d<$mol_vector_range<number>>;
-        repos_x(id: any): number;
-        repos_y(id: any): number;
-        indexes(): readonly number[];
-        points(): readonly (readonly number[])[];
-        front(): readonly $mol_svg[];
-        back(): readonly $mol_svg[];
-        Hint(): $mol_svg_title;
-        hue(): number;
-        Sample(): any;
-        type(): string;
-        color(): string;
-        viewport_x(): $mol_vector_range<number>;
-        viewport_y(): $mol_vector_range<number>;
-        dimensions_pane_x(): $mol_vector_range<number>;
-        dimensions_pane_y(): $mol_vector_range<number>;
-        dimensions_x(): $mol_vector_range<number>;
-        dimensions_y(): $mol_vector_range<number>;
-        gap_x(): $mol_vector_range<number>;
-        gap_y(): $mol_vector_range<number>;
-        title(): string;
-        hint(): string;
-    }
-    class $mol_plot_graph_sample extends $mol_view {
-        attr(): Record<string, any>;
-        style(): Record<string, any>;
-        type(): string;
-        color(): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_plot_graph extends $.$mol_plot_graph {
-        viewport(): $mol_vector_2d<$mol_vector_range<number>>;
-        indexes(): readonly number[];
-        repos_x(val: number): number;
-        repos_y(val: number): number;
-        points(): readonly (readonly number[])[];
-        series_x(): readonly number[];
-        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
-        color(): string;
-        front(): readonly $.$mol_svg[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_svg_image extends $mol_svg {
         dom_name(): string;
         pos(): readonly any[];
@@ -4794,151 +5239,6 @@ declare namespace $.$$ {
         front(): never[];
     }
     export {};
-}
-
-declare namespace $ {
-    class $mol_touch extends $mol_plugin {
-        start_zoom(next?: any): number;
-        start_distance(next?: any): number;
-        zoom(next?: any): number;
-        allow_draw(): boolean;
-        allow_pan(): boolean;
-        allow_zoom(): boolean;
-        action_type(next?: any): string;
-        action_point(next?: any): $mol_vector_2d<number>;
-        start_pan(next?: any): readonly any[];
-        pan(next?: any): $mol_vector_2d<number>;
-        pointer_center(): $mol_vector_2d<number>;
-        start_pos(next?: any): any;
-        swipe_precision(): number;
-        swipe_right(next?: any): any;
-        swipe_bottom(next?: any): any;
-        swipe_left(next?: any): any;
-        swipe_top(next?: any): any;
-        swipe_from_right(next?: any): any;
-        swipe_from_bottom(next?: any): any;
-        swipe_from_left(next?: any): any;
-        swipe_from_top(next?: any): any;
-        swipe_to_right(next?: any): any;
-        swipe_to_bottom(next?: any): any;
-        swipe_to_left(next?: any): any;
-        swipe_to_top(next?: any): any;
-        draw_start(event?: any): any;
-        draw(event?: any): any;
-        draw_end(event?: any): any;
-        style(): Record<string, any>;
-        event(): Record<string, any>;
-        event_start(event?: any): any;
-        event_move(event?: any): any;
-        event_end(event?: any): any;
-        event_leave(event?: any): any;
-        event_wheel(event?: any): any;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_touch extends $.$mol_touch {
-        auto(): void;
-        pointer_events(next?: readonly PointerEvent[]): readonly PointerEvent[];
-        pointer_coords(): $mol_vector<$mol_vector_2d<number>, number>;
-        pointer_center(): $mol_vector_2d<number>;
-        event_coords(event: PointerEvent | WheelEvent): $mol_vector_2d<number>;
-        action_point(): $mol_vector_2d<number>;
-        event_eat(event: PointerEvent | WheelEvent): string;
-        event_start(event: PointerEvent): void;
-        event_move(event: PointerEvent): void;
-        event_end(event: PointerEvent): void;
-        event_leave(event: PointerEvent): void;
-        swipe_left(event: PointerEvent): void;
-        swipe_right(event: PointerEvent): void;
-        swipe_top(event: PointerEvent): void;
-        swipe_bottom(event: PointerEvent): void;
-        event_wheel(event: WheelEvent): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_plot_pane extends $mol_svg_root {
-        aspect(): string;
-        hue_base(next?: any): number;
-        hue_shift(next?: any): number;
-        gap_hor(): number;
-        gap_vert(): number;
-        gap_left(): number;
-        gap_right(): number;
-        gap_top(): number;
-        gap_bottom(): number;
-        gap(): $mol_vector_2d<$mol_vector_range<number>>;
-        shift_limit(): $mol_vector_2d<$mol_vector_range<number>>;
-        shift_default(): $mol_vector_2d<number>;
-        shift(next?: any): $mol_vector_2d<number>;
-        scale_limit(): $mol_vector_2d<$mol_vector_range<number>>;
-        scale_default(): $mol_vector_2d<number>;
-        scale(next?: any): $mol_vector_2d<number>;
-        scale_x(next?: any): number;
-        scale_y(next?: any): number;
-        size(): $mol_vector_2d<number>;
-        size_real(): $mol_vector_2d<number>;
-        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
-        dimensions_viewport(): $mol_vector_2d<$mol_vector_range<number>>;
-        sub(): readonly $mol_svg[];
-        graphs_colored(): readonly $mol_plot_graph[];
-        plugins(): readonly any[];
-        gap_x(): $mol_vector_range<number>;
-        gap_y(): $mol_vector_range<number>;
-        shift_limit_x(): $mol_vector_range<number>;
-        shift_limit_y(): $mol_vector_range<number>;
-        scale_limit_x(): $mol_vector_range<number>;
-        scale_limit_y(): $mol_vector_range<number>;
-        dimensions_x(): $mol_vector_range<number>;
-        dimensions_y(): $mol_vector_range<number>;
-        dimensions_viewport_x(): $mol_vector_range<number>;
-        dimensions_viewport_y(): $mol_vector_range<number>;
-        graphs_sorted(): readonly $mol_svg[];
-        graphs(): readonly $mol_plot_graph[];
-        graphs_positioned(): readonly $mol_plot_graph[];
-        graphs_visible(): readonly $mol_plot_graph[];
-        zoom(next?: any): number;
-        allow_draw(): boolean;
-        allow_pan(): boolean;
-        allow_zoom(): boolean;
-        draw_start(event?: any): any;
-        draw(event?: any): any;
-        draw_end(event?: any): any;
-        cursor_position(): $mol_vector_2d<number>;
-        action_type(): string;
-        action_point(): $mol_vector_2d<number>;
-        Touch(): $$.$mol_touch;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_plot_pane extends $.$mol_plot_pane {
-        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
-        size(): $mol_vector_2d<number>;
-        graph_hue(index: number): number;
-        graphs_colored(): $.$mol_plot_graph[];
-        size_real(): $mol_vector_2d<number>;
-        view_box(): string;
-        scale_limit(): $mol_vector_2d<$mol_vector_range<number>>;
-        scale_default(): $mol_vector_2d<number>;
-        scale(next?: $mol_vector_2d<number>): $mol_vector_2d<number>;
-        scale_x(next?: number): number;
-        scale_y(next?: number): number;
-        shift_limit(): $mol_vector_2d<$mol_vector_range<number>>;
-        shift_default(): $mol_vector_2d<number>;
-        graph_touched: boolean;
-        shift(next?: $mol_vector_2d<number>): $mol_vector_2d<number>;
-        reset(event?: Event): void;
-        graphs_visible(): $.$mol_plot_graph[];
-        graphs_positioned(): readonly $.$mol_plot_graph[];
-        dimensions_viewport(): $mol_vector<$mol_vector_range<number>, 2>;
-        viewport(): $mol_vector_2d<$mol_vector_range<number>>;
-        graphs_sorted(): $.$mol_svg[];
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -6921,6 +7221,7 @@ declare namespace $ {
         Menu(): $mol_page;
         Meetup(id: any): $$.$piterjs_meetup_page;
         Meetup_guests(id: any): $$.$piterjs_meetup_guests;
+        Meetup_stats(id: any): $$.$piterjs_meetup_stats;
         Speech(id: any): $$.$piterjs_speech_page;
         Menu_meetup(id: any): $$.$piterjs_meetup_snippet;
         Now(): $piterjs_now;
@@ -7019,13 +7320,14 @@ declare namespace $.$$ {
         others(): boolean;
         wiki(): boolean;
         guests(): boolean;
+        stats(): boolean;
         safe(): boolean;
         meetup_id(next?: string | null): string | null;
         meetup_add(): void;
         speech_id(next?: string): string | null;
         speech(id: $mol_int62_string): $piterjs_speech;
         speaker_id(next?: string): string | null;
-        pages(): $piterjs_intro[] | ($mol_view | $mol_page | $piterjs_meetup_page | $piterjs_meetup_guests | $piterjs_speech_page | $piterjs_video_page | $piterjs_place_page | $piterjs_others | $hyoo_meta_rights | $hyoo_page_side_menu | $hyoo_page_side_view | $hyoo_page_side_edit | $hyoo_page_side_info | $hyoo_meta_safe)[];
+        pages(): $piterjs_intro[] | ($mol_view | $mol_page | $piterjs_meetup_page | $piterjs_meetup_guests | $piterjs_meetup_stats | $piterjs_speech_page | $piterjs_video_page | $piterjs_place_page | $piterjs_others | $hyoo_meta_rights | $hyoo_page_side_menu | $hyoo_page_side_view | $hyoo_page_side_edit | $hyoo_page_side_info | $hyoo_meta_safe)[];
         title(): string;
         meetup_current(): $piterjs_meetup;
         place(): $piterjs_place;
