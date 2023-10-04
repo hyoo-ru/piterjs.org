@@ -11637,6 +11637,42 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_heart extends $mol_icon {
+        path() {
+            return "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
+        }
+    }
+    $.$mol_icon_heart = $mol_icon_heart;
+})($ || ($ = {}));
+//mol/icon/heart/-view.tree/heart.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_heart_box extends $mol_icon {
+        path() {
+            return "M5,3H19C20.1,3 21,3.9 21,5V19C21,20.1 20.1,21 19,21H5C3.9,21 3,20.1 3,19V5C3,3.9 3.9,3 5,3M12,17L12.72,16.34C15.3,14 17,12.46 17,10.57C17,9.03 15.79,7.82 14.25,7.82C13.38,7.82 12.55,8.23 12,8.87C11.45,8.23 10.62,7.82 9.75,7.82C8.21,7.82 7,9.03 7,10.57C7,12.46 8.7,14 11.28,16.34L12,17Z";
+        }
+    }
+    $.$mol_icon_heart_box = $mol_icon_heart_box;
+})($ || ($ = {}));
+//mol/icon/heart/box/-view.tree/box.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_heart_box_outline extends $mol_icon {
+        path() {
+            return "M12,17L11.28,16.34C8.7,14 7,12.46 7,10.57C7,9.03 8.21,7.82 9.75,7.82C10.62,7.82 11.45,8.23 12,8.87C12.55,8.23 13.38,7.82 14.25,7.82C15.79,7.82 17,9.03 17,10.57C17,12.46 15.3,14 12.72,16.34L12,17M5,3H19C20.1,3 21,3.9 21,5V19C21,20.1 20.1,21 19,21H5C3.9,21 3,20.1 3,19V5C3,3.9 3.9,3 5,3M5,5V19H19V5H5Z";
+        }
+    }
+    $.$mol_icon_heart_box_outline = $mol_icon_heart_box_outline;
+})($ || ($ = {}));
+//mol/icon/heart/box/outline/-view.tree/outline.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $piterjs_person_edit extends $mol_view {
         name_first(next) {
             return this.person().name_first(next);
@@ -13869,11 +13905,37 @@ var $;
             obj.Content = () => this.Capacity();
             return obj;
         }
+        capacity_cut(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Capacity_cut_icon() {
+            const obj = new this.$.$mol_icon_heart_box_outline();
+            return obj;
+        }
+        Capacity_cut() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => "закрыть регистрацию";
+            obj.click = (next) => this.capacity_cut(next);
+            obj.sub = () => [
+                this.Capacity_cut_icon()
+            ];
+            return obj;
+        }
+        Capacity_block() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Capacity_field(),
+                this.Capacity_cut()
+            ];
+            return obj;
+        }
         Hidden_fields() {
             const obj = new this.$.$mol_list();
             obj.rows = () => [
                 this.Afterparty_field(),
-                this.Capacity_field()
+                this.Capacity_block()
             ];
             return obj;
         }
@@ -14042,6 +14104,18 @@ var $;
     ], $piterjs_meetup_page.prototype, "Capacity_field", null);
     __decorate([
         $mol_mem
+    ], $piterjs_meetup_page.prototype, "capacity_cut", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Capacity_cut_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Capacity_cut", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Capacity_block", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_meetup_page.prototype, "Hidden_fields", null);
     __decorate([
         $mol_mem
@@ -14139,6 +14213,9 @@ var $;
             capacity(next) {
                 return this.meetup().place().capacity_max(next);
             }
+            capacity_cut() {
+                this.meetup().place().capacity_max(this.joined_count());
+            }
             profile_editable() {
                 return !this.joined();
             }
@@ -14146,6 +14223,8 @@ var $;
                 if (this.person().name_first().length < 2)
                     return false;
                 if (this.person().name_last().length < 2)
+                    return false;
+                if (!this.joined() && this.meetup().place().capacity_max() <= this.joined_count())
                     return false;
                 return true;
             }
@@ -14193,7 +14272,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 3rem;\n}\n\n[piterjs_meetup_page_tools] {\n\tflex-grow: 1;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_hidden_fields] {\n\tpadding: var(--mol_gap_block);\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_join] {\n\tpadding: var(--mol_gap_block);\n\tbackground-color: var(--mol_theme_card);\n}\n\n[piterjs_meetup_page_joined_confirm] {\n\tpadding: var(--mol_gap_text);\n}\n\n[piterjs_meetup_page_free_space] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_shade);\n}\n");
+    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 3rem;\n}\n\n[piterjs_meetup_page_tools] {\n\tflex-grow: 1;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_hidden_fields] {\n\tpadding: var(--mol_gap_block);\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_join] {\n\tpadding: var(--mol_gap_block);\n\tbackground-color: var(--mol_theme_card);\n}\n\n[piterjs_meetup_page_joined_confirm] {\n\tpadding: var(--mol_gap_text);\n}\n\n[piterjs_meetup_page_free_space] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_shade);\n}\n\n[piterjs_meetup_page_capacity_field] {\n\tflex: 1\n}\n\n[piterjs_meetup_page_capacity_cut] {\n\talign-self: flex-end;\n}\n");
 })($ || ($ = {}));
 //piterjs/meetup/page/-css/page.view.css.ts
 ;
@@ -15982,6 +16061,335 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_svg_text_box extends $mol_svg_group {
+        font_size() {
+            return 16;
+        }
+        width() {
+            return 0;
+        }
+        sub() {
+            return [
+                this.Back(),
+                this.Text()
+            ];
+        }
+        box_width() {
+            return "0.5rem";
+        }
+        box_height() {
+            return "1rem";
+        }
+        box_pos_x() {
+            return this.pos_x();
+        }
+        box_pos_y() {
+            return "0";
+        }
+        Back() {
+            const obj = new this.$.$mol_svg_rect();
+            obj.width = () => this.box_width();
+            obj.height = () => this.box_height();
+            obj.pos = () => [
+                this.box_pos_x(),
+                this.box_pos_y()
+            ];
+            return obj;
+        }
+        pos_x() {
+            return "0";
+        }
+        pos_y() {
+            return "100%";
+        }
+        align() {
+            return "start";
+        }
+        text() {
+            return "";
+        }
+        Text() {
+            const obj = new this.$.$mol_svg_text();
+            obj.pos = () => [
+                this.pos_x(),
+                this.pos_y()
+            ];
+            obj.align = () => this.align();
+            obj.sub = () => [
+                this.text()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_svg_text_box.prototype, "Back", null);
+    __decorate([
+        $mol_mem
+    ], $mol_svg_text_box.prototype, "Text", null);
+    $.$mol_svg_text_box = $mol_svg_text_box;
+})($ || ($ = {}));
+//mol/svg/text/box/-view.tree/box.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    let canvas;
+    function $mol_font_canvas(next = canvas) {
+        if (!next)
+            next = $mol_dom_context.document.createElement('canvas').getContext('2d');
+        return canvas = next;
+    }
+    $.$mol_font_canvas = $mol_font_canvas;
+})($ || ($ = {}));
+//mol/font/canvas/canvas.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_font_measure(font, text) {
+        const canvas = $mol_font_canvas();
+        canvas.font = font;
+        return canvas.measureText(text).width;
+    }
+    $.$mol_font_measure = $mol_font_measure;
+})($ || ($ = {}));
+//mol/font/measure/measure.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg_text_box extends $.$mol_svg_text_box {
+            box_width() {
+                return `${this.width()}px`;
+            }
+            width() {
+                return $mol_font_measure(this.font_size() + 'px ' + this.font_family(), this.text());
+            }
+            box_pos_x() {
+                const align = this.align();
+                if (align === 'end')
+                    return `calc(${this.pos_x()} - ${this.width()})`;
+                if (align === 'middle')
+                    return `calc(${this.pos_x()} - ${Math.round(this.width() / 2)})`;
+                return this.pos_x();
+            }
+            box_pos_y() {
+                return `calc(${this.pos_y()} - ${this.font_size() - 2})`;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_svg_text_box.prototype, "width", null);
+        $$.$mol_svg_text_box = $mol_svg_text_box;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/svg/text/box/box.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/svg/text/box/box.view.css", "[mol_svg_text_box_back] {\n\tstroke: none;\n\tfill: var(--mol_theme_back);\n}\n");
+})($ || ($ = {}));
+//mol/svg/text/box/-css/box.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_plot_mark_cross extends $mol_plot_graph {
+        labels() {
+            return [];
+        }
+        title_x_gap() {
+            return 4;
+        }
+        threshold() {
+            return 16;
+        }
+        graphs() {
+            return [];
+        }
+        dimensions() {
+            const obj = new this.$.$mol_vector_2d(this.dimensions_x(), this.dimensions_y());
+            return obj;
+        }
+        sub() {
+            return [
+                this.Curve(),
+                this.Label_x(),
+                this.Label_y()
+            ];
+        }
+        dimensions_x() {
+            const obj = new this.$.$mol_vector_range(Infinity, -Infinity);
+            return obj;
+        }
+        dimensions_y() {
+            const obj = new this.$.$mol_vector_range(Infinity, -Infinity);
+            return obj;
+        }
+        curve() {
+            return "";
+        }
+        Curve() {
+            const obj = new this.$.$mol_svg_path();
+            obj.geometry = () => this.curve();
+            return obj;
+        }
+        title_x_pos_x() {
+            return "0";
+        }
+        title_x_pos_y() {
+            return "100%";
+        }
+        title_x() {
+            return "";
+        }
+        Label_x() {
+            const obj = new this.$.$mol_svg_text_box();
+            obj.pos_x = () => this.title_x_pos_x();
+            obj.pos_y = () => this.title_x_pos_y();
+            obj.text = () => this.title_x();
+            return obj;
+        }
+        title_y_pos_x() {
+            return "0";
+        }
+        title_y_pos_y() {
+            return "0";
+        }
+        title_y() {
+            return "";
+        }
+        Label_y() {
+            const obj = new this.$.$mol_svg_text_box();
+            obj.pos_x = () => this.title_y_pos_x();
+            obj.pos_y = () => this.title_y_pos_y();
+            obj.text = () => this.title_y();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_plot_mark_cross.prototype, "dimensions", null);
+    __decorate([
+        $mol_mem
+    ], $mol_plot_mark_cross.prototype, "dimensions_x", null);
+    __decorate([
+        $mol_mem
+    ], $mol_plot_mark_cross.prototype, "dimensions_y", null);
+    __decorate([
+        $mol_mem
+    ], $mol_plot_mark_cross.prototype, "Curve", null);
+    __decorate([
+        $mol_mem
+    ], $mol_plot_mark_cross.prototype, "Label_x", null);
+    __decorate([
+        $mol_mem
+    ], $mol_plot_mark_cross.prototype, "Label_y", null);
+    $.$mol_plot_mark_cross = $mol_plot_mark_cross;
+})($ || ($ = {}));
+//mol/plot/mark/cross/-view.tree/cross.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_plot_mark_cross extends $.$mol_plot_mark_cross {
+            nearest() {
+                let delta = this.threshold() ** 2;
+                const [cursor_x, cursor_y] = this.cursor_position();
+                if (Number.isNaN(cursor_x) || Number.isNaN(cursor_y))
+                    return null;
+                const graphs = this.graphs();
+                let index = 0;
+                let graph = null;
+                const [shift_x, shift_y] = this.shift();
+                const [scale_x, scale_y] = this.scale();
+                for (let current of graphs) {
+                    const indexes = current.indexes();
+                    const series_x = current.series_x();
+                    const series_y = current.series_y();
+                    for (let i of indexes) {
+                        const point_x = shift_x + series_x[i] * scale_x;
+                        const point_y = shift_y + series_y[i] * scale_y;
+                        const diff = (point_x - cursor_x) ** 2 + (point_y - cursor_y) ** 2;
+                        if (diff < delta) {
+                            delta = diff;
+                            index = i;
+                            graph = current;
+                        }
+                    }
+                }
+                if (!graph)
+                    return null;
+                const value = new $mol_vector_2d(graph.series_x()[index], graph.series_y()[index]);
+                const scaled = new $mol_vector_2d(shift_x + value.x * scale_x, shift_y + value.y * scale_y);
+                return { value, scaled, index };
+            }
+            curve() {
+                const nearest = this.nearest();
+                if (!nearest)
+                    return '';
+                return `M ${nearest.scaled.x.toFixed(3)} 1000 V 0 M 0 ${nearest.scaled.y.toFixed(3)} H 2000`;
+            }
+            title_x() {
+                const nearest = this.nearest();
+                if (!nearest)
+                    return '';
+                const labels = this.labels();
+                if (labels.length > nearest.index)
+                    return labels[nearest.index];
+                return String(nearest.value.x);
+            }
+            title_x_pos_x() {
+                const nearest = this.nearest();
+                if (!nearest)
+                    return '0';
+                const width = this.Label_x().width();
+                return (nearest.scaled.x - width / 2).toFixed(3);
+            }
+            title_x_pos_y() {
+                const nearest = this.nearest();
+                if (!nearest)
+                    return '0';
+                const pos = this.size_real().y - this.title_x_gap();
+                return pos.toFixed(3);
+            }
+            title_y() {
+                const nearest = this.nearest();
+                if (!nearest)
+                    return '';
+                return String(nearest.value.y);
+            }
+            title_y_pos_y() {
+                const nearest = this.nearest();
+                if (!nearest)
+                    return '0';
+                return nearest.scaled.y.toFixed(3);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_plot_mark_cross.prototype, "nearest", null);
+        $$.$mol_plot_mark_cross = $mol_plot_mark_cross;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/plot/mark/cross/cross.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/plot/mark/cross/cross.view.css", "[mol_plot_mark_cross_curve] {\n\tcolor: var(--mol_theme_focus);\n\tstroke-width: 1px;\n\tstroke: currentColor;\n\tpointer-events: none;\n}\n\n[mol_plot_mark_cross_label_x], [mol_plot_mark_cross_label_y] {\n\tcolor: var(--mol_theme_focus);\n\tfont-weight: bold;\n\tpointer-events: none;\n}\n\n[mol_plot_mark_cross_label_y] {\n\ttransform: translateY( 4px );\n}\n");
+})($ || ($ = {}));
+//mol/plot/mark/cross/-css/cross.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_chart_legend extends $mol_scroll {
         graphs() {
             return [];
@@ -17242,12 +17650,21 @@ var $;
             obj.series_y = () => this.joins_per_days();
             return obj;
         }
+        Details() {
+            const obj = new this.$.$mol_plot_mark_cross();
+            obj.labels = () => this.days();
+            obj.graphs = () => [
+                this.Joins()
+            ];
+            return obj;
+        }
         Chart() {
             const obj = new this.$.$mol_chart();
             obj.graphs = () => [
                 this.Days(),
                 this.Counts(),
-                this.Joins()
+                this.Joins(),
+                this.Details()
             ];
             return obj;
         }
@@ -17270,6 +17687,9 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_meetup_stats.prototype, "Joins", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_stats.prototype, "Details", null);
     __decorate([
         $mol_mem
     ], $piterjs_meetup_stats.prototype, "Chart", null);
@@ -17338,9 +17758,6 @@ var $;
                 flex: {
                     basis: `20rem`,
                     grow: 0,
-                },
-                background: {
-                    color: $mol_theme.card,
                 },
             },
         });

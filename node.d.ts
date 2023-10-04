@@ -3406,6 +3406,24 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_heart extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_heart_box extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_heart_box_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $piterjs_person_edit extends $mol_view {
         name_first(next?: any): string;
         name_last(next?: any): string;
@@ -3995,6 +4013,10 @@ declare namespace $ {
         capacity(next?: any): number;
         Capacity(): $$.$mol_number;
         Capacity_field(): $$.$mol_form_field;
+        capacity_cut(next?: any): any;
+        Capacity_cut_icon(): $mol_icon_heart_box_outline;
+        Capacity_cut(): $mol_button_minor;
+        Capacity_block(): $mol_view;
         Hidden_fields(): $$.$mol_list;
         free_space(): string;
         Free_space(): $$.$mol_paragraph;
@@ -4029,6 +4051,7 @@ declare namespace $.$$ {
         Guests_link(): $mol_link;
         Stats_link(): $mol_link;
         capacity(next?: number): number;
+        capacity_cut(): void;
         profile_editable(): boolean;
         join_enabled(): boolean;
         join_content(): ($mol_view | $piterjs_person_edit)[];
@@ -4443,6 +4466,86 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_svg_text_box extends $mol_svg_group {
+        font_size(): number;
+        width(): number;
+        sub(): readonly any[];
+        box_width(): string;
+        box_height(): string;
+        box_pos_x(): string;
+        box_pos_y(): string;
+        Back(): $$.$mol_svg_rect;
+        pos_x(): string;
+        pos_y(): string;
+        align(): string;
+        text(): string;
+        Text(): $$.$mol_svg_text;
+    }
+}
+
+declare namespace $ {
+    function $mol_font_canvas(next?: CanvasRenderingContext2D): CanvasRenderingContext2D;
+}
+
+declare namespace $ {
+    function $mol_font_measure(font: string, text: string): number;
+}
+
+declare namespace $.$$ {
+    class $mol_svg_text_box extends $.$mol_svg_text_box {
+        box_width(): string;
+        width(): number;
+        box_pos_x(): string;
+        box_pos_y(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_plot_mark_cross extends $mol_plot_graph {
+        labels(): readonly string[];
+        title_x_gap(): number;
+        threshold(): number;
+        graphs(): readonly $mol_plot_graph[];
+        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
+        sub(): readonly any[];
+        dimensions_x(): $mol_vector_range<number>;
+        dimensions_y(): $mol_vector_range<number>;
+        curve(): string;
+        Curve(): $mol_svg_path;
+        title_x_pos_x(): string;
+        title_x_pos_y(): string;
+        title_x(): string;
+        Label_x(): $$.$mol_svg_text_box;
+        title_y_pos_x(): string;
+        title_y_pos_y(): string;
+        title_y(): string;
+        Label_y(): $$.$mol_svg_text_box;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_plot_mark_cross extends $.$mol_plot_mark_cross {
+        nearest(): {
+            value: $mol_vector_2d<number>;
+            scaled: $mol_vector_2d<number>;
+            index: number;
+        } | null;
+        curve(): string;
+        title_x(): string;
+        title_x_pos_x(): string;
+        title_x_pos_y(): string;
+        title_y(): string;
+        title_y_pos_y(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_chart_legend extends $mol_scroll {
         graphs(): readonly $mol_plot_graph[];
         graphs_front(): readonly $mol_plot_graph[];
@@ -4649,6 +4752,7 @@ declare namespace $ {
         joins_per_days(): readonly any[];
         Counts(): $$.$mol_plot_ruler_vert;
         Joins(): $$.$mol_plot_bar;
+        Details(): $$.$mol_plot_mark_cross;
         Chart(): $mol_chart;
     }
 }
