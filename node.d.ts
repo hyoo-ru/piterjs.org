@@ -4027,6 +4027,7 @@ declare namespace $.$$ {
         speech_add(): void;
         Public(): $mol_check_icon;
         Guests_link(): $mol_link;
+        Stats_link(): $mol_link;
         capacity(next?: number): number;
         profile_editable(): boolean;
         join_enabled(): boolean;
