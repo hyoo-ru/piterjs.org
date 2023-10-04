@@ -6930,6 +6930,7 @@ declare namespace $ {
         Others(): $$.$piterjs_others;
         Rights(): $$.$hyoo_meta_rights;
         Wiki(): $$.$hyoo_page;
+        Safe(): $$.$hyoo_meta_safe;
         Theme(): $$.$mol_theme_auto;
         place(): $piterjs_place;
         pages(): readonly any[];
@@ -6943,6 +6944,8 @@ declare namespace $ {
         rights(next?: any): boolean;
         Rights_toggle_icon(): $mol_icon_shield_account;
         Rights_toggle(): $mol_check_icon;
+        Safe_icon(): $mol_icon_key_variant;
+        Safe_link(): $$.$mol_link;
         tools(): readonly any[];
         Yard(): $hyoo_sync_client;
         Online(): $$.$hyoo_sync_online;
@@ -6967,6 +6970,8 @@ declare namespace $ {
         meetup_current(): $piterjs_meetup;
         intro(val?: any): string;
         video_uri(next?: any): string;
+        Safe_close_icon(): $mol_icon_cross;
+        Safe_close(): $$.$mol_link;
     }
 }
 
@@ -7014,6 +7019,7 @@ declare namespace $.$$ {
         others(): boolean;
         wiki(): boolean;
         guests(): boolean;
+        safe(): boolean;
         meetup_id(next?: string | null): string | null;
         meetup_add(): void;
         speech_id(next?: string): string | null;
@@ -7029,7 +7035,7 @@ declare namespace $.$$ {
         toggle_intro(next?: boolean): boolean;
         video(): boolean;
         video_uri(next?: string): string;
-        tools(): $mol_button_minor[];
+        tools(): ($mol_link | $mol_button_minor)[];
         foot(): ($mol_view | $mol_check_icon | $hyoo_sync_online)[];
         user_id(): `${string}_${string}`;
         speech_public(id: $mol_int62_string, next?: boolean): boolean;

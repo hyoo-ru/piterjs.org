@@ -27255,6 +27255,13 @@ var $;
             obj.yard = () => this.Yard();
             return obj;
         }
+        Safe() {
+            const obj = new this.$.$hyoo_meta_safe();
+            obj.tools = () => [
+                this.Safe_close()
+            ];
+            return obj;
+        }
         Theme() {
             const obj = new this.$.$mol_theme_auto();
             return obj;
@@ -27324,10 +27331,25 @@ var $;
             obj.Icon = () => this.Rights_toggle_icon();
             return obj;
         }
+        Safe_icon() {
+            const obj = new this.$.$mol_icon_key_variant();
+            return obj;
+        }
+        Safe_link() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                safe: ""
+            });
+            obj.sub = () => [
+                this.Safe_icon()
+            ];
+            return obj;
+        }
         tools() {
             return [
                 this.Meetup_add(),
-                this.Rights_toggle()
+                this.Rights_toggle(),
+                this.Safe_link()
             ];
         }
         Yard() {
@@ -27460,6 +27482,20 @@ var $;
                 return next;
             return "";
         }
+        Safe_close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Safe_close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                safe: null
+            });
+            obj.sub = () => [
+                this.Safe_close_icon()
+            ];
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -27502,6 +27538,9 @@ var $;
     ], $piterjs_app.prototype, "Wiki", null);
     __decorate([
         $mol_mem
+    ], $piterjs_app.prototype, "Safe", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_app.prototype, "Theme", null);
     __decorate([
         $mol_mem
@@ -27536,6 +27575,12 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Rights_toggle", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Safe_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Safe_link", null);
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "Yard", null);
@@ -27596,6 +27641,12 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_app.prototype, "video_uri", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Safe_close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_app.prototype, "Safe_close", null);
     $.$piterjs_app = $piterjs_app;
 })($ || ($ = {}));
 //piterjs/app/-view.tree/app.view.tree.ts
@@ -27952,6 +28003,7 @@ var $;
             others() { return this.$.$mol_state_arg.value('others') !== null; }
             wiki() { return this.$.$mol_state_arg.value('wiki') !== null; }
             guests() { return this.$.$mol_state_arg.value('guests') !== null; }
+            safe() { return this.$.$mol_state_arg.value('safe') !== null; }
             meetup_id(next) {
                 const id = this.$.$mol_state_arg.value('meetup', next);
                 if (!id)
@@ -27973,6 +28025,7 @@ var $;
                     return [this.Intro()];
                 const pages = [
                     this.Menu(),
+                    ...this.safe() ? [this.Safe()] : [],
                     ...this.meetup_id() ? [this.Meetup(this.meetup_id())] : [],
                     ...this.guests() ? [this.Meetup_guests(this.meetup_id())] : [],
                     ...this.speech_id() ? [this.Speech(this.speech_id())] : [],
@@ -28026,6 +28079,7 @@ var $;
                 return [
                     ...this.editing() ? [this.Meetup_add()] : [],
                     ...this.editing() ? [this.Rights_toggle()] : [],
+                    this.Safe_link(),
                 ];
             }
             foot() {
