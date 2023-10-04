@@ -424,7 +424,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_wire_async<Host extends object>(obj: Host): (Host extends (...args: infer Args) => infer Res ? Res extends Promise<any> ? Host : (...args: Args) => Promise<Res> : {}) & { [key in keyof Host]: Host[key] extends (...args: infer Args_1) => infer Res_1 ? Res_1 extends Promise<any> ? Host[key] : (...args: Args_1) => Promise<Res_1> : Host[key]; };
+    export function $mol_wire_async<Host extends object>(obj: Host): ObjectOrFunctionResultPromisify<Host>;
+    type FunctionResultPromisify<Some> = Some extends (...args: infer Args) => infer Res ? Res extends PromiseLike<unknown> ? Some : (...args: Args) => Promise<Res> : Some;
+    type MethodsResultPromisify<Host extends Object> = {
+        [K in keyof Host]: FunctionResultPromisify<Host[K]>;
+    };
+    type ObjectOrFunctionResultPromisify<Some> = (Some extends (...args: any) => unknown ? FunctionResultPromisify<Some> : {}) & (Some extends Object ? MethodsResultPromisify<Some> : Some);
+    export {};
 }
 
 declare namespace $ {
@@ -968,7 +974,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_wire_sync<Host extends object>(obj: Host): (Host extends (...args: infer Args) => infer Res ? Res extends Promise<infer Res2> ? (...args: Args) => Res2 : Host : {}) & { [key in keyof Host]: Host[key] extends (...args: infer Args_1) => Promise<infer Res_1> ? (...args: Args_1) => Res_1 : Host[key]; };
+    export function $mol_wire_sync<Host extends object>(obj: Host): ObjectOrFunctionResultAwaited<Host>;
+    type FunctionResultAwaited<Some> = Some extends (...args: infer Args) => infer Res ? (...args: Args) => Awaited<Res> : Some;
+    type MethodsResultAwaited<Host extends Object> = {
+        [K in keyof Host]: FunctionResultAwaited<Host[K]>;
+    };
+    type ObjectOrFunctionResultAwaited<Some> = (Some extends (...args: any) => unknown ? FunctionResultAwaited<Some> : {}) & (Some extends Object ? MethodsResultAwaited<Some> : Some);
+    export {};
 }
 
 declare namespace $ {
@@ -2658,6 +2670,7 @@ declare namespace $ {
         day_ghost(id: any): boolean;
         day_holiday(id: any): boolean;
         day_selected(id: any): boolean;
+        day_today(id: any): boolean;
         day_theme(id: any): any;
         day_text(id: any): string;
         day_content(id: any): readonly any[];
@@ -2669,6 +2682,7 @@ declare namespace $ {
         holiday(): boolean;
         ghost(): boolean;
         selected(): boolean;
+        today(): boolean;
         theme(): any;
     }
 }
@@ -2688,8 +2702,9 @@ declare namespace $.$$ {
         week_days(index: number): $mol_view[];
         day_text(day: string): string;
         day_holiday(day: string): boolean;
+        today(): $mol_time_moment;
+        day_today(day: string): boolean;
         day_ghost(day: string): boolean;
-        day_selected(day: string): boolean;
         day_theme(day: string): any;
     }
 }
@@ -2709,6 +2724,7 @@ declare namespace $ {
         Today(): $mol_button_minor;
         value(next?: any): string;
         input_mask(id: any): string;
+        value_changed(next?: any): string;
         Input(): $$.$mol_format;
         clear(event?: any): any;
         Clear_icon(): $mol_icon_trash_can_outline;
@@ -3262,6 +3278,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_check_list extends $mol_view {
+        dictionary(): Record<string, any>;
         Option(id: any): $$.$mol_check;
         options(): Record<string, any>;
         keys(): readonly string[];
@@ -3281,6 +3298,8 @@ declare namespace $.$$ {
         options(): {
             [key: string]: string;
         };
+        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
+        option_checked(id: string, next?: boolean | null): boolean;
         keys(): readonly string[];
         items(): $mol_check[];
         option_title(key: string): string;
@@ -4615,6 +4634,7 @@ declare namespace $ {
         tile_size(): number;
         tiles_uri(): string;
         Tiles(): $$.$mol_plot_map_tiles;
+        graphs(): readonly any[];
         geo_to_tile_x(id: any): number;
         geo_to_tile_y(id: any): number;
         Pane(): $$.$hyoo_map_pane;
@@ -4622,6 +4642,7 @@ declare namespace $ {
         OSM(): $$.$mol_link_iconed;
         CARTO(): $$.$mol_link_iconed;
         Attribution(): $mol_view;
+        main_sub(): readonly any[];
         Main_head(): $mol_view;
         Main(): $mol_page;
     }
@@ -6299,7 +6320,7 @@ declare namespace $ {
         plugins(): readonly any[];
         hint(): string;
         bubble_content(): readonly any[];
-        Filter(): $$.$mol_string;
+        Filter(): $$.$mol_search;
         Trigger_icon(): $mol_icon_dots_vertical;
         event_select(id: any, event?: any): any;
         option_label(id: any): string;
@@ -6314,6 +6335,7 @@ declare namespace $ {
         menu_content(): readonly $mol_view[];
         Menu(): $$.$mol_list;
         Bubble_pane(): $$.$mol_scroll;
+        filter_hint(): string;
         submit(event?: any): any;
         enabled(): boolean;
     }
@@ -6331,9 +6353,9 @@ declare namespace $.$$ {
         options_filtered(): readonly string[];
         option_label(id: string): any;
         option_rows(): $mol_button_minor[];
-        option_focused(component?: $mol_view): $mol_view | $mol_string | $mol_button_minor | null;
+        option_focused(component?: $mol_view): $mol_view | $mol_button_minor | $mol_search | null;
         event_select(id: string, event?: MouseEvent): void;
-        nav_components(): ($mol_string | $mol_button_minor)[];
+        nav_components(): ($mol_button_minor | $mol_search)[];
         trigger_content(): readonly $mol_view_content[];
         menu_content(): ($mol_view | $mol_button_minor)[];
     }
