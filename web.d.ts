@@ -3290,589 +3290,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_section extends $mol_list {
-        level(): number;
-        rows(): readonly any[];
-        title_dom_name(): string;
-        Title(): $$.$mol_paragraph;
-        tools(): readonly any[];
-        Tools(): $mol_view;
-        head(): readonly any[];
-        Head(): $mol_view;
-        content(): readonly any[];
-        Content(): $$.$mol_list;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_section extends $.$mol_section {
-        title_dom_name(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_form extends $mol_list {
-        submit_allowed(): boolean;
-        submit_blocked(): boolean;
-        event(): Record<string, any>;
-        submit(event?: any): any;
-        rows(): readonly any[];
-        keydown(event?: any): any;
-        form_fields(): readonly $mol_form_field[];
-        body(): readonly $mol_form_field[];
-        Body(): $$.$mol_list;
-        buttons(): readonly $mol_view[];
-        foot(): readonly $mol_view[];
-        Foot(): $mol_row;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_form extends $.$mol_form {
-        form_fields(): readonly $mol_form_field[];
-        submit_allowed(): boolean;
-        submit_blocked(): boolean;
-        keydown(next: KeyboardEvent): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $piterjs_meetup_page extends $mol_page {
-        title(next?: any): string;
-        description(next?: any): string;
-        afterparty(next?: any): string;
-        start(next?: any): $mol_time_moment;
-        joined_count(): number;
-        joined(next?: any): boolean;
-        meetup(): $piterjs_meetup;
-        Title(): $mol_string_button;
-        tools(): readonly any[];
-        body(): readonly any[];
-        Speech(id: any): $$.$piterjs_speech_snippet;
-        editing(): boolean;
-        meetup_public(next?: any): boolean;
-        Public_icon(): $mol_icon_eye;
-        Public(): $mol_check_icon;
-        Guests_link_icon(): $mol_icon_account_group_outline;
-        Guests_link(): $$.$mol_link;
-        Start(): $$.$mol_date;
-        Close_icon(): $mol_icon_cross;
-        Close(): $$.$mol_link;
-        Description(): $$.$mol_textarea;
-        Video(): $$.$mol_link;
-        Place(): $$.$mol_link;
-        links(): readonly any[];
-        Links(): $mol_view;
-        speeches(): readonly any[];
-        Speeches(): $$.$mol_list;
-        speech_add(next?: any): any;
-        Speech_add_icon(): $mol_icon_plus;
-        Speech_add(): $mol_button_minor;
-        Afterparty(): $$.$mol_textarea;
-        Afterparty_field(): $$.$mol_form_field;
-        capacity(next?: any): number;
-        Capacity(): $$.$mol_number;
-        Capacity_field(): $$.$mol_form_field;
-        Hidden_fields(): $$.$mol_list;
-        free_space(): string;
-        Free_space(): $$.$mol_paragraph;
-        person(): $piterjs_person;
-        Profile(): $piterjs_person_edit;
-        join_enabled(): boolean;
-        Joined(): $mol_check_box;
-        Joined_confirm(): $$.$mol_paragraph;
-        joined_form(): readonly any[];
-        Joined_form(): $mol_view;
-        Joined_bid(): $$.$mol_paragraph;
-        join_content(): readonly any[];
-        Join(): $$.$mol_section;
-        content(): readonly any[];
-        Content(): $$.$mol_list;
-        speech(id: any): $piterjs_speech;
-    }
-}
-
-declare namespace $.$$ {
-    class $piterjs_meetup_page extends $.$piterjs_meetup_page {
-        video(): string;
-        address(): string;
-        coords(): $mol_vector_2d<number>;
-        join_allowed(): boolean;
-        content(): ($mol_view | $mol_button_minor | $mol_textarea)[];
-        links(): $mol_link[];
-        speeches(): $piterjs_speech_snippet[];
-        speech(index: number): $piterjs_speech;
-        speech_add(): void;
-        Public(): $mol_check_icon;
-        Guests_link(): $mol_link;
-        capacity(next?: number): number;
-        profile_editable(): boolean;
-        join_enabled(): boolean;
-        join_content(): ($mol_view | $mol_paragraph | $piterjs_person_edit)[];
-        joined_form(): ($mol_paragraph | $mol_check_box)[];
-        free_space(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_nav extends $mol_plugin {
-        cycle(next?: any): boolean;
-        mod_ctrl(): boolean;
-        mod_shift(): boolean;
-        mod_alt(): boolean;
-        keys_x(next?: any): readonly any[];
-        keys_y(next?: any): readonly any[];
-        current_x(next?: any): any;
-        current_y(next?: any): any;
-        event_up(event?: any): any;
-        event_down(event?: any): any;
-        event_left(event?: any): any;
-        event_right(event?: any): any;
-        event(): Record<string, any>;
-        event_key(event?: any): any;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_nav extends $.$mol_nav {
-        event_key(event?: KeyboardEvent): undefined;
-        event_up(event?: KeyboardEvent): undefined;
-        event_down(event?: KeyboardEvent): undefined;
-        event_left(event?: KeyboardEvent): undefined;
-        event_right(event?: KeyboardEvent): undefined;
-        index_y(): number | null;
-        index_x(): number | null;
-    }
-}
-
-declare namespace $ {
-    class $mol_search extends $mol_pop {
-        query(next?: any): string;
-        suggests(): readonly string[];
-        plugins(): readonly $mol_plugin[];
-        showed(next?: any): boolean;
-        align_hor(): string;
-        Anchor(): $mol_view;
-        bubble_content(): readonly $mol_view_content[];
-        Suggest(id: any): $mol_button_minor;
-        clear(next?: any): any;
-        Hotkey(): $$.$mol_hotkey;
-        nav_components(): readonly $mol_view[];
-        nav_focused(component?: any): any;
-        Nav(): $$.$mol_nav;
-        suggests_showed(next?: any): boolean;
-        hint(): string;
-        submit(event?: any): any;
-        enabled(): boolean;
-        keyboard(): string;
-        enter(): string;
-        bring(): void;
-        Query(): $$.$mol_string;
-        Clear_icon(): $mol_icon_cross;
-        Clear(): $mol_button_minor;
-        anchor_content(): readonly any[];
-        menu_items(): readonly $mol_view[];
-        Menu(): $$.$mol_list;
-        suggest_select(id: any, event?: any): any;
-        suggest_label(id: any): string;
-        Suggest_label(id: any): $$.$mol_dimmer;
-        suggest_content(id: any): readonly $mol_view_content[];
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_search extends $.$mol_search {
-        anchor_content(): ($mol_string | $mol_button_minor)[];
-        suggests_showed(next?: boolean): boolean;
-        suggest_selected(next?: string): void;
-        nav_components(): ($mol_string | $mol_button_minor)[];
-        nav_focused(component?: $mol_view): $mol_view | $mol_string | $mol_button_minor | null;
-        suggest_label(key: string): string;
-        menu_items(): $mol_button_minor[];
-        suggest_select(id: string, event?: MouseEvent): void;
-        clear(event?: Event): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $piterjs_person_snippet extends $mol_dimmer {
-        person(): $piterjs_person;
-    }
-}
-
-declare namespace $.$$ {
-    class $piterjs_person_snippet extends $.$piterjs_person_snippet {
-        haystack(): string;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $piterjs_meetup_guests extends $mol_page {
-        meetup(): $piterjs_meetup;
-        title(): string;
-        tools(): readonly any[];
-        body(): readonly any[];
-        Close_icon(): $mol_icon_cross;
-        Close(): $$.$mol_link;
-        filter(next?: any): string;
-        Filter(): $$.$mol_search;
-        person(id: any): $piterjs_person;
-        Person(id: any): $$.$piterjs_person_snippet;
-        person_list(): readonly any[];
-        Person_list(): $$.$mol_list;
-        Content(): $$.$mol_list;
-    }
-}
-
-declare namespace $ {
-    function $mol_match_text<Variant>(query: string, values: (variant: Variant) => string[]): (variant: Variant) => boolean;
-}
-
-declare namespace $.$$ {
-    class $piterjs_meetup_guests extends $.$piterjs_meetup_guests {
-        person_list(): $piterjs_person_snippet[];
-        person(person: $piterjs_person): $piterjs_person;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $mol_icon_clock extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_clock_outline extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_check_list extends $mol_view {
-        dictionary(): Record<string, any>;
-        Option(id: any): $$.$mol_check;
-        options(): Record<string, any>;
-        keys(): readonly string[];
-        sub(): readonly $mol_check[];
-        option_checked(id: any, next?: any): boolean;
-        option_title(id: any): string;
-        option_label(id: any): readonly any[];
-        enabled(): boolean;
-        option_enabled(id: any): boolean;
-        option_hint(id: any): string;
-        items(): readonly $mol_check[];
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_check_list extends $.$mol_check_list {
-        options(): {
-            [key: string]: string;
-        };
-        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
-        option_checked(id: string, next?: boolean | null): boolean;
-        keys(): readonly string[];
-        items(): $mol_check[];
-        option_title(key: string): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_switch extends $mol_check_list {
-        value(next?: any): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_session<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_switch extends $.$mol_switch {
-        value(next?: any): any;
-        option_checked(key: string, next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-    class $mol_pick_time extends $mol_pick {
-        Icon(): $mol_icon_clock_outline;
-        trigger_enabled(): boolean;
-        bubble_content(): readonly any[];
-        value_moment(next?: any): $mol_time_moment;
-        enabled(): boolean;
-        value(next?: any): string;
-        Input(): $$.$mol_format;
-        hour_selected(next?: any): string;
-        hour_options(): Record<string, any>;
-        Hours(): $$.$mol_switch;
-        Delimiter(): $$.$mol_paragraph;
-        minute_selected(next?: any): string;
-        minute_options(): Record<string, any>;
-        Minutes(): $$.$mol_switch;
-        Pickers(): $mol_row;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_pick_time extends $.$mol_pick_time {
-        trigger_content(): (string | $mol_icon_clock_outline)[];
-        value_moment(next?: $mol_time_moment): $mol_time_moment;
-        value(next?: string): string;
-        hour_selected(hour_str?: string): string;
-        minute_selected(minute_str?: string): string;
-        hour_options(): {
-            '0': string;
-            '1': string;
-            '2': string;
-            '3': string;
-            '4': string;
-            '5': string;
-            '6': string;
-            '7': string;
-            '8': string;
-            '9': string;
-            '10': string;
-            '11': string;
-            '12': string;
-            '13': string;
-            '14': string;
-            '15': string;
-            '16': string;
-            '17': string;
-            '18': string;
-            '19': string;
-            '20': string;
-            '21': string;
-            '22': string;
-            '23': string;
-        };
-        minute_options(): {
-            '0': string;
-            '5': string;
-            '10': string;
-            '15': string;
-            '20': string;
-            '25': string;
-            '30': string;
-            '35': string;
-            '40': string;
-            '45': string;
-            '50': string;
-            '55': string;
-        };
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_string_link extends $mol_view {
-        attr(): Record<string, any>;
-        sub(): readonly any[];
-        enabled(): boolean;
-        editing(): boolean;
-        hint_view(): string;
-        View(): $$.$mol_link;
-        value(next?: any): string;
-        title(): string;
-        hint(): string;
-        hint_edit(): string;
-        Edit(): $$.$mol_string;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_string_link extends $.$mol_string_link {
-        sub(): $mol_link[] | $mol_string[];
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_upload extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_button_open extends $mol_button_minor {
-        sub(): readonly any[];
-        Icon(): $mol_icon_upload;
-        files(next?: any): readonly any[];
-        accept(): string;
-        multiple(): boolean;
-        Native(): $$.$mol_button_open_native;
-    }
-    class $mol_button_open_native extends $mol_view {
-        dom_name(): string;
-        files(next?: any): readonly any[];
-        attr(): Record<string, any>;
-        event(): Record<string, any>;
-        accept(): string;
-        multiple(): boolean;
-        picked(next?: any): any;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_button_open_native extends $.$mol_button_open_native {
-        dom_node(): HTMLInputElement;
-        picked(): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $piterjs_speaker_snippet extends $mol_view {
-        event(): Record<string, any>;
-        title(next?: any): string;
-        description(next?: any): string;
-        speaker(): $piterjs_speaker;
-        sub(): readonly any[];
-        paste(next?: any): any;
-        photo(): string;
-        Photo(): $piterjs_image;
-        upload(next?: any): readonly File[];
-        editing(): boolean;
-        Upload(): $mol_button_open;
-        Photo_block(): $mol_stack;
-        Title(): $$.$mol_string;
-        Description(): $$.$mol_textarea;
-        Info(): $$.$mol_list;
-    }
-}
-
-declare namespace $ {
-    class $mol_picture extends $mol_object2 {
-        readonly canvas: HTMLCanvasElement;
-        constructor(canvas: HTMLCanvasElement);
-        get context(): CanvasRenderingContext2D | null;
-        static fit(image: Exclude<CanvasImageSource, VideoFrame> | Blob | string, width?: number, height?: number): $mol_picture;
-        static make(image: Exclude<CanvasImageSource, VideoFrame>, width: number, height?: number): $mol_picture;
-        static sizes(image: Exclude<CanvasImageSource, VideoFrame>): number[];
-        static load(uri: string): Promise<HTMLImageElement>;
-        format(type: 'image/png' | 'image/jpeg' | 'image/webp', quality?: number): Blob | null;
-    }
-}
-
-declare namespace $.$$ {
-    class $piterjs_speaker_snippet extends $.$piterjs_speaker_snippet {
-        photo(): string;
-        upload(next: File[]): never[];
-        take_files(files: FileList): File[];
-        paste(event?: ClipboardEvent): void;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $piterjs_speech_page extends $mol_page {
-        title(next?: any): string;
-        description(next?: any): string;
-        start(next?: any): $mol_time_moment;
-        slides(next?: any): string;
-        video(next?: any): string;
-        speech(): $piterjs_speech;
-        Title(): $mol_string_button;
-        tools(): readonly any[];
-        body(): readonly any[];
-        editing(): boolean;
-        speech_public(next?: any): boolean;
-        Public_icon(): $mol_icon_eye;
-        Public(): $mol_check_icon;
-        Start(): $$.$mol_pick_time;
-        Close_icon(): $mol_icon_cross;
-        Close(): $$.$mol_link;
-        Description(): $$.$mol_textarea;
-        Slides(): $$.$mol_string_link;
-        Video(): $$.$mol_string_link;
-        links(): readonly any[];
-        Links(): $mol_view;
-        speaker(): $piterjs_speaker;
-        Speaker(): $$.$piterjs_speaker_snippet;
-    }
-}
-
-declare namespace $.$$ {
-    class $piterjs_speech_page extends $.$piterjs_speech_page {
-        speaker(): $piterjs_speaker;
-        links(): $mol_string_link[];
-        Public(): $mol_check_icon;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $piterjs_meetup_snippet extends $mol_link {
-        arg(): Record<string, any>;
-        meetup(): $piterjs_meetup;
-        sub(): readonly any[];
-        id(): string;
-        title(): string;
-        Title(): $mol_view;
-        date(): string;
-        Date(): $mol_view;
-    }
-}
-
-declare namespace $.$$ {
-    class $piterjs_meetup_snippet extends $.$piterjs_meetup_snippet {
-        id(): `${string}_${string}`;
-        title(): string;
-        date(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_float extends $mol_view {
         style(): Record<string, any>;
     }
@@ -3949,6 +3366,20 @@ declare namespace $ {
         minimal_height(): number;
     }
     class $mol_grid_number extends $mol_grid_cell {
+    }
+}
+
+declare namespace $ {
+    class $mol_state_session<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value): Value;
+        prefix(): string;
+        value(key: string, next?: Value): Value;
     }
 }
 
@@ -4306,6 +3737,67 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_section extends $mol_list {
+        level(): number;
+        rows(): readonly any[];
+        title_dom_name(): string;
+        Title(): $$.$mol_paragraph;
+        tools(): readonly any[];
+        Tools(): $mol_view;
+        head(): readonly any[];
+        Head(): $mol_view;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_section extends $.$mol_section {
+        title_dom_name(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_form extends $mol_list {
+        submit_allowed(): boolean;
+        submit_blocked(): boolean;
+        event(): Record<string, any>;
+        submit(event?: any): any;
+        rows(): readonly any[];
+        keydown(event?: any): any;
+        form_fields(): readonly $mol_form_field[];
+        body(): readonly $mol_form_field[];
+        Body(): $$.$mol_list;
+        buttons(): readonly $mol_view[];
+        foot(): readonly $mol_view[];
+        Foot(): $mol_row;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_form extends $.$mol_form {
+        form_fields(): readonly $mol_form_field[];
+        submit_allowed(): boolean;
+        submit_blocked(): boolean;
+        keydown(next: KeyboardEvent): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_text_list extends $mol_text {
         auto_scroll(): any;
         attr(): Record<string, any>;
@@ -4315,6 +3807,514 @@ declare namespace $ {
     class $mol_text_list_item extends $mol_paragraph {
         attr(): Record<string, any>;
         index(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $piterjs_meetup_page extends $mol_page {
+        title(next?: any): string;
+        description(next?: any): string;
+        afterparty(next?: any): string;
+        start(next?: any): $mol_time_moment;
+        joined_count(): number;
+        joined(next?: any): boolean;
+        meetup(): $piterjs_meetup;
+        Title(): $mol_string_button;
+        tools(): readonly any[];
+        body(): readonly any[];
+        Speech(id: any): $$.$piterjs_speech_snippet;
+        editing(): boolean;
+        meetup_public(next?: any): boolean;
+        Public_icon(): $mol_icon_eye;
+        Public(): $mol_check_icon;
+        Guests_link_icon(): $mol_icon_account_group_outline;
+        Guests_link(): $$.$mol_link;
+        Start(): $$.$mol_date;
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
+        Description(): $$.$mol_textarea;
+        Video(): $$.$mol_link;
+        Place(): $$.$mol_link;
+        links(): readonly any[];
+        Links(): $mol_view;
+        speeches(): readonly any[];
+        Speeches(): $$.$mol_list;
+        speech_add(next?: any): any;
+        Speech_add_icon(): $mol_icon_plus;
+        Speech_add(): $mol_button_minor;
+        Afterparty(): $$.$mol_textarea;
+        Afterparty_field(): $$.$mol_form_field;
+        capacity(next?: any): number;
+        Capacity(): $$.$mol_number;
+        Capacity_field(): $$.$mol_form_field;
+        Hidden_fields(): $$.$mol_list;
+        free_space(): string;
+        Free_space(): $$.$mol_paragraph;
+        person(): $piterjs_person;
+        Profile(): $piterjs_person_edit;
+        join_enabled(): boolean;
+        Joined(): $mol_check_box;
+        Joined_confirm(): $$.$mol_paragraph;
+        joined_form(): readonly any[];
+        Joined_form(): $mol_view;
+        Joined_bid(): $$.$mol_text;
+        join_content(): readonly any[];
+        Join(): $$.$mol_section;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+        speech(id: any): $piterjs_speech;
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_meetup_page extends $.$piterjs_meetup_page {
+        video(): string;
+        address(): string;
+        coords(): $mol_vector_2d<number>;
+        join_allowed(): boolean;
+        content(): ($mol_view | $mol_button_minor | $mol_textarea)[];
+        links(): $mol_link[];
+        speeches(): $piterjs_speech_snippet[];
+        speech(index: number): $piterjs_speech;
+        speech_add(): void;
+        Public(): $mol_check_icon;
+        Guests_link(): $mol_link;
+        capacity(next?: number): number;
+        profile_editable(): boolean;
+        join_enabled(): boolean;
+        join_content(): ($mol_view | $piterjs_person_edit)[];
+        joined_form(): ($mol_paragraph | $mol_check_box)[];
+        free_space(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_nav extends $mol_plugin {
+        cycle(next?: any): boolean;
+        mod_ctrl(): boolean;
+        mod_shift(): boolean;
+        mod_alt(): boolean;
+        keys_x(next?: any): readonly any[];
+        keys_y(next?: any): readonly any[];
+        current_x(next?: any): any;
+        current_y(next?: any): any;
+        event_up(event?: any): any;
+        event_down(event?: any): any;
+        event_left(event?: any): any;
+        event_right(event?: any): any;
+        event(): Record<string, any>;
+        event_key(event?: any): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_nav extends $.$mol_nav {
+        event_key(event?: KeyboardEvent): undefined;
+        event_up(event?: KeyboardEvent): undefined;
+        event_down(event?: KeyboardEvent): undefined;
+        event_left(event?: KeyboardEvent): undefined;
+        event_right(event?: KeyboardEvent): undefined;
+        index_y(): number | null;
+        index_x(): number | null;
+    }
+}
+
+declare namespace $ {
+    class $mol_search extends $mol_pop {
+        query(next?: any): string;
+        suggests(): readonly string[];
+        plugins(): readonly $mol_plugin[];
+        showed(next?: any): boolean;
+        align_hor(): string;
+        Anchor(): $mol_view;
+        bubble_content(): readonly $mol_view_content[];
+        Suggest(id: any): $mol_button_minor;
+        clear(next?: any): any;
+        Hotkey(): $$.$mol_hotkey;
+        nav_components(): readonly $mol_view[];
+        nav_focused(component?: any): any;
+        Nav(): $$.$mol_nav;
+        suggests_showed(next?: any): boolean;
+        hint(): string;
+        submit(event?: any): any;
+        enabled(): boolean;
+        keyboard(): string;
+        enter(): string;
+        bring(): void;
+        Query(): $$.$mol_string;
+        Clear_icon(): $mol_icon_cross;
+        Clear(): $mol_button_minor;
+        anchor_content(): readonly any[];
+        menu_items(): readonly $mol_view[];
+        Menu(): $$.$mol_list;
+        suggest_select(id: any, event?: any): any;
+        suggest_label(id: any): string;
+        Suggest_label(id: any): $$.$mol_dimmer;
+        suggest_content(id: any): readonly $mol_view_content[];
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_search extends $.$mol_search {
+        anchor_content(): ($mol_string | $mol_button_minor)[];
+        suggests_showed(next?: boolean): boolean;
+        suggest_selected(next?: string): void;
+        nav_components(): ($mol_string | $mol_button_minor)[];
+        nav_focused(component?: $mol_view): $mol_view | $mol_string | $mol_button_minor | null;
+        suggest_label(key: string): string;
+        menu_items(): $mol_button_minor[];
+        suggest_select(id: string, event?: MouseEvent): void;
+        clear(event?: Event): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $piterjs_person_snippet extends $mol_dimmer {
+        person(): $piterjs_person;
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_person_snippet extends $.$piterjs_person_snippet {
+        haystack(): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $piterjs_meetup_guests extends $mol_page {
+        meetup(): $piterjs_meetup;
+        title(): string;
+        tools(): readonly any[];
+        body(): readonly any[];
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
+        filter(next?: any): string;
+        Filter(): $$.$mol_search;
+        person(id: any): $piterjs_person;
+        Person(id: any): $$.$piterjs_person_snippet;
+        person_list(): readonly any[];
+        Person_list(): $$.$mol_list;
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $ {
+    function $mol_match_text<Variant>(query: string, values: (variant: Variant) => string[]): (variant: Variant) => boolean;
+}
+
+declare namespace $.$$ {
+    class $piterjs_meetup_guests extends $.$piterjs_meetup_guests {
+        person_list(): $piterjs_person_snippet[];
+        person(person: $piterjs_person): $piterjs_person;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $mol_icon_clock extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_clock_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_check_list extends $mol_view {
+        dictionary(): Record<string, any>;
+        Option(id: any): $$.$mol_check;
+        options(): Record<string, any>;
+        keys(): readonly string[];
+        sub(): readonly $mol_check[];
+        option_checked(id: any, next?: any): boolean;
+        option_title(id: any): string;
+        option_label(id: any): readonly any[];
+        enabled(): boolean;
+        option_enabled(id: any): boolean;
+        option_hint(id: any): string;
+        items(): readonly $mol_check[];
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_check_list extends $.$mol_check_list {
+        options(): {
+            [key: string]: string;
+        };
+        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
+        option_checked(id: string, next?: boolean | null): boolean;
+        keys(): readonly string[];
+        items(): $mol_check[];
+        option_title(key: string): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_switch extends $mol_check_list {
+        value(next?: any): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_switch extends $.$mol_switch {
+        value(next?: any): any;
+        option_checked(key: string, next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+    class $mol_pick_time extends $mol_pick {
+        Icon(): $mol_icon_clock_outline;
+        trigger_enabled(): boolean;
+        bubble_content(): readonly any[];
+        value_moment(next?: any): $mol_time_moment;
+        enabled(): boolean;
+        value(next?: any): string;
+        Input(): $$.$mol_format;
+        hour_selected(next?: any): string;
+        hour_options(): Record<string, any>;
+        Hours(): $$.$mol_switch;
+        Delimiter(): $$.$mol_paragraph;
+        minute_selected(next?: any): string;
+        minute_options(): Record<string, any>;
+        Minutes(): $$.$mol_switch;
+        Pickers(): $mol_row;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_pick_time extends $.$mol_pick_time {
+        trigger_content(): (string | $mol_icon_clock_outline)[];
+        value_moment(next?: $mol_time_moment): $mol_time_moment;
+        value(next?: string): string;
+        hour_selected(hour_str?: string): string;
+        minute_selected(minute_str?: string): string;
+        hour_options(): {
+            '0': string;
+            '1': string;
+            '2': string;
+            '3': string;
+            '4': string;
+            '5': string;
+            '6': string;
+            '7': string;
+            '8': string;
+            '9': string;
+            '10': string;
+            '11': string;
+            '12': string;
+            '13': string;
+            '14': string;
+            '15': string;
+            '16': string;
+            '17': string;
+            '18': string;
+            '19': string;
+            '20': string;
+            '21': string;
+            '22': string;
+            '23': string;
+        };
+        minute_options(): {
+            '0': string;
+            '5': string;
+            '10': string;
+            '15': string;
+            '20': string;
+            '25': string;
+            '30': string;
+            '35': string;
+            '40': string;
+            '45': string;
+            '50': string;
+            '55': string;
+        };
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_string_link extends $mol_view {
+        attr(): Record<string, any>;
+        sub(): readonly any[];
+        enabled(): boolean;
+        editing(): boolean;
+        hint_view(): string;
+        View(): $$.$mol_link;
+        value(next?: any): string;
+        title(): string;
+        hint(): string;
+        hint_edit(): string;
+        Edit(): $$.$mol_string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_string_link extends $.$mol_string_link {
+        sub(): $mol_link[] | $mol_string[];
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_upload extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_button_open extends $mol_button_minor {
+        sub(): readonly any[];
+        Icon(): $mol_icon_upload;
+        files(next?: any): readonly any[];
+        accept(): string;
+        multiple(): boolean;
+        Native(): $$.$mol_button_open_native;
+    }
+    class $mol_button_open_native extends $mol_view {
+        dom_name(): string;
+        files(next?: any): readonly any[];
+        attr(): Record<string, any>;
+        event(): Record<string, any>;
+        accept(): string;
+        multiple(): boolean;
+        picked(next?: any): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_button_open_native extends $.$mol_button_open_native {
+        dom_node(): HTMLInputElement;
+        picked(): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $piterjs_speaker_snippet extends $mol_view {
+        event(): Record<string, any>;
+        title(next?: any): string;
+        description(next?: any): string;
+        speaker(): $piterjs_speaker;
+        sub(): readonly any[];
+        paste(next?: any): any;
+        photo(): string;
+        Photo(): $piterjs_image;
+        upload(next?: any): readonly File[];
+        editing(): boolean;
+        Upload(): $mol_button_open;
+        Photo_block(): $mol_stack;
+        Title(): $$.$mol_string;
+        Description(): $$.$mol_textarea;
+        Info(): $$.$mol_list;
+    }
+}
+
+declare namespace $ {
+    class $mol_picture extends $mol_object2 {
+        readonly canvas: HTMLCanvasElement;
+        constructor(canvas: HTMLCanvasElement);
+        get context(): CanvasRenderingContext2D | null;
+        static fit(image: Exclude<CanvasImageSource, VideoFrame> | Blob | string, width?: number, height?: number): $mol_picture;
+        static make(image: Exclude<CanvasImageSource, VideoFrame>, width: number, height?: number): $mol_picture;
+        static sizes(image: Exclude<CanvasImageSource, VideoFrame>): number[];
+        static load(uri: string): Promise<HTMLImageElement>;
+        format(type: 'image/png' | 'image/jpeg' | 'image/webp', quality?: number): Blob | null;
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_speaker_snippet extends $.$piterjs_speaker_snippet {
+        photo(): string;
+        upload(next: File[]): never[];
+        take_files(files: FileList): File[];
+        paste(event?: ClipboardEvent): void;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $piterjs_speech_page extends $mol_page {
+        title(next?: any): string;
+        description(next?: any): string;
+        start(next?: any): $mol_time_moment;
+        slides(next?: any): string;
+        video(next?: any): string;
+        speech(): $piterjs_speech;
+        Title(): $mol_string_button;
+        tools(): readonly any[];
+        body(): readonly any[];
+        editing(): boolean;
+        speech_public(next?: any): boolean;
+        Public_icon(): $mol_icon_eye;
+        Public(): $mol_check_icon;
+        Start(): $$.$mol_pick_time;
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
+        Description(): $$.$mol_textarea;
+        Slides(): $$.$mol_string_link;
+        Video(): $$.$mol_string_link;
+        links(): readonly any[];
+        Links(): $mol_view;
+        speaker(): $piterjs_speaker;
+        Speaker(): $$.$piterjs_speaker_snippet;
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_speech_page extends $.$piterjs_speech_page {
+        speaker(): $piterjs_speaker;
+        links(): $mol_string_link[];
+        Public(): $mol_check_icon;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $piterjs_meetup_snippet extends $mol_link {
+        arg(): Record<string, any>;
+        meetup(): $piterjs_meetup;
+        sub(): readonly any[];
+        id(): string;
+        title(): string;
+        Title(): $mol_view;
+        date(): string;
+        Date(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_meetup_snippet extends $.$piterjs_meetup_snippet {
+        id(): `${string}_${string}`;
+        title(): string;
+        date(): string;
     }
 }
 
