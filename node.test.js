@@ -5867,6 +5867,9 @@ var $;
         notes(next) {
             return this.sub('notes', $hyoo_crowd_reg).str(next);
         }
+        capacity_max(next) {
+            return this.sub('capacity_max', $hyoo_crowd_reg).numb(next);
+        }
         address(next) {
             return this.sub('address', $hyoo_crowd_reg).str(next);
         }
@@ -5886,6 +5889,9 @@ var $;
     ], $piterjs_place.prototype, "notes", null);
     __decorate([
         $mol_mem
+    ], $piterjs_place.prototype, "capacity_max", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_place.prototype, "address", null);
     __decorate([
         $mol_mem
@@ -5899,6 +5905,54 @@ var $;
     $.$piterjs_place = $piterjs_place;
 })($ || ($ = {}));
 //piterjs/place/place.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_crowd_counter extends $hyoo_crowd_reg {
+        list() {
+            return this.yoke([])?.residents() ?? [];
+        }
+        total() {
+            return this.list().length;
+        }
+        counted(next) {
+            const yoke = this.yoke([]);
+            switch (next) {
+                case true:
+                    yoke?.join();
+                    return Boolean(yoke);
+                case false:
+                    yoke?.leave();
+                    return false;
+                case undefined: return yoke?.residents().includes(this.land.peer_id());
+            }
+        }
+    }
+    $.$hyoo_crowd_counter = $hyoo_crowd_counter;
+})($ || ($ = {}));
+//hyoo/crowd/counter/counter.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $piterjs_person extends $piterjs_model {
+        name_first(next) {
+            return this.sub('name_first', $hyoo_crowd_reg).str(next);
+        }
+        name_last(next) {
+            return this.sub('name_last', $hyoo_crowd_reg).str(next);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $piterjs_person.prototype, "name_first", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_person.prototype, "name_last", null);
+    $.$piterjs_person = $piterjs_person;
+})($ || ($ = {}));
+//piterjs/person/person.ts
 ;
 "use strict";
 var $;
@@ -5937,6 +5991,19 @@ var $;
         afterparty(next) {
             return this.sub('afterparty', $hyoo_crowd_reg).str(next);
         }
+        joined_node() {
+            return this.sub('joined', $hyoo_crowd_counter);
+        }
+        joined(next) {
+            return this.joined_node().counted(next) ?? false;
+        }
+        joined_list() {
+            const Person = this.world().Fund($piterjs_person);
+            return this.joined_node().list().map(id => Person.Item(id));
+        }
+        joined_count() {
+            return this.joined_node().total();
+        }
     }
     __decorate([
         $mol_mem
@@ -5962,6 +6029,18 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_meetup.prototype, "afterparty", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup.prototype, "joined_node", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup.prototype, "joined", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup.prototype, "joined_list", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup.prototype, "joined_count", null);
     $.$piterjs_meetup = $piterjs_meetup;
 })($ || ($ = {}));
 //piterjs/meetup/meetup.ts
@@ -6226,6 +6305,9 @@ var $;
         meetup_make() {
             return this.world().Fund($piterjs_meetup).make();
         }
+        person() {
+            return this.world().Fund($piterjs_person).Item(this.land.peer_id());
+        }
     }
     __decorate([
         $mol_mem
@@ -6242,6 +6324,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $piterjs_domain.prototype, "meetup_public", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_domain.prototype, "person", null);
     $.$piterjs_domain = $piterjs_domain;
 })($ || ($ = {}));
 //piterjs/domain/domain.ts
@@ -8592,6 +8677,42 @@ var $;
     $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
 })($ || ($ = {}));
 //mol/check/icon/-css/icon.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_account extends $mol_icon {
+        path() {
+            return "M12,4C14.21,4 16,5.79 16,8C16,10.21 14.21,12 12,12C9.79,12 8,10.21 8,8C8,5.79 9.79,4 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
+        }
+    }
+    $.$mol_icon_account = $mol_icon_account;
+})($ || ($ = {}));
+//mol/icon/account/-view.tree/account.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_account_group extends $mol_icon {
+        path() {
+            return "M12,5.5C13.93,5.5 15.5,7.07 15.5,9C15.5,10.93 13.93,12.5 12,12.5C10.07,12.5 8.5,10.93 8.5,9C8.5,7.07 10.07,5.5 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14C3.34,14 2,12.66 2,11C2,9.34 3.34,8 5,8M19,8C20.66,8 22,9.34 22,11C22,12.66 20.66,14 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z";
+        }
+    }
+    $.$mol_icon_account_group = $mol_icon_account_group;
+})($ || ($ = {}));
+//mol/icon/account/group/-view.tree/group.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_account_group_outline extends $mol_icon {
+        path() {
+            return "M12,5C10.07,5 8.5,6.57 8.5,8.5C8.5,10.43 10.07,12 12,12C13.93,12 15.5,10.43 15.5,8.5C15.5,6.57 13.93,5 12,5M12,7C12.83,7 13.5,7.67 13.5,8.5C13.5,9.33 12.83,10 12,10C11.17,10 10.5,9.33 10.5,8.5C10.5,7.67 11.17,7 12,7M5.5,8C4.12,8 3,9.12 3,10.5C3,11.44 3.53,12.25 4.29,12.68C4.65,12.88 5.06,13 5.5,13C5.94,13 6.35,12.88 6.71,12.68C7.08,12.47 7.39,12.17 7.62,11.81C6.89,10.86 6.5,9.7 6.5,8.5C6.5,8.41 6.5,8.31 6.5,8.22C6.2,8.08 5.86,8 5.5,8M18.5,8C18.14,8 17.8,8.08 17.5,8.22C17.5,8.31 17.5,8.41 17.5,8.5C17.5,9.7 17.11,10.86 16.38,11.81C16.5,12 16.63,12.15 16.78,12.3C16.94,12.45 17.1,12.58 17.29,12.68C17.65,12.88 18.06,13 18.5,13C18.94,13 19.35,12.88 19.71,12.68C20.47,12.25 21,11.44 21,10.5C21,9.12 19.88,8 18.5,8M12,14C9.66,14 5,15.17 5,17.5V19H19V17.5C19,15.17 14.34,14 12,14M4.71,14.55C2.78,14.78 0,15.76 0,17.5V19H3V17.07C3,16.06 3.69,15.22 4.71,14.55M19.29,14.55C20.31,15.22 21,16.06 21,17.07V19H24V17.5C24,15.76 21.22,14.78 19.29,14.55M12,16C13.53,16 15.24,16.5 16.23,17H7.77C8.76,16.5 10.47,16 12,16Z";
+        }
+    }
+    $.$mol_icon_account_group_outline = $mol_icon_account_group_outline;
+})($ || ($ = {}));
+//mol/icon/account/group/outline/-view.tree/outline.view.tree.ts
 ;
 "use strict";
 var $;
@@ -11869,6 +11990,397 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_minus extends $mol_icon {
+        path() {
+            return "M19,13H5V11H19V13Z";
+        }
+    }
+    $.$mol_icon_minus = $mol_icon_minus;
+})($ || ($ = {}));
+//mol/icon/minus/-view.tree/minus.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_number extends $mol_view {
+        precision_view() {
+            return this.precision();
+        }
+        precision_change() {
+            return this.precision();
+        }
+        value_min() {
+            return -Infinity;
+        }
+        value_max() {
+            return +Infinity;
+        }
+        value(next) {
+            if (next !== undefined)
+                return next;
+            return +NaN;
+        }
+        enabled() {
+            return true;
+        }
+        sub() {
+            return [
+                this.String(),
+                this.Dec(),
+                this.Inc()
+            ];
+        }
+        precision() {
+            return 1;
+        }
+        type() {
+            return "tel";
+        }
+        value_string(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        hint() {
+            return " ";
+        }
+        string_enabled() {
+            return this.enabled();
+        }
+        submit(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        String() {
+            const obj = new this.$.$mol_string();
+            obj.type = () => this.type();
+            obj.value = (next) => this.value_string(next);
+            obj.hint = () => this.hint();
+            obj.enabled = () => this.string_enabled();
+            obj.submit = (next) => this.submit(next);
+            return obj;
+        }
+        event_dec(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        dec_enabled() {
+            return this.enabled();
+        }
+        dec_icon() {
+            const obj = new this.$.$mol_icon_minus();
+            return obj;
+        }
+        Dec() {
+            const obj = new this.$.$mol_button_minor();
+            obj.event_click = (next) => this.event_dec(next);
+            obj.enabled = () => this.dec_enabled();
+            obj.sub = () => [
+                this.dec_icon()
+            ];
+            return obj;
+        }
+        event_inc(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        inc_enabled() {
+            return this.enabled();
+        }
+        inc_icon() {
+            const obj = new this.$.$mol_icon_plus();
+            return obj;
+        }
+        Inc() {
+            const obj = new this.$.$mol_button_minor();
+            obj.event_click = (next) => this.event_inc(next);
+            obj.enabled = () => this.inc_enabled();
+            obj.sub = () => [
+                this.inc_icon()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "value", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "value_string", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "submit", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "String", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "event_dec", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "dec_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "Dec", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "event_inc", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "inc_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "Inc", null);
+    $.$mol_number = $mol_number;
+})($ || ($ = {}));
+//mol/number/-view.tree/number.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/number/number.css", "[mol_number] {\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tposition: relative;\n\talign-items: stretch;\n\tmax-width: 100%;\n}\n\n[mol_number_string] {\n\tappearance: textfield;\n\tflex: 1 1 7rem;\n\twidth: 7rem;\n}\n\n[mol_number_string]::-webkit-inner-spin-button {\n\tdisplay: none;\n}\n");
+})($ || ($ = {}));
+//mol/number/-css/number.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_number extends $.$mol_number {
+            value_limited(next) {
+                if (next === undefined)
+                    return this.value();
+                if (next === '')
+                    return this.value(Number.NaN);
+                const min = this.value_min();
+                const max = this.value_max();
+                const val = Number(next);
+                if (val < min)
+                    return this.value(min);
+                if (val > max)
+                    return this.value(max);
+                return this.value(val);
+            }
+            event_dec(next) {
+                this.value_limited((this.value_limited() || 0) - this.precision_change());
+            }
+            event_inc(next) {
+                this.value_limited((this.value_limited() || 0) + this.precision_change());
+            }
+            value_string(next) {
+                const next_num = this.value_limited(next);
+                const precisionView = this.precision_view();
+                if (next_num === 0)
+                    return '0';
+                if (!next_num)
+                    return '';
+                if (precisionView >= 1) {
+                    return (next_num / precisionView).toFixed();
+                }
+                else {
+                    const fixedNumber = Math.log10(1 / precisionView);
+                    return next_num.toFixed(Math.ceil(fixedNumber));
+                }
+            }
+            dec_enabled() {
+                return this.enabled() && (!((this.value() || 0) <= this.value_min()));
+            }
+            inc_enabled() {
+                return this.enabled() && (!((this.value() || 0) >= this.value_max()));
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_number.prototype, "dec_enabled", null);
+        __decorate([
+            $mol_mem
+        ], $mol_number.prototype, "inc_enabled", null);
+        $$.$mol_number = $mol_number;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/number/number.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $piterjs_person_edit extends $mol_view {
+        name_first(next) {
+            return this.person().name_first(next);
+        }
+        name_last(next) {
+            return this.person().name_last(next);
+        }
+        person() {
+            const obj = new this.$.$piterjs_person();
+            return obj;
+        }
+        sub() {
+            return [
+                this.Name_first(),
+                this.Name_last()
+            ];
+        }
+        enabled() {
+            return true;
+        }
+        Name_first() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Имя";
+            obj.value = (next) => this.name_first(next);
+            obj.enabled = () => this.enabled();
+            return obj;
+        }
+        Name_last() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Фамилия";
+            obj.value = (next) => this.name_last(next);
+            obj.enabled = () => this.enabled();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $piterjs_person_edit.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_person_edit.prototype, "Name_first", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_person_edit.prototype, "Name_last", null);
+    $.$piterjs_person_edit = $piterjs_person_edit;
+})($ || ($ = {}));
+//piterjs/person/edit/-view.tree/edit.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_tick extends $mol_icon {
+        path() {
+            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
+        }
+    }
+    $.$mol_icon_tick = $mol_icon_tick;
+})($ || ($ = {}));
+//mol/icon/tick/-view.tree/tick.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_check_box extends $mol_check {
+        Icon() {
+            const obj = new this.$.$mol_icon_tick();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_check_box.prototype, "Icon", null);
+    $.$mol_check_box = $mol_check_box;
+})($ || ($ = {}));
+//mol/check/box/-view.tree/box.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tborder-radius: var(--mol_gap_round);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n\tcolor: var(--mol_theme_shade);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+//mol/check/box/-css/box.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_section extends $mol_list {
+        level() {
+            return 1;
+        }
+        rows() {
+            return [
+                this.Head(),
+                this.Content()
+            ];
+        }
+        title_dom_name() {
+            return "h1";
+        }
+        Title() {
+            const obj = new this.$.$mol_paragraph();
+            obj.dom_name = () => this.title_dom_name();
+            obj.title = () => this.title();
+            return obj;
+        }
+        tools() {
+            return [];
+        }
+        Tools() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.tools();
+            return obj;
+        }
+        head() {
+            return [
+                this.Title(),
+                this.Tools()
+            ];
+        }
+        Head() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.head();
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Title", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Tools", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Head", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Content", null);
+    $.$mol_section = $mol_section;
+})($ || ($ = {}));
+//mol/section/-view.tree/section.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_section extends $.$mol_section {
+            title_dom_name() {
+                return 'h' + this.level();
+            }
+        }
+        $$.$mol_section = $mol_section;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/section/section.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\nh1[mol_section_title] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_section_title] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_section_title] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_section_title] {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\nh5[mol_section_title] {\n\tfont-size: 1rem;\n}\n\nh6[mol_section_title] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
+})($ || ($ = {}));
+//mol/section/-css/section.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_row extends $mol_view {
     }
     $.$mol_row = $mol_row;
@@ -12008,6 +12520,12 @@ var $;
         start(next) {
             return this.meetup().start(next);
         }
+        joined_count() {
+            return this.meetup().joined_count();
+        }
+        joined(next) {
+            return this.meetup().joined(next);
+        }
         meetup() {
             const obj = new this.$.$piterjs_meetup();
             return obj;
@@ -12022,17 +12540,14 @@ var $;
         tools() {
             return [
                 this.Public(),
+                this.Guests_link(),
                 this.Start(),
                 this.Close()
             ];
         }
         body() {
             return [
-                this.Description(),
-                this.Links(),
-                this.Speeches(),
-                this.Speech_add(),
-                this.Afterparty_field()
+                this.Content()
             ];
         }
         Speech(id) {
@@ -12056,6 +12571,21 @@ var $;
             const obj = new this.$.$mol_check_icon();
             obj.checked = (next) => this.meetup_public(next);
             obj.Icon = () => this.Public_icon();
+            return obj;
+        }
+        Guests_link_icon() {
+            const obj = new this.$.$mol_icon_account_group_outline();
+            return obj;
+        }
+        Guests_link() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                guests: ""
+            });
+            obj.hint = () => "Список гостей";
+            obj.sub = () => [
+                this.Guests_link_icon()
+            ];
             return obj;
         }
         Start() {
@@ -12159,6 +12689,112 @@ var $;
             obj.Content = () => this.Afterparty();
             return obj;
         }
+        capacity(next) {
+            if (next !== undefined)
+                return next;
+            return 0;
+        }
+        Capacity() {
+            const obj = new this.$.$mol_number();
+            obj.hint = () => "100";
+            obj.value = (next) => this.capacity(next);
+            obj.enabled = () => this.editing();
+            return obj;
+        }
+        Capacity_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => "Максимальная вместимость";
+            obj.Content = () => this.Capacity();
+            return obj;
+        }
+        Hidden_fields() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Afterparty_field(),
+                this.Capacity_field()
+            ];
+            return obj;
+        }
+        free_space() {
+            return "нет мест";
+        }
+        Free_space() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.free_space();
+            return obj;
+        }
+        person() {
+            const obj = new this.$.$piterjs_person();
+            return obj;
+        }
+        Profile() {
+            const obj = new this.$.$piterjs_person_edit();
+            obj.person = () => this.person();
+            return obj;
+        }
+        join_enabled() {
+            return false;
+        }
+        Joined() {
+            const obj = new this.$.$mol_check_box();
+            obj.checked = (next) => this.joined(next);
+            obj.enabled = () => this.join_enabled();
+            obj.title = () => "Я приду";
+            return obj;
+        }
+        Joined_confirm() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => "🔥 Ждём тебя!";
+            return obj;
+        }
+        joined_form() {
+            return [
+                this.Joined(),
+                this.Joined_confirm()
+            ];
+        }
+        Joined_form() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.joined_form();
+            return obj;
+        }
+        Joined_bid() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => "Если не сможешь прийти - не забудь отменить регистрацию, чтобы освободить место другим.";
+            return obj;
+        }
+        join_content() {
+            return [
+                this.Profile(),
+                this.Joined_form(),
+                this.Joined_bid()
+            ];
+        }
+        Join() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => "Регистрация";
+            obj.level = () => 5;
+            obj.tools = () => [
+                this.Free_space()
+            ];
+            obj.content = () => this.join_content();
+            return obj;
+        }
+        content() {
+            return [
+                this.Description(),
+                this.Links(),
+                this.Speeches(),
+                this.Speech_add(),
+                this.Hidden_fields(),
+                this.Join()
+            ];
+        }
+        Content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.content();
+            return obj;
+        }
         speech(id) {
             const obj = new this.$.$piterjs_speech();
             return obj;
@@ -12182,6 +12818,12 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_meetup_page.prototype, "Public", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Guests_link_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Guests_link", null);
     __decorate([
         $mol_mem
     ], $piterjs_meetup_page.prototype, "Start", null);
@@ -12222,6 +12864,45 @@ var $;
         $mol_mem
     ], $piterjs_meetup_page.prototype, "Afterparty_field", null);
     __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "capacity", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Capacity", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Capacity_field", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Hidden_fields", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Free_space", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Profile", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Joined", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Joined_confirm", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Joined_form", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Joined_bid", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Join", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_page.prototype, "Content", null);
+    __decorate([
         $mol_mem_key
     ], $piterjs_meetup_page.prototype, "speech", null);
     $.$piterjs_meetup_page = $piterjs_meetup_page;
@@ -12243,13 +12924,17 @@ var $;
             coords() {
                 return this.meetup().place().coords();
             }
-            body() {
+            join_allowed() {
+                return this.meetup().start().valueOf() > $mol_state_time.now(60 * 60);
+            }
+            content() {
                 return [
                     ...(this.editing() || this.description()) ? [this.Description()] : [],
                     this.Links(),
                     this.Speeches(),
                     ...this.editing() ? [this.Speech_add()] : [],
-                    ...this.editing() ? [this.Afterparty_field()] : [],
+                    ...this.editing() ? [this.Hidden_fields()] : [],
+                    ...this.join_allowed() ? [this.Join()] : [],
                 ];
             }
             links() {
@@ -12273,16 +12958,60 @@ var $;
                     return null;
                 return super.Public();
             }
+            Guests_link() {
+                if (!this.editing())
+                    return null;
+                return super.Guests_link();
+            }
+            capacity(next) {
+                return this.meetup().place().capacity_max(next);
+            }
+            profile_editable() {
+                return !this.joined();
+            }
+            join_enabled() {
+                if (this.person().name_first().length < 2)
+                    return false;
+                if (this.person().name_last().length < 2)
+                    return false;
+                return true;
+            }
+            join_content() {
+                return [
+                    this.Profile(),
+                    this.Joined_form(),
+                    ...this.meetup().joined() ? [this.Joined_bid()] : [],
+                ];
+            }
+            joined_form() {
+                return [
+                    this.Joined(),
+                    ...this.meetup().joined() ? [this.Joined_confirm()] : [],
+                ];
+            }
+            free_space() {
+                const space = this.meetup().place().capacity_max() - this.joined_count();
+                return `Свободно мест: ${space}`;
+            }
         }
         __decorate([
             $mol_mem
-        ], $piterjs_meetup_page.prototype, "body", null);
+        ], $piterjs_meetup_page.prototype, "join_allowed", null);
+        __decorate([
+            $mol_mem
+        ], $piterjs_meetup_page.prototype, "content", null);
         __decorate([
             $mol_mem
         ], $piterjs_meetup_page.prototype, "links", null);
         __decorate([
             $mol_mem
         ], $piterjs_meetup_page.prototype, "speeches", null);
+        __decorate([
+            $mol_mem
+        ], $piterjs_meetup_page.prototype, "join_content", null);
+        __decorate([
+            $mol_mem
+        ], $piterjs_meetup_page.prototype, "joined_form", null);
         $$.$piterjs_meetup_page = $piterjs_meetup_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -12291,9 +13020,707 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_head] {\n\tflex-wrap: nowrap;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 auto;\n}\n");
+    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_hidden_fields] {\n\tpadding: var(--mol_gap_block);\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_join] {\n\tpadding: var(--mol_gap_block);\n\tbackground-color: var(--mol_theme_card);\n}\n\n[piterjs_meetup_page_joined_confirm] {\n\tpadding: var(--mol_gap_text);\n}\n\n[piterjs_meetup_page_joined_bid] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_focus);\n}\n\n[piterjs_meetup_page_free_space] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_shade);\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 3rem;\n}\n");
 })($ || ($ = {}));
 //piterjs/meetup/page/-css/page.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_nav extends $mol_plugin {
+        cycle(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        mod_ctrl() {
+            return false;
+        }
+        mod_shift() {
+            return false;
+        }
+        mod_alt() {
+            return false;
+        }
+        keys_x(next) {
+            if (next !== undefined)
+                return next;
+            return [];
+        }
+        keys_y(next) {
+            if (next !== undefined)
+                return next;
+            return [];
+        }
+        current_x(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        current_y(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        event_up(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event_down(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event_left(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event_right(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event() {
+            return {
+                ...super.event(),
+                keydown: (event) => this.event_key(event)
+            };
+        }
+        event_key(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "cycle", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "keys_x", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "keys_y", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "current_x", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "current_y", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "event_up", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "event_down", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "event_left", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "event_right", null);
+    __decorate([
+        $mol_mem
+    ], $mol_nav.prototype, "event_key", null);
+    $.$mol_nav = $mol_nav;
+})($ || ($ = {}));
+//mol/nav/-view.tree/nav.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_nav extends $.$mol_nav {
+            event_key(event) {
+                if (!event)
+                    return event;
+                if (event.defaultPrevented)
+                    return;
+                if (this.mod_ctrl() && !event.ctrlKey)
+                    return;
+                if (this.mod_shift() && !event.shiftKey)
+                    return;
+                if (this.mod_alt() && !event.altKey)
+                    return;
+                switch (event.keyCode) {
+                    case $mol_keyboard_code.up: return this.event_up(event);
+                    case $mol_keyboard_code.down: return this.event_down(event);
+                    case $mol_keyboard_code.left: return this.event_left(event);
+                    case $mol_keyboard_code.right: return this.event_right(event);
+                    case $mol_keyboard_code.pageUp: return this.event_up(event);
+                    case $mol_keyboard_code.pageDown: return this.event_down(event);
+                }
+            }
+            event_up(event) {
+                if (!event)
+                    return event;
+                const keys = this.keys_y();
+                if (keys.length < 1)
+                    return;
+                const index_y = this.index_y();
+                const index_old = index_y === null ? 0 : index_y;
+                const index_new = (index_old + keys.length - 1) % keys.length;
+                event.preventDefault();
+                if (index_old === 0 && !this.cycle())
+                    return;
+                this.current_y(this.keys_y()[index_new]);
+            }
+            event_down(event) {
+                if (!event)
+                    return event;
+                const keys = this.keys_y();
+                if (keys.length < 1)
+                    return;
+                const index_y = this.index_y();
+                const index_old = index_y === null ? keys.length - 1 : index_y;
+                const index_new = (index_old + 1) % keys.length;
+                event.preventDefault();
+                if (index_new === 0 && !this.cycle())
+                    return;
+                this.current_y(this.keys_y()[index_new]);
+            }
+            event_left(event) {
+                if (!event)
+                    return event;
+                const keys = this.keys_x();
+                if (keys.length < 1)
+                    return;
+                const index_x = this.index_x();
+                const index_old = index_x === null ? 0 : index_x;
+                const index_new = (index_old + keys.length - 1) % keys.length;
+                event.preventDefault();
+                if (index_old === 0 && !this.cycle())
+                    return;
+                this.current_x(this.keys_x()[index_new]);
+            }
+            event_right(event) {
+                if (!event)
+                    return event;
+                const keys = this.keys_x();
+                if (keys.length < 1)
+                    return;
+                const index_x = this.index_x();
+                const index_old = index_x === null ? keys.length - 1 : index_x;
+                const index_new = (index_old + 1) % keys.length;
+                event.preventDefault();
+                if (index_new === 0 && !this.cycle())
+                    return;
+                this.current_x(this.keys_x()[index_new]);
+            }
+            index_y() {
+                let index = this.keys_y().indexOf(this.current_y());
+                if (index < 0)
+                    return null;
+                return index;
+            }
+            index_x() {
+                let index = this.keys_x().indexOf(this.current_x());
+                if (index < 0)
+                    return null;
+                return index;
+            }
+        }
+        $$.$mol_nav = $mol_nav;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/nav/nav.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_search extends $mol_pop {
+        query(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        suggests() {
+            return [];
+        }
+        plugins() {
+            return [
+                ...super.plugins(),
+                this.Hotkey(),
+                this.Nav()
+            ];
+        }
+        showed(next) {
+            return this.suggests_showed(next);
+        }
+        align_hor() {
+            return "right";
+        }
+        Anchor() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.anchor_content();
+            return obj;
+        }
+        bubble_content() {
+            return [
+                this.Menu()
+            ];
+        }
+        Suggest(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.click = (event) => this.suggest_select(id, event);
+            obj.sub = () => this.suggest_content(id);
+            return obj;
+        }
+        clear(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Hotkey() {
+            const obj = new this.$.$mol_hotkey();
+            obj.key = () => ({
+                escape: (next) => this.clear(next)
+            });
+            return obj;
+        }
+        nav_components() {
+            return [];
+        }
+        nav_focused(component) {
+            if (component !== undefined)
+                return component;
+            return null;
+        }
+        Nav() {
+            const obj = new this.$.$mol_nav();
+            obj.keys_y = () => this.nav_components();
+            obj.current_y = (component) => this.nav_focused(component);
+            return obj;
+        }
+        suggests_showed(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        hint() {
+            return this.$.$mol_locale.text('$mol_search_hint');
+        }
+        submit(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        enabled() {
+            return true;
+        }
+        keyboard() {
+            return "search";
+        }
+        enter() {
+            return "search";
+        }
+        bring() {
+            return this.Query().bring();
+        }
+        Query() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.query(next);
+            obj.hint = () => this.hint();
+            obj.submit = (event) => this.submit(event);
+            obj.enabled = () => this.enabled();
+            obj.keyboard = () => this.keyboard();
+            obj.enter = () => this.enter();
+            return obj;
+        }
+        Clear_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Clear() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$mol_search_Clear_hint');
+            obj.click = (event) => this.clear(event);
+            obj.sub = () => [
+                this.Clear_icon()
+            ];
+            return obj;
+        }
+        anchor_content() {
+            return [
+                this.Query(),
+                this.Clear()
+            ];
+        }
+        menu_items() {
+            return [];
+        }
+        Menu() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.menu_items();
+            return obj;
+        }
+        suggest_select(id, event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        suggest_label(id) {
+            return "";
+        }
+        Suggest_label(id) {
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.suggest_label(id);
+            obj.needle = () => this.query();
+            return obj;
+        }
+        suggest_content(id) {
+            return [
+                this.Suggest_label(id)
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "query", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Anchor", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_search.prototype, "Suggest", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "clear", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Hotkey", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "nav_focused", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Nav", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "suggests_showed", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "submit", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Query", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Clear_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Clear", null);
+    __decorate([
+        $mol_mem
+    ], $mol_search.prototype, "Menu", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_search.prototype, "suggest_select", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_search.prototype, "Suggest_label", null);
+    $.$mol_search = $mol_search;
+})($ || ($ = {}));
+//mol/search/-view.tree/search.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_search extends $.$mol_search {
+            anchor_content() {
+                return [
+                    this.Query(),
+                    ...this.query() ? [this.Clear()] : [],
+                ];
+            }
+            suggests_showed(next = true) {
+                this.query();
+                if (!this.focused())
+                    return false;
+                return next;
+            }
+            suggest_selected(next) {
+                if (next === undefined)
+                    return;
+                this.query(next);
+                this.Query().focused(true);
+            }
+            nav_components() {
+                return [
+                    this.Query(),
+                    ...this.menu_items(),
+                ];
+            }
+            nav_focused(component) {
+                if (!this.focused())
+                    return null;
+                if (component == null) {
+                    for (let comp of this.nav_components()) {
+                        if (comp && comp.focused())
+                            return comp;
+                    }
+                    return null;
+                }
+                if (this.suggests_showed()) {
+                    this.ensure_visible(component, "center");
+                    component.focused(true);
+                }
+                return component;
+            }
+            suggest_label(key) {
+                return key;
+            }
+            menu_items() {
+                return this.suggests().map((suggest) => this.Suggest(suggest));
+            }
+            suggest_select(id, event) {
+                this.query(id);
+                this.Query().selection([id.length, id.length]);
+                this.Query().focused(true);
+            }
+            clear(event) {
+                this.query('');
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_search.prototype, "anchor_content", null);
+        __decorate([
+            $mol_mem
+        ], $mol_search.prototype, "suggests_showed", null);
+        __decorate([
+            $mol_mem
+        ], $mol_search.prototype, "nav_focused", null);
+        __decorate([
+            $mol_mem
+        ], $mol_search.prototype, "menu_items", null);
+        $$.$mol_search = $mol_search;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/search/search.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/search/search.view.css", "[mol_search] {\n\talign-self: flex-start;\n\tflex: auto;\n}\n\n[mol_search_anchor] {\n\tflex: 1 1 auto;\n}\n\n[mol_search_query] {\n\tflex-grow: 1;\n}\n\n[mol_search_menu] {\n\tmin-height: .75rem;\n\tdisplay: flex;\n}\n\n[mol_search_suggest] {\n\ttext-align: left;\n}\n\n[mol_search_suggest_label_high] {\n\tcolor: var(--mol_theme_shade);\n\ttext-shadow: none;\n}\n");
+})($ || ($ = {}));
+//mol/search/-css/search.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $piterjs_person_snippet extends $mol_dimmer {
+        person() {
+            const obj = new this.$.$piterjs_person();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $piterjs_person_snippet.prototype, "person", null);
+    $.$piterjs_person_snippet = $piterjs_person_snippet;
+})($ || ($ = {}));
+//piterjs/person/snippet/-view.tree/snippet.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $piterjs_person_snippet extends $.$piterjs_person_snippet {
+            haystack() {
+                const person = this.person();
+                return person.name_first() + ' ' + person.name_last();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $piterjs_person_snippet.prototype, "haystack", null);
+        $$.$piterjs_person_snippet = $piterjs_person_snippet;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//piterjs/person/snippet/snippet.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($piterjs_person_snippet, {
+            padding: $mol_gap.text,
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//piterjs/person/snippet/snippet.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $piterjs_meetup_guests extends $mol_page {
+        meetup() {
+            const obj = new this.$.$piterjs_meetup();
+            return obj;
+        }
+        title() {
+            return "Список гостей";
+        }
+        tools() {
+            return [
+                this.Close()
+            ];
+        }
+        body() {
+            return [
+                this.Content()
+            ];
+        }
+        Close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                guests: null
+            });
+            obj.sub = () => [
+                this.Close_icon()
+            ];
+            return obj;
+        }
+        filter(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Filter() {
+            const obj = new this.$.$mol_search();
+            obj.hint = () => "Поиск...";
+            obj.query = (next) => this.filter(next);
+            return obj;
+        }
+        person(id) {
+            const obj = new this.$.$piterjs_person();
+            return obj;
+        }
+        Person(id) {
+            const obj = new this.$.$piterjs_person_snippet();
+            obj.person = () => this.person(id);
+            obj.needle = () => this.filter();
+            return obj;
+        }
+        person_list() {
+            return [
+                this.Person("0_0")
+            ];
+        }
+        Person_list() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.person_list();
+            return obj;
+        }
+        Content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Filter(),
+                this.Person_list()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "meetup", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "Close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "Close", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "filter", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "Filter", null);
+    __decorate([
+        $mol_mem_key
+    ], $piterjs_meetup_guests.prototype, "person", null);
+    __decorate([
+        $mol_mem_key
+    ], $piterjs_meetup_guests.prototype, "Person", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "Person_list", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_meetup_guests.prototype, "Content", null);
+    $.$piterjs_meetup_guests = $piterjs_meetup_guests;
+})($ || ($ = {}));
+//piterjs/meetup/guests/-view.tree/guests.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_match_text(query, values) {
+        const tags = query.toLowerCase().trim().split(/\s+/).filter(tag => tag);
+        if (tags.length === 0)
+            return () => true;
+        return (variant) => {
+            const vals = values(variant);
+            return tags.every(tag => vals.some(val => val.toLowerCase().indexOf(tag) >= 0));
+        };
+    }
+    $.$mol_match_text = $mol_match_text;
+})($ || ($ = {}));
+//mol/match/text.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $piterjs_meetup_guests extends $.$piterjs_meetup_guests {
+            person_list() {
+                return this.meetup().joined_list()
+                    .filter($mol_match_text(this.filter(), person => [person.name_first(), person.name_last(), person.id()]))
+                    .map(person => this.Person(person));
+            }
+            person(person) {
+                return person;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $piterjs_meetup_guests.prototype, "person_list", null);
+        $$.$piterjs_meetup_guests = $piterjs_meetup_guests;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//piterjs/meetup/guests/guests.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($piterjs_meetup_guests, {
+            flex: {
+                basis: `20rem`,
+            },
+            Filter: {
+                align: {
+                    self: `stretch`,
+                }
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//piterjs/meetup/guests/guests.view.css.ts
 ;
 "use strict";
 var $;
@@ -15683,210 +17110,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_nav extends $mol_plugin {
-        cycle(next) {
-            if (next !== undefined)
-                return next;
-            return false;
-        }
-        mod_ctrl() {
-            return false;
-        }
-        mod_shift() {
-            return false;
-        }
-        mod_alt() {
-            return false;
-        }
-        keys_x(next) {
-            if (next !== undefined)
-                return next;
-            return [];
-        }
-        keys_y(next) {
-            if (next !== undefined)
-                return next;
-            return [];
-        }
-        current_x(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        current_y(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        event_up(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        event_down(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        event_left(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        event_right(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        event() {
-            return {
-                ...super.event(),
-                keydown: (event) => this.event_key(event)
-            };
-        }
-        event_key(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "cycle", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "keys_x", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "keys_y", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "current_x", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "current_y", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "event_up", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "event_down", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "event_left", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "event_right", null);
-    __decorate([
-        $mol_mem
-    ], $mol_nav.prototype, "event_key", null);
-    $.$mol_nav = $mol_nav;
-})($ || ($ = {}));
-//mol/nav/-view.tree/nav.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_nav extends $.$mol_nav {
-            event_key(event) {
-                if (!event)
-                    return event;
-                if (event.defaultPrevented)
-                    return;
-                if (this.mod_ctrl() && !event.ctrlKey)
-                    return;
-                if (this.mod_shift() && !event.shiftKey)
-                    return;
-                if (this.mod_alt() && !event.altKey)
-                    return;
-                switch (event.keyCode) {
-                    case $mol_keyboard_code.up: return this.event_up(event);
-                    case $mol_keyboard_code.down: return this.event_down(event);
-                    case $mol_keyboard_code.left: return this.event_left(event);
-                    case $mol_keyboard_code.right: return this.event_right(event);
-                    case $mol_keyboard_code.pageUp: return this.event_up(event);
-                    case $mol_keyboard_code.pageDown: return this.event_down(event);
-                }
-            }
-            event_up(event) {
-                if (!event)
-                    return event;
-                const keys = this.keys_y();
-                if (keys.length < 1)
-                    return;
-                const index_y = this.index_y();
-                const index_old = index_y === null ? 0 : index_y;
-                const index_new = (index_old + keys.length - 1) % keys.length;
-                event.preventDefault();
-                if (index_old === 0 && !this.cycle())
-                    return;
-                this.current_y(this.keys_y()[index_new]);
-            }
-            event_down(event) {
-                if (!event)
-                    return event;
-                const keys = this.keys_y();
-                if (keys.length < 1)
-                    return;
-                const index_y = this.index_y();
-                const index_old = index_y === null ? keys.length - 1 : index_y;
-                const index_new = (index_old + 1) % keys.length;
-                event.preventDefault();
-                if (index_new === 0 && !this.cycle())
-                    return;
-                this.current_y(this.keys_y()[index_new]);
-            }
-            event_left(event) {
-                if (!event)
-                    return event;
-                const keys = this.keys_x();
-                if (keys.length < 1)
-                    return;
-                const index_x = this.index_x();
-                const index_old = index_x === null ? 0 : index_x;
-                const index_new = (index_old + keys.length - 1) % keys.length;
-                event.preventDefault();
-                if (index_old === 0 && !this.cycle())
-                    return;
-                this.current_x(this.keys_x()[index_new]);
-            }
-            event_right(event) {
-                if (!event)
-                    return event;
-                const keys = this.keys_x();
-                if (keys.length < 1)
-                    return;
-                const index_x = this.index_x();
-                const index_old = index_x === null ? keys.length - 1 : index_x;
-                const index_new = (index_old + 1) % keys.length;
-                event.preventDefault();
-                if (index_new === 0 && !this.cycle())
-                    return;
-                this.current_x(this.keys_x()[index_new]);
-            }
-            index_y() {
-                let index = this.keys_y().indexOf(this.current_y());
-                if (index < 0)
-                    return null;
-                return index;
-            }
-            index_x() {
-                let index = this.keys_x().indexOf(this.current_x());
-                if (index < 0)
-                    return null;
-                return index;
-            }
-        }
-        $$.$mol_nav = $mol_nav;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/nav/nav.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $piterjs_intro extends $mol_view {
         title() {
             return "PiterJS Вступление";
@@ -16262,289 +17485,6 @@ var $;
     $mol_style_attach("piterjs/video/page/page.view.css", "[piterjs_video_page] {\n\tflex: 1000 0 60rem;\n}\n\n[piterjs_video_page_body] {\n\tpadding: 0;\n}\n");
 })($ || ($ = {}));
 //piterjs/video/page/-css/page.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_search extends $mol_pop {
-        query(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        suggests() {
-            return [];
-        }
-        plugins() {
-            return [
-                ...super.plugins(),
-                this.Hotkey(),
-                this.Nav()
-            ];
-        }
-        showed(next) {
-            return this.suggests_showed(next);
-        }
-        align_hor() {
-            return "right";
-        }
-        Anchor() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.anchor_content();
-            return obj;
-        }
-        bubble_content() {
-            return [
-                this.Menu()
-            ];
-        }
-        Suggest(id) {
-            const obj = new this.$.$mol_button_minor();
-            obj.click = (event) => this.suggest_select(id, event);
-            obj.sub = () => this.suggest_content(id);
-            return obj;
-        }
-        clear(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        Hotkey() {
-            const obj = new this.$.$mol_hotkey();
-            obj.key = () => ({
-                escape: (next) => this.clear(next)
-            });
-            return obj;
-        }
-        nav_components() {
-            return [];
-        }
-        nav_focused(component) {
-            if (component !== undefined)
-                return component;
-            return null;
-        }
-        Nav() {
-            const obj = new this.$.$mol_nav();
-            obj.keys_y = () => this.nav_components();
-            obj.current_y = (component) => this.nav_focused(component);
-            return obj;
-        }
-        suggests_showed(next) {
-            if (next !== undefined)
-                return next;
-            return false;
-        }
-        hint() {
-            return this.$.$mol_locale.text('$mol_search_hint');
-        }
-        submit(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        enabled() {
-            return true;
-        }
-        keyboard() {
-            return "search";
-        }
-        enter() {
-            return "search";
-        }
-        bring() {
-            return this.Query().bring();
-        }
-        Query() {
-            const obj = new this.$.$mol_string();
-            obj.value = (next) => this.query(next);
-            obj.hint = () => this.hint();
-            obj.submit = (event) => this.submit(event);
-            obj.enabled = () => this.enabled();
-            obj.keyboard = () => this.keyboard();
-            obj.enter = () => this.enter();
-            return obj;
-        }
-        Clear_icon() {
-            const obj = new this.$.$mol_icon_cross();
-            return obj;
-        }
-        Clear() {
-            const obj = new this.$.$mol_button_minor();
-            obj.hint = () => this.$.$mol_locale.text('$mol_search_Clear_hint');
-            obj.click = (event) => this.clear(event);
-            obj.sub = () => [
-                this.Clear_icon()
-            ];
-            return obj;
-        }
-        anchor_content() {
-            return [
-                this.Query(),
-                this.Clear()
-            ];
-        }
-        menu_items() {
-            return [];
-        }
-        Menu() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.menu_items();
-            return obj;
-        }
-        suggest_select(id, event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        suggest_label(id) {
-            return "";
-        }
-        Suggest_label(id) {
-            const obj = new this.$.$mol_dimmer();
-            obj.haystack = () => this.suggest_label(id);
-            obj.needle = () => this.query();
-            return obj;
-        }
-        suggest_content(id) {
-            return [
-                this.Suggest_label(id)
-            ];
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "query", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Anchor", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_search.prototype, "Suggest", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "clear", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Hotkey", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "nav_focused", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Nav", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "suggests_showed", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "submit", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Query", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Clear_icon", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Clear", null);
-    __decorate([
-        $mol_mem
-    ], $mol_search.prototype, "Menu", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_search.prototype, "suggest_select", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_search.prototype, "Suggest_label", null);
-    $.$mol_search = $mol_search;
-})($ || ($ = {}));
-//mol/search/-view.tree/search.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_search extends $.$mol_search {
-            anchor_content() {
-                return [
-                    this.Query(),
-                    ...this.query() ? [this.Clear()] : [],
-                ];
-            }
-            suggests_showed(next = true) {
-                this.query();
-                if (!this.focused())
-                    return false;
-                return next;
-            }
-            suggest_selected(next) {
-                if (next === undefined)
-                    return;
-                this.query(next);
-                this.Query().focused(true);
-            }
-            nav_components() {
-                return [
-                    this.Query(),
-                    ...this.menu_items(),
-                ];
-            }
-            nav_focused(component) {
-                if (!this.focused())
-                    return null;
-                if (component == null) {
-                    for (let comp of this.nav_components()) {
-                        if (comp && comp.focused())
-                            return comp;
-                    }
-                    return null;
-                }
-                if (this.suggests_showed()) {
-                    this.ensure_visible(component, "center");
-                    component.focused(true);
-                }
-                return component;
-            }
-            suggest_label(key) {
-                return key;
-            }
-            menu_items() {
-                return this.suggests().map((suggest) => this.Suggest(suggest));
-            }
-            suggest_select(id, event) {
-                this.query(id);
-                this.Query().selection([id.length, id.length]);
-                this.Query().focused(true);
-            }
-            clear(event) {
-                this.query('');
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_search.prototype, "anchor_content", null);
-        __decorate([
-            $mol_mem
-        ], $mol_search.prototype, "suggests_showed", null);
-        __decorate([
-            $mol_mem
-        ], $mol_search.prototype, "nav_focused", null);
-        __decorate([
-            $mol_mem
-        ], $mol_search.prototype, "menu_items", null);
-        $$.$mol_search = $mol_search;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/search/search.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/search/search.view.css", "[mol_search] {\n\talign-self: flex-start;\n\tflex: auto;\n}\n\n[mol_search_anchor] {\n\tflex: 1 1 auto;\n}\n\n[mol_search_query] {\n\tflex-grow: 1;\n}\n\n[mol_search_menu] {\n\tmin-height: .75rem;\n\tdisplay: flex;\n}\n\n[mol_search_suggest] {\n\ttext-align: left;\n}\n\n[mol_search_suggest_label_high] {\n\tcolor: var(--mol_theme_shade);\n\ttext-shadow: none;\n}\n");
-})($ || ($ = {}));
-//mol/search/-css/search.view.css.ts
 ;
 "use strict";
 var $;
@@ -25578,22 +26518,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_match_text(query, values) {
-        const tags = query.toLowerCase().trim().split(/\s+/).filter(tag => tag);
-        if (tags.length === 0)
-            return () => true;
-        return (variant) => {
-            const vals = values(variant);
-            return tags.every(tag => vals.some(val => val.toLowerCase().indexOf(tag) >= 0));
-        };
-    }
-    $.$mol_match_text = $mol_match_text;
-})($ || ($ = {}));
-//mol/match/text.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_select extends $.$mol_select {
@@ -26724,6 +27648,9 @@ var $;
         meetup_public(id, next) {
             return this.Domain().meetup_public(id, next);
         }
+        person() {
+            return this.Domain().person();
+        }
         Domain() {
             const obj = new this.$.$piterjs_domain();
             return obj;
@@ -26752,8 +27679,14 @@ var $;
         Meetup(id) {
             const obj = new this.$.$piterjs_meetup_page();
             obj.meetup = () => this.meetup(id);
+            obj.person = () => this.person();
             obj.editing = () => this.editing();
             obj.meetup_public = (next) => this.meetup_public(id, next);
+            return obj;
+        }
+        Meetup_guests(id) {
+            const obj = new this.$.$piterjs_meetup_guests();
+            obj.meetup = () => this.meetup(id);
             return obj;
         }
         Speech(id) {
@@ -27021,6 +27954,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $piterjs_app.prototype, "Meetup", null);
+    __decorate([
+        $mol_mem_key
+    ], $piterjs_app.prototype, "Meetup_guests", null);
     __decorate([
         $mol_mem_key
     ], $piterjs_app.prototype, "Speech", null);
@@ -27499,6 +28435,7 @@ var $;
             place_show() { return this.$.$mol_state_arg.value('place') !== null; }
             others() { return this.$.$mol_state_arg.value('others') !== null; }
             wiki() { return this.$.$mol_state_arg.value('wiki') !== null; }
+            guests() { return this.$.$mol_state_arg.value('guests') !== null; }
             meetup_id(next) {
                 const id = this.$.$mol_state_arg.value('meetup', next);
                 if (!id)
@@ -27521,6 +28458,7 @@ var $;
                 const pages = [
                     this.Menu(),
                     ...this.meetup_id() ? [this.Meetup(this.meetup_id())] : [],
+                    ...this.guests() ? [this.Meetup_guests(this.meetup_id())] : [],
                     ...this.speech_id() ? [this.Speech(this.speech_id())] : [],
                     ...this.place_show() ? [this.Place()] : [],
                     ...this.video() ? [this.Video()] : [],
@@ -31668,6 +32606,28 @@ var $;
     });
 })($ || ($ = {}));
 //mol/vector/vector.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        async 'count & discount'() {
+            const peer = await $hyoo_crowd_peer.generate();
+            const world = new $hyoo_crowd_world(peer);
+            const land = await world.grab();
+            const counter = land.chief.as($hyoo_crowd_counter);
+            $mol_assert_like(await $mol_wire_async(counter).total(), 0);
+            $mol_assert_like(counter.counted(), false);
+            counter.counted(true);
+            $mol_assert_like(counter.total(), 1);
+            $mol_assert_like(counter.counted(), true);
+            counter.counted(false);
+            $mol_assert_like(counter.total(), 0);
+            $mol_assert_like(counter.counted(), false);
+        },
+    });
+})($ || ($ = {}));
+//hyoo/crowd/counter/counter.test.ts
 ;
 "use strict";
 var $;
