@@ -4658,8 +4658,83 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_icon_camera extends $mol_icon {
+    class $mol_icon_share extends $mol_icon {
         path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_share_variant extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_button_share extends $mol_button_minor {
+        uri(): string;
+        capture(): any;
+        hint(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_share_variant;
+        title(): string;
+    }
+}
+
+declare namespace $ {
+    type $mol_type_partial_deep<Val> = Val extends object ? Val extends Function ? Val : {
+        [field in keyof Val]?: $mol_type_partial_deep<Val[field]> | undefined;
+    } : Val;
+}
+
+declare namespace $ {
+    let $mol_jsx_prefix: string;
+    let $mol_jsx_crumbs: string;
+    let $mol_jsx_booked: Set<string> | null;
+    let $mol_jsx_document: $mol_jsx.JSX.ElementClass['ownerDocument'];
+    const $mol_jsx_frag = "";
+    function $mol_jsx<Props extends $mol_jsx.JSX.IntrinsicAttributes, Children extends Array<Node | string>>(Elem: string | ((props: Props, ...children: Children) => Element), props: Props, ...childNodes: Children): Element | DocumentFragment;
+    namespace $mol_jsx.JSX {
+        interface Element extends HTMLElement {
+            class?: string;
+        }
+        interface ElementClass {
+            attributes: {};
+            ownerDocument: Pick<Document, 'getElementById' | 'createElementNS' | 'createDocumentFragment'>;
+            childNodes: Array<Node | string>;
+            valueOf(): Element;
+        }
+        type OrString<Dict> = {
+            [key in keyof Dict]: Dict[key] | string;
+        };
+        type IntrinsicElements = {
+            [key in keyof ElementTagNameMap]?: $.$mol_type_partial_deep<OrString<Element & IntrinsicAttributes & ElementTagNameMap[key]>>;
+        };
+        interface IntrinsicAttributes {
+            id?: string;
+            xmlns?: string;
+        }
+        interface ElementAttributesProperty {
+            attributes: {};
+        }
+        interface ElementChildrenAttribute {
+        }
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_serialize(node: Node): string;
+}
+
+declare namespace $ {
+    function $mol_dom_capture_image(el: Element): Promise<HTMLImageElement>;
+    function $mol_dom_capture_canvas(el: Element): Promise<HTMLCanvasElement>;
+}
+
+declare namespace $.$$ {
+    class $mol_button_share extends $.$mol_button_share {
+        capture(): any;
+        uri(): string;
+        click(): Promise<void>;
     }
 }
 
@@ -4976,9 +5051,7 @@ declare namespace $ {
         tools(): readonly any[];
         body(): readonly any[];
         editing(): boolean;
-        poster_blob(next?: any): Blob;
-        Poster_copy_icon(): $mol_icon_camera;
-        Poster_copy(): $$.$mol_button_copy;
+        Poster_copy(): $$.$mol_button_share;
         speech_public(next?: any): boolean;
         Public_icon(): $mol_icon_eye;
         Public(): $mol_check_icon;
@@ -4997,62 +5070,11 @@ declare namespace $ {
     }
 }
 
-declare namespace $ {
-    type $mol_type_partial_deep<Val> = Val extends object ? Val extends Function ? Val : {
-        [field in keyof Val]?: $mol_type_partial_deep<Val[field]> | undefined;
-    } : Val;
-}
-
-declare namespace $ {
-    let $mol_jsx_prefix: string;
-    let $mol_jsx_crumbs: string;
-    let $mol_jsx_booked: Set<string> | null;
-    let $mol_jsx_document: $mol_jsx.JSX.ElementClass['ownerDocument'];
-    const $mol_jsx_frag = "";
-    function $mol_jsx<Props extends $mol_jsx.JSX.IntrinsicAttributes, Children extends Array<Node | string>>(Elem: string | ((props: Props, ...children: Children) => Element), props: Props, ...childNodes: Children): Element | DocumentFragment;
-    namespace $mol_jsx.JSX {
-        interface Element extends HTMLElement {
-            class?: string;
-        }
-        interface ElementClass {
-            attributes: {};
-            ownerDocument: Pick<Document, 'getElementById' | 'createElementNS' | 'createDocumentFragment'>;
-            childNodes: Array<Node | string>;
-            valueOf(): Element;
-        }
-        type OrString<Dict> = {
-            [key in keyof Dict]: Dict[key] | string;
-        };
-        type IntrinsicElements = {
-            [key in keyof ElementTagNameMap]?: $.$mol_type_partial_deep<OrString<Element & IntrinsicAttributes & ElementTagNameMap[key]>>;
-        };
-        interface IntrinsicAttributes {
-            id?: string;
-            xmlns?: string;
-        }
-        interface ElementAttributesProperty {
-            attributes: {};
-        }
-        interface ElementChildrenAttribute {
-        }
-    }
-}
-
-declare namespace $ {
-    function $mol_dom_serialize(node: Node): string;
-}
-
-declare namespace $ {
-    function $mol_dom_capture_image(el: Element): Promise<HTMLImageElement>;
-    function $mol_dom_capture_canvas(el: Element): Promise<HTMLCanvasElement>;
-}
-
 declare namespace $.$$ {
     class $piterjs_speech_page extends $.$piterjs_speech_page {
         speaker(): $piterjs_speaker;
         links(): $mol_string_link[];
         Public(): $mol_check_icon;
-        poster_blob(): Blob;
     }
 }
 
@@ -5557,8 +5579,8 @@ declare namespace $.$$ {
             allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            summary: string;
             uid: string;
+            summary: string;
         }>[];
         list_future(): Readonly<{
             description?: string | undefined;
@@ -5566,8 +5588,8 @@ declare namespace $.$$ {
             allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            summary: string;
             uid: string;
+            summary: string;
         }>[];
         dict(): Map<string, Readonly<{
             description?: string | undefined;
@@ -5575,8 +5597,8 @@ declare namespace $.$$ {
             allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            summary: string;
             uid: string;
+            summary: string;
         }>>;
         events(): $piterjs_others_event[];
         event_title(uid: string): string;
@@ -7251,12 +7273,6 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_icon_settings_outline extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_share extends $mol_icon {
         path(): string;
     }
 }
