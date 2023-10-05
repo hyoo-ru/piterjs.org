@@ -5392,6 +5392,9 @@ var $;
 var $;
 (function ($) {
     class $piterjs_person extends $piterjs_model {
+        name_real(next) {
+            return this.sub('name_real', $hyoo_crowd_reg).str(next);
+        }
         name_first(next) {
             return this.sub('name_first', $hyoo_crowd_reg).str(next);
         }
@@ -5399,6 +5402,9 @@ var $;
             return this.sub('name_last', $hyoo_crowd_reg).str(next);
         }
     }
+    __decorate([
+        $mol_mem
+    ], $piterjs_person.prototype, "name_real", null);
     __decorate([
         $mol_mem
     ], $piterjs_person.prototype, "name_first", null);
@@ -11673,37 +11679,26 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $piterjs_person_edit extends $mol_view {
-        name_first(next) {
-            return this.person().name_first(next);
-        }
-        name_last(next) {
-            return this.person().name_last(next);
+    class $piterjs_person_edit extends $mol_form_field {
+        name_real(next) {
+            return this.person().name_real(next);
         }
         person() {
             const obj = new this.$.$piterjs_person();
             return obj;
         }
-        sub() {
-            return [
-                this.Name_first(),
-                this.Name_last()
-            ];
+        name() {
+            return "Имя Фамилия";
+        }
+        Content() {
+            return this.Name_real();
         }
         enabled() {
             return true;
         }
-        Name_first() {
+        Name_real() {
             const obj = new this.$.$mol_string();
-            obj.hint = () => "Имя";
-            obj.value = (next) => this.name_first(next);
-            obj.enabled = () => this.enabled();
-            return obj;
-        }
-        Name_last() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => "Фамилия";
-            obj.value = (next) => this.name_last(next);
+            obj.value = (next) => this.name_real(next);
             obj.enabled = () => this.enabled();
             return obj;
         }
@@ -11713,10 +11708,7 @@ var $;
     ], $piterjs_person_edit.prototype, "person", null);
     __decorate([
         $mol_mem
-    ], $piterjs_person_edit.prototype, "Name_first", null);
-    __decorate([
-        $mol_mem
-    ], $piterjs_person_edit.prototype, "Name_last", null);
+    ], $piterjs_person_edit.prototype, "Name_real", null);
     $.$piterjs_person_edit = $piterjs_person_edit;
 })($ || ($ = {}));
 //piterjs/person/edit/-view.tree/edit.view.tree.ts
@@ -11755,6 +11747,94 @@ var $;
     $mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tborder-radius: var(--mol_gap_round);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n\tcolor: var(--mol_theme_shade);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n");
 })($ || ($ = {}));
 //mol/check/box/-css/box.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_section extends $mol_list {
+        level() {
+            return 1;
+        }
+        rows() {
+            return [
+                this.Head(),
+                this.Content()
+            ];
+        }
+        title_dom_name() {
+            return "h1";
+        }
+        Title() {
+            const obj = new this.$.$mol_paragraph();
+            obj.dom_name = () => this.title_dom_name();
+            obj.title = () => this.title();
+            return obj;
+        }
+        tools() {
+            return [];
+        }
+        Tools() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.tools();
+            return obj;
+        }
+        head() {
+            return [
+                this.Title(),
+                this.Tools()
+            ];
+        }
+        Head() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.head();
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Title", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Tools", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Head", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Content", null);
+    $.$mol_section = $mol_section;
+})($ || ($ = {}));
+//mol/section/-view.tree/section.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_section extends $.$mol_section {
+            title_dom_name() {
+                return 'h' + this.level();
+            }
+        }
+        $$.$mol_section = $mol_section;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/section/section.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\nh1[mol_section_title] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_section_title] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_section_title] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_section_title] {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\nh5[mol_section_title] {\n\tfont-size: 1rem;\n}\n\nh6[mol_section_title] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
+})($ || ($ = {}));
+//mol/section/-css/section.view.css.ts
 ;
 "use strict";
 var $;
@@ -13426,94 +13506,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_section extends $mol_list {
-        level() {
-            return 1;
-        }
-        rows() {
-            return [
-                this.Head(),
-                this.Content()
-            ];
-        }
-        title_dom_name() {
-            return "h1";
-        }
-        Title() {
-            const obj = new this.$.$mol_paragraph();
-            obj.dom_name = () => this.title_dom_name();
-            obj.title = () => this.title();
-            return obj;
-        }
-        tools() {
-            return [];
-        }
-        Tools() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.tools();
-            return obj;
-        }
-        head() {
-            return [
-                this.Title(),
-                this.Tools()
-            ];
-        }
-        Head() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.head();
-            return obj;
-        }
-        content() {
-            return [];
-        }
-        Content() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.content();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Title", null);
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Tools", null);
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Head", null);
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Content", null);
-    $.$mol_section = $mol_section;
-})($ || ($ = {}));
-//mol/section/-view.tree/section.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_section extends $.$mol_section {
-            title_dom_name() {
-                return 'h' + this.level();
-            }
-        }
-        $$.$mol_section = $mol_section;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/section/section.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\nh1[mol_section_title] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_section_title] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_section_title] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_section_title] {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\nh5[mol_section_title] {\n\tfont-size: 1rem;\n}\n\nh6[mol_section_title] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
-})($ || ($ = {}));
-//mol/section/-css/section.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_row extends $mol_view {
     }
     $.$mol_row = $mol_row;
@@ -13951,9 +13943,13 @@ var $;
             const obj = new this.$.$piterjs_person();
             return obj;
         }
+        profile_editable() {
+            return true;
+        }
         Profile() {
             const obj = new this.$.$piterjs_person_edit();
             obj.person = () => this.person();
+            obj.enabled = () => this.profile_editable();
             return obj;
         }
         join_enabled() {
@@ -13982,16 +13978,10 @@ var $;
             obj.sub = () => this.joined_form();
             return obj;
         }
-        Joined_bid() {
-            const obj = new this.$.$mol_text();
-            obj.text = () => "Если не сможешь прийти - не забудь отменить регистрацию, чтобы освободить место другим.\nСделать это можно лишь с того же девайса. Но \\\\тут\\#!safe\\\\ можешь перенести свою авторизацию на любой другой.\nДа, мы упарываемся по твоей приватности 💟";
-            return obj;
-        }
         join_content() {
             return [
                 this.Profile(),
-                this.Joined_form(),
-                this.Joined_bid()
+                this.Joined_form()
             ];
         }
         Join() {
@@ -14004,6 +13994,11 @@ var $;
             obj.content = () => this.join_content();
             return obj;
         }
+        Joined_bid() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => "Если не сможешь прийти - не забудь отменить регистрацию, чтобы освободить место другим.\nСделать это можно лишь с того же девайса. Но \\\\тут\\#!safe\\\\ можешь перенести свою авторизацию на любой другой.\nДа, мы упарываемся по твоей приватности 💟";
+            return obj;
+        }
         content() {
             return [
                 this.Description(),
@@ -14011,7 +14006,8 @@ var $;
                 this.Speeches(),
                 this.Speech_add(),
                 this.Hidden_fields(),
-                this.Join()
+                this.Join(),
+                this.Joined_bid()
             ];
         }
         Content() {
@@ -14137,10 +14133,10 @@ var $;
     ], $piterjs_meetup_page.prototype, "Joined_form", null);
     __decorate([
         $mol_mem
-    ], $piterjs_meetup_page.prototype, "Joined_bid", null);
+    ], $piterjs_meetup_page.prototype, "Join", null);
     __decorate([
         $mol_mem
-    ], $piterjs_meetup_page.prototype, "Join", null);
+    ], $piterjs_meetup_page.prototype, "Joined_bid", null);
     __decorate([
         $mol_mem
     ], $piterjs_meetup_page.prototype, "Content", null);
@@ -14177,6 +14173,7 @@ var $;
                     ...this.editing() ? [this.Speech_add()] : [],
                     ...this.editing() ? [this.Hidden_fields()] : [],
                     ...this.join_allowed() ? [this.Join()] : [],
+                    ...this.meetup().joined() ? [this.Joined_bid()] : [],
                 ];
             }
             links() {
@@ -14217,12 +14214,15 @@ var $;
                 this.meetup().place().capacity_max(this.joined_count());
             }
             profile_editable() {
-                return !this.joined();
+                if (this.joined())
+                    return false;
+                return true;
+            }
+            person_name() {
+                return this.person().name_real().trim().replace(/\s+/, ' ');
             }
             join_enabled() {
-                if (this.person().name_first().length < 2)
-                    return false;
-                if (this.person().name_last().length < 2)
+                if (!/\S{2,}\s\S{2,}/.test(this.person_name()))
                     return false;
                 if (!this.joined() && this.meetup().place().capacity_max() <= this.joined_count())
                     return false;
@@ -14232,7 +14232,6 @@ var $;
                 return [
                     this.Profile(),
                     this.Joined_form(),
-                    ...this.meetup().joined() ? [this.Joined_bid()] : [],
                 ];
             }
             joined_form() {
@@ -14272,7 +14271,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 3rem;\n}\n\n[piterjs_meetup_page_tools] {\n\tflex-grow: 1;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_hidden_fields] {\n\tpadding: var(--mol_gap_block);\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_join] {\n\tpadding: var(--mol_gap_block);\n\tbackground-color: var(--mol_theme_card);\n}\n\n[piterjs_meetup_page_joined_confirm] {\n\tpadding: var(--mol_gap_text);\n}\n\n[piterjs_meetup_page_free_space] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_shade);\n}\n\n[piterjs_meetup_page_capacity_field] {\n\tflex: 1\n}\n\n[piterjs_meetup_page_capacity_cut] {\n\talign-self: flex-end;\n}\n");
+    $mol_style_attach("piterjs/meetup/page/page.view.css", "[mol_page][piterjs_meetup_page] {\n\tflex: 0 0 28rem;\n}\n\n[piterjs_meetup_page_title] {\n\tflex: 1000 1000 3rem;\n}\n\n[piterjs_meetup_page_tools] {\n\tflex-grow: 1;\n}\n\n[piterjs_meetup_page_body] {\n\tpadding: .75rem;\n}\n\n[piterjs_meetup_page_links] {\n\tflex-wrap: wrap;\n}\n\n[piterjs_meetup_page_video] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_place] {\n\tdisplay: inline;\n}\n\n[piterjs_meetup_page_description] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_hidden_fields] {\n\tpadding: var(--mol_gap_block);\n}\n\n[piterjs_meetup_page_afterparty] {\n\tbox-shadow: none;\n\tflex-grow: 0;\n\tfont-family: sans-serif;\n}\n\n[piterjs_meetup_page_join] {\n\tpadding: var(--mol_gap_block);\n\tbackground-color: var(--mol_theme_card);\n}\n\n[piterjs_meetup_page_joined_confirm] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_focus);\n}\n\n[piterjs_meetup_page_free_space] {\n\tpadding: var(--mol_gap_text);\n\tcolor: var(--mol_theme_shade);\n}\n\n[piterjs_meetup_page_capacity_field] {\n\tflex: 1\n}\n\n[piterjs_meetup_page_capacity_cut] {\n\talign-self: flex-end;\n}\n");
 })($ || ($ = {}));
 //piterjs/meetup/page/-css/page.view.css.ts
 ;
@@ -14787,7 +14786,7 @@ var $;
         class $piterjs_person_snippet extends $.$piterjs_person_snippet {
             haystack() {
                 const person = this.person();
-                return person.name_first() + ' ' + person.name_last();
+                return person.name_real() || person.name_first() + ' ' + person.name_last();
             }
         }
         __decorate([

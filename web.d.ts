@@ -1528,6 +1528,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $piterjs_person extends $piterjs_model {
+        name_real(next?: string): string;
         name_first(next?: string): string;
         name_last(next?: string): string;
     }
@@ -3294,14 +3295,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $piterjs_person_edit extends $mol_view {
-        name_first(next?: any): string;
-        name_last(next?: any): string;
+    class $piterjs_person_edit extends $mol_form_field {
+        name_real(next?: any): string;
         person(): $piterjs_person;
-        sub(): readonly any[];
+        name(): string;
+        Content(): $$.$mol_string;
         enabled(): boolean;
-        Name_first(): $$.$mol_string;
-        Name_last(): $$.$mol_string;
+        Name_real(): $$.$mol_string;
     }
 }
 
@@ -3314,6 +3314,30 @@ declare namespace $ {
 declare namespace $ {
     class $mol_check_box extends $mol_check {
         Icon(): $mol_icon_tick;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_section extends $mol_list {
+        level(): number;
+        rows(): readonly any[];
+        title_dom_name(): string;
+        Title(): $$.$mol_paragraph;
+        tools(): readonly any[];
+        Tools(): $mol_view;
+        head(): readonly any[];
+        Head(): $mol_view;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_section extends $.$mol_section {
+        title_dom_name(): string;
     }
 }
 
@@ -3768,30 +3792,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_section extends $mol_list {
-        level(): number;
-        rows(): readonly any[];
-        title_dom_name(): string;
-        Title(): $$.$mol_paragraph;
-        tools(): readonly any[];
-        Tools(): $mol_view;
-        head(): readonly any[];
-        Head(): $mol_view;
-        content(): readonly any[];
-        Content(): $$.$mol_list;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_section extends $.$mol_section {
-        title_dom_name(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_row extends $mol_view {
     }
 }
@@ -3891,15 +3891,16 @@ declare namespace $ {
         free_space(): string;
         Free_space(): $$.$mol_paragraph;
         person(): $piterjs_person;
+        profile_editable(): boolean;
         Profile(): $piterjs_person_edit;
         join_enabled(): boolean;
         Joined(): $mol_check_box;
         Joined_confirm(): $$.$mol_paragraph;
         joined_form(): readonly any[];
         Joined_form(): $mol_view;
-        Joined_bid(): $$.$mol_text;
         join_content(): readonly any[];
         Join(): $$.$mol_section;
+        Joined_bid(): $$.$mol_text;
         content(): readonly any[];
         Content(): $$.$mol_list;
         speech(id: any): $piterjs_speech;
@@ -3923,8 +3924,9 @@ declare namespace $.$$ {
         capacity(next?: number): number;
         capacity_cut(): void;
         profile_editable(): boolean;
+        person_name(): string;
         join_enabled(): boolean;
-        join_content(): ($mol_view | $piterjs_person_edit)[];
+        join_content(): $mol_view[];
         joined_form(): ($mol_paragraph | $mol_check_box)[];
         free_space(): string;
     }
