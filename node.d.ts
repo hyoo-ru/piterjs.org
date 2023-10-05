@@ -4788,6 +4788,12 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_camera extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_clock extends $mol_icon {
         path(): string;
     }
@@ -4919,6 +4925,73 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $piterjs_screen_lines extends $mol_svg_root {
+        style(): Record<string, any>;
+        view_box(): string;
+        sub(): readonly any[];
+        color(): string;
+        First(): $mol_svg_path;
+        Second(): $mol_svg_path;
+        Third(): $mol_svg_path;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $piterjs_screen extends $mol_view {
+        place(): $piterjs_place;
+        sub(): readonly any[];
+        content(): readonly $mol_view[];
+        color_open(): string;
+        Open(): $piterjs_screen_lines;
+        color_close(): string;
+        Close(): $piterjs_screen_lines;
+    }
+}
+
+declare namespace $.$$ {
+    class $piterjs_screen extends $.$piterjs_screen {
+        sub(): ($mol_view | $piterjs_screen_lines)[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $piterjs_speech_poster extends $piterjs_screen {
+        title(): string;
+        start(): $mol_time_moment;
+        speaker(): $piterjs_speaker;
+        speech(): $piterjs_speech;
+        theme(): string;
+        content(): readonly any[];
+        Title(): $$.$mol_paragraph;
+        photo_uri(): string;
+        Photo(): $piterjs_image;
+        speaker_name(): string;
+        Name(): $$.$mol_paragraph;
+        Main(): $mol_view;
+    }
+}
+
+declare namespace $ {
+    function $mol_blob_uri(blob: $mol_blob): Promise<string>;
+}
+
+declare namespace $.$$ {
+    class $piterjs_speech_poster extends $.$piterjs_speech_poster {
+        photo_uri(): string;
+        speaker_name(): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
     class $mol_string_link extends $mol_view {
         attr(): Record<string, any>;
         sub(): readonly any[];
@@ -5033,12 +5106,17 @@ declare namespace $ {
         tools(): readonly any[];
         body(): readonly any[];
         editing(): boolean;
+        poster_blob(next?: any): Blob;
+        Poster_copy_icon(): $mol_icon_camera;
+        Poster_copy(): $$.$mol_button_copy;
         speech_public(next?: any): boolean;
         Public_icon(): $mol_icon_eye;
         Public(): $mol_check_icon;
         Start(): $$.$mol_pick_time;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
+        Poster(): $$.$piterjs_speech_poster;
+        Poster_zone(): $mol_view;
         Description(): $$.$mol_textarea;
         Slides(): $$.$mol_string_link;
         Video(): $$.$mol_string_link;
@@ -5049,11 +5127,62 @@ declare namespace $ {
     }
 }
 
+declare namespace $ {
+    type $mol_type_partial_deep<Val> = Val extends object ? Val extends Function ? Val : {
+        [field in keyof Val]?: $mol_type_partial_deep<Val[field]> | undefined;
+    } : Val;
+}
+
+declare namespace $ {
+    let $mol_jsx_prefix: string;
+    let $mol_jsx_crumbs: string;
+    let $mol_jsx_booked: Set<string> | null;
+    let $mol_jsx_document: $mol_jsx.JSX.ElementClass['ownerDocument'];
+    const $mol_jsx_frag = "";
+    function $mol_jsx<Props extends $mol_jsx.JSX.IntrinsicAttributes, Children extends Array<Node | string>>(Elem: string | ((props: Props, ...children: Children) => Element), props: Props, ...childNodes: Children): Element | DocumentFragment;
+    namespace $mol_jsx.JSX {
+        interface Element extends HTMLElement {
+            class?: string;
+        }
+        interface ElementClass {
+            attributes: {};
+            ownerDocument: Pick<Document, 'getElementById' | 'createElementNS' | 'createDocumentFragment'>;
+            childNodes: Array<Node | string>;
+            valueOf(): Element;
+        }
+        type OrString<Dict> = {
+            [key in keyof Dict]: Dict[key] | string;
+        };
+        type IntrinsicElements = {
+            [key in keyof ElementTagNameMap]?: $.$mol_type_partial_deep<OrString<Element & IntrinsicAttributes & ElementTagNameMap[key]>>;
+        };
+        interface IntrinsicAttributes {
+            id?: string;
+            xmlns?: string;
+        }
+        interface ElementAttributesProperty {
+            attributes: {};
+        }
+        interface ElementChildrenAttribute {
+        }
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_serialize(node: Node): string;
+}
+
+declare namespace $ {
+    function $mol_dom_capture_image(el: Element): Promise<HTMLImageElement>;
+    function $mol_dom_capture_canvas(el: Element): Promise<HTMLCanvasElement>;
+}
+
 declare namespace $.$$ {
     class $piterjs_speech_page extends $.$piterjs_speech_page {
         speaker(): $piterjs_speaker;
         links(): $mol_string_link[];
         Public(): $mol_check_icon;
+        poster_blob(): Blob;
     }
 }
 
@@ -5153,42 +5282,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $piterjs_screen_lines extends $mol_svg_root {
-        style(): Record<string, any>;
-        view_box(): string;
-        sub(): readonly any[];
-        color(): string;
-        First(): $mol_svg_path;
-        Second(): $mol_svg_path;
-        Third(): $mol_svg_path;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $piterjs_screen extends $mol_view {
-        place(): $piterjs_place;
-        sub(): readonly any[];
-        content(): readonly $mol_view[];
-        color_open(): string;
-        Open(): $piterjs_screen_lines;
-        color_close(): string;
-        Close(): $piterjs_screen_lines;
-    }
-}
-
-declare namespace $.$$ {
-    class $piterjs_screen extends $.$piterjs_screen {
-        sub(): ($mol_view | $piterjs_screen_lines)[];
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -5590,30 +5683,30 @@ declare namespace $.$$ {
     class $piterjs_others extends $.$piterjs_others {
         list(): readonly Readonly<{
             description?: string | undefined;
-            allDay?: boolean | undefined;
             location?: string | undefined;
+            allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            uid: string;
             summary: string;
+            uid: string;
         }>[];
         list_future(): Readonly<{
             description?: string | undefined;
-            allDay?: boolean | undefined;
             location?: string | undefined;
+            allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            uid: string;
             summary: string;
+            uid: string;
         }>[];
         dict(): Map<string, Readonly<{
             description?: string | undefined;
-            allDay?: boolean | undefined;
             location?: string | undefined;
+            allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            uid: string;
             summary: string;
+            uid: string;
         }>>;
         events(): $piterjs_others_event[];
         event_title(uid: string): string;
@@ -6474,47 +6567,6 @@ declare namespace $ {
 declare namespace $ {
     class $mol_icon_export extends $mol_icon {
         path(): string;
-    }
-}
-
-declare namespace $ {
-    type $mol_type_partial_deep<Val> = Val extends object ? Val extends Function ? Val : {
-        [field in keyof Val]?: $mol_type_partial_deep<Val[field]> | undefined;
-    } : Val;
-}
-
-declare namespace $ {
-    let $mol_jsx_prefix: string;
-    let $mol_jsx_crumbs: string;
-    let $mol_jsx_booked: Set<string> | null;
-    let $mol_jsx_document: $mol_jsx.JSX.ElementClass['ownerDocument'];
-    const $mol_jsx_frag = "";
-    function $mol_jsx<Props extends $mol_jsx.JSX.IntrinsicAttributes, Children extends Array<Node | string>>(Elem: string | ((props: Props, ...children: Children) => Element), props: Props, ...childNodes: Children): Element | DocumentFragment;
-    namespace $mol_jsx.JSX {
-        interface Element extends HTMLElement {
-            class?: string;
-        }
-        interface ElementClass {
-            attributes: {};
-            ownerDocument: Pick<Document, 'getElementById' | 'createElementNS' | 'createDocumentFragment'>;
-            childNodes: Array<Node | string>;
-            valueOf(): Element;
-        }
-        type OrString<Dict> = {
-            [key in keyof Dict]: Dict[key] | string;
-        };
-        type IntrinsicElements = {
-            [key in keyof ElementTagNameMap]?: $.$mol_type_partial_deep<OrString<Element & IntrinsicAttributes & ElementTagNameMap[key]>>;
-        };
-        interface IntrinsicAttributes {
-            id?: string;
-            xmlns?: string;
-        }
-        interface ElementAttributesProperty {
-            attributes: {};
-        }
-        interface ElementChildrenAttribute {
-        }
     }
 }
 
