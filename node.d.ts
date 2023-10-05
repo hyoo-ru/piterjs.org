@@ -1661,6 +1661,9 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_crowd_counter extends $hyoo_crowd_reg {
         list(): readonly `${string}_${string}`[];
+        times(): {
+            [k: string]: number;
+        };
         total(): number;
         counted(next?: boolean): boolean | undefined;
     }
@@ -1687,7 +1690,9 @@ declare namespace $ {
         joined_node(): $hyoo_crowd_counter;
         joined(next?: boolean): boolean;
         joined_list(): $piterjs_person[];
-        joined_moments(): $mol_time_moment[];
+        joined_moments(): {
+            [k: string]: $mol_time_moment;
+        };
         joined_count(): number;
     }
 }
@@ -4742,7 +4747,9 @@ declare namespace $ {
 
 declare namespace $ {
     class $piterjs_meetup_stats extends $mol_page {
-        joined_moments(): $mol_time_moment[];
+        joined_moments(): {
+            [k: string]: $mol_time_moment;
+        };
         meetup(): $piterjs_meetup;
         title(): string;
         tools(): readonly any[];

@@ -5921,6 +5921,13 @@ var $;
         list() {
             return this.yoke([])?.residents() ?? [];
         }
+        times() {
+            const land = this.yoke([]);
+            land?.pub.promote();
+            return Object.fromEntries([...land?._unit_all.values() ?? []]
+                .filter(unit => unit.data && unit.kind() === $hyoo_crowd_unit_kind.join)
+                .map(unit => [unit.auth, $hyoo_crowd_time_stamp(unit.time)]));
+        }
         total() {
             return this.list().length;
         }
@@ -5937,6 +5944,9 @@ var $;
             }
         }
     }
+    __decorate([
+        $mol_mem
+    ], $hyoo_crowd_counter.prototype, "times", null);
     $.$hyoo_crowd_counter = $hyoo_crowd_counter;
 })($ || ($ = {}));
 //hyoo/crowd/counter/counter.ts
@@ -6016,11 +6026,8 @@ var $;
             return this.joined_node().list().map(id => Person.Item(id));
         }
         joined_moments() {
-            const land = this.joined_node().yoke([]);
-            land?.pub.promote();
-            return [...land?._unit_all.values() ?? []]
-                .filter(unit => unit.data && unit.kind() === $hyoo_crowd_unit_kind.join)
-                .map(unit => new $mol_time_moment($hyoo_crowd_time_stamp(unit.time)));
+            return Object.fromEntries(Object.entries(this.joined_node().times())
+                .map(([peer, stamp]) => [peer, new $mol_time_moment(stamp)]));
         }
         joined_count() {
             return this.joined_node().total();
@@ -18335,7 +18342,7 @@ var $;
     (function ($$) {
         class $piterjs_meetup_stats extends $.$piterjs_meetup_stats {
             joins_stat() {
-                return $mol_array_groups(this.joined_moments(), moment => moment.toString('YYYY-MM-DD'));
+                return $mol_array_groups(Object.values(this.joined_moments()), moment => moment.toString('YYYY-MM-DD'));
             }
             days() {
                 return Object.keys(this.joins_stat());
