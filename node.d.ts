@@ -4788,25 +4788,8 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_icon_share extends $mol_icon {
+    class $mol_icon_camera extends $mol_icon {
         path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_share_variant extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_button_share extends $mol_button_minor {
-        uri(): string;
-        capture(): any;
-        hint(): string;
-        sub(): readonly any[];
-        Icon(): $mol_icon_share_variant;
-        title(): string;
     }
 }
 
@@ -4852,19 +4835,26 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_dom_serialize(node: Node): string;
+    class $mol_icon_download extends $mol_icon {
+        path(): string;
+    }
 }
 
 declare namespace $ {
-    function $mol_dom_capture_image(el: Element): Promise<HTMLImageElement>;
-    function $mol_dom_capture_canvas(el: Element): Promise<HTMLCanvasElement>;
+    class $mol_button_download extends $mol_button_minor {
+        blob(): any;
+        uri(): string;
+        file_name(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_download;
+        title(): string;
+    }
 }
 
 declare namespace $.$$ {
-    class $mol_button_share extends $.$mol_button_share {
-        capture(): any;
+    class $mol_button_download extends $.$mol_button_download {
         uri(): string;
-        click(): Promise<void>;
+        click(): void;
     }
 }
 
@@ -5181,7 +5171,10 @@ declare namespace $ {
         tools(): readonly any[];
         body(): readonly any[];
         editing(): boolean;
-        Poster_copy(): $$.$mol_button_share;
+        poster_blob(next?: any): Blob;
+        poster_name(): string;
+        Poster_copy_icon(): $mol_icon_camera;
+        Poster_copy(): $$.$mol_button_download;
         speech_public(next?: any): boolean;
         Public_icon(): $mol_icon_eye;
         Public(): $mol_check_icon;
@@ -5200,11 +5193,22 @@ declare namespace $ {
     }
 }
 
+declare namespace $ {
+    function $mol_dom_serialize(node: Node): string;
+}
+
+declare namespace $ {
+    function $mol_dom_capture_image(el: Element): Promise<HTMLImageElement>;
+    function $mol_dom_capture_canvas(el: Element): Promise<HTMLCanvasElement>;
+}
+
 declare namespace $.$$ {
     class $piterjs_speech_page extends $.$piterjs_speech_page {
         speaker(): $piterjs_speaker;
         links(): $mol_string_link[];
         Public(): $mol_check_icon;
+        poster_name(): string;
+        poster_blob(): Blob;
     }
 }
 
@@ -5709,8 +5713,8 @@ declare namespace $.$$ {
             allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            uid: string;
             summary: string;
+            uid: string;
         }>[];
         list_future(): Readonly<{
             description?: string | undefined;
@@ -5718,8 +5722,8 @@ declare namespace $.$$ {
             allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            uid: string;
             summary: string;
+            uid: string;
         }>[];
         dict(): Map<string, Readonly<{
             description?: string | undefined;
@@ -5727,8 +5731,8 @@ declare namespace $.$$ {
             allDay?: boolean | undefined;
             end: $mol_time_moment;
             start: $mol_time_moment;
-            uid: string;
             summary: string;
+            uid: string;
         }>>;
         events(): $piterjs_others_event[];
         event_title(uid: string): string;
@@ -6593,30 +6597,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_download extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_button_download extends $mol_button_minor {
-        blob(): any;
-        uri(): string;
-        file_name(): string;
-        sub(): readonly any[];
-        Icon(): $mol_icon_download;
-        title(): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_button_download extends $.$mol_button_download {
-        uri(): string;
-        click(): void;
-    }
-}
-
-declare namespace $ {
     class $mol_icon_shield extends $mol_icon {
         path(): string;
     }
@@ -7381,6 +7361,12 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_icon_settings_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_share extends $mol_icon {
         path(): string;
     }
 }

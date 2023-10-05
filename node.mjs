@@ -18390,60 +18390,14 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_share extends $mol_icon {
+    class $mol_icon_camera extends $mol_icon {
         path() {
-            return "M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z";
+            return "M4,4H7L9,2H15L17,4H20C21.1,4 22,4.9 22,6V18C22,19.1 21.1,20 20,20H4C2.9,20 2,19.1 2,18V6C2,4.9 2.9,4 4,4M12,7C9.24,7 7,9.24 7,12C7,14.76 9.24,17 12,17C14.76,17 17,14.76 17,12C17,9.24 14.76,7 12,7M12,9C13.66,9 15,10.34 15,12C15,13.66 13.66,15 12,15C10.34,15 9,13.66 9,12C9,10.34 10.34,9 12,9Z";
         }
     }
-    $.$mol_icon_share = $mol_icon_share;
+    $.$mol_icon_camera = $mol_icon_camera;
 })($ || ($ = {}));
-//mol/icon/share/-view.tree/share.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_share_variant extends $mol_icon {
-        path() {
-            return "M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8C19.66,8 21,6.66 21,5C21,3.34 19.66,2 18,2C16.34,2 15,3.34 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9C4.34,9 3,10.34 3,12C3,13.66 4.34,15 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19C20.92,17.39 19.61,16.08 18,16.08Z";
-        }
-    }
-    $.$mol_icon_share_variant = $mol_icon_share_variant;
-})($ || ($ = {}));
-//mol/icon/share/variant/-view.tree/variant.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_share extends $mol_button_minor {
-        uri() {
-            return "";
-        }
-        capture() {
-            return null;
-        }
-        hint() {
-            return this.$.$mol_locale.text('$mol_button_share_hint');
-        }
-        sub() {
-            return [
-                this.Icon(),
-                this.title()
-            ];
-        }
-        Icon() {
-            const obj = new this.$.$mol_icon_share_variant();
-            return obj;
-        }
-        title() {
-            return "";
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_button_share.prototype, "Icon", null);
-    $.$mol_button_share = $mol_button_share;
-})($ || ($ = {}));
-//mol/button/share/-view.tree/share.view.tree.ts
+//mol/icon/camera/-view.tree/camera.view.tree.ts
 ;
 "use strict";
 //mol/type/partial/deep/deep.ts
@@ -18572,127 +18526,70 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_dom_serialize(node) {
-        const serializer = new $mol_dom_context.XMLSerializer;
-        return serializer.serializeToString(node);
+    class $mol_icon_download extends $mol_icon {
+        path() {
+            return "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
+        }
     }
-    $.$mol_dom_serialize = $mol_dom_serialize;
+    $.$mol_icon_download = $mol_icon_download;
 })($ || ($ = {}));
-//mol/dom/serialize/serialize.ts
+//mol/icon/download/-view.tree/download.view.tree.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    async function $mol_dom_capture_image(el) {
-        function wait_load(el) {
-            return new Promise((done, fail) => {
-                el.onload = () => done(el);
-                el.onerror = fail;
-            });
+    class $mol_button_download extends $mol_button_minor {
+        blob() {
+            return null;
         }
-        function restyle(el, styles) {
-            for (let i = 0; i < styles.length; ++i) {
-                const prop = styles[i];
-                el.style[prop] = styles[prop];
-            }
+        uri() {
+            return "";
         }
-        function clone(el) {
-            const re = el.cloneNode();
-            if (el instanceof HTMLImageElement && !/^(data|blob):/.test(el.src)) {
-                const canvas = $mol_jsx("canvas", { width: el.naturalWidth, height: el.naturalHeight });
-                const context = canvas.getContext('2d');
-                context.drawImage(el, 0, 0);
-                try {
-                    ;
-                    re.src = canvas.toDataURL();
-                }
-                catch (error) {
-                    $mol_fail_log(error);
-                }
-            }
-            if (re instanceof HTMLInputElement) {
-                re.setAttribute('value', el.value);
-                if (el.checked)
-                    re.setAttribute('checked', '');
-            }
-            if (re instanceof HTMLTextAreaElement) {
-                re.setAttribute('value', el.value);
-            }
-            const styles = $mol_dom_context.getComputedStyle(el);
-            restyle(re, styles);
-            const before = $mol_dom_context.getComputedStyle(el, ':before');
-            if (before.content && before.content !== 'none') {
-                const kid = $mol_jsx("span", null, JSON.parse(before.content));
-                restyle(kid, before);
-                re.appendChild(kid);
-            }
-            for (const kid of el.childNodes) {
-                const dup = (kid.nodeType === kid.ELEMENT_NODE)
-                    ? clone(kid)
-                    : kid.cloneNode();
-                re.appendChild(dup);
-            }
-            const after = $mol_dom_context.getComputedStyle(el, ':after');
-            if (after.content && after.content !== 'none') {
-                const kid = $mol_jsx("span", null, JSON.parse(after.content));
-                restyle(kid, after);
-                re.appendChild(kid);
-            }
-            return re;
+        file_name() {
+            return "blob.bin";
         }
-        const { width, height } = el.getBoundingClientRect();
-        const svg = $mol_jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: `0 0 ${width} ${height}`, width: String(width), height: String(height) },
-            $mol_jsx("foreignObject", { xmlns: "http://www.w3.org/2000/svg", width: String(width), height: String(height) }, clone(el)));
-        const xml = $mol_dom_serialize(svg);
-        const uri = 'data:image/svg+xml,' + encodeURIComponent(xml);
-        const image = $mol_jsx("img", { src: uri });
-        await wait_load(image);
-        return image;
+        sub() {
+            return [
+                this.Icon(),
+                this.title()
+            ];
+        }
+        Icon() {
+            const obj = new this.$.$mol_icon_download();
+            return obj;
+        }
+        title() {
+            return "";
+        }
     }
-    $.$mol_dom_capture_image = $mol_dom_capture_image;
-    async function $mol_dom_capture_canvas(el) {
-        const image = await $mol_dom_capture_image(el);
-        const canvas = $mol_jsx("canvas", { width: image.width, height: image.height });
-        const context = canvas.getContext('2d');
-        context.drawImage(image, 0, 0);
-        return canvas;
-    }
-    $.$mol_dom_capture_canvas = $mol_dom_capture_canvas;
+    __decorate([
+        $mol_mem
+    ], $mol_button_download.prototype, "Icon", null);
+    $.$mol_button_download = $mol_button_download;
 })($ || ($ = {}));
-//mol/dom/capture/capture.tsx
+//mol/button/download/-view.tree/download.view.tree.ts
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_button_share extends $.$mol_button_share {
-            capture() {
-                return this.$.$mol_dom_context.document.body;
-            }
+        class $mol_button_download extends $.$mol_button_download {
             uri() {
-                return this.$.$mol_state_arg.href();
+                return URL.createObjectURL(this.blob());
             }
-            async click() {
-                const title = this.title();
-                const url = this.uri() ?? undefined;
-                const files = [];
-                let el = this.capture();
-                if (el) {
-                    if (el instanceof $mol_view)
-                        el = el.dom_tree();
-                    const canvas = await $mol_dom_capture_canvas(el);
-                    const blob = await new Promise(done => canvas.toBlob(done));
-                    const file = new File([blob], title + '.png', { type: blob.type });
-                    files.push(file);
-                }
-                await this.$.$mol_dom_context.navigator.share({ title, files, url });
+            click() {
+                const a = $mol_jsx("a", { href: this.uri(), download: this.file_name() });
+                a.click();
             }
         }
-        $$.$mol_button_share = $mol_button_share;
+        __decorate([
+            $mol_mem
+        ], $mol_button_download.prototype, "uri", null);
+        $$.$mol_button_download = $mol_button_download;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//mol/button/share/share.view.ts
+//mol/button/download/download.view.tsx
 ;
 "use strict";
 var $;
@@ -19922,10 +19819,25 @@ var $;
         editing() {
             return false;
         }
+        poster_blob(next) {
+            if (next !== undefined)
+                return next;
+            const obj = new this.$.$mol_blob();
+            return obj;
+        }
+        poster_name() {
+            return "poster.png";
+        }
+        Poster_copy_icon() {
+            const obj = new this.$.$mol_icon_camera();
+            return obj;
+        }
         Poster_copy() {
-            const obj = new this.$.$mol_button_share();
-            obj.hint = () => "Скопировать постер";
-            obj.capture = () => this.Poster();
+            const obj = new this.$.$mol_button_download();
+            obj.hint = () => "Скачать постер";
+            obj.blob = () => this.poster_blob();
+            obj.file_name = () => this.poster_name();
+            obj.Icon = () => this.Poster_copy_icon();
             return obj;
         }
         speech_public(next) {
@@ -20028,6 +19940,12 @@ var $;
     ], $piterjs_speech_page.prototype, "Title", null);
     __decorate([
         $mol_mem
+    ], $piterjs_speech_page.prototype, "poster_blob", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_speech_page.prototype, "Poster_copy_icon", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_speech_page.prototype, "Poster_copy", null);
     __decorate([
         $mol_mem
@@ -20078,6 +19996,98 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_dom_serialize(node) {
+        const serializer = new $mol_dom_context.XMLSerializer;
+        return serializer.serializeToString(node);
+    }
+    $.$mol_dom_serialize = $mol_dom_serialize;
+})($ || ($ = {}));
+//mol/dom/serialize/serialize.ts
+;
+"use strict";
+var $;
+(function ($) {
+    async function $mol_dom_capture_image(el) {
+        function wait_load(el) {
+            return new Promise((done, fail) => {
+                el.onload = () => done(el);
+                el.onerror = fail;
+            });
+        }
+        function restyle(el, styles) {
+            for (let i = 0; i < styles.length; ++i) {
+                const prop = styles[i];
+                el.style[prop] = styles[prop];
+            }
+        }
+        function clone(el) {
+            const re = el.cloneNode();
+            if (el instanceof HTMLImageElement && !/^(data|blob):/.test(el.src)) {
+                const canvas = $mol_jsx("canvas", { width: el.naturalWidth, height: el.naturalHeight });
+                const context = canvas.getContext('2d');
+                context.drawImage(el, 0, 0);
+                try {
+                    ;
+                    re.src = canvas.toDataURL();
+                }
+                catch (error) {
+                    $mol_fail_log(error);
+                }
+            }
+            if (re instanceof HTMLInputElement) {
+                re.setAttribute('value', el.value);
+                if (el.checked)
+                    re.setAttribute('checked', '');
+            }
+            if (re instanceof HTMLTextAreaElement) {
+                re.setAttribute('value', el.value);
+            }
+            const styles = $mol_dom_context.getComputedStyle(el);
+            restyle(re, styles);
+            const before = $mol_dom_context.getComputedStyle(el, ':before');
+            if (before.content && before.content !== 'none') {
+                const kid = $mol_jsx("span", null, JSON.parse(before.content));
+                restyle(kid, before);
+                re.appendChild(kid);
+            }
+            for (const kid of el.childNodes) {
+                const dup = (kid.nodeType === kid.ELEMENT_NODE)
+                    ? clone(kid)
+                    : kid.cloneNode();
+                re.appendChild(dup);
+            }
+            const after = $mol_dom_context.getComputedStyle(el, ':after');
+            if (after.content && after.content !== 'none') {
+                const kid = $mol_jsx("span", null, JSON.parse(after.content));
+                restyle(kid, after);
+                re.appendChild(kid);
+            }
+            return re;
+        }
+        const { width, height } = el.getBoundingClientRect();
+        const svg = $mol_jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: `0 0 ${width} ${height}`, width: String(width), height: String(height) },
+            $mol_jsx("foreignObject", { xmlns: "http://www.w3.org/2000/svg", width: String(width), height: String(height) }, clone(el)));
+        const xml = $mol_dom_serialize(svg);
+        const uri = 'data:image/svg+xml,' + encodeURIComponent(xml);
+        const image = $mol_jsx("img", { src: uri });
+        await wait_load(image);
+        return image;
+    }
+    $.$mol_dom_capture_image = $mol_dom_capture_image;
+    async function $mol_dom_capture_canvas(el) {
+        const image = await $mol_dom_capture_image(el);
+        const canvas = $mol_jsx("canvas", { width: image.width, height: image.height });
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0);
+        return canvas;
+    }
+    $.$mol_dom_capture_canvas = $mol_dom_capture_canvas;
+})($ || ($ = {}));
+//mol/dom/capture/capture.tsx
+;
+"use strict";
+var $;
+(function ($) {
     var $$;
     (function ($$) {
         class $piterjs_speech_page extends $.$piterjs_speech_page {
@@ -20094,6 +20104,15 @@ var $;
                 if (!this.editing())
                     return null;
                 return super.Public();
+            }
+            poster_name() {
+                return `${this.speaker().title()} - ${this.title()}.png`;
+            }
+            poster_blob() {
+                const canvas = $mol_wire_sync(this.$).$mol_dom_capture_canvas(this.Poster().dom_tree());
+                const picture = $mol_picture.fit(canvas);
+                const blob = picture.format(`image/png`);
+                return blob;
             }
         }
         __decorate([
@@ -26305,74 +26324,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_download extends $mol_icon {
-        path() {
-            return "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
-        }
-    }
-    $.$mol_icon_download = $mol_icon_download;
-})($ || ($ = {}));
-//mol/icon/download/-view.tree/download.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_download extends $mol_button_minor {
-        blob() {
-            return null;
-        }
-        uri() {
-            return "";
-        }
-        file_name() {
-            return "blob.bin";
-        }
-        sub() {
-            return [
-                this.Icon(),
-                this.title()
-            ];
-        }
-        Icon() {
-            const obj = new this.$.$mol_icon_download();
-            return obj;
-        }
-        title() {
-            return "";
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_button_download.prototype, "Icon", null);
-    $.$mol_button_download = $mol_button_download;
-})($ || ($ = {}));
-//mol/button/download/-view.tree/download.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_button_download extends $.$mol_button_download {
-            uri() {
-                return URL.createObjectURL(this.blob());
-            }
-            click() {
-                const a = $mol_jsx("a", { href: this.uri(), download: this.file_name() });
-                a.click();
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_button_download.prototype, "uri", null);
-        $$.$mol_button_download = $mol_button_download;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/button/download/download.view.tsx
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_icon_shield extends $mol_icon {
         path() {
             return "M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z";
@@ -29607,6 +29558,18 @@ var $;
     $.$mol_icon_settings_outline = $mol_icon_settings_outline;
 })($ || ($ = {}));
 //mol/icon/settings/outline/-view.tree/outline.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_share extends $mol_icon {
+        path() {
+            return "M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z";
+        }
+    }
+    $.$mol_icon_share = $mol_icon_share;
+})($ || ($ = {}));
+//mol/icon/share/-view.tree/share.view.tree.ts
 ;
 "use strict";
 var $;
