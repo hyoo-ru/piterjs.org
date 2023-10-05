@@ -18336,7 +18336,7 @@ var $;
     (function ($$) {
         class $piterjs_meetup_stats extends $.$piterjs_meetup_stats {
             joins_stat() {
-                return $mol_array_groups(Object.values(this.joined_moments()), moment => moment.toString('YYYY-MM-DD'));
+                return $mol_array_groups(Object.values(this.joined_moments()), moment => moment.toString('MM-DD'));
             }
             days() {
                 return Object.keys(this.joins_stat());
