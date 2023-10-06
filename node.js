@@ -7279,7 +7279,6 @@ var $;
                 el.selectionEnd = to;
                 el.selectionStart = from;
                 if (to !== from && el.selectionEnd === el.selectionStart) {
-                    el.selectionStart = from;
                     el.selectionEnd = to;
                 }
             }
@@ -19278,6 +19277,7 @@ var $;
             Name: {
                 margin: `auto`,
                 color: $mol_theme.shade,
+                textAlign: `center`,
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
