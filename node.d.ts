@@ -4050,6 +4050,7 @@ declare namespace $ {
         Free_space(): $$.$mol_paragraph;
         person(): $piterjs_person;
         profile_editable(): boolean;
+        profile_bid(): string;
         Profile(): $piterjs_person_edit;
         join_enabled(): boolean;
         Joined(): $mol_check_box;
@@ -4083,6 +4084,7 @@ declare namespace $.$$ {
         capacity_cut(): void;
         profile_editable(): boolean;
         person_name(): string;
+        profile_bid(): "" | "Обязательно" | "От двух слов";
         join_enabled(): boolean;
         join_content(): $mol_view[];
         joined_form(): ($mol_paragraph | $mol_check_box)[];
