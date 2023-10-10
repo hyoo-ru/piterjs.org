@@ -6037,7 +6037,7 @@ var $;
         }
         name_real(next) {
             const secret = $mol_wire_sync(this.secret());
-            const reg = this.sub('name_real', $hyoo_crowd_reg);
+            const reg = this.sub('name', $hyoo_crowd_reg);
             const salt = $mol_charset_encode(this.id());
             if (next !== undefined) {
                 const closed = secret.encrypt($mol_charset_encode(next), salt);
