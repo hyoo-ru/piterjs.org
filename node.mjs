@@ -6047,6 +6047,8 @@ var $;
             const closed = reg.value();
             if (!closed)
                 return '';
+            if (typeof closed === 'string')
+                return closed;
             return $mol_charset_decode(secret.decrypt(closed, salt));
         }
     }
