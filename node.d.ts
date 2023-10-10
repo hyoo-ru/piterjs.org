@@ -1689,9 +1689,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    let $mol_mem_cached: typeof $mol_wire_probe;
+}
+
+declare namespace $ {
     class $piterjs_person extends $piterjs_model {
         secret(): $mol_crypto_secret;
-        name_real(next?: string): string;
+        name_real(next?: string, cache?: 'cache'): string;
     }
 }
 
@@ -2319,10 +2323,6 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_support_css_overflow_anchor(this: $): boolean;
-}
-
-declare namespace $ {
-    let $mol_mem_cached: typeof $mol_wire_probe;
 }
 
 declare namespace $.$$ {

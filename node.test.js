@@ -6014,6 +6014,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_mem_cached = $mol_wire_probe;
+})($ || ($ = {}));
+//mol/mem/cached/cached.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $piterjs_person extends $piterjs_model {
         secret() {
             const priv = $piterjs_domain.secure_private();
@@ -6027,13 +6034,18 @@ var $;
                 return $mol_wire_sync($mol_crypto_secret).derive(priv, pub);
             }
         }
-        name_real(next) {
-            const secret = $mol_wire_sync(this.secret());
+        name_real(next, cache) {
+            if (cache)
+                return next;
+            const secret = this.secret();
             const reg = this.sub('name_real', $hyoo_crowd_reg);
             const salt = $mol_charset_encode(this.id());
             if (next !== undefined) {
-                const closed = secret.encrypt($mol_charset_encode(next), salt);
-                reg.value(new Uint8Array(closed));
+                secret.encrypt($mol_charset_encode(next), salt)
+                    .then(closed => {
+                    reg.value(new Uint8Array(closed));
+                    this.name_real($mol_mem_cached(() => this.name_real()), 'cache');
+                });
                 return next;
             }
             const closed = reg.value();
@@ -6041,7 +6053,7 @@ var $;
                 return '';
             if (typeof closed === 'string')
                 return closed;
-            return $mol_charset_decode(secret.decrypt(closed, salt));
+            return $mol_charset_decode($mol_wire_sync(secret).decrypt(closed, salt));
         }
     }
     __decorate([
@@ -7924,13 +7936,6 @@ var $;
     $.$mol_support_css_overflow_anchor = $mol_support_css_overflow_anchor;
 })($ || ($ = {}));
 //mol/support/css/css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_mem_cached = $mol_wire_probe;
-})($ || ($ = {}));
-//mol/mem/cached/cached.ts
 ;
 "use strict";
 var $;
