@@ -1530,10 +1530,28 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_crypto_secret extends Object {
+        readonly native: CryptoKey & {
+            type: 'secret';
+        };
+        static size: number;
+        static extra: number;
+        constructor(native: CryptoKey & {
+            type: 'secret';
+        });
+        static generate(): Promise<$mol_crypto_secret>;
+        static from(serial: BufferSource | string): Promise<$mol_crypto_secret>;
+        static derive(private_serial: string, public_serial: string): Promise<$mol_crypto_secret>;
+        serial(): Promise<ArrayBuffer>;
+        encrypt(open: BufferSource, salt: BufferSource): Promise<ArrayBuffer>;
+        decrypt(closed: BufferSource, salt: BufferSource): Promise<ArrayBuffer>;
+    }
+}
+
+declare namespace $ {
     class $piterjs_person extends $piterjs_model {
+        secret(): $mol_crypto_secret;
         name_real(next?: string): string;
-        name_first(next?: string): string;
-        name_last(next?: string): string;
     }
 }
 
@@ -1554,6 +1572,38 @@ declare namespace $ {
             [k: string]: $mol_time_moment;
         };
         joined_count(): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static href(next?: string): string;
+        static href_normal(): string;
+        static href_absolute(): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): Readonly<{
+            [key: string]: string;
+        }>;
+        static dict_cut(except: string[]): {
+            [key: string]: string;
+        };
+        static value(key: string, next?: string | null): string | null;
+        static link(next: Record<string, string | null>): string;
+        static prolog: string;
+        static separator: string;
+        static make_link(next: {
+            [key: string]: string | null;
+        }): string;
+        static go(next: {
+            [key: string]: string | null;
+        }): void;
+        static encode(str: string): string;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: Record<string, string | null>): string;
     }
 }
 
@@ -1626,6 +1676,8 @@ declare namespace $ {
         meetup_public(id: $mol_int62_string, next?: boolean): boolean;
         meetup_make(): $piterjs_meetup;
         person(): $piterjs_person;
+        static secure_public(): string;
+        static secure_private(): string | null;
     }
 }
 
@@ -2045,6 +2097,9 @@ declare namespace $ {
     class $mol_link extends $mol_view {
         uri(): string;
         dom_name(): string;
+        uri_off(): string;
+        uri_native(): any;
+        external(): boolean;
         attr(): Record<string, any>;
         sub(): readonly $mol_view_content[];
         arg(): Record<string, any>;
@@ -2057,38 +2112,6 @@ declare namespace $ {
         current(): boolean;
         event_click(event?: any): any;
         click(event?: any): any;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_arg extends $mol_object {
-        prefix: string;
-        static href(next?: string): string;
-        static href_normal(): string;
-        static href_absolute(): string;
-        static dict(next?: {
-            [key: string]: string | null;
-        }): Readonly<{
-            [key: string]: string;
-        }>;
-        static dict_cut(except: string[]): {
-            [key: string]: string;
-        };
-        static value(key: string, next?: string | null): string | null;
-        static link(next: Record<string, string | null>): string;
-        static prolog: string;
-        static separator: string;
-        static make_link(next: {
-            [key: string]: string | null;
-        }): string;
-        static go(next: {
-            [key: string]: string | null;
-        }): void;
-        static encode(str: string): string;
-        constructor(prefix?: string);
-        value(key: string, next?: string): string | null;
-        sub(postfix: string): $mol_state_arg;
-        link(next: Record<string, string | null>): string;
     }
 }
 
@@ -2573,7 +2596,7 @@ declare namespace $ {
     class $mol_fetch_response extends $mol_object2 {
         readonly native: Response;
         constructor(native: Response);
-        status(): "success" | "unknown" | "inform" | "redirect" | "wrong" | "failed";
+        status(): "success" | "redirect" | "unknown" | "inform" | "wrong" | "failed";
         code(): number;
         message(): string;
         headers(): Headers;
@@ -5763,7 +5786,7 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_wire_race<Tasks extends ((...args: any) => any)[]>(...tasks: Tasks): {
-        [index in keyof Tasks]: index extends number ? ReturnType<Tasks[index]> : Tasks[index];
+        [index in keyof Tasks]: ReturnType<Tasks[index]>;
     };
 }
 
@@ -6920,25 +6943,6 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_base64_decode_web(base64Str: string): Uint8Array;
-}
-
-declare namespace $ {
-    class $mol_crypto_secret extends Object {
-        readonly native: CryptoKey & {
-            type: 'secret';
-        };
-        static size: number;
-        static extra: number;
-        constructor(native: CryptoKey & {
-            type: 'secret';
-        });
-        static generate(): Promise<$mol_crypto_secret>;
-        static from(serial: BufferSource | string): Promise<$mol_crypto_secret>;
-        static derive(private_serial: string, public_serial: string): Promise<$mol_crypto_secret>;
-        serial(): Promise<ArrayBuffer>;
-        encrypt(open: BufferSource, salt: BufferSource): Promise<ArrayBuffer>;
-        decrypt(closed: BufferSource, salt: BufferSource): Promise<ArrayBuffer>;
-    }
 }
 
 declare namespace $ {

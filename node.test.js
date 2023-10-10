@@ -5946,26 +5946,108 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    const algorithm = {
+        name: 'AES-GCM',
+        length: 128,
+        tagLength: 32,
+    };
+    class $mol_crypto_secret extends Object {
+        native;
+        static size = 16;
+        static extra = 4;
+        constructor(native) {
+            super();
+            this.native = native;
+        }
+        static async generate() {
+            return new this(await $mol_crypto_native.subtle.generateKey(algorithm, true, ['encrypt', 'decrypt']));
+        }
+        static async from(serial) {
+            if (typeof serial === 'string') {
+                serial = $mol_charset_encode(serial);
+                serial = await $mol_crypto_native.subtle.digest('SHA-256', serial);
+            }
+            return new this(await $mol_crypto_native.subtle.importKey('raw', serial, algorithm, true, ['encrypt', 'decrypt']));
+        }
+        static async derive(private_serial, public_serial) {
+            const ecdh = { name: "ECDH", namedCurve: "P-256" };
+            const jwk = { crv: 'P-256', ext: true, kty: 'EC' };
+            const private_key = await $mol_crypto_native.subtle.importKey('jwk', {
+                ...jwk,
+                key_ops: ['deriveKey'],
+                x: private_serial.slice(0, 43),
+                y: private_serial.slice(43, 86),
+                d: private_serial.slice(86, 129),
+            }, ecdh, true, ['deriveKey']);
+            const public_key = await $mol_crypto_native.subtle.importKey('jwk', {
+                ...jwk,
+                key_ops: [],
+                x: public_serial.slice(0, 43),
+                y: public_serial.slice(43, 86),
+            }, ecdh, true, []);
+            const secret = await $mol_crypto_native.subtle.deriveKey({
+                name: "ECDH",
+                public: public_key,
+            }, private_key, algorithm, true, ["encrypt", "decrypt"]);
+            return new this(secret);
+        }
+        async serial() {
+            return await $mol_crypto_native.subtle.exportKey('raw', this.native);
+        }
+        async encrypt(open, salt) {
+            return await $mol_crypto_native.subtle.encrypt({
+                ...algorithm,
+                iv: salt,
+            }, this.native, open);
+        }
+        async decrypt(closed, salt) {
+            return await $mol_crypto_native.subtle.decrypt({
+                ...algorithm,
+                iv: salt,
+            }, this.native, closed);
+        }
+    }
+    $.$mol_crypto_secret = $mol_crypto_secret;
+})($ || ($ = {}));
+//mol/crypto/secret/secret.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $piterjs_person extends $piterjs_model {
+        secret() {
+            const priv = $piterjs_domain.secure_private();
+            if (priv) {
+                const pub = this.land.unit(this.id(), this.id()).data;
+                return $mol_wire_sync($mol_crypto_secret).derive(priv, pub);
+            }
+            else {
+                const priv = this.land.peer().key_private_serial;
+                const pub = $piterjs_domain.secure_public();
+                return $mol_wire_sync($mol_crypto_secret).derive(priv, pub);
+            }
+        }
         name_real(next) {
-            return this.sub('name_real', $hyoo_crowd_reg).str(next);
-        }
-        name_first(next) {
-            return this.sub('name_first', $hyoo_crowd_reg).str(next);
-        }
-        name_last(next) {
-            return this.sub('name_last', $hyoo_crowd_reg).str(next);
+            const secret = $mol_wire_sync(this.secret());
+            const reg = this.sub('name_real', $hyoo_crowd_reg);
+            const salt = $mol_charset_encode(this.id());
+            if (next !== undefined) {
+                const closed = secret.encrypt($mol_charset_encode(next), salt);
+                reg.value(new Uint8Array(closed));
+                return next;
+            }
+            const closed = reg.value();
+            if (!closed)
+                return '';
+            return $mol_charset_decode(secret.decrypt(closed, salt));
         }
     }
     __decorate([
         $mol_mem
+    ], $piterjs_person.prototype, "secret", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_person.prototype, "name_real", null);
-    __decorate([
-        $mol_mem
-    ], $piterjs_person.prototype, "name_first", null);
-    __decorate([
-        $mol_mem
-    ], $piterjs_person.prototype, "name_last", null);
     $.$piterjs_person = $piterjs_person;
 })($ || ($ = {}));
 //piterjs/person/person.ts
@@ -6067,6 +6149,103 @@ var $;
     $.$piterjs_meetup = $piterjs_meetup;
 })($ || ($ = {}));
 //piterjs/meetup/meetup.ts
+;
+"use strict";
+//mol/state/arg/arg.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_arg extends $mol_object {
+        prefix;
+        static prolog = '';
+        static separator = ' ';
+        static href(next) {
+            return next || process.argv.slice(2).join(' ');
+        }
+        static href_normal() {
+            return this.link({});
+        }
+        static dict(next) {
+            if (next !== void 0)
+                this.href(this.make_link(next));
+            var href = this.href();
+            var chunks = href.split(' ');
+            var params = {};
+            chunks.forEach(chunk => {
+                if (!chunk)
+                    return;
+                var vals = chunk.split('=').map(decodeURIComponent);
+                params[vals.shift()] = vals.join('=');
+            });
+            return params;
+        }
+        static value(key, next) {
+            if (next === void 0)
+                return this.dict()[key] ?? null;
+            this.href(this.link({ [key]: next }));
+            return next;
+        }
+        static link(next) {
+            const params = {};
+            var prev = this.dict();
+            for (var key in prev) {
+                params[key] = prev[key];
+            }
+            for (var key in next) {
+                params[key] = next[key];
+            }
+            return this.make_link(params);
+        }
+        static make_link(next) {
+            const chunks = [];
+            for (const key in next) {
+                if (next[key] !== null) {
+                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
+                }
+            }
+            return chunks.join(' ');
+        }
+        static go(next) {
+            this.href(this.make_link(next));
+        }
+        constructor(prefix = '') {
+            super();
+            this.prefix = prefix;
+        }
+        value(key, next) {
+            return this.constructor.value(this.prefix + key, next);
+        }
+        sub(postfix) {
+            return new this.constructor(this.prefix + postfix + '.');
+        }
+        link(next) {
+            const prefix = this.prefix;
+            const dict = {};
+            for (var key in next) {
+                dict[prefix + key] = next[key];
+            }
+            return this.constructor.link(dict);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href_normal", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "dict", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_arg, "value", null);
+    __decorate([
+        $mol_action
+    ], $mol_state_arg, "go", null);
+    $.$mol_state_arg = $mol_state_arg;
+})($ || ($ = {}));
+//mol/state/arg/arg.node.ts
 ;
 "use strict";
 var $;
@@ -6331,6 +6510,15 @@ var $;
         person() {
             return this.world().Fund($piterjs_person).Item(this.land.peer_id());
         }
+        static secure_public() {
+            return '2SZr8D4nwg_SQrt1PSB3NTRqz_Qzx5eo04gC2lsJTRwCcLC-8vFfvBFHY8f05nrm_vRS5Rx_qTMRRw06wdrwWk';
+        }
+        static secure_private() {
+            const sec = this.$.$mol_state_arg.value('secure');
+            if (!sec)
+                return null;
+            return this.secure_public() + sec;
+        }
     }
     __decorate([
         $mol_mem
@@ -6350,6 +6538,12 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_domain.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_domain, "secure_public", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_domain, "secure_private", null);
     $.$piterjs_domain = $piterjs_domain;
 })($ || ($ = {}));
 //piterjs/domain/domain.ts
@@ -7328,6 +7522,15 @@ var $;
         dom_name() {
             return "a";
         }
+        uri_off() {
+            return "";
+        }
+        uri_native() {
+            return null;
+        }
+        external() {
+            return false;
+        }
         attr() {
             return {
                 ...super.attr(),
@@ -7385,103 +7588,6 @@ var $;
     $.$mol_link = $mol_link;
 })($ || ($ = {}));
 //mol/link/-view.tree/link.view.tree.ts
-;
-"use strict";
-//mol/state/arg/arg.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_arg extends $mol_object {
-        prefix;
-        static prolog = '';
-        static separator = ' ';
-        static href(next) {
-            return next || process.argv.slice(2).join(' ');
-        }
-        static href_normal() {
-            return this.link({});
-        }
-        static dict(next) {
-            if (next !== void 0)
-                this.href(this.make_link(next));
-            var href = this.href();
-            var chunks = href.split(' ');
-            var params = {};
-            chunks.forEach(chunk => {
-                if (!chunk)
-                    return;
-                var vals = chunk.split('=').map(decodeURIComponent);
-                params[vals.shift()] = vals.join('=');
-            });
-            return params;
-        }
-        static value(key, next) {
-            if (next === void 0)
-                return this.dict()[key] ?? null;
-            this.href(this.link({ [key]: next }));
-            return next;
-        }
-        static link(next) {
-            const params = {};
-            var prev = this.dict();
-            for (var key in prev) {
-                params[key] = prev[key];
-            }
-            for (var key in next) {
-                params[key] = next[key];
-            }
-            return this.make_link(params);
-        }
-        static make_link(next) {
-            const chunks = [];
-            for (const key in next) {
-                if (next[key] !== null) {
-                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
-                }
-            }
-            return chunks.join(' ');
-        }
-        static go(next) {
-            this.href(this.make_link(next));
-        }
-        constructor(prefix = '') {
-            super();
-            this.prefix = prefix;
-        }
-        value(key, next) {
-            return this.constructor.value(this.prefix + key, next);
-        }
-        sub(postfix) {
-            return new this.constructor(this.prefix + postfix + '.');
-        }
-        link(next) {
-            const prefix = this.prefix;
-            const dict = {};
-            for (var key in next) {
-                dict[prefix + key] = next[key];
-            }
-            return this.constructor.link(dict);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href_normal", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "dict", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_arg, "value", null);
-    __decorate([
-        $mol_action
-    ], $mol_state_arg, "go", null);
-    $.$mol_state_arg = $mol_state_arg;
-})($ || ($ = {}));
-//mol/state/arg/arg.node.ts
 ;
 "use strict";
 var $;
@@ -15403,8 +15509,7 @@ var $;
     (function ($$) {
         class $piterjs_person_snippet extends $.$piterjs_person_snippet {
             haystack() {
-                const person = this.person();
-                return person.name_real() || person.name_first() + ' ' + person.name_last();
+                return this.person().name_real();
             }
         }
         __decorate([
@@ -15557,7 +15662,7 @@ var $;
         class $piterjs_meetup_guests extends $.$piterjs_meetup_guests {
             person_list() {
                 return this.meetup().joined_list()
-                    .filter($mol_match_text(this.filter(), person => [person.name_first(), person.name_last(), person.id()]))
+                    .filter($mol_match_text(this.filter(), person => [person.name_real(), person.id()]))
                     .map(person => this.Person(person));
             }
             person(person) {
@@ -27987,74 +28092,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    const algorithm = {
-        name: 'AES-GCM',
-        length: 128,
-        tagLength: 32,
-    };
-    class $mol_crypto_secret extends Object {
-        native;
-        static size = 16;
-        static extra = 4;
-        constructor(native) {
-            super();
-            this.native = native;
-        }
-        static async generate() {
-            return new this(await $mol_crypto_native.subtle.generateKey(algorithm, true, ['encrypt', 'decrypt']));
-        }
-        static async from(serial) {
-            if (typeof serial === 'string') {
-                serial = $mol_charset_encode(serial);
-                serial = await $mol_crypto_native.subtle.digest('SHA-256', serial);
-            }
-            return new this(await $mol_crypto_native.subtle.importKey('raw', serial, algorithm, true, ['encrypt', 'decrypt']));
-        }
-        static async derive(private_serial, public_serial) {
-            const ecdh = { name: "ECDH", namedCurve: "P-256" };
-            const jwk = { crv: 'P-256', ext: true, kty: 'EC' };
-            const private_key = await $mol_crypto_native.subtle.importKey('jwk', {
-                ...jwk,
-                key_ops: ['deriveKey'],
-                x: private_serial.slice(0, 43),
-                y: private_serial.slice(43, 86),
-                d: private_serial.slice(86, 129),
-            }, ecdh, true, ['deriveKey']);
-            const public_key = await $mol_crypto_native.subtle.importKey('jwk', {
-                ...jwk,
-                key_ops: [],
-                x: public_serial.slice(0, 43),
-                y: public_serial.slice(43, 86),
-            }, ecdh, true, []);
-            const secret = await $mol_crypto_native.subtle.deriveKey({
-                name: "ECDH",
-                public: public_key,
-            }, private_key, algorithm, true, ["encrypt", "decrypt"]);
-            return new this(secret);
-        }
-        async serial() {
-            return await $mol_crypto_native.subtle.exportKey('raw', this.native);
-        }
-        async encrypt(open, salt) {
-            return await $mol_crypto_native.subtle.encrypt({
-                ...algorithm,
-                iv: salt,
-            }, this.native, open);
-        }
-        async decrypt(closed, salt) {
-            return await $mol_crypto_native.subtle.decrypt({
-                ...algorithm,
-                iv: salt,
-            }, this.native, closed);
-        }
-    }
-    $.$mol_crypto_secret = $mol_crypto_secret;
-})($ || ($ = {}));
-//mol/crypto/secret/secret.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_after_work extends $mol_object2 {
         delay;
         task;
@@ -34629,6 +34666,57 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_crypto_salt() {
+        return $mol_crypto_native.getRandomValues(new Uint8Array(12));
+    }
+    $.$mol_crypto_salt = $mol_crypto_salt;
+})($ || ($ = {}));
+//mol/crypto/salt/salt.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        async 'sizes'() {
+            const cipher = await $mol_crypto_secret.generate();
+            const key = await cipher.serial();
+            $mol_assert_equal(key.byteLength, $mol_crypto_secret.size);
+            const data = new Uint8Array([1, 2, 3]);
+            const salt = $mol_crypto_salt();
+            const closed = await cipher.encrypt(data, salt);
+            $mol_assert_equal(closed.byteLength, data.byteLength + $mol_crypto_secret.extra);
+        },
+        async 'decrypt self encrypted with auto generated key'() {
+            const cipher = await $mol_crypto_secret.generate();
+            const data = new Uint8Array([1, 2, 3]);
+            const salt = $mol_crypto_salt();
+            const closed = await cipher.encrypt(data, salt);
+            const opened = await cipher.decrypt(closed, salt);
+            $mol_assert_like(data, new Uint8Array(opened));
+        },
+        async 'decrypt encrypted with exported auto generated key'() {
+            const data = new Uint8Array([1, 2, 3]);
+            const salt = $mol_crypto_salt();
+            const Alice = await $mol_crypto_secret.generate();
+            const closed = await Alice.encrypt(data, salt);
+            const Bob = await $mol_crypto_secret.from(await Alice.serial());
+            const opened = await Bob.decrypt(closed, salt);
+            $mol_assert_like(data, new Uint8Array(opened));
+        },
+        async 'derivation from public & private keys'() {
+            const A = await $$.$mol_crypto_auditor_pair();
+            const B = await $$.$mol_crypto_auditor_pair();
+            const AK = await $mol_crypto_secret.derive(await A.private.serial(), await B.public.serial());
+            const BK = await $mol_crypto_secret.derive(await B.private.serial(), await A.public.serial());
+            $mol_assert_like(new Uint8Array(await AK.serial()), new Uint8Array(await BK.serial()));
+        },
+    });
+})($ || ($ = {}));
+//mol/crypto/secret/secret.test.ts
+;
+"use strict";
+var $;
+(function ($) {
     $mol_test({
         'triplets'() {
             $mol_assert_equal(new $mol_time_interval('2015-01-01/P1M').end.toString(), '2015-02-01');
@@ -35800,57 +35888,6 @@ var $;
     });
 })($ || ($ = {}));
 //mol/base64/decode/decode.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_crypto_salt() {
-        return $mol_crypto_native.getRandomValues(new Uint8Array(12));
-    }
-    $.$mol_crypto_salt = $mol_crypto_salt;
-})($ || ($ = {}));
-//mol/crypto/salt/salt.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        async 'sizes'() {
-            const cipher = await $mol_crypto_secret.generate();
-            const key = await cipher.serial();
-            $mol_assert_equal(key.byteLength, $mol_crypto_secret.size);
-            const data = new Uint8Array([1, 2, 3]);
-            const salt = $mol_crypto_salt();
-            const closed = await cipher.encrypt(data, salt);
-            $mol_assert_equal(closed.byteLength, data.byteLength + $mol_crypto_secret.extra);
-        },
-        async 'decrypt self encrypted with auto generated key'() {
-            const cipher = await $mol_crypto_secret.generate();
-            const data = new Uint8Array([1, 2, 3]);
-            const salt = $mol_crypto_salt();
-            const closed = await cipher.encrypt(data, salt);
-            const opened = await cipher.decrypt(closed, salt);
-            $mol_assert_like(data, new Uint8Array(opened));
-        },
-        async 'decrypt encrypted with exported auto generated key'() {
-            const data = new Uint8Array([1, 2, 3]);
-            const salt = $mol_crypto_salt();
-            const Alice = await $mol_crypto_secret.generate();
-            const closed = await Alice.encrypt(data, salt);
-            const Bob = await $mol_crypto_secret.from(await Alice.serial());
-            const opened = await Bob.decrypt(closed, salt);
-            $mol_assert_like(data, new Uint8Array(opened));
-        },
-        async 'derivation from public & private keys'() {
-            const A = await $$.$mol_crypto_auditor_pair();
-            const B = await $$.$mol_crypto_auditor_pair();
-            const AK = await $mol_crypto_secret.derive(await A.private.serial(), await B.public.serial());
-            const BK = await $mol_crypto_secret.derive(await B.private.serial(), await A.public.serial());
-            $mol_assert_like(new Uint8Array(await AK.serial()), new Uint8Array(await BK.serial()));
-        },
-    });
-})($ || ($ = {}));
-//mol/crypto/secret/secret.test.ts
 ;
 "use strict";
 var $;

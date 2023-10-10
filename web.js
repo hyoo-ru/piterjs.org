@@ -5401,26 +5401,108 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    const algorithm = {
+        name: 'AES-GCM',
+        length: 128,
+        tagLength: 32,
+    };
+    class $mol_crypto_secret extends Object {
+        native;
+        static size = 16;
+        static extra = 4;
+        constructor(native) {
+            super();
+            this.native = native;
+        }
+        static async generate() {
+            return new this(await $mol_crypto_native.subtle.generateKey(algorithm, true, ['encrypt', 'decrypt']));
+        }
+        static async from(serial) {
+            if (typeof serial === 'string') {
+                serial = $mol_charset_encode(serial);
+                serial = await $mol_crypto_native.subtle.digest('SHA-256', serial);
+            }
+            return new this(await $mol_crypto_native.subtle.importKey('raw', serial, algorithm, true, ['encrypt', 'decrypt']));
+        }
+        static async derive(private_serial, public_serial) {
+            const ecdh = { name: "ECDH", namedCurve: "P-256" };
+            const jwk = { crv: 'P-256', ext: true, kty: 'EC' };
+            const private_key = await $mol_crypto_native.subtle.importKey('jwk', {
+                ...jwk,
+                key_ops: ['deriveKey'],
+                x: private_serial.slice(0, 43),
+                y: private_serial.slice(43, 86),
+                d: private_serial.slice(86, 129),
+            }, ecdh, true, ['deriveKey']);
+            const public_key = await $mol_crypto_native.subtle.importKey('jwk', {
+                ...jwk,
+                key_ops: [],
+                x: public_serial.slice(0, 43),
+                y: public_serial.slice(43, 86),
+            }, ecdh, true, []);
+            const secret = await $mol_crypto_native.subtle.deriveKey({
+                name: "ECDH",
+                public: public_key,
+            }, private_key, algorithm, true, ["encrypt", "decrypt"]);
+            return new this(secret);
+        }
+        async serial() {
+            return await $mol_crypto_native.subtle.exportKey('raw', this.native);
+        }
+        async encrypt(open, salt) {
+            return await $mol_crypto_native.subtle.encrypt({
+                ...algorithm,
+                iv: salt,
+            }, this.native, open);
+        }
+        async decrypt(closed, salt) {
+            return await $mol_crypto_native.subtle.decrypt({
+                ...algorithm,
+                iv: salt,
+            }, this.native, closed);
+        }
+    }
+    $.$mol_crypto_secret = $mol_crypto_secret;
+})($ || ($ = {}));
+//mol/crypto/secret/secret.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $piterjs_person extends $piterjs_model {
+        secret() {
+            const priv = $piterjs_domain.secure_private();
+            if (priv) {
+                const pub = this.land.unit(this.id(), this.id()).data;
+                return $mol_wire_sync($mol_crypto_secret).derive(priv, pub);
+            }
+            else {
+                const priv = this.land.peer().key_private_serial;
+                const pub = $piterjs_domain.secure_public();
+                return $mol_wire_sync($mol_crypto_secret).derive(priv, pub);
+            }
+        }
         name_real(next) {
-            return this.sub('name_real', $hyoo_crowd_reg).str(next);
-        }
-        name_first(next) {
-            return this.sub('name_first', $hyoo_crowd_reg).str(next);
-        }
-        name_last(next) {
-            return this.sub('name_last', $hyoo_crowd_reg).str(next);
+            const secret = $mol_wire_sync(this.secret());
+            const reg = this.sub('name_real', $hyoo_crowd_reg);
+            const salt = $mol_charset_encode(this.id());
+            if (next !== undefined) {
+                const closed = secret.encrypt($mol_charset_encode(next), salt);
+                reg.value(new Uint8Array(closed));
+                return next;
+            }
+            const closed = reg.value();
+            if (!closed)
+                return '';
+            return $mol_charset_decode(secret.decrypt(closed, salt));
         }
     }
     __decorate([
         $mol_mem
+    ], $piterjs_person.prototype, "secret", null);
+    __decorate([
+        $mol_mem
     ], $piterjs_person.prototype, "name_real", null);
-    __decorate([
-        $mol_mem
-    ], $piterjs_person.prototype, "name_first", null);
-    __decorate([
-        $mol_mem
-    ], $piterjs_person.prototype, "name_last", null);
     $.$piterjs_person = $piterjs_person;
 })($ || ($ = {}));
 //piterjs/person/person.ts
@@ -5522,6 +5604,141 @@ var $;
     $.$piterjs_meetup = $piterjs_meetup;
 })($ || ($ = {}));
 //piterjs/meetup/meetup.ts
+;
+"use strict";
+//mol/state/arg/arg.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_arg extends $mol_object {
+        prefix;
+        static href(next) {
+            if (next === undefined) {
+                next = $mol_dom_context.location.href;
+            }
+            else if (!/^about:srcdoc/.test(next)) {
+                new $mol_after_frame(() => {
+                    const next = this.href();
+                    const prev = $mol_dom_context.location.href;
+                    if (next === prev)
+                        return;
+                    const history = $mol_dom_context.history;
+                    history.replaceState(history.state, $mol_dom_context.document.title, next);
+                });
+            }
+            if ($mol_dom_context.parent !== $mol_dom_context.self) {
+                $mol_dom_context.parent.postMessage(['hashchange', next], '*');
+            }
+            return next;
+        }
+        static href_normal() {
+            return this.link({});
+        }
+        static href_absolute() {
+            return new URL(this.href(), $mol_dom_context.location.href).toString();
+        }
+        static dict(next) {
+            var href = this.href(next && this.make_link(next)).split(/#!?/)[1] || '';
+            var chunks = href.split(this.separator);
+            var params = {};
+            chunks.forEach(chunk => {
+                if (!chunk)
+                    return;
+                var vals = chunk.split('=').map(decodeURIComponent);
+                params[vals.shift()] = vals.join('=');
+            });
+            return params;
+        }
+        static dict_cut(except) {
+            const dict = this.dict();
+            const cut = {};
+            for (const key in dict) {
+                if (except.indexOf(key) >= 0)
+                    break;
+                cut[key] = dict[key];
+            }
+            return cut;
+        }
+        static value(key, next) {
+            const nextDict = (next === void 0) ? void 0 : { ...this.dict(), [key]: next };
+            const next2 = this.dict(nextDict)[key];
+            return (next2 == null) ? null : next2;
+        }
+        static link(next) {
+            return this.make_link({
+                ...this.dict_cut(Object.keys(next)),
+                ...next,
+            });
+        }
+        static prolog = '!';
+        static separator = '/';
+        static make_link(next) {
+            const chunks = [];
+            for (let key in next) {
+                if (null == next[key])
+                    continue;
+                const val = next[key];
+                chunks.push([key].concat(val ? [val] : []).map(this.encode).join('='));
+            }
+            return new URL('#' + this.prolog + chunks.join(this.separator), this.href_absolute()).toString();
+        }
+        static go(next) {
+            $mol_dom_context.location.href = this.make_link(next);
+        }
+        static encode(str) {
+            return encodeURIComponent(str).replace(/\(/g, '%28').replace(/\)/g, '%29');
+        }
+        constructor(prefix = '') {
+            super();
+            this.prefix = prefix;
+        }
+        value(key, next) {
+            return this.constructor.value(this.prefix + key, next);
+        }
+        sub(postfix) {
+            return new this.constructor(this.prefix + postfix + '.');
+        }
+        link(next) {
+            var prefix = this.prefix;
+            var dict = {};
+            for (var key in next) {
+                dict[prefix + key] = next[key];
+            }
+            return this.constructor.link(dict);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href_normal", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href_absolute", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "dict", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_arg, "dict_cut", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_arg, "value", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_arg, "make_link", null);
+    __decorate([
+        $mol_action
+    ], $mol_state_arg, "go", null);
+    $.$mol_state_arg = $mol_state_arg;
+    function $mol_state_arg_change() {
+        $mol_state_arg.href($mol_dom_context.location.href);
+    }
+    self.addEventListener('hashchange', $mol_state_arg_change);
+})($ || ($ = {}));
+//mol/state/arg/arg.web.ts
 ;
 "use strict";
 var $;
@@ -5786,6 +6003,15 @@ var $;
         person() {
             return this.world().Fund($piterjs_person).Item(this.land.peer_id());
         }
+        static secure_public() {
+            return '2SZr8D4nwg_SQrt1PSB3NTRqz_Qzx5eo04gC2lsJTRwCcLC-8vFfvBFHY8f05nrm_vRS5Rx_qTMRRw06wdrwWk';
+        }
+        static secure_private() {
+            const sec = this.$.$mol_state_arg.value('secure');
+            if (!sec)
+                return null;
+            return this.secure_public() + sec;
+        }
     }
     __decorate([
         $mol_mem
@@ -5805,6 +6031,12 @@ var $;
     __decorate([
         $mol_mem
     ], $piterjs_domain.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_domain, "secure_public", null);
+    __decorate([
+        $mol_mem
+    ], $piterjs_domain, "secure_private", null);
     $.$piterjs_domain = $piterjs_domain;
 })($ || ($ = {}));
 //piterjs/domain/domain.ts
@@ -6783,6 +7015,15 @@ var $;
         dom_name() {
             return "a";
         }
+        uri_off() {
+            return "";
+        }
+        uri_native() {
+            return null;
+        }
+        external() {
+            return false;
+        }
         attr() {
             return {
                 ...super.attr(),
@@ -6840,141 +7081,6 @@ var $;
     $.$mol_link = $mol_link;
 })($ || ($ = {}));
 //mol/link/-view.tree/link.view.tree.ts
-;
-"use strict";
-//mol/state/arg/arg.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_arg extends $mol_object {
-        prefix;
-        static href(next) {
-            if (next === undefined) {
-                next = $mol_dom_context.location.href;
-            }
-            else if (!/^about:srcdoc/.test(next)) {
-                new $mol_after_frame(() => {
-                    const next = this.href();
-                    const prev = $mol_dom_context.location.href;
-                    if (next === prev)
-                        return;
-                    const history = $mol_dom_context.history;
-                    history.replaceState(history.state, $mol_dom_context.document.title, next);
-                });
-            }
-            if ($mol_dom_context.parent !== $mol_dom_context.self) {
-                $mol_dom_context.parent.postMessage(['hashchange', next], '*');
-            }
-            return next;
-        }
-        static href_normal() {
-            return this.link({});
-        }
-        static href_absolute() {
-            return new URL(this.href(), $mol_dom_context.location.href).toString();
-        }
-        static dict(next) {
-            var href = this.href(next && this.make_link(next)).split(/#!?/)[1] || '';
-            var chunks = href.split(this.separator);
-            var params = {};
-            chunks.forEach(chunk => {
-                if (!chunk)
-                    return;
-                var vals = chunk.split('=').map(decodeURIComponent);
-                params[vals.shift()] = vals.join('=');
-            });
-            return params;
-        }
-        static dict_cut(except) {
-            const dict = this.dict();
-            const cut = {};
-            for (const key in dict) {
-                if (except.indexOf(key) >= 0)
-                    break;
-                cut[key] = dict[key];
-            }
-            return cut;
-        }
-        static value(key, next) {
-            const nextDict = (next === void 0) ? void 0 : { ...this.dict(), [key]: next };
-            const next2 = this.dict(nextDict)[key];
-            return (next2 == null) ? null : next2;
-        }
-        static link(next) {
-            return this.make_link({
-                ...this.dict_cut(Object.keys(next)),
-                ...next,
-            });
-        }
-        static prolog = '!';
-        static separator = '/';
-        static make_link(next) {
-            const chunks = [];
-            for (let key in next) {
-                if (null == next[key])
-                    continue;
-                const val = next[key];
-                chunks.push([key].concat(val ? [val] : []).map(this.encode).join('='));
-            }
-            return new URL('#' + this.prolog + chunks.join(this.separator), this.href_absolute()).toString();
-        }
-        static go(next) {
-            $mol_dom_context.location.href = this.make_link(next);
-        }
-        static encode(str) {
-            return encodeURIComponent(str).replace(/\(/g, '%28').replace(/\)/g, '%29');
-        }
-        constructor(prefix = '') {
-            super();
-            this.prefix = prefix;
-        }
-        value(key, next) {
-            return this.constructor.value(this.prefix + key, next);
-        }
-        sub(postfix) {
-            return new this.constructor(this.prefix + postfix + '.');
-        }
-        link(next) {
-            var prefix = this.prefix;
-            var dict = {};
-            for (var key in next) {
-                dict[prefix + key] = next[key];
-            }
-            return this.constructor.link(dict);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href_normal", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href_absolute", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "dict", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_arg, "dict_cut", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_arg, "value", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_arg, "make_link", null);
-    __decorate([
-        $mol_action
-    ], $mol_state_arg, "go", null);
-    $.$mol_state_arg = $mol_state_arg;
-    function $mol_state_arg_change() {
-        $mol_state_arg.href($mol_dom_context.location.href);
-    }
-    self.addEventListener('hashchange', $mol_state_arg_change);
-})($ || ($ = {}));
-//mol/state/arg/arg.web.ts
 ;
 "use strict";
 var $;
@@ -14799,8 +14905,7 @@ var $;
     (function ($$) {
         class $piterjs_person_snippet extends $.$piterjs_person_snippet {
             haystack() {
-                const person = this.person();
-                return person.name_real() || person.name_first() + ' ' + person.name_last();
+                return this.person().name_real();
             }
         }
         __decorate([
@@ -14953,7 +15058,7 @@ var $;
         class $piterjs_meetup_guests extends $.$piterjs_meetup_guests {
             person_list() {
                 return this.meetup().joined_list()
-                    .filter($mol_match_text(this.filter(), person => [person.name_first(), person.name_last(), person.id()]))
+                    .filter($mol_match_text(this.filter(), person => [person.name_real(), person.id()]))
                     .map(person => this.Person(person));
             }
             person(person) {
@@ -27492,74 +27597,6 @@ var $;
     $.$mol_base64_decode = $mol_base64_decode_web;
 })($ || ($ = {}));
 //mol/base64/decode/decode.web.ts
-;
-"use strict";
-var $;
-(function ($) {
-    const algorithm = {
-        name: 'AES-GCM',
-        length: 128,
-        tagLength: 32,
-    };
-    class $mol_crypto_secret extends Object {
-        native;
-        static size = 16;
-        static extra = 4;
-        constructor(native) {
-            super();
-            this.native = native;
-        }
-        static async generate() {
-            return new this(await $mol_crypto_native.subtle.generateKey(algorithm, true, ['encrypt', 'decrypt']));
-        }
-        static async from(serial) {
-            if (typeof serial === 'string') {
-                serial = $mol_charset_encode(serial);
-                serial = await $mol_crypto_native.subtle.digest('SHA-256', serial);
-            }
-            return new this(await $mol_crypto_native.subtle.importKey('raw', serial, algorithm, true, ['encrypt', 'decrypt']));
-        }
-        static async derive(private_serial, public_serial) {
-            const ecdh = { name: "ECDH", namedCurve: "P-256" };
-            const jwk = { crv: 'P-256', ext: true, kty: 'EC' };
-            const private_key = await $mol_crypto_native.subtle.importKey('jwk', {
-                ...jwk,
-                key_ops: ['deriveKey'],
-                x: private_serial.slice(0, 43),
-                y: private_serial.slice(43, 86),
-                d: private_serial.slice(86, 129),
-            }, ecdh, true, ['deriveKey']);
-            const public_key = await $mol_crypto_native.subtle.importKey('jwk', {
-                ...jwk,
-                key_ops: [],
-                x: public_serial.slice(0, 43),
-                y: public_serial.slice(43, 86),
-            }, ecdh, true, []);
-            const secret = await $mol_crypto_native.subtle.deriveKey({
-                name: "ECDH",
-                public: public_key,
-            }, private_key, algorithm, true, ["encrypt", "decrypt"]);
-            return new this(secret);
-        }
-        async serial() {
-            return await $mol_crypto_native.subtle.exportKey('raw', this.native);
-        }
-        async encrypt(open, salt) {
-            return await $mol_crypto_native.subtle.encrypt({
-                ...algorithm,
-                iv: salt,
-            }, this.native, open);
-        }
-        async decrypt(closed, salt) {
-            return await $mol_crypto_native.subtle.decrypt({
-                ...algorithm,
-                iv: salt,
-            }, this.native, closed);
-        }
-    }
-    $.$mol_crypto_secret = $mol_crypto_secret;
-})($ || ($ = {}));
-//mol/crypto/secret/secret.ts
 ;
 "use strict";
 var $;
