@@ -18112,7 +18112,7 @@ var $;
                 return Object.values(this.joins_stat()).map(moments => moments.length);
             }
             joins_title() {
-                return super.joins_title() + ` (${Object.keys(this.joins_stat()).length})`;
+                return super.joins_title() + ` (${Object.keys(this.joined_moments()).length})`;
             }
         }
         __decorate([
