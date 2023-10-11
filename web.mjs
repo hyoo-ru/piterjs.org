@@ -17777,13 +17777,15 @@ var $;
         }
         Counts() {
             const obj = new this.$.$mol_plot_ruler_vert();
-            obj.title = () => "Число";
             obj.series_y = () => this.joins_per_days();
             return obj;
         }
+        joins_title() {
+            return "Регистрации";
+        }
         Joins() {
             const obj = new this.$.$mol_plot_bar();
-            obj.title = () => "Регистрации";
+            obj.title = () => this.joins_title();
             obj.series_y = () => this.joins_per_days();
             return obj;
         }
@@ -17867,6 +17869,9 @@ var $;
             joins_per_days() {
                 return Object.values(this.joins_stat()).map(moments => moments.length);
             }
+            joins_title() {
+                return super.joins_title() + ` (${Object.keys(this.joins_stat()).length})`;
+            }
         }
         __decorate([
             $mol_mem
@@ -17877,6 +17882,9 @@ var $;
         __decorate([
             $mol_mem
         ], $piterjs_meetup_stats.prototype, "joins_per_days", null);
+        __decorate([
+            $mol_mem
+        ], $piterjs_meetup_stats.prototype, "joins_title", null);
         $$.$piterjs_meetup_stats = $piterjs_meetup_stats;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

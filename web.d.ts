@@ -4655,6 +4655,7 @@ declare namespace $ {
         Days(): $$.$mol_plot_mark_hor;
         joins_per_days(): readonly any[];
         Counts(): $$.$mol_plot_ruler_vert;
+        joins_title(): string;
         Joins(): $$.$mol_plot_bar;
         Details(): $$.$mol_plot_mark_cross;
         Chart(): $mol_chart;
@@ -4676,6 +4677,7 @@ declare namespace $.$$ {
         joins_stat(): $mol_type_immutable_deep<Record<string, $mol_time_moment[] | undefined>>;
         days(): string[];
         joins_per_days(): number[];
+        joins_title(): string;
     }
 }
 
