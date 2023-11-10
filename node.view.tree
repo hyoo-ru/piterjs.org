@@ -51,6 +51,7 @@ $mol_string $mol_view
 		0
 	auto /
 		<= selection_watcher null
+		<= error_report null
 	field *
 		^
 		disabled <= disabled false
@@ -519,6 +520,7 @@ $mol_textarea $mol_stack
 		graveAccent \́
 		forwardSlash \÷
 		E \€
+		V \✔
 		X \×
 		C \©
 		P \§
@@ -533,6 +535,8 @@ $mol_textarea $mol_stack
 		bracketOpen \[
 		bracketClose \]
 		slashBack \|
+	symbols_alt_ctrl *
+		space \ 
 	symbols_alt_shift *
 		V \✅
 		X \❌
@@ -1186,7 +1190,8 @@ $mol_svg_text $mol_svg
 		^
 		x <= pos_x \
 		y <= pos_y \
-		text-anchor <= align \middle
+		text-anchor <= align_hor <= align \middle
+		alignment-baseline <= align_vert \baseline
 	sub /
 		<= text \
 
@@ -1286,6 +1291,7 @@ $mol_svg_text_box $mol_svg_group
 $mol_plot_mark_cross $mol_plot_graph
 	labels /string
 	title_x_gap 4
+	title_y_gap 22
 	threshold 16
 	graphs /$mol_plot_graph
 	dimensions $mol_vector_2d /
@@ -1928,6 +1934,8 @@ $hyoo_map $mol_view
 	tiles_options *
 		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png
 		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
+	auto /
+		<= center_offset null
 	sub /
 		<= Main $mol_page
 			head /
@@ -2418,6 +2426,7 @@ $hyoo_page_side_view $mol_page
 					sub <= author_list /
 						<= Author_link*0_0 $hyoo_meta_link
 							meta <= peer*
+							uri <= author_link* \https://page.hyoo.ru/#!={person}
 				<= Following $hyoo_meta_link
 					meta <= following
 

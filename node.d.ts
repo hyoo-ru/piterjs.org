@@ -231,6 +231,7 @@ declare namespace $ {
         abstract put(next: Result | Error | Promise<Result | Error>): Result | Error | Promise<Result | Error>;
         sync(): Awaited<Result>;
         async(): Promise<Result>;
+        step(): Promise<null>;
     }
 }
 
@@ -775,7 +776,7 @@ declare namespace $ {
             style?: 'normal' | 'italic' | Common;
             weight?: 'normal' | 'bold' | 'lighter' | 'bolder' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | Common;
             size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large' | 'xxx-large' | 'smaller' | 'larger' | Length | Common;
-            family?: 'serif' | 'sans-serif' | 'monospace' | 'cursive' | 'fantasy' | 'system-ui' | 'ui-serif' | 'ui-sans-serif' | 'ui-monospace' | 'ui-rounded' | 'emoji' | 'math' | 'fangsong' | Common;
+            family?: string & {} | 'serif' | 'sans-serif' | 'monospace' | 'cursive' | 'fantasy' | 'system-ui' | 'ui-serif' | 'ui-sans-serif' | 'ui-monospace' | 'ui-rounded' | 'emoji' | 'math' | 'fangsong' | Common;
         };
         color?: $mol_style_properties_color | Common;
         display?: 'block' | 'inline' | 'run-in' | 'list-item' | 'none' | 'flow' | 'flow-root' | 'table' | 'flex' | 'grid' | 'contents' | 'table-row-group' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-row' | 'table-cell' | 'table-column' | 'table-caption' | 'inline-block' | 'inline-table' | 'inline-flex' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | Common;
@@ -1937,9 +1938,6 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mol_plugin extends $mol_view {
         dom_node_external(next?: Element): Element;
-        attr_static(): {
-            [key: string]: string | number | boolean;
-        };
         render(): void;
     }
 }
@@ -2182,6 +2180,7 @@ declare namespace $ {
         event(): Record<string, any>;
         plugins(): readonly any[];
         selection_watcher(): any;
+        error_report(): any;
         disabled(): boolean;
         value(next?: any): string;
         value_changed(next?: any): string;
@@ -2212,6 +2211,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_string extends $.$mol_string {
         event_change(next?: Event): void;
+        error_report(): void;
         hint_visible(): string;
         disabled(): boolean;
         autocomplete_native(): "on" | "off";
@@ -2658,6 +2658,15 @@ declare namespace $ {
 declare namespace $ {
     class $mol_icon_calendar_today extends $mol_icon {
         path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_storage extends $mol_object2 {
+        static native(): any;
+        static persisted(next?: boolean): boolean;
+        static estimate(): number;
+        static dir(): FileSystemDirectoryHandle;
     }
 }
 
@@ -3310,6 +3319,7 @@ declare namespace $ {
         event(): Record<string, any>;
         sub(): readonly any[];
         symbols_alt(): Record<string, any>;
+        symbols_alt_ctrl(): Record<string, any>;
         symbols_alt_shift(): Record<string, any>;
         clickable(next?: any): boolean;
         sidebar_showed(): boolean;
@@ -4385,6 +4395,8 @@ declare namespace $ {
         pos_x(): string;
         pos_y(): string;
         align(): string;
+        align_hor(): string;
+        align_vert(): string;
         text(): string;
     }
 }
@@ -4616,6 +4628,7 @@ declare namespace $ {
     class $mol_plot_mark_cross extends $mol_plot_graph {
         labels(): readonly string[];
         title_x_gap(): number;
+        title_y_gap(): number;
         threshold(): number;
         graphs(): readonly $mol_plot_graph[];
         dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
@@ -4648,6 +4661,7 @@ declare namespace $.$$ {
         title_x_pos_y(): string;
         title_y(): string;
         title_y_pos_y(): string;
+        title_y_pos_x(): string;
     }
 }
 
@@ -5540,8 +5554,10 @@ declare namespace $ {
     class $hyoo_map extends $mol_view {
         attr(): Record<string, any>;
         tiles_options(): Record<string, any>;
+        auto(): readonly any[];
         sub(): readonly any[];
         theme(): string;
+        center_offset(): any;
         query(val?: any): string;
         search(event?: any): any;
         Search(): $$.$mol_search;
@@ -5653,6 +5669,7 @@ declare namespace $.$$ {
         zoom_limit(): $mol_vector_range<number>;
         zoom(next?: number): number;
         search(): void;
+        geo_jump(coord: $mol_vector_2d<number>, zoom?: number): void;
         draw_uri(): string;
         tiles_uri(): any;
         theme(): "$mol_theme_light" | "$mol_theme_dark";
@@ -6582,29 +6599,12 @@ declare namespace $ {
         details(): string;
         Details(): $$.$mol_text;
         Changed(): $$.$mol_date;
+        author_link(id: any): string;
         Author_link(id: any): $$.$hyoo_meta_link;
         author_list(): readonly any[];
         Author_list(): $mol_view;
         Following(): $$.$hyoo_meta_link;
         Signature(): $mol_view;
-    }
-}
-
-declare namespace $ {
-    let $mol_mem_persist: typeof $mol_wire_solid;
-}
-
-declare namespace $ {
-    class $mol_storage extends $mol_object2 {
-        static native(): {
-            estimate: () => StorageEstimate;
-            getDirectory: () => FileSystemDirectoryHandle;
-            persist: () => boolean;
-            persisted: () => boolean;
-        };
-        static persisted(next?: boolean): boolean;
-        static estimate(): StorageEstimate;
-        static dir(): FileSystemDirectoryHandle;
     }
 }
 
@@ -6624,6 +6624,7 @@ declare namespace $.$$ {
         slides_content(): string;
         slides_send(): void;
         history_mark(): void;
+        author_link(id: $mol_int62_string): string;
     }
 }
 
