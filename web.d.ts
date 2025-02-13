@@ -1861,6 +1861,37 @@ declare namespace $ {
 
 declare namespace $ {
 
+	type $mol_svg_path__geometry_mol_icon_1 = $mol_type_enforce<
+		ReturnType< $mol_icon['path'] >
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	export class $mol_icon extends $mol_svg_root {
+		path( ): string
+		Path( ): $mol_svg_path
+		view_box( ): string
+		minimal_width( ): number
+		minimal_height( ): number
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_plus extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=plus.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
 	export class $mol_speck extends $mol_view {
 		theme( ): string
 		value( ): any
@@ -2058,75 +2089,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=minor.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__sub_mol_check_1 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_check extends $mol_button_minor {
-		checked( next?: boolean ): boolean
-		aria_checked( ): string
-		aria_role( ): string
-		Icon( ): any
-		title( ): string
-		Title( ): $mol_view
-		label( ): readonly(any)[]
-		attr( ): ({ 
-			'mol_check_checked': ReturnType< $mol_check['checked'] >,
-			'aria-checked': ReturnType< $mol_check['aria_checked'] >,
-			'role': ReturnType< $mol_check['aria_role'] >,
-		})  & ReturnType< $mol_button_minor['attr'] >
-		sub( ): readonly($mol_view_content)[]
-	}
-	
-}
-
-//# sourceMappingURL=check.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_check extends $.$mol_check {
-        click(next?: Event): void;
-        sub(): readonly $mol_view_content[];
-        label(): readonly any[];
-        aria_checked(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_svg_path__geometry_mol_icon_1 = $mol_type_enforce<
-		ReturnType< $mol_icon['path'] >
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
-	export class $mol_icon extends $mol_svg_root {
-		path( ): string
-		Path( ): $mol_svg_path
-		view_box( ): string
-		minimal_width( ): number
-		minimal_height( ): number
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=icon.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_plus extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=plus.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_icon_key extends $mol_icon {
@@ -2504,6 +2466,44 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_view__sub_mol_check_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $mol_check extends $mol_button_minor {
+		checked( next?: boolean ): boolean
+		aria_checked( ): string
+		aria_role( ): string
+		Icon( ): any
+		title( ): string
+		Title( ): $mol_view
+		label( ): readonly(any)[]
+		attr( ): ({ 
+			'mol_check_checked': ReturnType< $mol_check['checked'] >,
+			'aria-checked': ReturnType< $mol_check['aria_checked'] >,
+			'role': ReturnType< $mol_check['aria_role'] >,
+		})  & ReturnType< $mol_button_minor['attr'] >
+		sub( ): readonly($mol_view_content)[]
+	}
+	
+}
+
+//# sourceMappingURL=check.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_check extends $.$mol_check {
+        click(next?: Event): void;
+        sub(): readonly $mol_view_content[];
+        label(): readonly any[];
+        aria_checked(): string;
+    }
 }
 
 declare namespace $ {
@@ -3445,6 +3445,35 @@ declare namespace $ {
 
 declare namespace $ {
 
+	export class $mol_icon_presentation extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=presentation.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_presentation_play extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=play.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_check_icon extends $mol_check {
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $ {
+
 	export class $mol_icon_settings extends $mol_icon {
 		path( ): string
 	}
@@ -3461,17 +3490,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=outline.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_check_icon extends $mol_check {
-	}
-	
-}
-
-//# sourceMappingURL=icon.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_icon_shield extends $mol_icon {
@@ -3788,6 +3806,18 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    let $piterjs_post_template: {
+        init: string;
+        init_speech: string;
+        speech: string;
+        place: string;
+        air: string;
+        afterparty: string;
+        retro: string;
+    };
+}
+
+declare namespace $ {
     class $piterjs_meetup extends $piterjs_model {
         start(next?: $mol_time_moment): $mol_time_moment;
         video(next?: string): string;
@@ -3814,6 +3844,9 @@ declare namespace $ {
         review(next?: string): string;
         reviews(): string;
         review_allowed(): boolean;
+        post_template(id: keyof typeof $piterjs_post_template, next?: string): string;
+        post_moment(id: keyof typeof $piterjs_post_template, next?: $mol_time_moment): $mol_time_moment;
+        post_text(id: keyof typeof $piterjs_post_template): string;
     }
 }
 
@@ -3879,6 +3912,8 @@ declare namespace $ {
         reviews_node(): $hyoo_crowd_dict | undefined;
         review(next?: string): string;
         reviews(): string;
+        post_template(next?: string): string;
+        post_text(): string;
     }
 }
 
@@ -6358,6 +6393,24 @@ declare namespace $ {
 //# sourceMappingURL=outline.view.tree.d.ts.map
 declare namespace $ {
 
+	export class $mol_icon_bullhorn extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=bullhorn.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_bullhorn_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+
 	export class $mol_icon_chart_bar extends $mol_icon {
 		path( ): string
 	}
@@ -6980,7 +7033,7 @@ declare namespace $ {
 	>
 	type $mol_link__arg_piterjs_meetup_page_82 = $mol_type_enforce<
 		({ 
-			'stats': string,
+			'texts': string,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
@@ -6995,22 +7048,39 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_string_button__value_piterjs_meetup_page_85 = $mol_type_enforce<
+	type $mol_link__arg_piterjs_meetup_page_85 = $mol_type_enforce<
+		({ 
+			'stats': string,
+		}) 
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__hint_piterjs_meetup_page_86 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link['hint'] >
+	>
+	type $mol_link__sub_piterjs_meetup_page_87 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $mol_string_button__value_piterjs_meetup_page_88 = $mol_type_enforce<
 		ReturnType< $piterjs_meetup_page['title'] >
 		,
 		ReturnType< $mol_string_button['value'] >
 	>
-	type $mol_string_button__enabled_piterjs_meetup_page_86 = $mol_type_enforce<
+	type $mol_string_button__enabled_piterjs_meetup_page_89 = $mol_type_enforce<
 		ReturnType< $piterjs_meetup_page['editing'] >
 		,
 		ReturnType< $mol_string_button['enabled'] >
 	>
-	type $mol_string_button__hint_piterjs_meetup_page_87 = $mol_type_enforce<
+	type $mol_string_button__hint_piterjs_meetup_page_90 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_string_button['hint'] >
 	>
-	type $piterjs_speech_snippet__speech_piterjs_meetup_page_88 = $mol_type_enforce<
+	type $piterjs_speech_snippet__speech_piterjs_meetup_page_91 = $mol_type_enforce<
 		ReturnType< $piterjs_meetup_page['speech'] >
 		,
 		ReturnType< $piterjs_speech_snippet['speech'] >
@@ -7091,6 +7161,8 @@ declare namespace $ {
 		Rights_toggle( ): $mol_check_icon
 		Guests_link_icon( ): $mol_icon_account_group_outline
 		Guests_link( ): $mol_link
+		Texts_link_icon( ): $mol_icon_bullhorn_outline
+		Texts_link( ): $mol_link
 		Stats_link_icon( ): $mol_icon_chart_bar_stacked
 		Stats_link( ): $mol_link
 		meetup( ): $piterjs_meetup
@@ -7287,6 +7359,364 @@ declare namespace $.$$ {
     }
 }
 
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_pencil extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=pencil.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_pencil_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+
+	type __piterjs_meetup_texts_1 = $mol_type_enforce<
+		Parameters< $piterjs_meetup_texts['post_text'] >[0]
+		,
+		Parameters< ReturnType< $piterjs_meetup_texts['meetup'] >['post_text'] >[0]
+	>
+	type __piterjs_meetup_texts_2 = $mol_type_enforce<
+		Parameters< $piterjs_meetup_texts['post_moment'] >[0]
+		,
+		Parameters< ReturnType< $piterjs_meetup_texts['meetup'] >['post_moment'] >[0]
+	>
+	type __piterjs_meetup_texts_3 = $mol_type_enforce<
+		Parameters< $piterjs_meetup_texts['post_moment'] >[1]
+		,
+		Parameters< ReturnType< $piterjs_meetup_texts['meetup'] >['post_moment'] >[1]
+	>
+	type $mol_link__arg_piterjs_meetup_texts_4 = $mol_type_enforce<
+		({ 
+			'templates': string,
+		}) 
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__sub_piterjs_meetup_texts_5 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $mol_link__arg_piterjs_meetup_texts_6 = $mol_type_enforce<
+		({ 
+			'texts': any,
+		}) 
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__sub_piterjs_meetup_texts_7 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $piterjs_meetup_texts_card__title_piterjs_meetup_texts_8 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_texts_card['title'] >
+	>
+	type $piterjs_meetup_texts_card__text_piterjs_meetup_texts_9 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_text'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+	>
+	type $piterjs_meetup_texts_card__moment_piterjs_meetup_texts_10 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_moment'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+	>
+	type $piterjs_meetup_texts_card__title_piterjs_meetup_texts_11 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['speech_post_title'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['title'] >
+	>
+	type $piterjs_meetup_texts_card__text_piterjs_meetup_texts_12 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['speech_post_text'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+	>
+	type $piterjs_meetup_texts_card__moment_piterjs_meetup_texts_13 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['speech_post_moment'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+	>
+	type $piterjs_meetup_texts_card__title_piterjs_meetup_texts_14 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_texts_card['title'] >
+	>
+	type $piterjs_meetup_texts_card__text_piterjs_meetup_texts_15 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_text'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+	>
+	type $piterjs_meetup_texts_card__moment_piterjs_meetup_texts_16 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_moment'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+	>
+	type $piterjs_meetup_texts_card__title_piterjs_meetup_texts_17 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_texts_card['title'] >
+	>
+	type $piterjs_meetup_texts_card__text_piterjs_meetup_texts_18 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_text'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+	>
+	type $piterjs_meetup_texts_card__moment_piterjs_meetup_texts_19 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_moment'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+	>
+	type $piterjs_meetup_texts_card__title_piterjs_meetup_texts_20 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_texts_card['title'] >
+	>
+	type $piterjs_meetup_texts_card__text_piterjs_meetup_texts_21 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_text'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+	>
+	type $piterjs_meetup_texts_card__moment_piterjs_meetup_texts_22 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_moment'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+	>
+	type $piterjs_meetup_texts_card__title_piterjs_meetup_texts_23 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_texts_card['title'] >
+	>
+	type $piterjs_meetup_texts_card__text_piterjs_meetup_texts_24 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_text'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+	>
+	type $piterjs_meetup_texts_card__moment_piterjs_meetup_texts_25 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts['post_moment'] >
+		,
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+	>
+	type $mol_list__rows_piterjs_meetup_texts_26 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	export class $piterjs_meetup_texts extends $mol_page {
+		post_text( id: any): ReturnType< ReturnType< $piterjs_meetup_texts['meetup'] >['post_text'] >
+		post_moment( id: any, next?: ReturnType< ReturnType< $piterjs_meetup_texts['meetup'] >['post_moment'] > ): ReturnType< ReturnType< $piterjs_meetup_texts['meetup'] >['post_moment'] >
+		Templates_icon( ): $mol_icon_pencil_outline
+		Templates( ): $mol_link
+		Close_icon( ): $mol_icon_close
+		Close( ): $mol_link
+		Init_text( ): $piterjs_meetup_texts_card
+		speech_post_title( id: any): string
+		speech_post_text( id: any): string
+		speech_post_moment( id: any, next?: $mol_time_moment ): $mol_time_moment
+		Speech_post_text( id: any): $piterjs_meetup_texts_card
+		speech_post_texts( ): readonly(any)[]
+		Place_text( ): $piterjs_meetup_texts_card
+		Air_text( ): $piterjs_meetup_texts_card
+		Arterpaty_text( ): $piterjs_meetup_texts_card
+		Retro_text( ): $piterjs_meetup_texts_card
+		Content( ): $mol_list
+		theme( ): string
+		meetup( ): $piterjs_meetup
+		title( ): string
+		tools( ): readonly(any)[]
+		body( ): readonly(any)[]
+	}
+	
+	type $mol_date__value_moment_piterjs_meetup_texts_card_1 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts_card['moment'] >
+		,
+		ReturnType< $mol_date['value_moment'] >
+	>
+	type $mol_button_copy__text_piterjs_meetup_texts_card_2 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+		,
+		ReturnType< $mol_button_copy['text'] >
+	>
+	type $mol_text__text_piterjs_meetup_texts_card_3 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_texts_card['text'] >
+		,
+		ReturnType< $mol_text['text'] >
+	>
+	type $mol_view__sub_piterjs_meetup_texts_card_4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $piterjs_meetup_texts_card extends $mol_expander {
+		moment( next?: $mol_time_moment ): $mol_time_moment
+		Date( ): $mol_date
+		text( ): string
+		Copy( ): $mol_button_copy
+		Text( ): $mol_text
+		Tools( ): $mol_view
+		content( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=texts.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $piterjs_meetup_texts extends $.$piterjs_meetup_texts {
+        speech_post_texts(): $piterjs_meetup_texts_card[];
+        speech_post_title(speech: $piterjs_speech): string;
+        speech_post_text(speech: $piterjs_speech): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type __piterjs_meetup_templates_1 = $mol_type_enforce<
+		Parameters< $piterjs_meetup_templates['post_template'] >[0]
+		,
+		Parameters< ReturnType< $piterjs_meetup_templates['meetup'] >['post_template'] >[0]
+	>
+	type __piterjs_meetup_templates_2 = $mol_type_enforce<
+		Parameters< $piterjs_meetup_templates['post_template'] >[1]
+		,
+		Parameters< ReturnType< $piterjs_meetup_templates['meetup'] >['post_template'] >[1]
+	>
+	type $mol_link__arg_piterjs_meetup_templates_3 = $mol_type_enforce<
+		({ 
+			'templates': any,
+		}) 
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__sub_piterjs_meetup_templates_4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_5 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_6 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_7 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_8 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_9 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_10 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_11 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_12 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_13 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_14 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_15 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_16 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $piterjs_meetup_templates_field__title_piterjs_meetup_templates_17 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_meetup_templates_field['title'] >
+	>
+	type $piterjs_meetup_templates_field__template_piterjs_meetup_templates_18 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates['post_template'] >
+		,
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+	>
+	type $mol_list__rows_piterjs_meetup_templates_19 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	export class $piterjs_meetup_templates extends $mol_page {
+		post_template( id: any, next?: ReturnType< ReturnType< $piterjs_meetup_templates['meetup'] >['post_template'] > ): ReturnType< ReturnType< $piterjs_meetup_templates['meetup'] >['post_template'] >
+		Close_icon( ): $mol_icon_close
+		Close( ): $mol_link
+		Init_template_labeler( ): $piterjs_meetup_templates_field
+		Init_speech_template_labeler( ): $piterjs_meetup_templates_field
+		Speech_template_labeler( ): $piterjs_meetup_templates_field
+		Place_template_labeler( ): $piterjs_meetup_templates_field
+		Air_template_labeler( ): $piterjs_meetup_templates_field
+		Afterparty_template_labeler( ): $piterjs_meetup_templates_field
+		Retro_template_labeler( ): $piterjs_meetup_templates_field
+		Content( ): $mol_list
+		theme( ): string
+		meetup( ): $piterjs_meetup
+		title( ): string
+		tools( ): readonly(any)[]
+		body( ): readonly(any)[]
+	}
+	
+	type $mol_textarea__value_piterjs_meetup_templates_field_1 = $mol_type_enforce<
+		ReturnType< $piterjs_meetup_templates_field['template'] >
+		,
+		ReturnType< $mol_textarea['value'] >
+	>
+	export class $piterjs_meetup_templates_field extends $mol_expander {
+		template( next?: string ): string
+		Template( ): $mol_textarea
+		content( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=templates.view.tree.d.ts.map
 declare namespace $.$$ {
 }
 
@@ -9547,364 +9977,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__sub_piterjs_intro_page_1 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_piterjs_intro_page_2 = $mol_type_enforce<
-		ReturnType< $piterjs_intro_page['head'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_text__text_piterjs_intro_page_3 = $mol_type_enforce<
-		ReturnType< $piterjs_intro_page['text'] >
-		,
-		ReturnType< $mol_text['text'] >
-	>
-	export class $piterjs_intro_page extends $mol_view {
-		title( ): string
-		Title( ): $mol_view
-		head( ): readonly(any)[]
-		Head( ): $mol_view
-		text( ): string
-		Text( ): $mol_text
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=page.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_svg_path__geometry_piterjs_logo_1 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
-	type $mol_svg_path__geometry_piterjs_logo_2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
-	export class $piterjs_logo extends $mol_svg_root {
-		Shape( ): $mol_svg_path
-		Angles( ): $mol_svg_path
-		view_box( ): string
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=logo.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $piterjs_intro_main extends $piterjs_intro_page {
-		Logo( ): $piterjs_logo
-		meetup( ): $piterjs_meetup
-		title( ): string
-		head( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=main.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $piterjs_intro_main extends $.$piterjs_intro_main {
-        title(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__sub_piterjs_schedule_1 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__attr_piterjs_schedule_2 = $mol_type_enforce<
-		({ 
-			'mol_theme': string,
-		}) 
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	type $mol_view__sub_piterjs_schedule_3 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_piterjs_schedule_4 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_piterjs_schedule_5 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_list__sub_piterjs_schedule_6 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_list['sub'] >
-	>
-	type $mol_list__rows_piterjs_schedule_7 = $mol_type_enforce<
-		ReturnType< $piterjs_schedule['speeches'] >
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	export class $piterjs_schedule extends $mol_view {
-		speech_start( id: any): string
-		Speech_start( id: any): $mol_view
-		speech_title( id: any): string
-		Speech_title( id: any): $mol_view
-		Speech_main( id: any): $mol_view
-		speech_speaker( id: any): string
-		Speech_speaker( id: any): $mol_view
-		Speech( id: any): $mol_list
-		speeches( ): readonly(any)[]
-		Speeches( ): $mol_list
-		meetup( ): $piterjs_meetup
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=schedule.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $piterjs_schedule extends $.$piterjs_schedule {
-        speeches(): $.$mol_list[];
-        speech_start(index: number): string;
-        speech_title(index: number): string;
-        speech_speaker(index: number): string;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    function $mol_fiber_defer<Value = void>(calculate: () => Value): $mol_wire_task<{}, [], Value>;
-    function $mol_fiber_root<Calculate extends (this: This, ...args: any[]) => Result, Result = void, This = void>(calculate: Calculate): Calculate;
-    function $mol_fiber_sync<Args extends any[], Value = void, This = void>(request: (this: This, ...args: Args) => PromiseLike<Value>): (...args: Args) => Value;
-    function $mol_fiber_warp(): Promise<void>;
-    class $mol_fiber_solid extends $mol_wrapper {
-        static func<This, Args extends any[], Result>(task: (this: This, ...args: Args) => Result): (this: This, ...args: Args) => Result;
-    }
-    class $mol_fiber {
-        static method: typeof $mol_wire_method;
-    }
-}
-
-declare namespace $ {
-
-	type $piterjs_intro_main__meetup_piterjs_intro_1 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['meetup'] >
-		,
-		ReturnType< $piterjs_intro_main['meetup'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_3 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_4 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_5 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_6 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_7 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_8 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_9 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_10 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_11 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_12 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_13 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_14 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_15 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_16 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['place_title'] >
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_17 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['place_notes'] >
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_schedule__meetup_piterjs_intro_18 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['meetup'] >
-		,
-		ReturnType< $piterjs_schedule['meetup'] >
-	>
-	type $piterjs_schedule__title_piterjs_intro_19 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_schedule['title'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_20 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_21 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_intro_page__title_piterjs_intro_22 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $piterjs_intro_page['title'] >
-	>
-	type $piterjs_intro_page__text_piterjs_intro_23 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['afterparty'] >
-		,
-		ReturnType< $piterjs_intro_page['text'] >
-	>
-	type $piterjs_screen__place_piterjs_intro_24 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['place'] >
-		,
-		ReturnType< $piterjs_screen['place'] >
-	>
-	type $piterjs_screen__content_piterjs_intro_25 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $piterjs_screen['content'] >
-	>
-	type $mol_nav__keys_x_piterjs_intro_26 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['page_ids'] >
-		,
-		ReturnType< $mol_nav['keys_x'] >
-	>
-	type $mol_nav__keys_y_piterjs_intro_27 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['page_ids'] >
-		,
-		ReturnType< $mol_nav['keys_y'] >
-	>
-	type $mol_nav__current_x_piterjs_intro_28 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['page'] >
-		,
-		ReturnType< $mol_nav['current_x'] >
-	>
-	type $mol_nav__current_y_piterjs_intro_29 = $mol_type_enforce<
-		ReturnType< $piterjs_intro['page'] >
-		,
-		ReturnType< $mol_nav['current_y'] >
-	>
-	export class $piterjs_intro extends $mol_view {
-		Main( ): $piterjs_intro_main
-		About( ): $piterjs_intro_page
-		Team( ): $piterjs_intro_page
-		Roles_org( ): $piterjs_intro_page
-		Roles_place( ): $piterjs_intro_page
-		Contribution( ): $piterjs_intro_page
-		Speakers( ): $piterjs_intro_page
-		Sponsors( ): $piterjs_intro_page
-		place_title( ): string
-		place_notes( ): string
-		Place( ): $piterjs_intro_page
-		Schedule( ): $piterjs_schedule
-		Proft( ): $piterjs_intro_page
-		afterparty( ): string
-		Afterparty( ): $piterjs_intro_page
-		place( ): $piterjs_place
-		Page( ): $mol_view
-		Screen( ): $piterjs_screen
-		page_ids( ): readonly(string)[]
-		Nav( ): $mol_nav
-		title( ): string
-		meetup( ): $piterjs_meetup
-		page( next?: string ): string
-		pages( ): Record<string, $piterjs_intro_page>
-		sub( ): readonly(any)[]
-		attr( ): ({ 
-			'tabindex': number,
-		}) 
-		plugins( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=intro.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $piterjs_intro extends $.$piterjs_intro {
-        dom_node(): Element;
-        page_ids(): string[];
-        Page(): $piterjs_intro_page;
-        place(): $piterjs_place;
-        place_title(): string;
-        place_notes(): string;
-        afterparty(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
 
 	type $mol_string__hint_piterjs_video_page_1 = $mol_type_enforce<
 		string
@@ -11001,24 +11073,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=magnify.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_pencil extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=pencil.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_pencil_outline extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=outline.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_ghost extends $mol_view {
@@ -15076,64 +15130,69 @@ declare namespace $ {
 		,
 		ReturnType< $piterjs_screen['content'] >
 	>
-	type $mol_check__checked_piterjs_app_10 = $mol_type_enforce<
-		ReturnType< $piterjs_app['toggle_intro'] >
-		,
-		ReturnType< $mol_check['checked'] >
-	>
-	type $mol_button_minor__click_piterjs_app_11 = $mol_type_enforce<
+	type $mol_button_minor__click_piterjs_app_10 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup_add'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_piterjs_app_12 = $mol_type_enforce<
+	type $mol_button_minor__sub_piterjs_app_11 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_link__arg_piterjs_app_13 = $mol_type_enforce<
+	type $mol_link__arg_piterjs_app_12 = $mol_type_enforce<
 		({ 
 			'safe': string,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub_piterjs_app_14 = $mol_type_enforce<
+	type $mol_link__sub_piterjs_app_13 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $hyoo_sync_online__yard_piterjs_app_15 = $mol_type_enforce<
+	type $hyoo_sync_online__yard_piterjs_app_14 = $mol_type_enforce<
 		ReturnType< $piterjs_app['Yard'] >
 		,
 		ReturnType< $hyoo_sync_online['yard'] >
 	>
-	type $mol_check_icon__Icon_piterjs_app_16 = $mol_type_enforce<
+	type $mol_check_icon__checked_piterjs_app_15 = $mol_type_enforce<
+		ReturnType< $piterjs_app['toggle_intro'] >
+		,
+		ReturnType< $mol_check_icon['checked'] >
+	>
+	type $mol_check_icon__sub_piterjs_app_16 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_check_icon['sub'] >
+	>
+	type $mol_check_icon__Icon_piterjs_app_17 = $mol_type_enforce<
 		ReturnType< $piterjs_app['Editing_icon'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_check_icon__checked_piterjs_app_17 = $mol_type_enforce<
+	type $mol_check_icon__checked_piterjs_app_18 = $mol_type_enforce<
 		ReturnType< $piterjs_app['editing'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_check_icon__checked_piterjs_app_18 = $mol_type_enforce<
+	type $mol_check_icon__checked_piterjs_app_19 = $mol_type_enforce<
 		ReturnType< $piterjs_app['rights'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_check_icon__Icon_piterjs_app_19 = $mol_type_enforce<
+	type $mol_check_icon__Icon_piterjs_app_20 = $mol_type_enforce<
 		ReturnType< $piterjs_app['Rights_toggle_icon'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_view__sub_piterjs_app_20 = $mol_type_enforce<
+	type $mol_view__sub_piterjs_app_21 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_link__arg_piterjs_app_21 = $mol_type_enforce<
+	type $mol_link__arg_piterjs_app_22 = $mol_type_enforce<
 		({ 
 			'love': string,
 			'wiki': any,
@@ -15142,12 +15201,12 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__title_piterjs_app_22 = $mol_type_enforce<
+	type $mol_link__title_piterjs_app_23 = $mol_type_enforce<
 		ReturnType< $piterjs_app['love_title'] >
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_link__arg_piterjs_app_23 = $mol_type_enforce<
+	type $mol_link__arg_piterjs_app_24 = $mol_type_enforce<
 		({ 
 			'wiki': string,
 			'meetup': any,
@@ -15156,214 +15215,209 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__title_piterjs_app_24 = $mol_type_enforce<
+	type $mol_link__title_piterjs_app_25 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_list__rows_piterjs_app_25 = $mol_type_enforce<
+	type $mol_list__rows_piterjs_app_26 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_list__rows_piterjs_app_26 = $mol_type_enforce<
+	type $mol_list__rows_piterjs_app_27 = $mol_type_enforce<
 		ReturnType< $piterjs_app['menu_meetups'] >
 		,
 		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_view__sub_piterjs_app_27 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
 	>
 	type $mol_view__sub_piterjs_app_28 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_link__uri_piterjs_app_29 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__sub_piterjs_app_30 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $mol_view__sub_piterjs_app_31 = $mol_type_enforce<
+	type $mol_view__sub_piterjs_app_29 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_check__checked_piterjs_app_32 = $mol_type_enforce<
+	type $mol_link__uri_piterjs_app_30 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link['uri'] >
+	>
+	type $mol_link__sub_piterjs_app_31 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $mol_view__sub_piterjs_app_32 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_check__checked_piterjs_app_33 = $mol_type_enforce<
 		ReturnType< $piterjs_app['rights'] >
 		,
 		ReturnType< $mol_check['checked'] >
 	>
-	type $mol_check__sub_piterjs_app_33 = $mol_type_enforce<
+	type $mol_check__sub_piterjs_app_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_check['sub'] >
 	>
-	type $mol_check__checked_piterjs_app_34 = $mol_type_enforce<
+	type $mol_check__checked_piterjs_app_35 = $mol_type_enforce<
 		ReturnType< $piterjs_app['rights_meetup'] >
 		,
 		ReturnType< $mol_check['checked'] >
 	>
-	type $mol_check__sub_piterjs_app_35 = $mol_type_enforce<
+	type $mol_check__sub_piterjs_app_36 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_check['sub'] >
 	>
-	type $mol_link__arg_piterjs_app_36 = $mol_type_enforce<
+	type $mol_link__arg_piterjs_app_37 = $mol_type_enforce<
 		({ 
 			'safe': any,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub_piterjs_app_37 = $mol_type_enforce<
+	type $mol_link__sub_piterjs_app_38 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_link__arg_piterjs_app_38 = $mol_type_enforce<
+	type $mol_link__arg_piterjs_app_39 = $mol_type_enforce<
 		({ 
 			'love': any,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub_piterjs_app_39 = $mol_type_enforce<
+	type $mol_link__sub_piterjs_app_40 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_page__title_piterjs_app_40 = $mol_type_enforce<
+	type $mol_page__title_piterjs_app_41 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_piterjs_app_41 = $mol_type_enforce<
+	type $mol_page__tools_piterjs_app_42 = $mol_type_enforce<
 		ReturnType< $piterjs_app['tools'] >
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__foot_piterjs_app_42 = $mol_type_enforce<
+	type $mol_page__foot_piterjs_app_43 = $mol_type_enforce<
 		ReturnType< $piterjs_app['foot'] >
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_page__body_piterjs_app_43 = $mol_type_enforce<
+	type $mol_page__body_piterjs_app_44 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $piterjs_meetup_page__meetup_piterjs_app_44 = $mol_type_enforce<
+	type $piterjs_meetup_page__meetup_piterjs_app_45 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup'] >
 		,
 		ReturnType< $piterjs_meetup_page['meetup'] >
 	>
-	type $piterjs_meetup_page__editing_piterjs_app_45 = $mol_type_enforce<
+	type $piterjs_meetup_page__editing_piterjs_app_46 = $mol_type_enforce<
 		ReturnType< $piterjs_app['editing'] >
 		,
 		ReturnType< $piterjs_meetup_page['editing'] >
 	>
-	type $piterjs_meetup_page__meetup_public_piterjs_app_46 = $mol_type_enforce<
+	type $piterjs_meetup_page__meetup_public_piterjs_app_47 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup_public'] >
 		,
 		ReturnType< $piterjs_meetup_page['meetup_public'] >
 	>
-	type $piterjs_meetup_page__rights_piterjs_app_47 = $mol_type_enforce<
+	type $piterjs_meetup_page__rights_piterjs_app_48 = $mol_type_enforce<
 		ReturnType< $piterjs_app['rights_meetup'] >
 		,
 		ReturnType< $piterjs_meetup_page['rights'] >
 	>
-	type $piterjs_meetup_guests__meetup_piterjs_app_48 = $mol_type_enforce<
+	type $piterjs_meetup_guests__meetup_piterjs_app_49 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup'] >
 		,
 		ReturnType< $piterjs_meetup_guests['meetup'] >
 	>
-	type $piterjs_meetup_stats__meetup_piterjs_app_49 = $mol_type_enforce<
+	type $piterjs_meetup_texts__meetup_piterjs_app_50 = $mol_type_enforce<
+		ReturnType< $piterjs_app['meetup'] >
+		,
+		ReturnType< $piterjs_meetup_texts['meetup'] >
+	>
+	type $piterjs_meetup_templates__meetup_piterjs_app_51 = $mol_type_enforce<
+		ReturnType< $piterjs_app['meetup'] >
+		,
+		ReturnType< $piterjs_meetup_templates['meetup'] >
+	>
+	type $piterjs_meetup_stats__meetup_piterjs_app_52 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup'] >
 		,
 		ReturnType< $piterjs_meetup_stats['meetup'] >
 	>
-	type $piterjs_meetup_stats__meetup_prev_piterjs_app_50 = $mol_type_enforce<
+	type $piterjs_meetup_stats__meetup_prev_piterjs_app_53 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup_prev'] >
 		,
 		ReturnType< $piterjs_meetup_stats['meetup_prev'] >
 	>
-	type $piterjs_speech_page__speech_piterjs_app_51 = $mol_type_enforce<
+	type $piterjs_speech_page__speech_piterjs_app_54 = $mol_type_enforce<
 		ReturnType< $piterjs_app['speech'] >
 		,
 		ReturnType< $piterjs_speech_page['speech'] >
 	>
-	type $piterjs_speech_page__editing_piterjs_app_52 = $mol_type_enforce<
+	type $piterjs_speech_page__editing_piterjs_app_55 = $mol_type_enforce<
 		ReturnType< $piterjs_app['editing'] >
 		,
 		ReturnType< $piterjs_speech_page['editing'] >
 	>
-	type $piterjs_speech_page__speech_public_piterjs_app_53 = $mol_type_enforce<
+	type $piterjs_speech_page__speech_public_piterjs_app_56 = $mol_type_enforce<
 		ReturnType< $piterjs_app['speech_public'] >
 		,
 		ReturnType< $piterjs_speech_page['speech_public'] >
 	>
-	type $piterjs_meetup_snippet__meetup_piterjs_app_54 = $mol_type_enforce<
+	type $piterjs_meetup_snippet__meetup_piterjs_app_57 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup'] >
 		,
 		ReturnType< $piterjs_meetup_snippet['meetup'] >
 	>
-	type $piterjs_now__place_piterjs_app_55 = $mol_type_enforce<
+	type $piterjs_now__place_piterjs_app_58 = $mol_type_enforce<
 		ReturnType< $piterjs_app['place'] >
 		,
 		ReturnType< $piterjs_now['place'] >
 	>
-	type $piterjs_intro__meetup_piterjs_app_56 = $mol_type_enforce<
+	type $piterjs_intro__meetup_piterjs_app_59 = $mol_type_enforce<
 		ReturnType< $piterjs_app['meetup_current'] >
 		,
 		ReturnType< $piterjs_intro['meetup'] >
 	>
-	type $piterjs_intro__page_piterjs_app_57 = $mol_type_enforce<
+	type $piterjs_intro__page_piterjs_app_60 = $mol_type_enforce<
 		ReturnType< $piterjs_app['intro'] >
 		,
 		ReturnType< $piterjs_intro['page'] >
 	>
-	type $piterjs_video_page__source_piterjs_app_58 = $mol_type_enforce<
+	type $piterjs_video_page__source_piterjs_app_61 = $mol_type_enforce<
 		ReturnType< $piterjs_app['video_uri'] >
 		,
 		ReturnType< $piterjs_video_page['source'] >
 	>
-	type $piterjs_video_page__editing_piterjs_app_59 = $mol_type_enforce<
+	type $piterjs_video_page__editing_piterjs_app_62 = $mol_type_enforce<
 		ReturnType< $piterjs_app['editing'] >
 		,
 		ReturnType< $piterjs_video_page['editing'] >
 	>
-	type $piterjs_place_page__place_piterjs_app_60 = $mol_type_enforce<
+	type $piterjs_place_page__place_piterjs_app_63 = $mol_type_enforce<
 		ReturnType< $piterjs_app['place'] >
 		,
 		ReturnType< $piterjs_place_page['place'] >
 	>
-	type $piterjs_place_page__editing_piterjs_app_61 = $mol_type_enforce<
+	type $piterjs_place_page__editing_piterjs_app_64 = $mol_type_enforce<
 		ReturnType< $piterjs_app['editing'] >
 		,
 		ReturnType< $piterjs_place_page['editing'] >
-	>
-	type $hyoo_meta_rights__theme_piterjs_app_62 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_meta_rights['theme'] >
-	>
-	type $hyoo_meta_rights__meta_piterjs_app_63 = $mol_type_enforce<
-		ReturnType< $piterjs_app['Domain'] >
-		,
-		ReturnType< $hyoo_meta_rights['meta'] >
-	>
-	type $hyoo_meta_rights__tools_piterjs_app_64 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $hyoo_meta_rights['tools'] >
 	>
 	type $hyoo_meta_rights__theme_piterjs_app_65 = $mol_type_enforce<
 		string
@@ -15371,7 +15425,7 @@ declare namespace $ {
 		ReturnType< $hyoo_meta_rights['theme'] >
 	>
 	type $hyoo_meta_rights__meta_piterjs_app_66 = $mol_type_enforce<
-		ReturnType< $piterjs_app['meetup_current'] >
+		ReturnType< $piterjs_app['Domain'] >
 		,
 		ReturnType< $hyoo_meta_rights['meta'] >
 	>
@@ -15380,27 +15434,42 @@ declare namespace $ {
 		,
 		ReturnType< $hyoo_meta_rights['tools'] >
 	>
-	type $hyoo_page__side_main_id_piterjs_app_68 = $mol_type_enforce<
+	type $hyoo_meta_rights__theme_piterjs_app_68 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_meta_rights['theme'] >
+	>
+	type $hyoo_meta_rights__meta_piterjs_app_69 = $mol_type_enforce<
+		ReturnType< $piterjs_app['meetup_current'] >
+		,
+		ReturnType< $hyoo_meta_rights['meta'] >
+	>
+	type $hyoo_meta_rights__tools_piterjs_app_70 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $hyoo_meta_rights['tools'] >
+	>
+	type $hyoo_page__side_main_id_piterjs_app_71 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_page['side_main_id'] >
 	>
-	type $hyoo_page__yard_piterjs_app_69 = $mol_type_enforce<
+	type $hyoo_page__yard_piterjs_app_72 = $mol_type_enforce<
 		ReturnType< $piterjs_app['Yard'] >
 		,
 		ReturnType< $hyoo_page['yard'] >
 	>
-	type $hyoo_meta_safe__tools_piterjs_app_70 = $mol_type_enforce<
+	type $hyoo_meta_safe__tools_piterjs_app_73 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $hyoo_meta_safe['tools'] >
 	>
-	type $hyoo_match_app__menu_title_piterjs_app_71 = $mol_type_enforce<
+	type $hyoo_match_app__menu_title_piterjs_app_74 = $mol_type_enforce<
 		ReturnType< $piterjs_app['love_title'] >
 		,
 		ReturnType< $hyoo_match_app['menu_title'] >
 	>
-	type $hyoo_match_app__menu_tools_piterjs_app_72 = $mol_type_enforce<
+	type $hyoo_match_app__menu_tools_piterjs_app_75 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $hyoo_match_app['menu_tools'] >
@@ -15415,8 +15484,6 @@ declare namespace $ {
 		pages( ): readonly(any)[]
 		Book( ): $mol_book2
 		Screen( ): $piterjs_screen
-		toggle_intro( next?: boolean ): boolean
-		Toggle_intro( ): $mol_check
 		meetup_add( next?: any ): any
 		Meetup_add_icon( ): $mol_icon_plus
 		Meetup_add( ): $mol_button_minor
@@ -15425,6 +15492,9 @@ declare namespace $ {
 		tools( ): readonly(any)[]
 		Yard( ): $hyoo_sync_client
 		Online( ): $hyoo_sync_online
+		toggle_intro( next?: boolean ): boolean
+		Toggle_intro_icon( ): $mol_icon_presentation_play
+		Toggle_intro( ): $mol_check_icon
 		Editing_icon( ): $mol_icon_settings_outline
 		editing( next?: boolean ): boolean
 		Editing( ): $mol_check_icon
@@ -15467,6 +15537,8 @@ declare namespace $ {
 		Menu( ): $mol_page
 		Meetup( id: any): $piterjs_meetup_page
 		Meetup_guests( id: any): $piterjs_meetup_guests
+		Meetup_texts( id: any): $piterjs_meetup_texts
+		Meetup_templates( id: any): $piterjs_meetup_templates
 		Meetup_stats( id: any): $piterjs_meetup_stats
 		Speech( id: any): $piterjs_speech_page
 		Menu_meetup( id: any): $piterjs_meetup_snippet
@@ -15496,6 +15568,8 @@ declare namespace $.$$ {
         others(): boolean;
         wiki(): boolean;
         guests(): boolean;
+        texts(): boolean;
+        templates(): boolean;
         stats(): boolean;
         safe(): boolean;
         love(): boolean;
@@ -15515,7 +15589,7 @@ declare namespace $.$$ {
         toggle_intro(next?: boolean): boolean;
         video(): boolean;
         video_uri(next?: string): string;
-        tools(): ($mol_button_minor | $.$mol_link)[];
+        tools(): ($.$mol_link | $mol_button_minor)[];
         foot(): ($mol_view | $.$hyoo_sync_online)[];
         editing(next?: boolean): boolean;
         rights(next?: boolean): boolean;
@@ -15782,5 +15856,412 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=now.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_view__sub_piterjs_intro_page_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_piterjs_intro_page_2 = $mol_type_enforce<
+		ReturnType< $piterjs_intro_page['head'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_text__text_piterjs_intro_page_3 = $mol_type_enforce<
+		ReturnType< $piterjs_intro_page['text'] >
+		,
+		ReturnType< $mol_text['text'] >
+	>
+	export class $piterjs_intro_page extends $mol_view {
+		title( ): string
+		Title( ): $mol_view
+		head( ): readonly(any)[]
+		Head( ): $mol_view
+		text( ): string
+		Text( ): $mol_text
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=page.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_svg_path__geometry_piterjs_logo_1 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	type $mol_svg_path__geometry_piterjs_logo_2 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	export class $piterjs_logo extends $mol_svg_root {
+		Shape( ): $mol_svg_path
+		Angles( ): $mol_svg_path
+		view_box( ): string
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=logo.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $piterjs_intro_main extends $piterjs_intro_page {
+		Logo( ): $piterjs_logo
+		meetup( ): $piterjs_meetup
+		title( ): string
+		head( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=main.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $piterjs_intro_main extends $.$piterjs_intro_main {
+        title(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_view__sub_piterjs_schedule_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__attr_piterjs_schedule_2 = $mol_type_enforce<
+		({ 
+			'mol_theme': string,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__sub_piterjs_schedule_3 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_piterjs_schedule_4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_piterjs_schedule_5 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_list__sub_piterjs_schedule_6 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['sub'] >
+	>
+	type $mol_list__rows_piterjs_schedule_7 = $mol_type_enforce<
+		ReturnType< $piterjs_schedule['speeches'] >
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	export class $piterjs_schedule extends $mol_view {
+		speech_start( id: any): string
+		Speech_start( id: any): $mol_view
+		speech_title( id: any): string
+		Speech_title( id: any): $mol_view
+		Speech_main( id: any): $mol_view
+		speech_speaker( id: any): string
+		Speech_speaker( id: any): $mol_view
+		Speech( id: any): $mol_list
+		speeches( ): readonly(any)[]
+		Speeches( ): $mol_list
+		meetup( ): $piterjs_meetup
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=schedule.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $piterjs_schedule extends $.$piterjs_schedule {
+        speeches(): $.$mol_list[];
+        speech_start(index: number): string;
+        speech_title(index: number): string;
+        speech_speaker(index: number): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    function $mol_fiber_defer<Value = void>(calculate: () => Value): $mol_wire_task<{}, [], Value>;
+    function $mol_fiber_root<Calculate extends (this: This, ...args: any[]) => Result, Result = void, This = void>(calculate: Calculate): Calculate;
+    function $mol_fiber_sync<Args extends any[], Value = void, This = void>(request: (this: This, ...args: Args) => PromiseLike<Value>): (...args: Args) => Value;
+    function $mol_fiber_warp(): Promise<void>;
+    class $mol_fiber_solid extends $mol_wrapper {
+        static func<This, Args extends any[], Result>(task: (this: This, ...args: Args) => Result): (this: This, ...args: Args) => Result;
+    }
+    class $mol_fiber {
+        static method: typeof $mol_wire_method;
+    }
+}
+
+declare namespace $ {
+
+	type $piterjs_intro_main__meetup_piterjs_intro_1 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['meetup'] >
+		,
+		ReturnType< $piterjs_intro_main['meetup'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_2 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_3 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_4 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_5 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_6 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_7 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_8 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_9 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_10 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_11 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_12 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_13 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_14 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_15 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_16 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_17 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_18 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_19 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_20 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_21 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_schedule__meetup_piterjs_intro_22 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['meetup'] >
+		,
+		ReturnType< $piterjs_schedule['meetup'] >
+	>
+	type $piterjs_schedule__title_piterjs_intro_23 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_schedule['title'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_24 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_25 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_26 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['place_notes'] >
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_27 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['place_title'] >
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_28 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_29 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_30 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_intro_page__title_piterjs_intro_31 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $piterjs_intro_page['title'] >
+	>
+	type $piterjs_intro_page__text_piterjs_intro_32 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['afterparty'] >
+		,
+		ReturnType< $piterjs_intro_page['text'] >
+	>
+	type $piterjs_screen__place_piterjs_intro_33 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['place'] >
+		,
+		ReturnType< $piterjs_screen['place'] >
+	>
+	type $piterjs_screen__content_piterjs_intro_34 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $piterjs_screen['content'] >
+	>
+	type $mol_nav__keys_x_piterjs_intro_35 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['page_ids'] >
+		,
+		ReturnType< $mol_nav['keys_x'] >
+	>
+	type $mol_nav__keys_y_piterjs_intro_36 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['page_ids'] >
+		,
+		ReturnType< $mol_nav['keys_y'] >
+	>
+	type $mol_nav__current_x_piterjs_intro_37 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['page'] >
+		,
+		ReturnType< $mol_nav['current_x'] >
+	>
+	type $mol_nav__current_y_piterjs_intro_38 = $mol_type_enforce<
+		ReturnType< $piterjs_intro['page'] >
+		,
+		ReturnType< $mol_nav['current_y'] >
+	>
+	export class $piterjs_intro extends $mol_view {
+		Main( ): $piterjs_intro_main
+		About( ): $piterjs_intro_page
+		Projects( ): $piterjs_intro_page
+		Community( ): $piterjs_intro_page
+		Roles_org( ): $piterjs_intro_page
+		Roles_place( ): $piterjs_intro_page
+		Team( ): $piterjs_intro_page
+		Speakers( ): $piterjs_intro_page
+		Partnering( ): $piterjs_intro_page
+		Partners( ): $piterjs_intro_page
+		Contribution( ): $piterjs_intro_page
+		Schedule( ): $piterjs_schedule
+		Proft( ): $piterjs_intro_page
+		place_notes( ): string
+		place_title( ): string
+		Place( ): $piterjs_intro_page
+		Follow( ): $piterjs_intro_page
+		afterparty( ): string
+		Afterparty( ): $piterjs_intro_page
+		place( ): $piterjs_place
+		Page( ): $mol_view
+		Screen( ): $piterjs_screen
+		page_ids( ): readonly(string)[]
+		Nav( ): $mol_nav
+		title( ): string
+		meetup( ): $piterjs_meetup
+		page( next?: string ): string
+		pages( ): Record<string, $piterjs_intro_page>
+		sub( ): readonly(any)[]
+		attr( ): ({ 
+			'tabindex': number,
+		}) 
+		plugins( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=intro.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $piterjs_intro extends $.$piterjs_intro {
+        dom_node(): Element;
+        page_ids(): string[];
+        Page(): $piterjs_intro_page;
+        place(): $piterjs_place;
+        place_title(): string;
+        place_notes(): string;
+        afterparty(): string;
+    }
+}
+
+declare namespace $ {
+}
+
 export = $;
 //# sourceMappingURL=web.d.ts.map
